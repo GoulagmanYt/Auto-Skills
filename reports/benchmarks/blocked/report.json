@@ -1,0 +1,1619 @@
+{
+  "auto_skills_version": "1.3.0a1",
+  "codex_version": "0.166.0",
+  "competitors": {
+    "autoskills": {
+      "adapter": null,
+      "name": "midudev/autoskills",
+      "native_codex_support": "not independently verified at the pinned package",
+      "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+      "npm_package": "autoskills",
+      "npm_version": "0.4.1",
+      "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+      "source_repository": "https://github.com/midudev/autoskills.git",
+      "unavailable_reason": "No audited adapter that pins the recommendation registry and confines every install/cache write to the temporary project is implemented; no equivalence or native Codex support claim is made."
+    },
+    "skillradar": {
+      "adapter": null,
+      "name": "changchangidea-oss/SkillRadar",
+      "native_codex_support": true,
+      "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+      "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+      "source_tag": "v0.5.0",
+      "unavailable_reason": "Native Codex plugin support is documented, but its marketplace/plugin installation and task routing require a separate integration policy; this harness disables plugins equally in every runnable arm and has no equivalent project-local adapter."
+    },
+    "vercel-skills": {
+      "adapter": "vercel-skills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+      "name": "Vercel skills installer with React guidance",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+      "npm_package": "skills",
+      "npm_version": "1.7.6",
+      "skill": "vercel-react-best-practices",
+      "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+    }
+  },
+  "competitors_sha256": "ba0e63fad2e841f093cdbaaf853f29eaebb3abce7c498c84d2d6da17ac6e47ba",
+  "created_at": "2026-11-04T21:18:31.517251+00:00",
+  "expected_codex_version": "0.166.0",
+  "harness_sha256": "4f4bc329b76ad8532e898fc37132f2e41a424dfd5d5e1c525f38d1d81b9bf56c",
+  "mode": "blocked",
+  "model": "gpt-6.1-sol",
+  "plan": [
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    }
+  ],
+  "platform": "Windows",
+  "policy": {
+    "approval_policy": "never",
+    "confounds": [
+      "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
+      "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
+      "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+      "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
+      "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
+      "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
+      "Three small synthetic fixes cannot establish general quality, cost or latency superiority."
+    ],
+    "external_skills": "explicitly disabled except project-local treatment skills",
+    "memory": "disabled equally",
+    "native_user_config": "ignored; authentication remains in the original CODEX_HOME",
+    "ordering": "deterministic arm rotation between repetitions; no independent cache reset",
+    "plugins_mcp": "disabled equally in every runnable arm",
+    "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
+    "sandbox": "workspace-write",
+    "timing": "elapsed includes fixture creation, setup, inference and final validation; stages also separate",
+    "usage": "native completion events; missing fields remain null; no cost estimate",
+    "validators": "outside the agent worktree; immutable source hashes checked before/after"
+  },
+  "preflight": {
+    "basis": "operator-designated failed preflight; no repeated inference attempted",
+    "evidence": [
+      {
+        "arm": "baseline",
+        "diagnostic_categories": [],
+        "elapsed_seconds": 19.211974,
+        "returncode": 0,
+        "status": "failed",
+        "task": "midi-zero-velocity",
+        "usage": {
+          "cached_input_tokens": 73728,
+          "input_tokens": 88443,
+          "output_tokens": 311,
+          "reasoning_output_tokens": 21
+        }
+      }
+    ],
+    "sha256": "15b4ea8d39cd1272a321c5839295a6730611d218583a8c69db9f98018f2bf06b"
+  },
+  "public_tasks_sha256": "b1803eeb68afc1dddf69757589201d1f5db70131722f860dac457d8c99466a0d",
+  "python_version": "3.13.17",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "runs": [
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "frontend-reset",
+      "usage": null
+    },
+    {
+      "arm": "vercel-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "baseline",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "auto-skills",
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "not attempted: operator-designated preflight failed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    }
+  ],
+  "schema_version": 1,
+  "summary": [
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "frontend-reset",
+      "unavailable": 3
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "frontend-reset",
+      "unavailable": 3
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "frontend-reset",
+      "unavailable": 3
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "frontend-reset",
+      "unavailable": 3
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "frontend-reset",
+      "unavailable": 3
+    },
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3
+    }
+  ],
+  "timeout_seconds": 180,
+  "work_root": "system temporary directory"
+}

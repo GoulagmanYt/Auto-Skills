@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+task_root=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+task_python=$(command -v python3 || command -v python)
+PYTHONPATH="$task_root/src${PYTHONPATH:+:$PYTHONPATH}" exec "$task_python" -m codex_bootstrap "$@"

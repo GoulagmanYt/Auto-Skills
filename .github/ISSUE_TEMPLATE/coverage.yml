@@ -1,0 +1,16 @@
+name: Missing or irrelevant guide
+description: A capability gap or workspace isolation problem
+body:
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Workspace manifest and affected capability
+      description: Include anonymized dependency declarations and the context command output.
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Guide expected, or guide that should be excluded
+    validations:
+      required: true

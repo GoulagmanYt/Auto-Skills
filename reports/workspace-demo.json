@@ -1,0 +1,321 @@
+{
+  "version": "1.3.0a1",
+  "mode": "offline; no inference; temporary synthetic repository",
+  "backend_workspace": "backend",
+  "backend_active_slots": [
+    "token-output-compression",
+    "token-context-pruning",
+    "token-reasoning",
+    "token-prompt-cache",
+    "token-cli-wrapper",
+    "architecture",
+    "security",
+    "performance",
+    "refactoring",
+    "ci-cd",
+    "documentation",
+    "unit-testing",
+    "build",
+    "language-rust"
+  ],
+  "excluded_root_slots": [
+    "unit-testing",
+    "build",
+    "language-javascript",
+    "framework-react",
+    "build-vite"
+  ],
+  "backend_files_checked": 6,
+  "tool_files_checked": 12,
+  "backend_files_unchanged": true,
+  "tools_unchanged": true,
+  "refreshed_slots": [
+    "architecture",
+    "documentation",
+    "framework-react",
+    "performance",
+    "refactoring",
+    "security"
+  ],
+  "retained_slots": [
+    "backend::build",
+    "backend::language-rust",
+    "backend::unit-testing",
+    "build",
+    "build-vite",
+    "ci-cd",
+    "language-javascript",
+    "token-cli-wrapper",
+    "token-context-pruning",
+    "token-output-compression",
+    "token-prompt-cache",
+    "token-reasoning",
+    "unit-testing"
+  ],
+  "context": {
+    "workspace": "backend",
+    "integration_policy": {
+      "mode": "strict",
+      "keep_mcp": [],
+      "keep_plugins": []
+    },
+    "active": [
+      {
+        "scope": ".",
+        "slot": "token-output-compression",
+        "name": "token-output-compression",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/token-output-compression/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "token-context-pruning",
+        "name": "token-context-pruning",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/token-context-pruning/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "token-reasoning",
+        "name": "token-reasoning",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/token-reasoning/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "token-prompt-cache",
+        "name": "token-prompt-cache",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/token-prompt-cache/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "token-cli-wrapper",
+        "name": "token-cli-wrapper",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/token-cli-wrapper/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "architecture",
+        "name": "architecture",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/architecture/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "security",
+        "name": "security",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/security/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "performance",
+        "name": "performance",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/performance/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "refactoring",
+        "name": "refactoring",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/refactoring/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "ci-cd",
+        "name": "ci-cd",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/ci-cd/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": ".",
+        "slot": "documentation",
+        "name": "documentation",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/documentation/SKILL.md",
+        "technologies": [],
+        "reason": "portable common guide inherited from repository root"
+      },
+      {
+        "scope": "backend",
+        "slot": "unit-testing",
+        "name": "unit-testing",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/@workspaces/backend/unit-testing/SKILL.md",
+        "technologies": [],
+        "reason": "active workspace guide"
+      },
+      {
+        "scope": "backend",
+        "slot": "build",
+        "name": "build",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/@workspaces/backend/build/SKILL.md",
+        "technologies": [],
+        "reason": "active workspace guide"
+      },
+      {
+        "scope": "backend",
+        "slot": "language-rust",
+        "name": "language-rust",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/@workspaces/backend/language-rust/SKILL.md",
+        "technologies": [],
+        "reason": "active workspace guide"
+      }
+    ],
+    "excluded": [
+      {
+        "scope": ".",
+        "slot": "unit-testing",
+        "name": "unit-testing",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/unit-testing/SKILL.md",
+        "technologies": [],
+        "reason": "overridden by active workspace guide"
+      },
+      {
+        "scope": ".",
+        "slot": "build",
+        "name": "build",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/build/SKILL.md",
+        "technologies": [],
+        "reason": "overridden by active workspace guide"
+      },
+      {
+        "scope": ".",
+        "slot": "language-javascript",
+        "name": "language-javascript",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/language-javascript/SKILL.md",
+        "technologies": [],
+        "reason": "root specialization is not inherited"
+      },
+      {
+        "scope": ".",
+        "slot": "framework-react",
+        "name": "framework-react",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/framework-react/SKILL.md",
+        "technologies": [],
+        "reason": "root specialization is not inherited"
+      },
+      {
+        "scope": ".",
+        "slot": "build-vite",
+        "name": "build-vite",
+        "source": "bundled",
+        "repository": "",
+        "commit": "",
+        "compatibility": {},
+        "discovery_path": ".agents/skills/build-vite/SKILL.md",
+        "technologies": [],
+        "reason": "root specialization is not inherited"
+      }
+    ],
+    "catalog_cost": {
+      "estimated_tokens": 476,
+      "method": "catalog characters / 4; excludes native wrappers, instructions, tools and external integrations",
+      "billing_measurement": false
+    },
+    "limitations": [
+      "This is an estimate of locked catalog metadata, not total session usage.",
+      "External guides may add context in coexist mode.",
+      "Bundled coverage is a fallback; it does not establish an eligible external guide exists."
+    ],
+    "missing_external_coverage": [
+      "token-output-compression",
+      "token-context-pruning",
+      "token-reasoning",
+      "token-prompt-cache",
+      "token-cli-wrapper",
+      "architecture",
+      "security",
+      "performance",
+      "refactoring",
+      "ci-cd",
+      "documentation",
+      "unit-testing",
+      "build",
+      "language-rust"
+    ]
+  }
+}

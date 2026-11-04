@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-04",
+  "competitors": {
+    "vercel-skills": {
+      "name": "Vercel skills installer with React guidance",
+      "adapter": "vercel-skills",
+      "native_codex_support": true,
+      "npm_package": "skills",
+      "npm_version": "1.7.6",
+      "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+      "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "source_repository": "https://github.com/vercel-labs/agent-skills.git",
+      "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "skill": "vercel-react-best-practices",
+      "applicable_tasks": ["frontend-reset"],
+      "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection."
+    },
+    "autoskills": {
+      "name": "midudev/autoskills",
+      "adapter": null,
+      "native_codex_support": "not independently verified at the pinned package",
+      "npm_package": "autoskills",
+      "npm_version": "0.4.1",
+      "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+      "source_repository": "https://github.com/midudev/autoskills.git",
+      "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+      "unavailable_reason": "No audited adapter that pins the recommendation registry and confines every install/cache write to the temporary project is implemented; no equivalence or native Codex support claim is made."
+    },
+    "skillradar": {
+      "name": "changchangidea-oss/SkillRadar",
+      "adapter": null,
+      "native_codex_support": true,
+      "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+      "source_tag": "v0.5.0",
+      "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+      "unavailable_reason": "Native Codex plugin support is documented, but its marketplace/plugin installation and task routing require a separate integration policy; this harness disables plugins equally in every runnable arm and has no equivalent project-local adapter."
+    }
+  }
+}

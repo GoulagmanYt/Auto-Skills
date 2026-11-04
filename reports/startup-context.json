@@ -1,0 +1,100 @@
+{
+  "method": "Codex debug prompt-input; o200k_base; manifest-only copies; no inference; binary tools offline",
+  "codex_version": "codex-cli 0.166.0",
+  "historical_bootstrap_version": "1.2.0",
+  "limitations": [
+    "Tokenization estimates the exposed debug prompt text and additional tool schemas, not server-side billing or full model request usage.",
+    "Skill catalog metadata is measured; complete SKILL.md bodies are normally read later on demand.",
+    "The wrapper also disables global plugins/MCP, changes policy text and reasoning effort; total-context change cannot be attributed only to skill selection.",
+    "Binary token tools stayed offline; their compression savings are not measured here.",
+    "No task execution or cache hit measurement: no claim of reduced total session tokens or cost."
+  ],
+  "projects": [
+    {
+      "fixture": "Piano-LED-Visualizer",
+      "selected_skills": 19,
+      "target_unchanged": true,
+      "scopes": {
+        ".": {
+          "baseline_tokens": 16079,
+          "wrapper_tokens": 13045,
+          "visible_skills": 15,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        },
+        "webinterface": {
+          "baseline_tokens": 16085,
+          "wrapper_tokens": 13070,
+          "visible_skills": 15,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        }
+      }
+    },
+    {
+      "fixture": "RTP-OSC-Midi-tool",
+      "selected_skills": 50,
+      "target_unchanged": true,
+      "scopes": {
+        ".": {
+          "baseline_tokens": 16079,
+          "wrapper_tokens": 13366,
+          "visible_skills": 24,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        },
+        "src-tauri": {
+          "baseline_tokens": 16087,
+          "wrapper_tokens": 13432,
+          "visible_skills": 24,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        },
+        "tools/diagnostics": {
+          "baseline_tokens": 16089,
+          "wrapper_tokens": 13176,
+          "visible_skills": 17,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        },
+        "tools/latency_bench": {
+          "baseline_tokens": 16093,
+          "wrapper_tokens": 13238,
+          "visible_skills": 18,
+          "duplicate_skill_entries": 0,
+          "inherited_root_specialties": [],
+          "catalog_validation": {
+            "duplicate_paths": 0,
+            "missing_paths": [],
+            "unexpected_paths": []
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+name: Bug report
+description: An installation, selection or runtime failure
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Auto-Skills, Codex, Python and operating system versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and expected behavior
+      description: Use a minimal public or synthetic repository. Remove credentials and personal paths.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Actual result and sanitized diagnostics
+    validations:
+      required: true

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "midi-zero-velocity",
+    "fixture": "fixtures/midi-zero-velocity",
+    "scope": ".",
+    "source": "midi_state.py",
+    "reference_fix": "reference-fixes/midi_state.py",
+    "validator": "validators/validate_midi.py",
+    "runtime": "python",
+    "prompt": "Fix MIDI note state in midi_state.py. A note_on event with velocity zero must release that channel/note just like note_off. Other active notes and channels must remain active, ordinary note_on must still activate a note, and non-note events must leave state unchanged. Keep the public function signature and in-place state behavior. Use hardware-free checks; do not install dependencies or change manifests. Implement the fix completely and run appropriate checks."
+  },
+  {
+    "id": "frontend-reset",
+    "fixture": "fixtures/frontend-reset",
+    "scope": "webinterface",
+    "source": "webinterface/selection.mjs",
+    "reference_fix": "reference-fixes/selection.mjs",
+    "validator": "validators/validate_selection.mjs",
+    "runtime": "node",
+    "prompt": "Fix the reset transition in webinterface/selection.mjs. Reset must clear selectedIds, anchorId and pendingRequest together while preserving the available items and unrelated state. Preserve reducer immutability, existing select behavior and the identity behavior for unknown actions. The sibling Rust backend does not need a change. Keep the exported API and manifests, do not install dependencies, and finish by running hardware-free local checks."
+  },
+  {
+    "id": "rust-decoder-bounds",
+    "fixture": "fixtures/rust-decoder-bounds",
+    "scope": ".",
+    "source": "src/lib.rs",
+    "reference_fix": "reference-fixes/decoder.rs",
+    "validator": "validators/validate_decoder.rs",
+    "runtime": "rustc",
+    "prompt": "Fix decode_frame in src/lib.rs so arbitrary byte input cannot panic. The first two bytes encode a big-endian payload length. Missing header bytes must return Err(\"short header\"); a shorter payload than declared must return Err(\"truncated payload\"). A complete frame must return its payload slice, accepting zero length and ignoring trailing bytes. Preserve the borrowed result API. Use the existing dependency-free Rust toolchain and offline tests; do not add dependencies or edit manifests. Complete the patch and verify it."
+  }
+]
