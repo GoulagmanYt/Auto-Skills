@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0a1 — repository coverage
+
+- Distinguish unknown applications from documentary repositories; unknown mode keeps a portable baseline and local tools.
+- Add registry-driven static C/C++, CMake/Meson/Conan text, Dart/Flutter, Swift, Elixir, R/renv and Julia evidence with scoped guides.
+- Add inert auto-skills.toml overrides, explicit provenance, conflict diagnostics and targeted refresh.
+- Expose manifest exclusions, scan limits and repository classification in reports/context previews.
+- Add attributed, hash-checked public manifest snapshots and expanded adversarial coverage.
+- Preserve Windows sandbox configuration and independent child context for native benchmark execution; report task validation and cleanup independently.
+
 ## 1.3.0a1 — public alpha preparation
 
 - Activate a single native discovery copy per selected guide.

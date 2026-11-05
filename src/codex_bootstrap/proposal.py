@@ -25,10 +25,21 @@ def scoped_profiles(root, profile, preset="auto"):
     from .workspaces import selection_profiles
 
     policy = policy_for(root, profile, preset)
-    profiles = {
-        scope: adapt_profile(value, policy)
-        for scope, value in selection_profiles(root, profile).items()
-    }
+    profiles, scope_policies = {}, {}
+    for scope, value in selection_profiles(root, profile).items():
+        scoped_policy = policy if scope == "." else policy_for(root / scope, value, preset)
+        if scope != "." and scoped_policy["effective"] == "documentation":
+            # Scoped application pruning removes shared baseline roles. A docs
+            # workspace still needs its own guide and an explicit activation scope.
+            value.slots = list(dict.fromkeys([*value.slots, "documentation"]))
+        profiles[scope] = adapt_profile(value, scoped_policy)
+        profiles[scope].repository_kind = scoped_policy.get(
+            "repository_kind", value.repository_kind
+        )
+        if scope != ".":
+            scope_policies[scope] = scoped_policy
+    if scope_policies:
+        policy["scope_policies"] = scope_policies
     return profiles, policy
 
 
@@ -99,6 +110,19 @@ def selection_plan(
             reports.append((scope, part))
         report = reports[0][1]
         report["profile"] = adapt_profile(profile, policy).to_dict()
+        for field in ("repository_kind", "kind_source", "manual_configuration"):
+            report["profile"][field] = getattr(profiles["."], field)
+        for technology in profiles["."].manual_configuration.get("technologies", {}):
+            report["profile"]["technologies"][technology] = profiles["."].technologies[technology]
+            report["profile"]["technology_sources"][technology] = profiles["."].technology_sources[
+                technology
+            ]
+        for scope, scoped in profiles.items():
+            for warning in scoped.warnings:
+                if "auto-skills.toml:" in warning:
+                    message = warning if scope == "." else f"{scope}: {warning}"
+                    if message not in report["profile"]["warnings"]:
+                        report["profile"]["warnings"].append(message)
         report["workspaces"] = {scope: value.to_dict() for scope, value in profiles.items()}
         report["policy"] = policy
         report["tool_plan"] = tool_plan(profile, policy)

@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0a1",
+  "version": "1.4.0a1",
   "mode": "offline; no inference; temporary synthetic repository",
   "backend_workspace": "backend",
   "backend_active_slots": [
@@ -54,6 +54,10 @@
   ],
   "context": {
     "workspace": "backend",
+    "repository_kind": "application",
+    "classification_reason": "recognized application technology evidence",
+    "unrecognized_evidence": [],
+    "inspection_diagnostics": [],
     "integration_policy": {
       "mode": "strict",
       "keep_mcp": [],
@@ -70,6 +74,7 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/token-output-compression/SKILL.md",
         "technologies": [],
+        "technology_evidence": {},
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -82,6 +87,7 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/token-context-pruning/SKILL.md",
         "technologies": [],
+        "technology_evidence": {},
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -94,6 +100,7 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/token-reasoning/SKILL.md",
         "technologies": [],
+        "technology_evidence": {},
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -106,6 +113,7 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/token-prompt-cache/SKILL.md",
         "technologies": [],
+        "technology_evidence": {},
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -118,6 +126,7 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/token-cli-wrapper/SKILL.md",
         "technologies": [],
+        "technology_evidence": {},
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -130,6 +139,33 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/architecture/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -142,6 +178,33 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/security/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -154,6 +217,33 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/performance/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -166,6 +256,33 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/refactoring/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -178,6 +295,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/ci-cd/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -190,6 +316,33 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/documentation/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "portable common guide inherited from repository root"
       },
       {
@@ -202,6 +355,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/@workspaces/backend/unit-testing/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "rust": [
+            {
+              "kind": "detection",
+              "path": "Cargo.toml",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "active workspace guide"
       },
       {
@@ -214,6 +376,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/@workspaces/backend/build/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "rust": [
+            {
+              "kind": "detection",
+              "path": "Cargo.toml",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "active workspace guide"
       },
       {
@@ -226,6 +397,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/@workspaces/backend/language-rust/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "rust": [
+            {
+              "kind": "detection",
+              "path": "Cargo.toml",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "active workspace guide"
       }
     ],
@@ -240,6 +420,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/unit-testing/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "overridden by active workspace guide"
       },
       {
@@ -252,6 +441,24 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/build/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ],
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "overridden by active workspace guide"
       },
       {
@@ -264,6 +471,15 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/language-javascript/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "javascript": [
+            {
+              "kind": "detection",
+              "path": "package.json",
+              "version": "detected"
+            }
+          ]
+        },
         "reason": "root specialization is not inherited"
       },
       {
@@ -276,6 +492,17 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/framework-react/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "react": [
+            {
+              "constraint": "^19.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^19.0.0"
+            }
+          ]
+        },
         "reason": "root specialization is not inherited"
       },
       {
@@ -288,6 +515,17 @@
         "compatibility": {},
         "discovery_path": ".agents/skills/build-vite/SKILL.md",
         "technologies": [],
+        "technology_evidence": {
+          "vite": [
+            {
+              "constraint": "^6.0.0",
+              "ecosystem": "npm",
+              "kind": "declaration",
+              "path": "package.json",
+              "version": "^6.0.0"
+            }
+          ]
+        },
         "reason": "root specialization is not inherited"
       }
     ],

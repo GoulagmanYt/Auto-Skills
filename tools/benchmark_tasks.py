@@ -30,12 +30,19 @@ sys.path.insert(0, str(WORKSPACE / "src"))
 
 from codex_bootstrap import __version__
 from codex_bootstrap.bootstrap import bootstrap
-from codex_bootstrap.config import config_layers, external_skills, launch_profile, toml_value
+from codex_bootstrap.config import (
+    config_layers,
+    external_skills,
+    launch_profile,
+    read_toml,
+    toml_value,
+)
 
 POLICY = {
     "sandbox": "workspace-write",
     "approval_policy": "never",
-    "native_user_config": "ignored; authentication remains in the original CODEX_HOME",
+    "native_user_config": "ignored except the configured Windows sandbox backend; authentication remains in the original CODEX_HOME",
+    "child_environment": "parent CODEX_* orchestration context removed except CODEX_HOME; authentication variables retained",
     "external_skills": "explicitly disabled except project-local treatment skills",
     "plugins_mcp": "disabled equally in every runnable arm",
     "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
@@ -48,6 +55,8 @@ POLICY = {
         "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
         "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
         "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+        "Autoskills detects the frontend workspace and installs its own pinned-registry recommendations; this adapter covers only that fixture.",
+        "SkillRadar uses an unmodified project-local router bundle with an offline pinned registry; it is not a native marketplace install and may not activate on these coding prompts.",
         "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
         "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
         "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
@@ -208,6 +217,44 @@ def parse_usage(stdout):
     return usage
 
 
+def native_environment(source=None):
+    """Start an independent CLI, retaining persisted auth and normal tool variables."""
+    result = {
+        key: value
+        for key, value in (os.environ if source is None else source).items()
+        if (not key.upper().startswith("CODEX_") or key.upper() == "CODEX_HOME")
+        and not key.upper().startswith("SKILLRADAR_")
+    }
+    result["SKILLRADAR_OFFLINE"] = "1"
+    return result
+
+
+def native_platform_flags(*, windows=None):
+    """Ignoring user config must not discard the configured Windows sandbox backend."""
+    if not (os.name == "nt" if windows is None else windows):
+        return []
+    home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
+    mode = read_toml(home / "config.toml").get("windows", {}).get("sandbox")
+    if mode in {"elevated", "unelevated"}:
+        return ["-c", "windows.sandbox=" + json.dumps(mode)]
+    return []
+
+
+@contextmanager
+def task_directory(work_root, record):
+    """Cleanup failures are operational evidence, independent of task correctness."""
+    temporary = tempfile.TemporaryDirectory(prefix="auto-skills-task-", dir=work_root)
+    try:
+        yield temporary.name
+    finally:
+        try:
+            temporary.cleanup()
+            record["cleanup_status"] = "completed"
+        except OSError:
+            record["cleanup_status"] = "incomplete"
+            record["cleanup_reason"] = "temporary task directory could not be completely removed"
+
+
 def execute_native(command, prompt, cwd, timeout):
     """Kill the owned process group on timeout; retain no raw event transcripts."""
     options = (
@@ -218,6 +265,7 @@ def execute_native(command, prompt, cwd, timeout):
     process = subprocess.Popen(
         command,
         cwd=cwd,
+        env=native_environment(),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -242,12 +290,15 @@ def execute_native(command, prompt, cwd, timeout):
     failures = 0
     diagnostics = set()
     event_types = Counter()
+    item_types = Counter()
     for line in stdout.splitlines():
         try:
             event = json.loads(line)
             if isinstance(event, dict):
                 event_types[event.get("type", "unknown")] += 1
                 item = event.get("item", {})
+                if isinstance(item, dict) and event.get("type") == "item.completed":
+                    item_types[item.get("type", "unknown")] += 1
                 if isinstance(item, dict) and item.get("type") == "agent_message":
                     final_text = str(item.get("text", "")).lower()
                     if (
@@ -274,6 +325,7 @@ def execute_native(command, prompt, cwd, timeout):
         "stderr_lines": len(stderr.splitlines()),
         "diagnostic_categories": sorted(diagnostics),
         "native_event_types": dict(event_types),
+        "native_item_types": dict(item_types),
     }
 
 
@@ -371,7 +423,7 @@ def install_competitor(arm, task, worktree, temporary, budget):
     if task["id"] not in entry.get("applicable_tasks", []):
         return {
             "status": "unavailable",
-            "reason": "pinned React guide is not applicable to this task",
+            "reason": "pinned competitor configuration is not applicable to this task",
         }
     npx = "npx.cmd" if os.name == "nt" else "npx"
     source = temporary / "competitor-source"
@@ -394,7 +446,15 @@ def install_competitor(arm, task, worktree, temporary, budget):
         "GIT_CONFIG_NOSYSTEM": "1",
         "GIT_CONFIG_GLOBAL": os.devnull,
         "GIT_TERMINAL_PROMPT": "0",
+        "AUTOSKILLS_CACHE_DIR": str(temporary / "autoskills-cache"),
+        "AUTOSKILLS_REGISTRY_BASE_URL": (
+            "https://raw.githubusercontent.com/midudev/autoskills/"
+            + entry["source_commit"]
+            + "/packages/autoskills/skills-registry"
+        ),
     }
+    for key in ("OPENAI_API_KEY", "GITHUB_TOKEN", "GH_TOKEN"):
+        env.pop(key, None)
     run_checked(
         ["git", "init", "-q", "--template="], cwd=source, env=env, timeout=min(60, budget())
     )
@@ -415,8 +475,53 @@ def install_competitor(arm, task, worktree, temporary, budget):
     ).stdout.strip()
     if actual != entry["source_commit"]:
         raise ValueError("competitor source commit differs from its pin")
-    run_checked(
-        [
+    if arm == "skillradar":
+        package = source / "packages/codex-plugin"
+        destination = worktree / ".agents/skills/skillradar"
+        names = ("skills/skill-router/SKILL.md", "scripts/skillradar.mjs", "data/registry.json")
+        for name in names:
+            target = destination / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(package / name, target)
+            if sha256(target) != sha256(package / name):
+                raise ValueError("SkillRadar bundle differs from pinned source")
+        env["SKILLRADAR_OFFLINE"] = "1"
+        for key in ("SKILLRADAR_BASE_URL", "SKILLRADAR_REGISTRY_PATH"):
+            env.pop(key, None)
+        result = run_checked(
+            ["node", str(destination / "scripts/skillradar.mjs"), "match", task["prompt"]],
+            cwd=worktree / task["scope"],
+            env=env,
+            timeout=min(30, budget()),
+        )
+        evidence = json.loads(result.stdout)
+        if (
+            evidence.get("source") != "skillradar-registry"
+            or evidence.get("registry", {}).get("mode") != "local-bundled"
+            or evidence.get("ranking", {}).get("version") != "2.1"
+        ):
+            raise ValueError("SkillRadar did not use the pinned bundled registry")
+        return {
+            "status": "ready",
+            "pin": entry,
+            "installed_skill_count": 1,
+            "installed_files_sha256": {name: sha256(destination / name) for name in names},
+            "routing_source": "skillradar-registry",
+            "registry_mode": "local-bundled",
+            "ranking_version": "2.1",
+        }
+    destination = worktree / task["scope"] if arm == "autoskills" else worktree
+    if arm == "autoskills":
+        command = [
+            npx,
+            "--yes",
+            f"{entry['npm_package']}@{entry['npm_version']}",
+            "--yes",
+            "--agent",
+            "codex",
+        ]
+    else:
+        command = [
             npx,
             "--yes",
             f"{entry['npm_package']}@{entry['npm_version']}",
@@ -428,15 +533,17 @@ def install_competitor(arm, task, worktree, temporary, budget):
             "codex",
             "--yes",
             "--copy",
-        ],
-        cwd=worktree,
-        env=env,
-        timeout=min(60, budget()),
-    )
-    paths = list((worktree / ".agents/skills").rglob("SKILL.md"))
+        ]
+    run_checked(command, cwd=destination, env=env, timeout=min(60, budget()))
+    paths = list((destination / ".agents/skills").rglob("SKILL.md"))
     if not paths:
         raise ValueError("competitor installer did not produce a project-local Codex skill")
-    return {"status": "ready", "pin": entry, "installed_skill_count": len(paths)}
+    return {
+        "status": "ready",
+        "pin": entry,
+        "installed_skill_count": len(paths),
+        "installed_skill_inventory_sha256": fingerprint(inventory(destination / ".agents/skills")),
+    }
 
 
 @contextmanager
@@ -445,7 +552,9 @@ def control_profile(worktree, cwd):
     home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
     home.mkdir(parents=True, exist_ok=True)
     project_skills = {
-        str(path.resolve()) for path in (worktree / ".agents/skills").rglob("SKILL.md")
+        str(path.resolve())
+        for base in {worktree, cwd}
+        for path in (base / ".agents/skills").rglob("SKILL.md")
     }
     entries = [
         {"path": path, "enabled": path in project_skills}
@@ -504,7 +613,8 @@ def run_one(args, task, arm, repetition, version):
             record.update(
                 status="unavailable",
                 reason=entry.get(
-                    "unavailable_reason", "pinned React guide is not applicable to this task"
+                    "unavailable_reason",
+                    "pinned competitor configuration is not applicable to this task",
                 ),
             )
             return record
@@ -517,9 +627,7 @@ def run_one(args, task, arm, repetition, version):
         return budget
 
     try:
-        with tempfile.TemporaryDirectory(
-            prefix="auto-skills-task-", dir=args.work_root
-        ) as temporary:
+        with task_directory(args.work_root, record) as temporary:
             directory = Path(temporary)
             worktree = directory / "worktree"
             shutil.copytree(EXAMPLES / task["fixture"], worktree)
@@ -559,6 +667,7 @@ def run_one(args, task, arm, repetition, version):
                 "--ephemeral",
                 "--ignore-user-config",
                 "--ignore-rules",
+                *native_platform_flags(),
                 "--sandbox",
                 "workspace-write",
                 "--model",
@@ -737,6 +846,12 @@ def run_benchmark(args):
         "codex_version": None,
         "auto_skills_version": __version__,
         "harness_sha256": sha256(Path(__file__)),
+        "bootstrap_source_sha256": fingerprint(
+            {
+                path.relative_to(WORKSPACE / "src/codex_bootstrap").as_posix(): sha256(path)
+                for path in sorted((WORKSPACE / "src/codex_bootstrap").rglob("*.py"))
+            }
+        ),
         "public_tasks_sha256": sha256(EXAMPLES / "tasks.json"),
         "competitors_sha256": sha256(COMPETITORS),
         "competitors": load_competitors(),
@@ -745,6 +860,7 @@ def run_benchmark(args):
         "repetitions": args.repetitions,
         "timeout_seconds": args.timeout,
         "reasoning_effort": args.reasoning_effort,
+        "native_platform_flags": native_platform_flags(),
         "work_root": "explicit parent directory"
         if args.work_root
         else "system temporary directory",

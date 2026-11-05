@@ -25,6 +25,8 @@ ROOT_FILES = {
     "setup.cfg",
 }
 PUBLIC_DOCS = {
+    "configuration.md",
+    "coverage.md",
     "positioning.md",
     "compatibility.md",
     "usage.md",
@@ -34,6 +36,9 @@ PUBLIC_DOCS = {
     "security-model.md",
 }
 REQUIRED_MODULES = {
+    "adapters.py",
+    "repo_config.py",
+    "repo_inspection.py",
     "__init__.py",
     "__main__.py",
     "bootstrap.py",

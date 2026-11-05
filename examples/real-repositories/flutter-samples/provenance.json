@@ -1,0 +1,18 @@
+{
+  "repository": "flutter/samples",
+  "commit": "9df2cac15cc3d28a51aace018ad822387d30ac72",
+  "original_path": "form_app/pubspec.yaml",
+  "manifest_url": "https://github.com/flutter/samples/blob/9df2cac15cc3d28a51aace018ad822387d30ac72/form_app/pubspec.yaml",
+  "manifest_sha256": "cfd1de99a73356a57508ce0c241d38c15363003d52b541627ca73792378de424",
+  "license_spdx": "BSD-3-Clause",
+  "github_reported_license_spdx": "NOASSERTION",
+  "license_review": {
+    "spdx": "BSD-3-Clause",
+    "license_sha256": "687c3d4c3a553c0fa995e9d3c35b245872fa4a0f5c2bd6494decc2fa410f7ce9",
+    "basis": "Reviewed upstream LICENSE: source code uses the opening BSD 3-Clause notice; the complete copied LICENSE also retains upstream font OFL terms. Only the source manifest is extracted."
+  },
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/flutter/samples/blob/9df2cac15cc3d28a51aace018ad822387d30ac72/LICENSE",
+  "license_sha256": "687c3d4c3a553c0fa995e9d3c35b245872fa4a0f5c2bd6494decc2fa410f7ce9",
+  "metadata_source": "https://api.github.com/repos/flutter/samples/license?ref=9df2cac15cc3d28a51aace018ad822387d30ac72"
+}

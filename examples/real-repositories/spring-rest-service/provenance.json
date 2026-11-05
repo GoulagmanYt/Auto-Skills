@@ -1,0 +1,14 @@
+{
+  "repository": "spring-guides/gs-rest-service",
+  "commit": "e15fec6773dc1eb6028055630e3e68cbd8653240",
+  "original_path": "complete/pom.xml",
+  "manifest_url": "https://github.com/spring-guides/gs-rest-service/blob/e15fec6773dc1eb6028055630e3e68cbd8653240/complete/pom.xml",
+  "manifest_sha256": "a706276d78eca8ebb412621b214bd42917126f3b0106843d3eb8d34edff0cd20",
+  "license_spdx": "Apache-2.0",
+  "github_reported_license_spdx": "Apache-2.0",
+  "license_review": null,
+  "license_original_path": "LICENSE.txt",
+  "license_url": "https://github.com/spring-guides/gs-rest-service/blob/e15fec6773dc1eb6028055630e3e68cbd8653240/LICENSE.txt",
+  "license_sha256": "56dfc19e0dc836e30177332f73e8e6fbc297941acf3d906eec6eaaa46c2c452a",
+  "metadata_source": "https://api.github.com/repos/spring-guides/gs-rest-service/license?ref=e15fec6773dc1eb6028055630e3e68cbd8653240"
+}

@@ -1,0 +1,18 @@
+{
+  "repository": "BurntSushi/ripgrep",
+  "commit": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b",
+  "original_path": "Cargo.toml",
+  "manifest_url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/Cargo.toml",
+  "manifest_sha256": "b47eda568db69ec2b299c24a588a4ee5ecf3fb6ebf7ba9b4623ff47f83ba07f7",
+  "license_spdx": "Unlicense",
+  "github_reported_license_spdx": "NOASSERTION",
+  "license_review": {
+    "spdx": "Unlicense",
+    "license_sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+    "basis": "Reviewed upstream UNLICENSE grants unrestricted public-domain use and redistribution. The complete notice is copied."
+  },
+  "license_original_path": "UNLICENSE",
+  "license_url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/UNLICENSE",
+  "license_sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+  "metadata_source": "https://api.github.com/repos/BurntSushi/ripgrep/license?ref=91f5d22ef48bde459d90a8c7dbeab416e97d0f2b"
+}

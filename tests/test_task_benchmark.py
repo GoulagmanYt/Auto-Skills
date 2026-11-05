@@ -25,6 +25,53 @@ class TaskBenchmarkTests(unittest.TestCase):
         spec.loader.exec_module(module)
         return module
 
+    def test_child_environment_drops_parent_session_context_and_preserves_auth_home(self):
+        bench = self.benchmark()
+        source = {
+            "CODEX_HOME": "auth-home",
+            "CODEX_SESSION_ID": "parent",
+            "CODEX_CI": "1",
+            "CODEX_DAEMON_SHUTDOWN_SOCKET": "parent",
+            "PATH": "tools",
+            "OPENAI_API_KEY": "fixture-secret",
+        }
+        result = bench.native_environment(source)
+        self.assertEqual(
+            result,
+            {
+                "CODEX_HOME": "auth-home",
+                "PATH": "tools",
+                "OPENAI_API_KEY": "fixture-secret",
+                "SKILLRADAR_OFFLINE": "1",
+            },
+        )
+        self.assertIn("CODEX_SESSION_ID", source)
+
+    def test_windows_sandbox_mode_survives_ignored_user_config(self):
+        bench = self.benchmark()
+        home = self.root / "home"
+        home.mkdir()
+        (home / "config.toml").write_text('[windows]\nsandbox="elevated"\n')
+        with patch.dict("os.environ", {"CODEX_HOME": str(home)}):
+            self.assertEqual(
+                bench.native_platform_flags(windows=True), ["-c", 'windows.sandbox="elevated"']
+            )
+            self.assertEqual(bench.native_platform_flags(windows=False), [])
+
+    def test_cleanup_permission_error_does_not_overwrite_completed_validation(self):
+        bench = self.benchmark()
+        record = {"status": "passed"}
+        temporary = SimpleNamespace(
+            name=str(self.root),
+            cleanup=lambda: (_ for _ in ()).throw(PermissionError("private path")),
+        )
+        with patch.object(bench.tempfile, "TemporaryDirectory", return_value=temporary):
+            with bench.task_directory(None, record) as directory:
+                self.assertEqual(directory, str(self.root))
+        self.assertEqual(record["status"], "passed")
+        self.assertEqual(record["cleanup_status"], "incomplete")
+        self.assertNotIn("private path", json.dumps(record))
+
     def test_dry_run_plans_explicit_model_three_repetitions_without_inference(self):
         result = subprocess.run(
             [
@@ -97,6 +144,83 @@ class TaskBenchmarkTests(unittest.TestCase):
         )
         self.assertIsNone(missing["cached_input_tokens"])
         self.assertIsNone(bench.parse_usage('{"type":"error","message":"failure"}'))
+
+    def test_autoskills_adapter_pins_registry_and_confines_home_cache_and_destination(self):
+        bench = self.benchmark()
+        task = next(row for row in bench.load_tasks() if row["id"] == "frontend-reset")
+        worktree = self.root / "worktree"
+        shutil.copytree(bench.EXAMPLES / task["fixture"], worktree)
+        calls = []
+
+        def checked(command, **kwargs):
+            calls.append((command, kwargs))
+            if command[0] in {"npx", "npx.cmd"}:
+                skill = Path(kwargs["cwd"]) / ".agents/skills/react/SKILL.md"
+                skill.parent.mkdir(parents=True, exist_ok=True)
+                skill.write_text("---\nname: react\ndescription: React\n---\nReact guidance")
+            pin = bench.load_competitors()["autoskills"]["source_commit"]
+            return SimpleNamespace(returncode=0, stdout=pin + "\n", stderr="")
+
+        with patch.object(bench, "run_checked", side_effect=checked):
+            result = bench.install_competitor("autoskills", task, worktree, self.root, lambda: 120)
+        self.assertEqual(result["status"], "ready")
+        command, options = next(row for row in calls if row[0][0] in {"npx", "npx.cmd"})
+        self.assertIn("autoskills@0.4.1", command)
+        self.assertEqual(command[-2:], ["--agent", "codex"])
+        self.assertEqual(Path(options["cwd"]), worktree / "webinterface")
+        environment = options["env"]
+        self.assertIn(
+            bench.load_competitors()["autoskills"]["source_commit"],
+            environment["AUTOSKILLS_REGISTRY_BASE_URL"],
+        )
+        for key in (
+            "HOME",
+            "USERPROFILE",
+            "CODEX_HOME",
+            "npm_config_cache",
+            "AUTOSKILLS_CACHE_DIR",
+        ):
+            self.assertTrue(Path(environment[key]).is_relative_to(self.root))
+
+    def test_skillradar_adapter_keeps_original_router_layout_and_bundled_registry(self):
+        bench = self.benchmark()
+        task = next(row for row in bench.load_tasks() if row["id"] == "frontend-reset")
+        worktree = self.root / "worktree"
+        shutil.copytree(bench.EXAMPLES / task["fixture"], worktree)
+        pin = bench.load_competitors()["skillradar"]["source_commit"]
+
+        def checked(command, **kwargs):
+            if command[0] == "git" and "checkout" in command:
+                package = self.root / "competitor-source/packages/codex-plugin"
+                for name in (
+                    "skills/skill-router/SKILL.md",
+                    "scripts/skillradar.mjs",
+                    "data/registry.json",
+                ):
+                    target = package / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_text(name)
+            if command[0] in {"node", "node.exe"}:
+                self.assertEqual(kwargs["env"]["SKILLRADAR_OFFLINE"], "1")
+                return SimpleNamespace(
+                    stdout=json.dumps(
+                        {
+                            "source": "skillradar-registry",
+                            "registry": {"mode": "local-bundled"},
+                            "ranking": {"version": "2.1"},
+                        }
+                    )
+                )
+            return SimpleNamespace(stdout=pin + "\n")
+
+        with patch.object(bench, "run_checked", side_effect=checked):
+            result = bench.install_competitor("skillradar", task, worktree, self.root, lambda: 120)
+        self.assertEqual(result["status"], "ready")
+        self.assertEqual(result["installed_skill_count"], 1)
+        target = worktree / ".agents/skills/skillradar"
+        self.assertTrue((target / "skills/skill-router/SKILL.md").is_file())
+        self.assertEqual(len(result["installed_files_sha256"]), 3)
+        self.assertFalse((target / "skills/manage-skills/SKILL.md").exists())
 
     def test_summary_reports_failures_and_spread_without_fabricated_savings(self):
         bench = self.benchmark()

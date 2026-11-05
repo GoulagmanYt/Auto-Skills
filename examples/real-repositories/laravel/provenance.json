@@ -1,0 +1,14 @@
+{
+  "repository": "laravel/framework",
+  "commit": "7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c",
+  "original_path": "composer.json",
+  "manifest_url": "https://github.com/laravel/framework/blob/7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c/composer.json",
+  "manifest_sha256": "4020e1f85b5949e221d7f329b1b973bcc5ba65c96902a5dbb02ca2ae4ee55ff5",
+  "license_spdx": "MIT",
+  "github_reported_license_spdx": "MIT",
+  "license_review": null,
+  "license_original_path": "LICENSE.md",
+  "license_url": "https://github.com/laravel/framework/blob/7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c/LICENSE.md",
+  "license_sha256": "7b4f9149597fbae2ce689bc9317d1869e17f1b3fa5f01c289998c108f8c37cf7",
+  "metadata_source": "https://api.github.com/repos/laravel/framework/license?ref=7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c"
+}

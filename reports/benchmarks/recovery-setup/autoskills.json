@@ -1,0 +1,22 @@
+{
+  "status": "ready",
+  "pin": {
+    "name": "midudev/autoskills",
+    "adapter": "autoskills",
+    "native_codex_support": true,
+    "npm_package": "autoskills",
+    "npm_version": "0.4.1",
+    "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+    "source_repository": "https://github.com/midudev/autoskills.git",
+    "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+    "applicable_tasks": [
+      "frontend-reset"
+    ],
+    "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter."
+  },
+  "installed_skill_count": 5,
+  "elapsed_seconds": 8.625,
+  "check": "isolated installation only; no inference",
+  "registry_source": "exact pinned source commit; no mutable fallback",
+  "scope": "webinterface"
+}

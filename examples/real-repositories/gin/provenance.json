@@ -1,0 +1,14 @@
+{
+  "repository": "gin-gonic/gin",
+  "commit": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+  "original_path": "go.mod",
+  "manifest_url": "https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/go.mod",
+  "manifest_sha256": "eacd14f8b0ba24c34cd7ec9166588d864a92b2bb553526fea0b80491c5210020",
+  "license_spdx": "MIT",
+  "github_reported_license_spdx": "MIT",
+  "license_review": null,
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/LICENSE",
+  "license_sha256": "b104efb2c7700691650f27034e8541c5ae0ed9af54d884287f19a7467ca2fe7f",
+  "metadata_source": "https://api.github.com/repos/gin-gonic/gin/license?ref=0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646"
+}

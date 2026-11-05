@@ -1,0 +1,18 @@
+{
+  "repository": "elixir-plug/plug",
+  "commit": "0d5b5eacb93b6de8f89454452cb232aa57672733",
+  "original_path": "mix.exs",
+  "manifest_url": "https://github.com/elixir-plug/plug/blob/0d5b5eacb93b6de8f89454452cb232aa57672733/mix.exs",
+  "manifest_sha256": "ca654fdc19facf2d0f3807ce75b18e07fad12ae521470db36b82b3e1552841e5",
+  "license_spdx": "Apache-2.0",
+  "github_reported_license_spdx": "NOASSERTION",
+  "license_review": {
+    "spdx": "Apache-2.0",
+    "license_sha256": "b25c71a74ae1e2961b15c611ee26d9b3bd171d0833e407867a3debd9d1de3759",
+    "basis": "Reviewed upstream LICENSE explicitly states Licensed under the Apache License, Version 2.0 and links its terms."
+  },
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/elixir-plug/plug/blob/0d5b5eacb93b6de8f89454452cb232aa57672733/LICENSE",
+  "license_sha256": "b25c71a74ae1e2961b15c611ee26d9b3bd171d0833e407867a3debd9d1de3759",
+  "metadata_source": "https://api.github.com/repos/elixir-plug/plug/license?ref=0d5b5eacb93b6de8f89454452cb232aa57672733"
+}

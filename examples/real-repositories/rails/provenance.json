@@ -1,0 +1,14 @@
+{
+  "repository": "rails/rails",
+  "commit": "2f4d502119c0d0cf9500a2d49a00eea9c557bacb",
+  "original_path": "Gemfile",
+  "manifest_url": "https://github.com/rails/rails/blob/2f4d502119c0d0cf9500a2d49a00eea9c557bacb/Gemfile",
+  "manifest_sha256": "028db8b4f1a56f23a41b044bd10a294bdbfacbabf0af94e157521635ea156db2",
+  "license_spdx": "MIT",
+  "github_reported_license_spdx": "MIT",
+  "license_review": null,
+  "license_original_path": "MIT-LICENSE",
+  "license_url": "https://github.com/rails/rails/blob/2f4d502119c0d0cf9500a2d49a00eea9c557bacb/MIT-LICENSE",
+  "license_sha256": "717ba1949502290f8e47688ae2e323acd06c8ca47aec9f7596b15f678c1af4a2",
+  "metadata_source": "https://api.github.com/repos/rails/rails/license?ref=2f4d502119c0d0cf9500a2d49a00eea9c557bacb"
+}

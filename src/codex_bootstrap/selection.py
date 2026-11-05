@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 
+from .adapters import LANGUAGES as ADAPTER_LANGUAGES
+from .adapters import TECH_SLOTS as ADAPTER_TECH_SLOTS
 from .profile import BASE_SLOTS, TECH_SLOTS, Profile
 
 
@@ -242,25 +244,30 @@ def _requirements(candidate):
         metadata,
         ("technologies", "technology", "frameworks", "languages", "x-bootstrap-technologies"),
     )
-    known = set(TECH_SLOTS) | {
-        "javascript",
-        "typescript",
-        "react-native",
-        "expo",
-        "python",
-        "rust",
-        "go",
-        "ruby",
-        "php",
-        "java",
-        "dotnet",
-        "node",
-        "vitest",
-        "jest",
-        "playwright",
-        "cypress",
-        "selenium",
-    }
+    known = (
+        set(TECH_SLOTS)
+        | set(ADAPTER_TECH_SLOTS)
+        | set(ADAPTER_LANGUAGES)
+        | {
+            "javascript",
+            "typescript",
+            "react-native",
+            "expo",
+            "python",
+            "rust",
+            "go",
+            "ruby",
+            "php",
+            "java",
+            "dotnet",
+            "node",
+            "vitest",
+            "jest",
+            "playwright",
+            "cypress",
+            "selenium",
+        }
+    )
     technologies.update(
         tech for tech in known if re.search(r"(?<![\w])" + re.escape(tech) + r"(?![\w])", identity)
     )
@@ -268,6 +275,16 @@ def _requirements(candidate):
 
 
 def _version_evidence(profile, tech):
+    sources = getattr(profile, "technology_sources", {}).get(tech, [])
+    manual = [
+        source.get("constraint", source.get("version", "detected"))
+        for source in getattr(profile, "technology_sources", {}).get(tech, [])
+        if source.get("kind") == "manual"
+    ]
+    if manual:
+        return list(dict.fromkeys(manual))
+    if any(source.get("constraint") == "unresolved" for source in sources):
+        return ["unresolved"]
     evidence = list(getattr(profile, "resolved_versions", {}).get(tech, []))
     evidence.extend(
         source.get("constraint", source.get("version", "detected"))

@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "evidence_scope": "Pinned real upstream manifest extracts only, not complete upstream repositories.",
+  "language_slots": [
+    "language-c",
+    "language-cpp",
+    "language-dart",
+    "language-elixir",
+    "language-go",
+    "language-java",
+    "language-javascript",
+    "language-julia",
+    "language-kotlin",
+    "language-php",
+    "language-python",
+    "language-r",
+    "language-ruby",
+    "language-rust",
+    "language-swift",
+    "language-typescript"
+  ],
+  "repositories": [
+    {
+      "slug": "googletest",
+      "repository": "google/googletest",
+      "original_path": "CMakeLists.txt",
+      "expected_technologies": [
+        "cmake",
+        "cpp",
+        "c"
+      ],
+      "expected_slots": [
+        "language-cpp",
+        "build-cmake"
+      ],
+      "expected_language_slots": [
+        "language-cpp",
+        "language-c"
+      ],
+      "commit": "a8380b01a25ebdb130097b607b3afed2a58d04ba",
+      "license_spdx": "BSD-3-Clause",
+      "manifest_sha256": "e75c65d8fc992b3fbc0bdab9669944996166ca64dd4383e2f2eca2ecc345dbd9",
+      "license_sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+    },
+    {
+      "slug": "p11-kit",
+      "repository": "p11-glue/p11-kit",
+      "original_path": "meson.build",
+      "expected_technologies": [
+        "meson",
+        "c"
+      ],
+      "expected_slots": [
+        "language-c",
+        "build-meson"
+      ],
+      "expected_language_slots": [
+        "language-c"
+      ],
+      "commit": "e5ee541ae14ec2e3324fdf393cb069163ee9666b",
+      "license_spdx": "BSD-3-Clause",
+      "manifest_sha256": "3e9a822fe3a55828761f12ecf7443d3ddbf735e3b34c9833d13e136e22b6dcb1",
+      "license_sha256": "2e1ba993904df807a10c3eda1e5c272338edc35674b679773a8b3ad460731054"
+    },
+    {
+      "slug": "flutter-samples",
+      "repository": "flutter/samples",
+      "original_path": "form_app/pubspec.yaml",
+      "expected_technologies": [
+        "dart",
+        "flutter"
+      ],
+      "expected_slots": [
+        "language-dart",
+        "framework-flutter"
+      ],
+      "expected_language_slots": [
+        "language-dart"
+      ],
+      "license_review": {
+        "spdx": "BSD-3-Clause",
+        "license_sha256": "687c3d4c3a553c0fa995e9d3c35b245872fa4a0f5c2bd6494decc2fa410f7ce9",
+        "basis": "Reviewed upstream LICENSE: source code uses the opening BSD 3-Clause notice; the complete copied LICENSE also retains upstream font OFL terms. Only the source manifest is extracted."
+      },
+      "commit": "9df2cac15cc3d28a51aace018ad822387d30ac72",
+      "license_spdx": "BSD-3-Clause",
+      "manifest_sha256": "cfd1de99a73356a57508ce0c241d38c15363003d52b541627ca73792378de424",
+      "license_sha256": "687c3d4c3a553c0fa995e9d3c35b245872fa4a0f5c2bd6494decc2fa410f7ce9"
+    },
+    {
+      "slug": "swift-argument-parser",
+      "repository": "apple/swift-argument-parser",
+      "original_path": "Package.swift",
+      "expected_technologies": [
+        "swift",
+        "swift-tools"
+      ],
+      "expected_slots": [
+        "language-swift"
+      ],
+      "expected_language_slots": [
+        "language-swift"
+      ],
+      "commit": "38ca4eceb349155836701b88da3e0986eb9d1e1c",
+      "license_spdx": "Apache-2.0",
+      "manifest_sha256": "4eae0e28d24671d6ab75c2c7a0dd0326e6d48f8785510a3e403886fe8cf17d88",
+      "license_sha256": "770af8291f708538d8ff885a0bbc4e045cd700531741c4f99528d435c14d7f55"
+    },
+    {
+      "slug": "plug",
+      "repository": "elixir-plug/plug",
+      "original_path": "mix.exs",
+      "expected_technologies": [
+        "elixir",
+        "mix"
+      ],
+      "expected_slots": [
+        "language-elixir"
+      ],
+      "expected_language_slots": [
+        "language-elixir"
+      ],
+      "license_review": {
+        "spdx": "Apache-2.0",
+        "license_sha256": "b25c71a74ae1e2961b15c611ee26d9b3bd171d0833e407867a3debd9d1de3759",
+        "basis": "Reviewed upstream LICENSE explicitly states Licensed under the Apache License, Version 2.0 and links its terms."
+      },
+      "commit": "0d5b5eacb93b6de8f89454452cb232aa57672733",
+      "license_spdx": "Apache-2.0",
+      "manifest_sha256": "ca654fdc19facf2d0f3807ce75b18e07fad12ae521470db36b82b3e1552841e5",
+      "license_sha256": "b25c71a74ae1e2961b15c611ee26d9b3bd171d0833e407867a3debd9d1de3759"
+    },
+    {
+      "slug": "julia-example",
+      "repository": "JuliaLang/Example.jl",
+      "original_path": "Project.toml",
+      "expected_technologies": [
+        "julia"
+      ],
+      "expected_slots": [
+        "language-julia"
+      ],
+      "expected_language_slots": [
+        "language-julia"
+      ],
+      "commit": "82d1224c32990c0105898fa44009864f5648e98d",
+      "license_spdx": "MIT",
+      "manifest_sha256": "51d5263ab2f29c9b77609f8c52121a8ed7efbee7507d93876604d076624570cc",
+      "license_sha256": "d9a8d454587a7b4fc8a0677306c07ac9b3301a0c00df59dc5fa52cc9142fedf9"
+    },
+    {
+      "slug": "r-cli",
+      "repository": "r-lib/cli",
+      "original_path": "DESCRIPTION",
+      "expected_technologies": [
+        "r"
+      ],
+      "expected_slots": [
+        "language-r"
+      ],
+      "expected_language_slots": [
+        "language-r"
+      ],
+      "license_review": {
+        "spdx": "MIT",
+        "license_sha256": "7ca9da25537a5e7e628150a0e6e60de2eaad6c4d5f2d64e4cc63e75aa053e591",
+        "basis": "Upstream DESCRIPTION declares License: MIT + file LICENSE; the copied original LICENSE retains YEAR and COPYRIGHT HOLDER. The upstream MIT declaration supplies the license terms."
+      },
+      "commit": "633bc27770f3357238d0f797132ad000cd1a8eb4",
+      "license_spdx": "MIT",
+      "manifest_sha256": "5876a659a5f4ce55dd501c4b040edd09ce57f828faa846af832b56b608950f6b",
+      "license_sha256": "7ca9da25537a5e7e628150a0e6e60de2eaad6c4d5f2d64e4cc63e75aa053e591"
+    },
+    {
+      "slug": "flask",
+      "repository": "pallets/flask",
+      "original_path": "pyproject.toml",
+      "expected_technologies": [
+        "python"
+      ],
+      "expected_slots": [
+        "language-python"
+      ],
+      "expected_language_slots": [
+        "language-python"
+      ],
+      "commit": "49943b5a94413a530761350f04e896f76e8d620e",
+      "license_spdx": "BSD-3-Clause",
+      "manifest_sha256": "4a55dd7e69bca85ecba232489bda7f89bb8620dde35e8f5eb08a92f4087d74cb",
+      "license_sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea"
+    },
+    {
+      "slug": "ripgrep",
+      "repository": "BurntSushi/ripgrep",
+      "original_path": "Cargo.toml",
+      "expected_technologies": [
+        "rust"
+      ],
+      "expected_slots": [
+        "language-rust"
+      ],
+      "expected_language_slots": [
+        "language-rust"
+      ],
+      "license_review": {
+        "spdx": "Unlicense",
+        "license_sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+        "basis": "Reviewed upstream UNLICENSE grants unrestricted public-domain use and redistribution. The complete notice is copied."
+      },
+      "commit": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b",
+      "license_spdx": "Unlicense",
+      "manifest_sha256": "b47eda568db69ec2b299c24a588a4ee5ecf3fb6ebf7ba9b4623ff47f83ba07f7",
+      "license_sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+    },
+    {
+      "slug": "gin",
+      "repository": "gin-gonic/gin",
+      "original_path": "go.mod",
+      "expected_technologies": [
+        "go"
+      ],
+      "expected_slots": [
+        "language-go"
+      ],
+      "expected_language_slots": [
+        "language-go"
+      ],
+      "commit": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+      "license_spdx": "MIT",
+      "manifest_sha256": "eacd14f8b0ba24c34cd7ec9166588d864a92b2bb553526fea0b80491c5210020",
+      "license_sha256": "b104efb2c7700691650f27034e8541c5ae0ed9af54d884287f19a7467ca2fe7f"
+    },
+    {
+      "slug": "vite",
+      "repository": "vitejs/vite",
+      "original_path": "packages/vite/package.json",
+      "expected_technologies": [
+        "javascript",
+        "node"
+      ],
+      "expected_slots": [
+        "language-javascript"
+      ],
+      "expected_language_slots": [
+        "language-javascript"
+      ],
+      "commit": "483512809bbdb399d66be59af0f5aeb01ccb7181",
+      "license_spdx": "MIT",
+      "manifest_sha256": "1678f17b24af0a7ffa6f7b98e089ca57b331624074b9e72b08b7d59c8f34780e",
+      "license_sha256": "692057af3d664cbb79ac38293eb50aa3c4987f8182e2a440136e59e08f1b4a54"
+    },
+    {
+      "slug": "spring-rest-service",
+      "repository": "spring-guides/gs-rest-service",
+      "original_path": "complete/pom.xml",
+      "expected_technologies": [
+        "java",
+        "spring",
+        "maven"
+      ],
+      "expected_slots": [
+        "language-java",
+        "framework-spring"
+      ],
+      "expected_language_slots": [
+        "language-java"
+      ],
+      "commit": "e15fec6773dc1eb6028055630e3e68cbd8653240",
+      "license_spdx": "Apache-2.0",
+      "manifest_sha256": "a706276d78eca8ebb412621b214bd42917126f3b0106843d3eb8d34edff0cd20",
+      "license_sha256": "56dfc19e0dc836e30177332f73e8e6fbc297941acf3d906eec6eaaa46c2c452a"
+    },
+    {
+      "slug": "rails",
+      "repository": "rails/rails",
+      "original_path": "Gemfile",
+      "expected_technologies": [
+        "ruby"
+      ],
+      "expected_slots": [
+        "language-ruby"
+      ],
+      "expected_language_slots": [
+        "language-ruby"
+      ],
+      "commit": "2f4d502119c0d0cf9500a2d49a00eea9c557bacb",
+      "license_spdx": "MIT",
+      "manifest_sha256": "028db8b4f1a56f23a41b044bd10a294bdbfacbabf0af94e157521635ea156db2",
+      "license_sha256": "717ba1949502290f8e47688ae2e323acd06c8ca47aec9f7596b15f678c1af4a2"
+    },
+    {
+      "slug": "laravel",
+      "repository": "laravel/framework",
+      "original_path": "composer.json",
+      "expected_technologies": [
+        "php"
+      ],
+      "expected_slots": [
+        "language-php"
+      ],
+      "expected_language_slots": [
+        "language-php"
+      ],
+      "commit": "7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c",
+      "license_spdx": "MIT",
+      "manifest_sha256": "4020e1f85b5949e221d7f329b1b973bcc5ba65c96902a5dbb02ca2ae4ee55ff5",
+      "license_sha256": "7b4f9149597fbae2ce689bc9317d1869e17f1b3fa5f01c289998c108f8c37cf7"
+    }
+  ],
+  "refresh_failures": [],
+  "isolation_technologies": [
+    "c",
+    "cpp",
+    "cmake",
+    "meson",
+    "dart",
+    "flutter",
+    "swift",
+    "swift-tools",
+    "elixir",
+    "mix",
+    "julia",
+    "r",
+    "python",
+    "rust",
+    "go",
+    "javascript",
+    "node",
+    "typescript",
+    "java",
+    "maven",
+    "spring",
+    "ruby",
+    "php",
+    "laravel"
+  ]
+}

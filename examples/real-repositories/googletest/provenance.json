@@ -1,0 +1,14 @@
+{
+  "repository": "google/googletest",
+  "commit": "a8380b01a25ebdb130097b607b3afed2a58d04ba",
+  "original_path": "CMakeLists.txt",
+  "manifest_url": "https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/CMakeLists.txt",
+  "manifest_sha256": "e75c65d8fc992b3fbc0bdab9669944996166ca64dd4383e2f2eca2ecc345dbd9",
+  "license_spdx": "BSD-3-Clause",
+  "github_reported_license_spdx": "BSD-3-Clause",
+  "license_review": null,
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/LICENSE",
+  "license_sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138",
+  "metadata_source": "https://api.github.com/repos/google/googletest/license?ref=a8380b01a25ebdb130097b607b3afed2a58d04ba"
+}

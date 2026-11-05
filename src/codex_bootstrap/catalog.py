@@ -5,6 +5,106 @@ import json
 from .selection import Candidate
 
 RULES = {
+    "language-c": (
+        "Use when changing C code, ownership, ABI or native interfaces.",
+        "Confirm the declared C standard and compiler flags in the nearest native build. "
+        "Keep pointer ownership, buffer lengths, integer ranges and cleanup explicit. Check error "
+        "returns before using outputs and preserve ABI and platform guards. Exercise boundary sizes "
+        "and failure cleanup with existing tests; use the configured sanitizers where available.",
+    ),
+    "language-cpp": (
+        "Use when changing C++ code, lifetimes, templates or native interfaces.",
+        "Confirm the C++ standard, compiler, ABI and target settings in the nearest native manifest. "
+        "Use RAII for resources and make ownership and object lifetimes explicit. Review iterator "
+        "invalidation, exception guarantees and thread synchronization. Preserve public ABI where "
+        "required. Run the existing native tests and configured sanitizers for affected boundaries.",
+    ),
+    "build-cmake": (
+        "Use when editing CMake targets, dependency discovery or native build configuration.",
+        "Read the nearest CMakeLists.txt and distinguish the CMake minimum from C/C++ standards and "
+        "the project's release version. Prefer target-scoped sources, features, includes and linking. "
+        "Preserve toolchain and cross-compilation settings. Configure outside the source tree and "
+        "verify the existing build, CTest tests and install rules without downloading dependencies "
+        "unless the task authorizes it.",
+    ),
+    "build-meson": (
+        "Use when editing Meson projects, native targets or build options.",
+        "Confirm meson_version, language standards and native/cross files separately. Keep dependency "
+        "visibility and target options explicit; preserve wrap and fallback policy. Use a separate "
+        "build directory and the repository's configured Meson setup, compile and test commands. "
+        "Verify supported build options and install paths; project version is not compiler evidence.",
+    ),
+    "build-conan": (
+        "Use when changing Conan native dependency declarations or consumer configuration.",
+        "Confirm the Conan major, lockfile, profiles, compiler ABI and build/host contexts before "
+        "changing requirements. Package versions do not establish the C++ standard. Preserve options "
+        "and transitive compatibility with the existing generators and build integration. Check the "
+        "normal consumer build and tests; avoid changing remotes or installing packages without task authorization.",
+    ),
+    "language-dart": (
+        "Use when changing Dart libraries, async behavior or package APIs.",
+        "Match APIs to pubspec's Dart SDK constraint and existing null-safety and analyzer settings. "
+        "Keep Futures, Streams, cancellation and resource disposal explicit. Preserve public package "
+        "contracts and separate pure logic from platform adapters. Run the configured Dart formatter, "
+        "analyzer and affected tests; dependency and app release versions are not SDK versions.",
+    ),
+    "framework-flutter": (
+        "Use when editing Flutter widgets, navigation, state or platform integrations.",
+        "Confirm Flutter constraints separately from the Dart SDK and package releases. Preserve state "
+        "ownership, widget lifecycle and mounted checks across asynchronous work. Reuse existing themes "
+        "and accessible controls; test loading, error, navigation and disposal behavior with widget "
+        "tests. Run existing analyzer and platform checks; report device-only verification separately.",
+    ),
+    "language-swift": (
+        "Use when changing Swift packages, concurrency or native APIs.",
+        "Distinguish swift-tools-version from explicit Swift language modes and deployment targets. "
+        "Preserve value and reference ownership, actor isolation and cancellation behavior. Avoid "
+        "force-unwrapping external input and keep platform availability checks. Validate the package's "
+        "existing Swift tests and supported target builds with the configured toolchain.",
+    ),
+    "language-elixir": (
+        "Use when changing Elixir modules, processes or application supervision.",
+        "Confirm the Elixir constraint in mix.exs separately from application and Hex package versions. "
+        "Keep process ownership, supervision restart behavior, mailbox growth and failure semantics "
+        "explicit. Preserve immutable data contracts and validate external input. Run the existing "
+        "formatter and focused ExUnit tests, including process failure and timeout behavior.",
+    ),
+    "build-mix": (
+        "Use when changing Mix projects, applications or Hex dependency declarations.",
+        "Confirm the declared Elixir requirement, dependency constraints and existing mix.lock before "
+        "editing. Preserve application supervision entries, environment-specific configuration and "
+        "umbrella ownership. Use existing Mix compile and test aliases; do not evaluate mix.exs for "
+        "profiling or infer the language version from the application's release.",
+    ),
+    "framework-phoenix": (
+        "Use when changing Phoenix routes, controllers, channels or LiveView boundaries.",
+        "Confirm the Phoenix and LiveView dependency releases before selecting APIs. Preserve endpoint, "
+        "router pipeline, authentication and authorization boundaries. Validate changesets and handle "
+        "socket disconnect and process cleanup. Exercise request, channel or LiveView success and "
+        "failure behavior using the project's existing ConnCase and integration conventions.",
+    ),
+    "language-r": (
+        "Use when changing R packages, statistical analysis or data transformations.",
+        "Confirm the R requirement in DESCRIPTION or runtime in renv.lock separately from package "
+        "releases. Keep units, missing values, factor levels and random seeds explicit. Validate "
+        "input shape and numerical tolerances and avoid relying on mutable global state. Run existing "
+        "testthat or package checks and retain reproducible data provenance without exposing datasets.",
+    ),
+    "build-renv": (
+        "Use when changing an R project's reproducible dependency environment.",
+        "Read DESCRIPTION and renv.lock together, distinguishing direct requirements, resolved package "
+        "releases and the recorded R runtime. Preserve repository and platform constraints. Review "
+        "lockfile changes for intended dependencies and verify existing package tests in the supported "
+        "environment. Restoring packages changes the environment and requires task authorization.",
+    ),
+    "language-julia": (
+        "Use when changing Julia packages, numerical methods or scientific workflows.",
+        "Confirm Julia and dependency compatibility from Project.toml separately from the package "
+        "release. Preserve array axes, element types, units and numerical tolerances. Keep random "
+        "seeds and data provenance reproducible and avoid hidden global mutation. Respect dispatch "
+        "and allocation behavior in hot paths. Run the existing Julia tests and relevant numerical "
+        "checks with the project's declared environment.",
+    ),
     "framework-spring": (
         "Use when changing Spring Boot services, dependency injection or HTTP endpoints.",
         "Confirm the Spring Boot parent/plugin version and Java toolchain in the nearest build. "

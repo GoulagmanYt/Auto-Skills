@@ -1,0 +1,26 @@
+{
+  "status": "ready",
+  "pin": {
+    "name": "SkillRadar pinned plugin router bundle (project-local)",
+    "adapter": "skillradar-router-bundle",
+    "native_codex_support": true,
+    "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+    "source_tag": "v0.5.0",
+    "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+    "applicable_tasks": [
+      "frontend-reset"
+    ],
+    "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing."
+  },
+  "installed_skill_count": 1,
+  "installed_files_sha256": {
+    "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347",
+    "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+    "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9"
+  },
+  "routing_source": "skillradar-registry",
+  "registry_mode": "local-bundled",
+  "ranking_version": "2.1",
+  "elapsed_seconds": 1.55,
+  "check": "isolated installation and bundled read-only lookup only; no inference"
+}

@@ -3,6 +3,7 @@
 from copy import deepcopy
 
 from .profile import BASE_SLOTS
+from .repo_inspection import classify_repository
 
 PRESETS = ("auto", "documentation", "minimal", "complete")
 TOKEN_SLOTS = [slot for slot in BASE_SLOTS if slot.startswith("token-")]
@@ -38,10 +39,6 @@ DOC_SUPPORT = {
 def policy_for(root, profile, preset="auto"):
     if preset not in PRESETS:
         raise ValueError("unknown bootstrap preset")
-    docs = any(
-        (root / name).is_file()
-        for name in ("README.md", "README.rst", "mkdocs.yml", "mkdocs.yaml", "book.toml")
-    )
     technologies = set(profile.technologies)
     generator = bool(
         technologies & DOC_TECH
@@ -51,9 +48,29 @@ def policy_for(root, profile, preset="auto"):
     allowed = DOC_TECH | {"github-actions", "gitlab-ci"}
     if generator:
         allowed |= DOC_SUPPORT | {tech for tech in technologies if tech.startswith("@docusaurus/")}
-    documentation = docs and not (technologies - allowed)
-    effective = ("documentation" if documentation else "complete") if preset == "auto" else preset
-    return {"preset": preset, "effective": effective, "version": 1}
+    classification = classify_repository(
+        root,
+        profile,
+        documentary_technologies=allowed,
+        documentation_generator=generator,
+    )
+    kind = classification["kind"]
+    effective = (
+        {"application": "complete", "documentation": "documentation", "unknown": "unknown"}[kind]
+        if preset == "auto"
+        else preset
+    )
+    return {
+        "preset": preset,
+        "effective": effective,
+        "version": 2,
+        "repository_kind": kind,
+        "classification_reason": classification["reason"],
+        "unrecognized_evidence": classification["unrecognized_evidence"],
+        "inspection_incomplete": classification["inspection_incomplete"],
+        "inspection_diagnostics": classification["diagnostics"],
+        "technology_hints": classification["technology_hints"],
+    }
 
 
 def adapt_profile(profile, policy):
@@ -71,10 +88,17 @@ def adapt_profile(profile, policy):
 
 def tool_plan(profile, policy):
     names = ["token-run", "repo-map"]
-    if policy["effective"] != "documentation":
+    scoped = policy.get("scope_policies", {}).values()
+    application = policy["effective"] not in {"documentation", "unknown"} or any(
+        p["effective"] not in {"documentation", "unknown"} for p in scoped
+    )
+    if application:
         names.append("rtk")
+    technologies = set(profile.technologies) | set(policy.get("technology_hints", []))
+    for scoped in policy.get("scope_policies", {}).values():
+        technologies.update(scoped.get("technology_hints", []))
     if policy["preset"] == "complete" or (
-        policy["effective"] != "documentation"
+        application
         and {
             "javascript",
             "typescript",
@@ -84,7 +108,7 @@ def tool_plan(profile, policy):
             "nextjs",
             "next",
             "svelte",
-        }.intersection(profile.technologies)
+        }.intersection(technologies)
     ):
         names.append("repomix")
     reasons = {

@@ -59,6 +59,9 @@ def recover_transaction(root):
 
 def check(root, *, preset=None):
     root = root.resolve()
+    from .repo_config import read_configuration
+
+    read_configuration(root)
     if not confined(root, ".codex/skills-lock.json").exists():
         return {"status": "uninitialized", "target": str(root)}
     lock = verify_lock(root)
@@ -72,6 +75,9 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
     root = root.resolve()
     if git_root(root) != root:
         raise ValueError("bootstrap target must be a Git repository root")
+    from .repo_config import read_configuration
+
+    read_configuration(root)
     with repo_mutex(root):
         recover_transaction(root)
         lock_path = confined(root, ".codex/skills-lock.json")

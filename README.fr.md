@@ -2,7 +2,7 @@
 
 **Un contexte de skills Codex explicable par workspace, maintenu quand le projet change.**
 
-Version **1.3.0a1 alpha**, avec Codex CLI **0.166.0** comme référence native initiale. Auto-Skills analyse les manifestes, sélectionne un guide par rôle et workspace, verrouille les fichiers et réévalue les guides concernés par les changements de dépendances.
+Version **1.4.0a1 alpha**, avec Codex CLI **0.166.0** comme référence native initiale. Auto-Skills analyse les manifestes, sélectionne un guide par rôle et workspace, verrouille les fichiers et réévalue les guides concernés par les changements de dépendances.
 
 ## Installation
 
@@ -28,6 +28,8 @@ codex -C ./projet/backend
 ```
 
 La prévisualisation affiche les guides actifs/exclus, raisons, provenance et estimation du catalogue. Un backend Rust ne reçoit pas les spécialités React/Vite de la racine. Un changement React conserve les guides Rust et les outils inchangés.
+
+Les dépôts applicatifs, documentaires et inconnus sont distingués. C/C++, CMake/Meson, Flutter/Dart, Swift, Elixir, R et Julia disposent de nouveaux adaptateurs statiques. Un dépôt non reconnu conserve un socle portable, affiche ses lacunes et ne déclenche pas de téléchargement d'outils spéculatif. La [configuration manuelle](docs/configuration.md) permet de déclarer des workspaces et contraintes explicites. [Couverture et limites](docs/coverage.md).
 
 Le mode strict désactive pour le lancement les skills externes, plugins et serveurs MCP non explicitement conservés. Le mode `coexist`, dans `.codex/integrations.toml`, préserve les intégrations utilisateur ; le contexte externe n'est alors pas isolé. Le Codex original contourne le wrapper.
 

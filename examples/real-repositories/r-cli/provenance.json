@@ -1,0 +1,18 @@
+{
+  "repository": "r-lib/cli",
+  "commit": "633bc27770f3357238d0f797132ad000cd1a8eb4",
+  "original_path": "DESCRIPTION",
+  "manifest_url": "https://github.com/r-lib/cli/blob/633bc27770f3357238d0f797132ad000cd1a8eb4/DESCRIPTION",
+  "manifest_sha256": "5876a659a5f4ce55dd501c4b040edd09ce57f828faa846af832b56b608950f6b",
+  "license_spdx": "MIT",
+  "github_reported_license_spdx": "NOASSERTION",
+  "license_review": {
+    "spdx": "MIT",
+    "license_sha256": "7ca9da25537a5e7e628150a0e6e60de2eaad6c4d5f2d64e4cc63e75aa053e591",
+    "basis": "Upstream DESCRIPTION declares License: MIT + file LICENSE; the copied original LICENSE retains YEAR and COPYRIGHT HOLDER. The upstream MIT declaration supplies the license terms."
+  },
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/r-lib/cli/blob/633bc27770f3357238d0f797132ad000cd1a8eb4/LICENSE",
+  "license_sha256": "7ca9da25537a5e7e628150a0e6e60de2eaad6c4d5f2d64e4cc63e75aa053e591",
+  "metadata_source": "https://api.github.com/repos/r-lib/cli/license?ref=633bc27770f3357238d0f797132ad000cd1a8eb4"
+}

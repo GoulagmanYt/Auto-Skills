@@ -37,6 +37,14 @@ def inspect_context(root, *, cwd=None, integration_mode=None):
                 "technologies",
             )
         }
+        key = (
+            entry["slot"]
+            if entry.get("scope", ".") == "."
+            else entry["scope"] + "::" + entry["slot"]
+        )
+        record["technology_evidence"] = (
+            lock.get("slot_inputs", {}).get(key, {}).get("declarations", {})
+        )
         if selected:
             record["reason"] = (
                 "active workspace guide"
@@ -64,8 +72,16 @@ def inspect_context(root, *, cwd=None, integration_mode=None):
             record["reason"] = reason
             excluded.append(record)
     integrations = integration_settings(root, integration_mode)
+    policy = lock.get("policy", {})
+    scoped_policy = policy.get("scope_policies", {}).get(scope, policy)
     return {
         "workspace": scope,
+        "repository_kind": scoped_policy.get("repository_kind", "unknown"),
+        "classification_reason": scoped_policy.get(
+            "classification_reason", "legacy lock; refresh for current classification"
+        ),
+        "unrecognized_evidence": scoped_policy.get("unrecognized_evidence", []),
+        "inspection_diagnostics": scoped_policy.get("inspection_diagnostics", []),
         "integration_policy": integrations,
         "active": active,
         "excluded": excluded,
@@ -88,6 +104,7 @@ def markdown_context(report):
         "# Workspace context",
         "",
         f"Workspace: `{report['workspace']}`. Integration mode: `{report['integration_policy']['mode']}`.",
+        f"Repository kind: `{report['repository_kind']}` — {report['classification_reason']}.",
         f"Estimated locked catalog: {report['catalog_cost']['estimated_tokens']} tokens (characters / 4; not billing).",
         "",
         "| Status | Workspace | Guide | Source | Reason |",
@@ -108,4 +125,15 @@ def markdown_context(report):
                 + " |"
             )
     lines += ["", *report["limitations"]]
+    if report["unrecognized_evidence"]:
+        lines += ["", "Unrecognized filename evidence (no source content read):"]
+        lines += [
+            "- `" + path.replace("`", "\\`").replace("\n", " ") + "`"
+            for path in report["unrecognized_evidence"]
+        ]
+    if report["inspection_diagnostics"]:
+        lines += [
+            "",
+            "Inspection is incomplete; consult inspection_diagnostics in JSON for excluded paths and scan limits.",
+        ]
     return "\n".join(lines) + "\n"

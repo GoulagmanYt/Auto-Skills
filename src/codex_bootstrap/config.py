@@ -126,6 +126,7 @@ def external_skills(root, cwd=None):
 def active_scope(root, lock, cwd=None):
     current = (cwd or root).resolve()
     scopes = {entry.get("scope", ".") for entry in lock["skills"]}
+    scopes.update(lock.get("policy", {}).get("scope_policies", {}))
     matching = [
         scope
         for scope in scopes

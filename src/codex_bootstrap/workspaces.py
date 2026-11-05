@@ -9,29 +9,31 @@ nearest enclosing boundary; a parent never receives a child's dependencies.
 from copy import deepcopy
 from pathlib import Path
 
+from .adapters import is_package_manifest
 from .profile import BASE_SLOTS, manifest_paths, profile_repo
 
-PRIMARY_MANIFESTS = {
-    "package.json",
-    "Cargo.toml",
-    "pyproject.toml",
-    "requirements.txt",
-    "go.mod",
-    "composer.json",
-    "Gemfile",
-    "pom.xml",
-    "build.gradle",
-    "build.gradle.kts",
-    "foundry.toml",
+RUNTIMES = {
+    "node",
+    "python",
+    "rust",
+    "go",
+    "java",
+    "dotnet",
+    "dart",
+    "swift",
+    "elixir",
+    "r",
+    "julia",
 }
-RUNTIMES = {"node", "python", "rust", "go", "java", "dotnet"}
 SCOPED_BASE_SLOTS = {"unit-testing", "build"}
 
 
 def _roots(root, paths):
-    scopes = {"."}
+    from .repo_config import configured_scopes
+
+    scopes = {".", *configured_scopes(root)}
     for path in paths:
-        if path.name not in PRIMARY_MANIFESTS and not path.name.endswith(".csproj"):
+        if not is_package_manifest(path.name):
             continue
         if path.is_symlink() or not path.resolve().is_relative_to(root):
             continue
@@ -90,15 +92,19 @@ def workspace_profiles(root: Path, root_profile=None):
     declarations additionally record their parent scope. No dependency versions
     or lockfile resolutions are copied between sibling workspaces.
     """
+    from .repo_config import apply_configuration
+
     root = Path(root).resolve()
-    paths = list(manifest_paths(root))
+    diagnostics = []
+    paths = list(manifest_paths(root, diagnostics=diagnostics))
     scopes = _roots(root, paths)
     if scopes == ["."] and root_profile is not None:
-        return {".": deepcopy(root_profile)}
+        return apply_configuration(root, {".": deepcopy(root_profile)})
     owned = {scope: [] for scope in scopes}
     for path in paths:
         owned[_owner(root, path, scopes)].append(path)
     profiles = {scope: profile_repo(root / scope, paths=owned[scope]) for scope in scopes}
+    profiles["."].diagnostics.extend(diagnostics)
     for scope in sorted(scopes, key=lambda value: (len(Path(value).parts), value)):
         if scope == ".":
             continue
@@ -112,7 +118,7 @@ def workspace_profiles(root: Path, root_profile=None):
         # inherit Node itself, or prevent the JS package from finding that pin.
         for parent in sorted(parents, key=lambda value: len(Path(value).parts), reverse=True):
             _inherit_runtimes(profiles[scope], profiles[parent], parent)
-    return profiles
+    return apply_configuration(root, profiles)
 
 
 def selection_profiles(root: Path, root_profile=None):
@@ -122,7 +128,11 @@ def selection_profiles(root: Path, root_profile=None):
         if scope == ".":
             continue
         profile.slots = [
-            slot for slot in profile.slots if slot not in BASE_SLOTS or slot in SCOPED_BASE_SLOTS
+            slot
+            for slot in profile.slots
+            if slot not in BASE_SLOTS
+            or slot in SCOPED_BASE_SLOTS
+            or slot in profile.manual_configuration.get("slots", [])
         ]
         profile.slot_technologies = {
             slot: technologies

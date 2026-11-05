@@ -1,0 +1,14 @@
+{
+  "repository": "pallets/flask",
+  "commit": "49943b5a94413a530761350f04e896f76e8d620e",
+  "original_path": "pyproject.toml",
+  "manifest_url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/pyproject.toml",
+  "manifest_sha256": "4a55dd7e69bca85ecba232489bda7f89bb8620dde35e8f5eb08a92f4087d74cb",
+  "license_spdx": "BSD-3-Clause",
+  "github_reported_license_spdx": "BSD-3-Clause",
+  "license_review": null,
+  "license_original_path": "LICENSE.txt",
+  "license_url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/LICENSE.txt",
+  "license_sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+  "metadata_source": "https://api.github.com/repos/pallets/flask/license?ref=49943b5a94413a530761350f04e896f76e8d620e"
+}

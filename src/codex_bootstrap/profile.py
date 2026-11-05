@@ -10,6 +10,8 @@ import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+from . import adapters
+
 SKIP = {
     ".git",
     ".codex",
@@ -170,95 +172,94 @@ class Profile:
     slot_technologies: dict[str, list[str]] = field(default_factory=dict)
     available_tools: list[str] = field(default_factory=list)
     components: list[dict] = field(default_factory=list)
+    repository_kind: str = "auto"
+    kind_source: dict | None = None
+    manual_configuration: dict = field(default_factory=dict)
+    diagnostics: list[dict] = field(default_factory=list)
 
     def to_dict(self):
         return asdict(self)
 
 
-LOCK_NAMES = {
-    "Cargo.lock",
-    "package-lock.json",
-    "npm-shrinkwrap.json",
-    "pnpm-lock.yaml",
-    "yarn.lock",
-    "bun.lock",
-    "uv.lock",
-    "poetry.lock",
-    "Pipfile.lock",
-    "Gemfile.lock",
-    "composer.lock",
-    "go.sum",
-}
+LOCK_NAMES = adapters.lock_names()
 MANIFEST_LIMIT = 512_000
 LOCK_LIMIT = 16 * 1024 * 1024
 
 
-def manifest_paths(root: Path):
+def manifest_paths(root: Path, *, diagnostics=None):
+    """Yield bounded manifest paths; report excluded boundaries when requested."""
+    root = Path(root).resolve()
     count = 0
-    names = {
-        "package.json",
-        "Cargo.toml",
-        "pyproject.toml",
-        "go.mod",
-        "Dockerfile",
-        "docker-compose.yml",
-        "docker-compose.yaml",
-        "compose.yaml",
-        "compose.yml",
-        "requirements.txt",
-        "Gemfile",
-        "composer.json",
-        ".gitlab-ci.yml",
-        "Makefile",
-        "justfile",
-        "rust-toolchain.toml",
-        ".nvmrc",
-        ".python-version",
-        "components.json",
-        "pom.xml",
-        "build.gradle",
-        "build.gradle.kts",
-        "gradle-wrapper.properties",
-        "maven-wrapper.properties",
-        "global.json",
-        "foundry.toml",
-        "hardhat.config.js",
-        "hardhat.config.cjs",
-        "hardhat.config.mjs",
-        "hardhat.config.ts",
-        "tauri.conf.json",
-        "tauri.conf.json5",
-        "Tauri.toml",
-        "rust-toolchain",
-    }
-    names.update(LOCK_NAMES)
+
+    def excluded(code, path, message):
+        if diagnostics is not None:
+            diagnostics.append(
+                {"code": code, "path": path.relative_to(root).as_posix(), "message": message}
+            )
+
     for directory, dirs, files in os.walk(root, followlinks=False):
-        dirs[:] = sorted(
-            d for d in dirs if d not in SKIP and not (Path(directory) / d).is_symlink()
-        )
-        rel_dir = Path(directory).relative_to(root)
+        current = Path(directory)
+        if current != root and (current / ".git").exists():
+            excluded(
+                "submodule-boundary",
+                current,
+                "Nested Git repository/worktree boundary excluded; profile it independently.",
+            )
+            dirs[:] = []
+            continue
+        safe_dirs = []
+        for dirname in sorted(dirs):
+            if dirname in SKIP:
+                continue
+            candidate = current / dirname
+            try:
+                redirected = candidate.is_symlink() or candidate.resolve() != candidate.absolute()
+            except (OSError, RuntimeError):
+                redirected = True
+            if redirected:
+                excluded(
+                    "manifest-directory-redirect",
+                    candidate,
+                    "Redirected directory excluded before traversal.",
+                )
+            else:
+                safe_dirs.append(dirname)
+        dirs[:] = safe_dirs
+        rel_dir = current.relative_to(root)
         if len(rel_dir.parts) > 8:
+            excluded(
+                "scan-depth-limit",
+                current,
+                "Manifest scan stops after 8 directories; configure a shallower project root.",
+            )
             dirs[:] = []
             continue
         for name in sorted(files):
-            p = Path(directory) / name
+            path = current / name
             workflow = rel_dir.parts[:2] == (".github", "workflows")
-            config = bool(
-                re.match(
-                    r"^(?:vite|vitest|playwright|jest|eslint|next|nuxt|svelte|tailwind|webpack|tsconfig|ruff|pytest|tox)\.(?:.*\.)?(?:json|[cm]?[jt]s|toml|ini)$",
-                    name,
-                )
-            )
-            if not (name in names or workflow or config or name.endswith((".tf", ".csproj"))):
+            if not (adapters.is_manifest(name) or workflow):
                 continue
-            if p.is_symlink() or p.stat().st_size > (
-                LOCK_LIMIT if name in LOCK_NAMES else MANIFEST_LIMIT
-            ):
+            if path.is_symlink() or path.resolve() != path.absolute():
+                excluded("manifest-symlink", path, "Symlinked manifest excluded.")
+                continue
+            try:
+                size = path.stat().st_size
+            except OSError:
+                excluded("manifest-unreadable", path, "Manifest metadata unavailable.")
+                continue
+            if size > (LOCK_LIMIT if name in LOCK_NAMES else MANIFEST_LIMIT):
+                excluded(
+                    "manifest-too-large",
+                    path,
+                    "Manifest size limit exceeded; narrow the project root or split this manifest.",
+                )
                 continue
             count += 1
             if count > 2000:
-                raise ValueError("manifest limit exceeded (2000); no source scan performed")
-            yield p
+                raise ValueError(
+                    "manifest limit exceeded (2000); choose a narrower repository root or exclude generated manifests; no source scan performed"
+                )
+            yield path
 
 
 def manifest_fingerprint(root: Path, profile: Profile | None = None) -> dict[str, str]:
@@ -267,6 +268,7 @@ def manifest_fingerprint(root: Path, profile: Profile | None = None) -> dict[str
     Always rediscover paths: reusing a previous profile would miss a new lockfile.
     The profile argument is accepted for callers already holding a profile.
     """
+    root = Path(root).resolve()
     result = {}
     for path in manifest_paths(root):
         try:
@@ -317,6 +319,7 @@ def _without_build_comments(text):
 
 
 def profile_repo(root: Path, *, paths=None) -> Profile:
+    root = Path(root).resolve()
     p = Profile()
     feature_slots: dict[str, set[str]] = {}
     component_keys = set()
@@ -360,6 +363,8 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
                 )
             ):
                 constraint = "^" + version
+            elif ecosystem == "julia" and kind == "declaration":
+                constraint = adapters.julia_constraint(version)
             source["constraint"] = constraint
         component = {
             "name": package,
@@ -536,7 +541,7 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
             add("solidity", version)
             add("solc", version, kind="runtime")
 
-    for path in manifest_paths(root) if paths is None else paths:
+    for path in manifest_paths(root, diagnostics=p.diagnostics) if paths is None else paths:
         relative = path.relative_to(root).as_posix()
         p.manifests.append(relative)
         try:
@@ -548,6 +553,10 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
                 continue
             text = raw.decode("utf-8-sig")
             name = path.name
+            adapter = adapters.adapter_for(name)
+            if adapter is not None and adapter.extract is not None:
+                for observation in adapter.extract(text):
+                    add(**asdict(observation))
             if name in {"package-lock.json", "npm-shrinkwrap.json"}:
                 data = json.loads(text)
                 for location, spec in data.get("packages", {}).items():
@@ -762,27 +771,21 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
                     add(tool)
         except (ValueError, TypeError, AttributeError, OSError, KeyError, ET.ParseError) as exc:
             p.warnings.append(f"{relative}: {type(exc).__name__}")
+            p.diagnostics.append(
+                {"code": "manifest-parse-error", "path": relative, "message": type(exc).__name__}
+            )
 
     def slot(name, tech):
         p.slots.append(name)
         p.slot_technologies.setdefault(name, []).append(tech)
 
     for tech in sorted(p.technologies):
-        if tech in {
-            "javascript",
-            "typescript",
-            "python",
-            "rust",
-            "go",
-            "ruby",
-            "php",
-            "java",
-            "dotnet",
-            "solidity",
-        }:
+        if tech in adapters.LANGUAGES:
             slot("language-" + tech, tech)
         if tech in TECH_SLOTS:
             slot(TECH_SLOTS[tech], tech)
+        if tech in adapters.TECH_SLOTS:
+            slot(adapters.TECH_SLOTS[tech], tech)
         for domain in DOMAIN_SLOTS.get(tech, ()):
             slot(domain, tech)
         if any(
@@ -800,23 +803,19 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
     if {"eslint", "ruff", "mypy", "typescript"} & p.technologies.keys():
         for tech in sorted({"eslint", "ruff", "mypy", "typescript"} & p.technologies.keys()):
             slot("static-analysis", tech)
-    languages = {
-        "javascript",
-        "typescript",
-        "python",
-        "rust",
-        "go",
-        "ruby",
-        "php",
-        "java",
-        "dotnet",
-        "solidity",
-    }
+    languages = set(adapters.LANGUAGES)
     general_inputs = {
         "unit-testing": languages | {"vitest", "jest", "pytest", "testing-library", "unittest"},
         "build": languages
         | {
             "node",
+            "cmake",
+            "meson",
+            "conan",
+            "mix",
+            "renv",
+            "swift-tools",
+            "flutter",
             "vite",
             "webpack",
             "npm",

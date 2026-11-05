@@ -1,0 +1,14 @@
+{
+  "repository": "apple/swift-argument-parser",
+  "commit": "38ca4eceb349155836701b88da3e0986eb9d1e1c",
+  "original_path": "Package.swift",
+  "manifest_url": "https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Package.swift",
+  "manifest_sha256": "4eae0e28d24671d6ab75c2c7a0dd0326e6d48f8785510a3e403886fe8cf17d88",
+  "license_spdx": "Apache-2.0",
+  "github_reported_license_spdx": "Apache-2.0",
+  "license_review": null,
+  "license_original_path": "LICENSE.txt",
+  "license_url": "https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt",
+  "license_sha256": "770af8291f708538d8ff885a0bbc4e045cd700531741c4f99528d435c14d7f55",
+  "metadata_source": "https://api.github.com/repos/apple/swift-argument-parser/license?ref=38ca4eceb349155836701b88da3e0986eb9d1e1c"
+}

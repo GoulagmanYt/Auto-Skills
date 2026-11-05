@@ -1,0 +1,299 @@
+{
+  "auto_skills_version": "1.4.0a1",
+  "codex_version": "0.166.0",
+  "competitors": {
+    "autoskills": {
+      "adapter": "autoskills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+      "name": "midudev/autoskills",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+      "npm_package": "autoskills",
+      "npm_version": "0.4.1",
+      "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+      "source_repository": "https://github.com/midudev/autoskills.git"
+    },
+    "skillradar": {
+      "adapter": "skillradar-router-bundle",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+      "name": "SkillRadar pinned plugin router bundle (project-local)",
+      "native_codex_support": true,
+      "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+      "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+      "source_tag": "v0.5.0"
+    },
+    "vercel-skills": {
+      "adapter": "vercel-skills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+      "name": "Vercel skills installer with React guidance",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+      "npm_package": "skills",
+      "npm_version": "1.7.6",
+      "skill": "vercel-react-best-practices",
+      "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+    }
+  },
+  "competitors_sha256": "d0150b0f6d1083433e8144dbca1bd96600c373754e6bc81e4bf402417093bc94",
+  "created_at": "2026-11-05T06:14:05.031710+00:00",
+  "expected_codex_version": "0.166.0",
+  "harness_sha256": "565e83cc474e5abdc064e50447ba76d398c44d53722b0238ae5f9c7c898872f1",
+  "mode": "live",
+  "model": "gpt-6.1-sol",
+  "native_platform_flags": [
+    "-c",
+    "windows.sandbox=\"elevated\""
+  ],
+  "plan": [
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    }
+  ],
+  "platform": "Windows",
+  "policy": {
+    "approval_policy": "never",
+    "child_environment": "parent CODEX_* orchestration context removed except CODEX_HOME; authentication variables retained",
+    "confounds": [
+      "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
+      "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
+      "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+      "Autoskills detects the frontend workspace and installs its own pinned-registry recommendations; this adapter covers only that fixture.",
+      "SkillRadar uses an unmodified project-local router bundle with an offline pinned registry; it is not a native marketplace install and may not activate on these coding prompts.",
+      "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
+      "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
+      "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
+      "Three small synthetic fixes cannot establish general quality, cost or latency superiority."
+    ],
+    "external_skills": "explicitly disabled except project-local treatment skills",
+    "memory": "disabled equally",
+    "native_user_config": "ignored except the configured Windows sandbox backend; authentication remains in the original CODEX_HOME",
+    "ordering": "deterministic arm rotation between repetitions; no independent cache reset",
+    "plugins_mcp": "disabled equally in every runnable arm",
+    "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
+    "sandbox": "workspace-write",
+    "timing": "elapsed includes fixture creation, setup, inference and final validation; stages also separate",
+    "usage": "native completion events; missing fields remain null; no cost estimate",
+    "validators": "outside the agent worktree; immutable source hashes checked before/after"
+  },
+  "public_tasks_sha256": "b1803eeb68afc1dddf69757589201d1f5db70131722f860dac457d8c99466a0d",
+  "python_version": "3.13.17",
+  "reasoning_effort": "low",
+  "repetitions": 1,
+  "runs": [
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.045474,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.058187,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 52.245834,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 51.135755,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 11,
+        "item.started": 8,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 6,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.690077,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 195712,
+        "events": 1,
+        "input_tokens": 220468,
+        "output_tokens": 1476,
+        "reasoning_output_tokens": 8,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    }
+  ],
+  "schema_version": 1,
+  "summary": [
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": 195712,
+        "median": 195712,
+        "min": 195712,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 52.245834,
+        "median": 52.245834,
+        "min": 52.245834,
+        "n": 1
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": 220468,
+        "median": 220468,
+        "min": 220468,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 1476,
+        "median": 1476,
+        "min": 1476,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 8,
+        "median": 8,
+        "min": 8,
+        "n": 1
+      },
+      "runs": 1,
+      "statuses": {
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "midi-zero-velocity",
+      "unavailable": 0
+    }
+  ],
+  "timeout_seconds": 120.0,
+  "work_root": "explicit parent directory"
+}

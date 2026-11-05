@@ -4,7 +4,7 @@
 
 Auto-Skills profiles dependency manifests, selects a guide per role and workspace, pins the results, and refreshes affected guides when a manifest changes. A React frontend keeps its own guidance while a Rust backend sees its own stack and portable shared guides.
 
-**Status: 1.3.0a1 alpha.** Initial native compatibility is tested with Codex CLI **0.166.0**. [Français](README.fr.md) · [Usage](docs/usage.md) · [Compatibility](docs/compatibility.md) · [Release evidence](docs/public-alpha.md)
+**Status: 1.4.0a1 alpha.** Initial native compatibility is tested with Codex CLI **0.166.0**. [Français](README.fr.md) · [Usage](docs/usage.md) · [Coverage](docs/coverage.md) · [Release evidence](docs/public-alpha.md)
 
 ## Try it
 
@@ -34,6 +34,12 @@ codex -C ./project/backend
 `propose` performs no project writes. `context` explains an installed, verified lock without changing files: active/excluded guides, reasons, provenance, fallback gaps and an estimated catalog cost. The estimate is not a billing measurement.
 
 Offline mode uses bundled guides and local Python tools. Normal online provisioning can discover pinned upstream guides and download the optional tools listed in the proposal. Read the plan before choosing that behavior.
+
+## Any repository, explicit limits
+
+Application, documentation and unknown repositories have distinct plans. Unsupported projects remain usable with portable guidance and no speculative tool downloads. C/C++/CMake/Meson, Flutter/Dart, Swift, Elixir, R and Julia now have static adapters alongside the existing ecosystems. A README never turns unknown application files into documentation evidence.
+
+Declare custom workspace boundaries, intended versions or repository kind in [auto-skills.toml](docs/configuration.md). Manual inputs retain provenance and do not erase observed manifest/lock evidence. [Coverage and parser limits](docs/coverage.md).
 
 ## What you can verify
 

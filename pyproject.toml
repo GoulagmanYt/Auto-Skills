@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "codex-repo-auto-bootstrap"
-version = "1.3.0a1"
+version = "1.4.0a1"
 description = "Autonomous repository profiling, skill selection and token tooling for Codex CLI"
 requires-python = ">=3.11"
 dependencies = []
@@ -23,6 +23,10 @@ classifiers = [
 
 [project.scripts]
 codex-auto-bootstrap = "codex_bootstrap.cli:main"
+
+[project.urls]
+Repository = "https://github.com/GoulagmanYt/Auto-Skills"
+Issues = "https://github.com/GoulagmanYt/Auto-Skills/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

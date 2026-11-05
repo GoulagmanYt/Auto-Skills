@@ -64,7 +64,7 @@ def slot_inputs(profile, slot, candidate=None):
     if candidate is not None:
         technologies.update(candidate.compatibility)
         technologies.update(getattr(candidate, "technologies", []))
-    return {
+    result = {
         "technologies": {key: profile.technologies.get(key) for key in sorted(technologies)},
         "resolved_versions": {
             key: getattr(profile, "resolved_versions", {}).get(key, [])
@@ -78,6 +78,22 @@ def slot_inputs(profile, slot, candidate=None):
         if candidate is not None and getattr(candidate, "required_tools", [])
         else [],
     }
+    manual = getattr(profile, "manual_configuration", {})
+    if manual:
+        # Hash only the relevant explicit intent: unrelated sibling declarations
+        # must not invalidate this scope's pinned skills.
+        result["manual"] = {
+            "path": "auto-skills.toml",
+            "technologies": {
+                key: value
+                for key, value in manual.get("technologies", {}).items()
+                if key in technologies
+            },
+            "slot": slot if slot in manual.get("slots", []) else None,
+        }
+        if "kind" in manual:
+            result["manual"]["kind"] = manual["kind"]
+    return result
 
 
 def load_candidate(root, entry, lock):

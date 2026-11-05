@@ -18,8 +18,10 @@ htmlcov/
 *.local.*
 reports/private/
 reports/benchmarks/raw/
+reports/benchmarks/recovery-measured/
 .benchmark-work/
 dist-alpha/
+dist-coverage/
 dist-ci/
 docs/superpowers/
 reports/ci-*/

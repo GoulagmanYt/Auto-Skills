@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_on": "2026-11-04",
+  "reviewed_on": "2026-11-05",
   "competitors": {
     "vercel-skills": {
       "name": "Vercel skills installer with React guidance",
@@ -13,28 +13,36 @@
       "source_repository": "https://github.com/vercel-labs/agent-skills.git",
       "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
       "skill": "vercel-react-best-practices",
-      "applicable_tasks": ["frontend-reset"],
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
       "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection."
     },
     "autoskills": {
       "name": "midudev/autoskills",
-      "adapter": null,
-      "native_codex_support": "not independently verified at the pinned package",
+      "adapter": "autoskills",
+      "native_codex_support": true,
       "npm_package": "autoskills",
       "npm_version": "0.4.1",
       "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
       "source_repository": "https://github.com/midudev/autoskills.git",
       "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
-      "unavailable_reason": "No audited adapter that pins the recommendation registry and confines every install/cache write to the temporary project is implemented; no equivalence or native Codex support claim is made."
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter."
     },
     "skillradar": {
-      "name": "changchangidea-oss/SkillRadar",
-      "adapter": null,
+      "name": "SkillRadar pinned plugin router bundle (project-local)",
+      "adapter": "skillradar-router-bundle",
       "native_codex_support": true,
       "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
       "source_tag": "v0.5.0",
       "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
-      "unavailable_reason": "Native Codex plugin support is documented, but its marketplace/plugin installation and task routing require a separate integration policy; this harness disables plugins equally in every runnable arm and has no equivalent project-local adapter."
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing."
     }
   }
 }

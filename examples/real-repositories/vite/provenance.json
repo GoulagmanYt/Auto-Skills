@@ -1,0 +1,14 @@
+{
+  "repository": "vitejs/vite",
+  "commit": "483512809bbdb399d66be59af0f5aeb01ccb7181",
+  "original_path": "packages/vite/package.json",
+  "manifest_url": "https://github.com/vitejs/vite/blob/483512809bbdb399d66be59af0f5aeb01ccb7181/packages/vite/package.json",
+  "manifest_sha256": "1678f17b24af0a7ffa6f7b98e089ca57b331624074b9e72b08b7d59c8f34780e",
+  "license_spdx": "MIT",
+  "github_reported_license_spdx": "MIT",
+  "license_review": null,
+  "license_original_path": "LICENSE",
+  "license_url": "https://github.com/vitejs/vite/blob/483512809bbdb399d66be59af0f5aeb01ccb7181/LICENSE",
+  "license_sha256": "692057af3d664cbb79ac38293eb50aa3c4987f8182e2a440136e59e08f1b4a54",
+  "metadata_source": "https://api.github.com/repos/vitejs/vite/license?ref=483512809bbdb399d66be59af0f5aeb01ccb7181"
+}

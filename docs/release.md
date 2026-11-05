@@ -1,6 +1,6 @@
 # Release procedure
 
-The initial prerelease is `1.3.0a1`. Keep pyproject.toml and codex_bootstrap.__version__ consistent. Version tags are `v<package-version>`.
+The current prerelease is `1.4.0a1`. Keep pyproject.toml and codex_bootstrap.__version__ consistent. Version tags are `v<package-version>`.
 
 ```sh
 python -m unittest discover -s tests -v
