@@ -1,4 +1,6 @@
 import json
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,7 +29,7 @@ class InstallerTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
-        self.home = Path(self.tmp.name)
+        self.home = Path(self.tmp.name).resolve()
         self.real = self.home / "native-codex"
         self.real.write_bytes(b"native executable")
         self.profile = self.home / ".profile"
@@ -45,6 +47,86 @@ class InstallerTests(unittest.TestCase):
             package_install=lambda base, source: self.real,
             **kwargs,
         )
+
+    def ancestor_alias_home(self):
+        parent = self.home / "canonical-parent"
+        parent.mkdir()
+        home = parent / "home"
+        home.mkdir()
+        alias = self.home / "ancestor-alias"
+        if os.name == "nt":
+            result = subprocess.run(
+                ["cmd", "/c", "mklink", "/J", str(alias), str(parent)],
+                capture_output=True,
+                check=False,
+            )
+            if result.returncode:
+                self.skipTest("directory junctions unavailable")
+            self.addCleanup(alias.rmdir)
+        else:
+            try:
+                alias.symlink_to(parent, target_is_directory=True)
+            except OSError:
+                self.skipTest("directory symlinks unavailable")
+            self.addCleanup(alias.unlink)
+        return alias / "home", home
+
+    def test_install_maps_profile_from_requested_ancestor_alias_to_canonical_home(self):
+        requested, canonical = self.ancestor_alias_home()
+        profile = canonical / ".profile"
+        profile.write_bytes(self.original)
+        options = dict(
+            home=requested,
+            real=self.real,
+            source=self.home,
+            platform="posix",
+            profiles=[requested / ".profile"],
+            package_install=lambda base, source: self.real,
+        )
+        installer.install(**options)
+        installer.install(**options)
+        self.assertFalse(installer.uninstall(home=requested, platform="posix")["conflicts"])
+        self.assertEqual(profile.read_bytes(), self.original)
+        self.assertFalse((canonical / installer.BASE).exists())
+
+    def test_scanner_and_link_target_accept_only_ancestor_aliases(self):
+        requested, canonical = self.ancestor_alias_home()
+        base = requested / "owned-installation"
+        (base / "venv/lib").mkdir(parents=True)
+        (base / "venv/lib/package.py").write_bytes(b"owned")
+        files, links, _ = installer._scan_tree(base)
+        self.assertEqual(set(files), {"venv/lib/package.py"})
+        self.assertEqual(links, {})
+        target = installer._link_target(base, base / "venv/lib64", "lib")
+        self.assertEqual(target, canonical / "owned-installation/venv/lib")
+        with self.assertRaises(ValueError):
+            installer._link_target(base, base / "venv/lib64", str(self.home))
+
+    def test_ancestor_alias_does_not_allow_redirected_owned_root_or_children(self):
+        requested, canonical = self.ancestor_alias_home()
+        outside = self.home / "outside-owned-tree"
+        outside.mkdir()
+        (outside / "keep.txt").write_bytes(b"untouched")
+        base = canonical / "owned-installation"
+        base.mkdir()
+        redirect = base / "venv"
+        if os.name == "nt":
+            result = subprocess.run(
+                ["cmd", "/c", "mklink", "/J", str(redirect), str(outside)],
+                capture_output=True,
+                check=False,
+            )
+            if result.returncode:
+                self.skipTest("directory junctions unavailable")
+            self.addCleanup(redirect.rmdir)
+        else:
+            redirect.symlink_to(outside, target_is_directory=True)
+            self.addCleanup(redirect.unlink)
+        with self.assertRaises(ValueError):
+            installer._scan_tree(requested / "owned-installation")
+        with self.assertRaises(ValueError):
+            installer._scan_tree(requested / "owned-installation/venv")
+        self.assertEqual((outside / "keep.txt").read_bytes(), b"untouched")
 
     def test_update_retains_original_bytes_and_uninstall_is_idempotent(self):
         record = self.install()

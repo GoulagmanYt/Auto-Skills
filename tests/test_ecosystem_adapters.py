@@ -1,5 +1,4 @@
 import json
-import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -178,10 +177,13 @@ class EcosystemAdapterTests(unittest.TestCase):
         self.assertNotIn("c", profile.technologies)
 
     def test_relative_repository_paths_keep_manifest_provenance_and_fingerprints(self):
+        from contextlib import chdir
+
         self.write("Project.toml", '[compat]\njulia = "1.10"')
-        relative = Path(os.path.relpath(self.root))
-        self.assertEqual(profile_repo(relative).technologies.get("julia"), "1.10")
-        self.assertEqual(set(manifest_fingerprint(relative)), {"Project.toml"})
+        with chdir(self.root.parent):
+            relative = Path(self.root.name)
+            self.assertEqual(profile_repo(relative).technologies.get("julia"), "1.10")
+            self.assertEqual(set(manifest_fingerprint(relative)), {"Project.toml"})
 
     def test_malformed_conan_manifest_does_not_abort_other_profiles(self):
         self.write("native/conanfile.txt", "not a valid section\n")

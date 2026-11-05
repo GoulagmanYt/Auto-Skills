@@ -29,6 +29,7 @@ def git_root(cwd):
 
 
 def verify_lock(root: Path):
+    root = Path(root).resolve()
     lock_path = confined(root, ".codex/skills-lock.json")
     lock = json.loads(lock_path.read_text(encoding="utf-8"))
     if lock.get("schema_version") != 1 or not isinstance(lock.get("files"), dict):

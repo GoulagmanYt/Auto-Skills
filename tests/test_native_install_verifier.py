@@ -4,7 +4,7 @@ import os
 import subprocess
 import tempfile
 import unittest
-from contextlib import redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -64,6 +64,19 @@ class NativeInstallVerifierTests(unittest.TestCase):
                 main(["--codex", "unavailable-native-codex"])
         self.assertEqual(raised.exception.code, 1)
         self.assertIn("no skip", stderr.getvalue())
+
+    def test_native_checks_receive_canonical_temporary_directory(self):
+        canonical = Path.cwd() / "canonical-temporary-directory"
+        with (
+            patch("tools.verify_native_install.shutil.which", return_value="native-codex"),
+            patch("tools.verify_native_install.tempfile.TemporaryDirectory") as temporary,
+            patch("tools.verify_native_install.Path.resolve", return_value=canonical),
+            patch("tools.verify_native_install.native_check", return_value={}) as verify,
+            redirect_stdout(io.StringIO()),
+        ):
+            temporary.return_value.__enter__.return_value = "aliased-temporary-directory"
+            main([])
+        self.assertEqual(verify.call_args.args[2], canonical)
 
     def test_clean_home_environment_removes_auth_and_source_injection(self):
         with patch.dict(

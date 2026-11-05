@@ -11,6 +11,52 @@ from codex_bootstrap.workspaces import workspace_profiles
 
 
 class RepositoryBoundaryTests(unittest.TestCase):
+    def make_alias(self, link, target):
+        if os.name != "nt":
+            link.symlink_to(target, target_is_directory=True)
+            return
+        shell = shutil.which("powershell") or shutil.which("pwsh")
+        if not shell:
+            self.skipTest("PowerShell junction creation unavailable")
+        env = {
+            **os.environ,
+            "AUTO_SKILLS_JUNCTION_LINK": str(link),
+            "AUTO_SKILLS_JUNCTION_TARGET": str(target),
+        }
+        result = subprocess.run(
+            [shell, "-NoProfile", "-NonInteractive", "-Command", "-"],
+            input='$ErrorActionPreference="Stop"\nNew-Item -ItemType Junction -Path $env:AUTO_SKILLS_JUNCTION_LINK -Target $env:AUTO_SKILLS_JUNCTION_TARGET | Out-Null\n',
+            env=env,
+            text=True,
+            capture_output=True,
+            timeout=30,
+        )
+        if result.returncode:
+            self.skipTest("junction creation unavailable")
+
+    def test_explicit_root_under_ancestor_alias_can_verify_its_lock(self):
+        from codex_bootstrap.bootstrap import bootstrap, verify_lock
+
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            physical = base / "physical"
+            root = physical / "repo"
+            root.mkdir(parents=True)
+            subprocess.run(
+                ["git", "init", "-q", "--template=", str(root)], check=True, capture_output=True
+            )
+            (root / "Cargo.toml").write_text('[package]\nname="example"\nversion="0.1.0"')
+            alias = base / "alias"
+            self.make_alias(alias, physical)
+            try:
+                expected = bootstrap(alias / "repo", offline=True)
+                self.assertEqual(verify_lock(alias / "repo"), expected)
+            finally:
+                if alias.is_symlink():
+                    alias.unlink()
+                else:
+                    alias.rmdir()
+
     def test_redirected_directory_does_not_import_foreign_manifest(self):
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)

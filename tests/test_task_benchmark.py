@@ -288,8 +288,11 @@ class TaskBenchmarkTests(unittest.TestCase):
                 str(self.root / "blocked"),
             ]
         )
-        with patch.object(
-            bench.subprocess, "run", side_effect=AssertionError("must not launch native calls")
+        with (
+            patch.object(bench.platform, "system", return_value="Windows"),
+            patch.object(
+                bench.subprocess, "run", side_effect=AssertionError("must not launch native calls")
+            ),
         ):
             report = bench.run_benchmark(args)
         self.assertEqual(report["mode"], "blocked")

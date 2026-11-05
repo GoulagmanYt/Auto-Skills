@@ -121,7 +121,26 @@ def _link_path(base, relative):
     return confined(base, relative.parent) / relative.name
 
 
+def _canonical_owned_root(base):
+    """Resolve explicit entry-point ancestors while preserving the owned root node."""
+    base = Path(base).absolute()
+    base = base.parent.resolve() / base.name
+    if base.is_symlink() or (base.exists() and base.resolve() != base):
+        raise ValueError("redirected installation root")
+    return base
+
+
 def _link_target(base, path, raw):
+    requested_base = Path(base).absolute()
+    base = _canonical_owned_root(requested_base)
+    path = Path(path).absolute()
+    if path.is_relative_to(requested_base):
+        relative = path.relative_to(requested_base)
+    elif path.is_relative_to(base):
+        relative = path.relative_to(base)
+    else:
+        raise ValueError("installation link is outside the owned root")
+    path = _link_path(base, relative)
     try:
         target = (path.parent / raw).resolve(strict=True)
     except (OSError, RuntimeError) as exc:
@@ -139,8 +158,7 @@ def _link_target(base, path, raw):
 
 def _scan_tree(base, *, validate_links=True, include_record=False):
     files, links, directories = {}, {}, {}
-    if base.is_symlink() or (base.exists() and base.resolve() != base):
-        raise ValueError("redirected installation root")
+    base = _canonical_owned_root(base)
     if not base.exists():
         return files, links, directories
     pending = [base]
@@ -306,7 +324,8 @@ def install(
     package_install=None,
 ):
     """Install or update, retaining the first installation's exact original snapshots."""
-    home = Path(home or Path.home()).resolve()
+    requested_home = Path(home or Path.home()).absolute()
+    home = requested_home.resolve()
     platform = platform or os.name
     base = confined(home, BASE)
     record = confined(base, "installation.json")
@@ -334,9 +353,12 @@ def install(
     profile_paths = {}
     for candidate in chosen_profiles:
         absolute = Path(candidate).absolute()
-        if not absolute.is_relative_to(home):
+        if absolute.is_relative_to(requested_home):
+            relative = absolute.relative_to(requested_home).as_posix()
+        elif absolute.is_relative_to(home):
+            relative = absolute.relative_to(home).as_posix()
+        else:
             raise ValueError("shell profile must be inside the selected home")
-        relative = absolute.relative_to(home).as_posix()
         profile_paths[relative] = confined(home, relative)
     entries = dict((previous or {}).get("profiles", {}))
     for relative, path in profile_paths.items():

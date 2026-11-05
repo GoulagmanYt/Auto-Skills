@@ -335,7 +335,9 @@ def main(argv=None):
     codex = str(Path(codex).resolve())
     try:
         with tempfile.TemporaryDirectory(prefix="auto-skills-native-") as temporary:
-            directory = Path(temporary)
+            # macOS exposes its temporary directory through the /var alias.
+            # Keep home, repository, venv and native catalog paths canonical.
+            directory = Path(temporary).resolve()
             if args.artifact:
                 records = []
                 artifacts = []
