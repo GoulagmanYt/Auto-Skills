@@ -147,7 +147,7 @@ def delta(before, after):
 
 def markdown_report(record, output):
     lines = [
-        "# Propositions et mesure du contexte : Piano LED / OSC-Midi",
+        "# Propositions et mesure du contexte : Piano-LED-Visualizer / RTP-OSC-Midi-tool",
         "",
         "Les dépôts originaux n'ont pas été modifiés. Les skills ont été installés dans des copies temporaires des manifestes, avec les ressources externes épinglées. Aucun appel à un modèle.",
         "",

@@ -2,7 +2,7 @@
 
 Two measurements answer different questions:
 
-- Native startup inspection measures exposed catalog/instructions before inference. Historical anonymous results are in reports/startup-context.json. They predate the additional Piano coverage and are not current whole-session savings.
+- Native startup inspection measures exposed catalog/instructions before inference. Historical results for **Piano-LED-Visualizer** and **RTP-OSC-Midi-tool** are in [the startup measurement report](../reports/startup-context.md), with [per-workspace data](../reports/startup-context.json). They predate the expanded MIDI/LED/GPIO/Raspberry Pi coverage and are not current whole-session savings.
 - Complete-task benchmarks run the same task and independent validator against multiple conditions. They record native usage, cached input when available, elapsed time, success, failure and timeouts per run.
 
 The benchmark runner, public synthetic tasks and pinned competitor manifest live in tools/benchmark_tasks.py, examples/benchmark and benchmarks/competitors.json. Use `--help` for exact commands. Start with a dry run, then use an explicit model and repetitions. Inference uses the authenticated Codex CLI and consumes normal account usage.

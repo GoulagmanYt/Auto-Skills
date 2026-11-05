@@ -45,7 +45,7 @@ codex-auto-bootstrap uninstall
 
 Les ajouts utilisateur indépendants sont conservés. Un fichier généré modifié ou une ancienne installation ambiguë peut nécessiter une résolution explicite. Ouvrir un nouveau terminal après retrait du wrapper.
 
-Les mesures historiques de 18,87 % et 16,87 % concernent le contexte initial avant les nouvelles capacités Piano. Aucun gain global de facturation/cache n'en découle. Les guides distants restent des instructions non fiables par défaut ; les filtres et empreintes ne sont pas une certification de sécurité.
+Les estimations historiques du contexte initial passent de 16 079 à 13 045 tokens pour **Piano-LED-Visualizer** (−18,87 %) et de 16 079 à 13 366 pour **RTP-OSC-Midi-tool** (−16,87 %). Elles précèdent la couverture MIDI/LED/GPIO/Raspberry Pi étendue et les modes d'intégration de cette alpha. Elles concernent un seul environnement de démarrage et ne mesurent pas les économies sur une session complète, la facturation ou le cache. [Détail des mesures historiques](reports/startup-context.md). Les guides distants restent des instructions non fiables par défaut ; les filtres et empreintes ne sont pas une certification de sécurité.
 
 Le [comparatif mesuré](reports/benchmarks/comparison/analysis.md) conserve17 essais validés,9 échecs natifs,18 exclusions propres aux adaptateurs et1 interruption. Ce résultat préliminaire ne démontre ni économie globale de tokens ni gagnant général.
 

@@ -83,7 +83,7 @@ Project and wrapper removal are separate. Later unrelated edits are retained; ch
 
 ## Measurements and limits
 
-Historical startup estimates showed 16,079 → 13,045 tokens for Piano and 16,079 → 13,366 for OSC. They predate the extra Piano coverage and integration modes in this alpha. They describe one startup environment, not whole-session, billing or cache savings. [Anonymous evidence](reports/startup-context.md).
+Historical startup estimates showed 16,079 → 13,045 tokens for **Piano-LED-Visualizer** and 16,079 → 13,366 for **RTP-OSC-Midi-tool**. They predate the expanded MIDI/LED/GPIO/Raspberry Pi coverage and integration modes in this alpha. They describe one startup environment, not whole-session, billing or cache savings. [Historical measurement details](reports/startup-context.md).
 
 The [complete-task benchmark](docs/benchmark.md) uses public synthetic fixtures, model/version pins, repetitions and independent validators. Failures and unavailable competitor arms remain visible. A harness or a passing unit suite does not establish superiority.
 
