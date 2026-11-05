@@ -17,6 +17,12 @@ Raw model output may contain local paths and must stay outside public artifacts.
 
 The original-project startup script defaults to the user's cache `private-measurements` directory, outside the source tree. Its detailed outputs include target paths and must be explicitly anonymized before publication.
 
-## Current execution result
+## Historical blocked preflight
 
 The native preflight did not modify its MIDI fixture and failed independent validation despite exit zero. Diagnostic responses reported read-only execution with workspace-write requested; the precise cause is unresolved. A repeated task matrix would not be meaningful under this preflight failure. The [blocked plan](../reports/benchmarks/blocked/report.md) contains 45 unattempted rows, explicit unavailable adapters and retained actual preflight usage. It makes no comparative performance claim.
+
+## Measured recovery run
+
+Execution recovered after preserving the configured Windows sandbox backend and isolating child process context, while retaining workspace-write. [The exploratory comparison](../reports/benchmarks/comparison/analysis.md) accounts for45 slots:17 validated passes,9 native failures,18 harness adapter/task exclusions and1 interrupted/unknown slot. These exclusions do not establish missing upstream product capabilities. All original34 run objects are preserved; seven remaining original requests completed without replaying failures.
+
+Median total/inference/setup timing and token metrics use validated successes only. Separate all-attempt/failure timing and reported usage totals remain available. Missing usage is unknown, not zero. Earlier native failure causes are unresolved, and source/startup/derivation receipts differ. The small interrupted dataset does not establish savings or a general winner.

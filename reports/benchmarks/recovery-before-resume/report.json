@@ -1,0 +1,3044 @@
+{
+  "auto_skills_version": "1.4.0a1",
+  "bootstrap_source_sha256": "19f23801db259a4c384b986cf5121e320861df7cf74faba193228e32f8a3802a",
+  "codex_version": "0.166.0",
+  "competitors": {
+    "autoskills": {
+      "adapter": "autoskills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+      "name": "midudev/autoskills",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+      "npm_package": "autoskills",
+      "npm_version": "0.4.1",
+      "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+      "source_repository": "https://github.com/midudev/autoskills.git"
+    },
+    "skillradar": {
+      "adapter": "skillradar-router-bundle",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+      "name": "SkillRadar pinned plugin router bundle (project-local)",
+      "native_codex_support": true,
+      "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+      "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+      "source_tag": "v0.5.0"
+    },
+    "vercel-skills": {
+      "adapter": "vercel-skills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+      "name": "Vercel skills installer with React guidance",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+      "npm_package": "skills",
+      "npm_version": "1.7.6",
+      "skill": "vercel-react-best-practices",
+      "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+    }
+  },
+  "competitors_sha256": "d0150b0f6d1083433e8144dbca1bd96600c373754e6bc81e4bf402417093bc94",
+  "created_at": "2026-11-05T06:16:42.819830+00:00",
+  "expected_codex_version": "0.166.0",
+  "harness_sha256": "c2f098aff79f6dda2a376e359ebb04370a452cf29a48f839e5adb97af3d5d181",
+  "mode": "live",
+  "model": "gpt-6.1-sol",
+  "native_platform_flags": [
+    "-c",
+    "windows.sandbox=\"elevated\""
+  ],
+  "plan": [
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    }
+  ],
+  "platform": "Windows",
+  "policy": {
+    "approval_policy": "never",
+    "child_environment": "parent CODEX_* orchestration context removed except CODEX_HOME; authentication variables retained",
+    "confounds": [
+      "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
+      "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
+      "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+      "Autoskills detects the frontend workspace and installs its own pinned-registry recommendations; this adapter covers only that fixture.",
+      "SkillRadar uses an unmodified project-local router bundle with an offline pinned registry; it is not a native marketplace install and may not activate on these coding prompts.",
+      "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
+      "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
+      "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
+      "Three small synthetic fixes cannot establish general quality, cost or latency superiority."
+    ],
+    "external_skills": "explicitly disabled except project-local treatment skills",
+    "memory": "disabled equally",
+    "native_user_config": "ignored except the configured Windows sandbox backend; authentication remains in the original CODEX_HOME",
+    "ordering": "deterministic arm rotation between repetitions; no independent cache reset",
+    "plugins_mcp": "disabled equally in every runnable arm",
+    "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
+    "sandbox": "workspace-write",
+    "timing": "elapsed includes fixture creation, setup, inference and final validation; stages also separate",
+    "usage": "native completion events; missing fields remain null; no cost estimate",
+    "validators": "outside the agent worktree; immutable source hashes checked before/after"
+  },
+  "public_tasks_sha256": "b1803eeb68afc1dddf69757589201d1f5db70131722f860dac457d8c99466a0d",
+  "python_version": "3.13.17",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "runs": [
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.046587,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.055001,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 43.552207,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 43.202368,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 10,
+        "item.started": 7,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 5,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 129024,
+        "events": 1,
+        "input_tokens": 151964,
+        "output_tokens": 1188,
+        "reasoning_output_tokens": 13,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.04509,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.053998,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 57.647217,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 56.596428,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.638041,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 204288,
+        "events": 1,
+        "input_tokens": 230450,
+        "output_tokens": 1504,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.039887,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.035505,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 84.485974,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 84.126303,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 12,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 397696,
+        "events": 1,
+        "input_tokens": 436704,
+        "output_tokens": 1753,
+        "reasoning_output_tokens": 74,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.037013,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.035933,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 87.066054,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 85.152229,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 1.463753,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 326016,
+        "events": 1,
+        "input_tokens": 370596,
+        "output_tokens": 2545,
+        "reasoning_output_tokens": 70,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.036368,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "vercel-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.035456,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 1,
+        "installed_skill_inventory_sha256": "01e5b3a5d7d7fdaebde201dcc5108ceba5c81d9081b7c6113dde19d95014cc5b",
+        "pin": {
+          "adapter": "vercel-skills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+          "name": "Vercel skills installer with React guidance",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+          "npm_package": "skills",
+          "npm_version": "1.7.6",
+          "skill": "vercel-react-best-practices",
+          "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+          "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 78.307469,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 72.865376,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 3.998915,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 337536,
+        "events": 1,
+        "input_tokens": 369311,
+        "output_tokens": 2106,
+        "reasoning_output_tokens": 82,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.035784,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "autoskills",
+      "before_validation": {
+        "elapsed_seconds": 0.036766,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 5,
+        "installed_skill_inventory_sha256": "95856a2b9cc315fa1866e39e70b53a81cf7c31c88c2697ffde2fa158f3ede7ce",
+        "pin": {
+          "adapter": "autoskills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+          "name": "midudev/autoskills",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+          "npm_package": "autoskills",
+          "npm_version": "0.4.1",
+          "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+          "source_repository": "https://github.com/midudev/autoskills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 89.70573,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 77.982328,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 14,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6.445382,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 434304,
+        "events": 1,
+        "input_tokens": 471020,
+        "output_tokens": 2102,
+        "reasoning_output_tokens": 48,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034989,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "skillradar",
+      "before_validation": {
+        "elapsed_seconds": 0.036181,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_files_sha256": {
+          "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9",
+          "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+          "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347"
+        },
+        "installed_skill_count": 1,
+        "pin": {
+          "adapter": "skillradar-router-bundle",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+          "name": "SkillRadar pinned plugin router bundle (project-local)",
+          "native_codex_support": true,
+          "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+          "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+          "source_tag": "v0.5.0"
+        },
+        "ranking_version": "2.1",
+        "registry_mode": "local-bundled",
+        "routing_source": "skillradar-registry",
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 93.073531,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 91.045739,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 15,
+        "item.started": 11,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 10,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 1.548089,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 376192,
+        "events": 1,
+        "input_tokens": 407297,
+        "output_tokens": 2092,
+        "reasoning_output_tokens": 68,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.276644,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.257326,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 54.690381,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 53.896828,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 11,
+        "item.started": 8,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 6,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 1,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 165248,
+        "events": 1,
+        "input_tokens": 188974,
+        "output_tokens": 1401,
+        "reasoning_output_tokens": 31,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 3.48749,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.232327,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 64.612939,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 59.914785,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.652989,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 169984,
+        "events": 1,
+        "input_tokens": 211398,
+        "output_tokens": 1493,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.045966,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.06215,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 56.423904,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 55.326133,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 12,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 7,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 2,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.656931,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 204672,
+        "events": 1,
+        "input_tokens": 230551,
+        "output_tokens": 1520,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.051574,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.055336,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 15.914572,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 15.571194,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "item.completed": 4,
+        "item.started": 3,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {
+        "agent_message": 1,
+        "command_execution": 3
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034853,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.037217,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 4.839887,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.980589,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 1.410262,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.043932,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "vercel-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.034653,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 1,
+        "installed_skill_inventory_sha256": "01e5b3a5d7d7fdaebde201dcc5108ceba5c81d9081b7c6113dde19d95014cc5b",
+        "pin": {
+          "adapter": "vercel-skills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+          "name": "Vercel skills installer with React guidance",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+          "npm_package": "skills",
+          "npm_version": "1.7.6",
+          "skill": "vercel-react-best-practices",
+          "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+          "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 7.003131,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.696775,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 3.338822,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.036342,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "autoskills",
+      "before_validation": {
+        "elapsed_seconds": 0.036633,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 5,
+        "installed_skill_inventory_sha256": "95856a2b9cc315fa1866e39e70b53a81cf7c31c88c2697ffde2fa158f3ede7ce",
+        "pin": {
+          "adapter": "autoskills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+          "name": "midudev/autoskills",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+          "npm_package": "autoskills",
+          "npm_version": "0.4.1",
+          "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+          "source_repository": "https://github.com/midudev/autoskills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 10.181507,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.737639,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6.09936,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.045403,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "skillradar",
+      "before_validation": {
+        "elapsed_seconds": 0.034874,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_files_sha256": {
+          "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9",
+          "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+          "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347"
+        },
+        "installed_skill_count": 1,
+        "pin": {
+          "adapter": "skillradar-router-bundle",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+          "name": "SkillRadar pinned plugin router bundle (project-local)",
+          "native_codex_support": true,
+          "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+          "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+          "source_tag": "v0.5.0"
+        },
+        "ranking_version": "2.1",
+        "registry_mode": "local-bundled",
+        "routing_source": "skillradar-registry",
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 4.590994,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.800696,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 1.470201,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034561,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.037231,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 3.655862,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 3.354731,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 3.1e-05,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.224373,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.242279,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 3.713744,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 2.440176,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.574592,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.231234,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.233755,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 5.218788,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 4.540048,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.038031,
+        "returncode": 3221226091,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.054541,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 1.695396,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 1.384272,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {},
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "native execution reported failure",
+      "repetition": 3,
+      "returncode": 1073807364,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    }
+  ],
+  "schema_version": 1,
+  "summary": [
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": 129024,
+        "median": 129024,
+        "min": 129024,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 43.552207,
+        "median": 15.914572,
+        "min": 1.695396,
+        "n": 3
+      },
+      "failures": 2,
+      "input_tokens": {
+        "max": 151964,
+        "median": 151964,
+        "min": 151964,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 1188,
+        "median": 1188,
+        "min": 1188,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 13,
+        "median": 13,
+        "min": 13,
+        "n": 1
+      },
+      "runs": 3,
+      "statuses": {
+        "failed": 2,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "midi-zero-velocity",
+      "unavailable": 0
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": 204672,
+        "median": 204480.0,
+        "min": 204288,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 57.647217,
+        "median": 57.0355605,
+        "min": 56.423904,
+        "n": 2
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": 230551,
+        "median": 230500.5,
+        "min": 230450,
+        "n": 2
+      },
+      "output_tokens": {
+        "max": 1520,
+        "median": 1512.0,
+        "min": 1504,
+        "n": 2
+      },
+      "reasoning_output_tokens": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "n": 2
+      },
+      "runs": 2,
+      "statuses": {
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "midi-zero-velocity",
+      "unavailable": 0
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 3,
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3
+    },
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": 397696,
+        "median": 397696,
+        "min": 397696,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 84.485974,
+        "median": 44.070918,
+        "min": 3.655862,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 436704,
+        "median": 436704,
+        "min": 436704,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 1753,
+        "median": 1753,
+        "min": 1753,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 74,
+        "median": 74,
+        "min": 74,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "frontend-reset",
+      "unavailable": 0
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": 326016,
+        "median": 326016,
+        "min": 326016,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 87.066054,
+        "median": 45.9529705,
+        "min": 4.839887,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 370596,
+        "median": 370596,
+        "min": 370596,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 2545,
+        "median": 2545,
+        "min": 2545,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 70,
+        "median": 70,
+        "min": 70,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "frontend-reset",
+      "unavailable": 0
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": 337536,
+        "median": 337536,
+        "min": 337536,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 78.307469,
+        "median": 42.6553,
+        "min": 7.003131,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 369311,
+        "median": 369311,
+        "min": 369311,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 2106,
+        "median": 2106,
+        "min": 2106,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 82,
+        "median": 82,
+        "min": 82,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "frontend-reset",
+      "unavailable": 0
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": 434304,
+        "median": 434304,
+        "min": 434304,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 89.70573,
+        "median": 49.9436185,
+        "min": 10.181507,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 471020,
+        "median": 471020,
+        "min": 471020,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 2102,
+        "median": 2102,
+        "min": 2102,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 48,
+        "median": 48,
+        "min": 48,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "frontend-reset",
+      "unavailable": 0
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": 376192,
+        "median": 376192,
+        "min": 376192,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 93.073531,
+        "median": 48.8322625,
+        "min": 4.590994,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 407297,
+        "median": 407297,
+        "min": 407297,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 2092,
+        "median": 2092,
+        "min": 2092,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 68,
+        "median": 68,
+        "min": 68,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "frontend-reset",
+      "unavailable": 0
+    },
+    {
+      "arm": "baseline",
+      "cached_input_tokens": {
+        "max": 165248,
+        "median": 165248,
+        "min": 165248,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 54.690381,
+        "median": 29.954584500000003,
+        "min": 5.218788,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 188974,
+        "median": 188974,
+        "min": 188974,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 1401,
+        "median": 1401,
+        "min": 1401,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 31,
+        "median": 31,
+        "min": 31,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "rust-decoder-bounds",
+      "unavailable": 0
+    },
+    {
+      "arm": "auto-skills",
+      "cached_input_tokens": {
+        "max": 169984,
+        "median": 169984,
+        "min": 169984,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 64.612939,
+        "median": 34.1633415,
+        "min": 3.713744,
+        "n": 2
+      },
+      "failures": 1,
+      "input_tokens": {
+        "max": 211398,
+        "median": 211398,
+        "min": 211398,
+        "n": 1
+      },
+      "output_tokens": {
+        "max": 1493,
+        "median": 1493,
+        "min": 1493,
+        "n": 1
+      },
+      "reasoning_output_tokens": {
+        "max": 16,
+        "median": 16,
+        "min": 16,
+        "n": 1
+      },
+      "runs": 2,
+      "statuses": {
+        "failed": 1,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "rust-decoder-bounds",
+      "unavailable": 0
+    },
+    {
+      "arm": "vercel-skills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 2,
+      "statuses": {
+        "unavailable": 2
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 2
+    },
+    {
+      "arm": "autoskills",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 2,
+      "statuses": {
+        "unavailable": 2
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 2
+    },
+    {
+      "arm": "skillradar",
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "runs": 2,
+      "statuses": {
+        "unavailable": 2
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 2
+    }
+  ],
+  "timeout_seconds": 120.0,
+  "work_root": "explicit parent directory"
+}

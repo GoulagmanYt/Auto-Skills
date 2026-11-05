@@ -44,4 +44,8 @@ Project uninstall removes owned artifacts and restores pre-installation instruct
 
 After user uninstall, open a new shell to discard inherited PATH/function state. Reinstalling is not required to continue using the original Codex executable.
 
+If the Python package was installed with pip into an existing environment, removing the wrapper preserves that environment and package. Remove the package separately with `python -m pip uninstall codex-repo-auto-bootstrap` when wanted. Source installation owns its private virtual environment.
+
+The wrapper defaults to low model reasoning effort. An explicit native CLI override such as `codex -C ./project/backend -c 'model_reasoning_effort="high"'` takes precedence for demanding work; skills cannot change a running model's settings.
+
 Source-install exceptions roll back from a private recovery copy. A forcibly killed process or power loss may require manual recovery from that saved copy; automatic crash replay is not implemented in this alpha. Preserve the recovery directory and inspect its record before retrying or removing anything.

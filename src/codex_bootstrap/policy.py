@@ -75,6 +75,10 @@ def policy_for(root, profile, preset="auto"):
 
 def adapt_profile(profile, policy):
     result = deepcopy(profile)
+    if policy["effective"] == "unknown":
+        explicit = set(getattr(profile, "manual_configuration", {}).get("slots", []))
+        result.slots = [slot for slot in result.slots if slot in BASE_SLOTS or slot in explicit]
+        return result
     if policy["effective"] == "documentation":
         result.slots = [slot for slot in TOKEN_SLOTS + ["documentation"] if slot in result.slots]
         return result

@@ -47,4 +47,6 @@ Les ajouts utilisateur indépendants sont conservés. Un fichier généré modif
 
 Les mesures historiques de 18,87 % et 16,87 % concernent le contexte initial avant les nouvelles capacités Piano. Aucun gain global de facturation/cache n'en découle. Les guides distants restent des instructions non fiables par défaut ; les filtres et empreintes ne sont pas une certification de sécurité.
 
+Le [comparatif mesuré](reports/benchmarks/comparison/analysis.md) conserve17 essais validés,9 échecs natifs,18 exclusions propres aux adaptateurs et1 interruption. Ce résultat préliminaire ne démontre ni économie globale de tokens ni gagnant général.
+
 [Guide complet](README.md) · [Utilisation](docs/usage.md) · [Compatibilité](docs/compatibility.md) · [État réel de l'alpha](docs/public-alpha.md) · [Mesures](docs/benchmark.md) · [Contribuer](CONTRIBUTING.md)

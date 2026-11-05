@@ -4,7 +4,7 @@
 |---|---|
 | Python | 3.11+; CI matrix 3.11 and 3.13 |
 | Codex CLI | 0.166.0 is the pinned native test baseline |
-| Platforms | Windows, Linux, macOS workflows; local evidence is platform-specific |
+| Platforms | Windows, Linux and macOS: hosted unit and installed native checks passed at cdaefaa; see reports/hosted-ci.json |
 | Git | Required for repository provisioning and scoped refresh |
 | Runtime Python packages | None outside the standard library |
 | Node | Optional; required for Repomix or npm-distributed competitors |

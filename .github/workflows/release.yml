@@ -31,7 +31,11 @@ jobs:
         run: |
           python -c 'import os,tomllib; from pathlib import Path; version=tomllib.loads(Path("pyproject.toml").read_text())["project"]["version"]; assert os.environ["RELEASE_TAG"] == "v" + version, "tag must match package version"'
           python tools/check_artifacts.py dist-ci/*
-      - name: Attach wheel and sdist to GitHub prerelease
+      - name: Compute checksums for verified artifacts
+        run: |
+          cd dist-ci
+          sha256sum *.whl *.tar.gz > SHA256SUMS
+      - name: Attach wheel, sdist and checksums to GitHub prerelease
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}

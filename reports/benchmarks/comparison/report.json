@@ -1,0 +1,4930 @@
+{
+  "auto_skills_version": "1.4.0a1",
+  "bootstrap_source_sha256": "19f23801db259a4c384b986cf5121e320861df7cf74faba193228e32f8a3802a",
+  "cleanup_evidence": {
+    "known_directory_cleanup": "incomplete; ordinary cleanup denied; permissions not changed",
+    "other_directory_policy": "retained when exact per-attempt path ownership receipt was not available; no wildcard deletion or permission changes",
+    "owned_profiles_removed": 0,
+    "profiles_examined": 0,
+    "retained_task_directories": 6,
+    "unproven_profiles_retained": 0
+  },
+  "codex_version": "0.166.0",
+  "comparison_limits": [
+    "Three small synthetic fixes and one or two validated successes per task/condition are insufficient for a general ranking.",
+    "Timing/token medians describe successful attempts only; all native failures and missing usage remain separately visible.",
+    "Competitor total/setup times include isolated fresh installers/downloads; Auto-Skills uses local offline bootstrap. Inference and setup are separated but service/cache/source-batch confounds remain.",
+    "Vercel uses a manually selected guide; autoskills installs its own recommendations; SkillRadar uses a selected unmodified router bundle rather than native marketplace integration. Installed guidance is not evidence that it was activated.",
+    "All 45 planned slots are accounted for, but one eligible slot remains interrupted with unknown attempt state. No overall winner, token savings or price claim is supported."
+  ],
+  "comparison_scope": {
+    "applicable_plan_slots": 27,
+    "inapplicable_adapter_task_slots": 18,
+    "interrupted_unknown_slots": 1,
+    "known_recorded_native_attempts": 26,
+    "warning": "The 18 inapplicable rows are limits of the adapters and task scopes configured here; they do not show that Vercel, autoskills or SkillRadar products lack MIDI or Rust capabilities."
+  },
+  "comparison_status": "exploratory_interrupted",
+  "competitors": {
+    "autoskills": {
+      "adapter": "autoskills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+      "name": "midudev/autoskills",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+      "npm_package": "autoskills",
+      "npm_version": "0.4.1",
+      "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+      "source_repository": "https://github.com/midudev/autoskills.git"
+    },
+    "skillradar": {
+      "adapter": "skillradar-router-bundle",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+      "name": "SkillRadar pinned plugin router bundle (project-local)",
+      "native_codex_support": true,
+      "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+      "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+      "source_tag": "v0.5.0"
+    },
+    "vercel-skills": {
+      "adapter": "vercel-skills",
+      "applicable_tasks": [
+        "frontend-reset"
+      ],
+      "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+      "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+      "name": "Vercel skills installer with React guidance",
+      "native_codex_support": true,
+      "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+      "npm_package": "skills",
+      "npm_version": "1.7.6",
+      "skill": "vercel-react-best-practices",
+      "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+    }
+  },
+  "competitors_sha256": "d0150b0f6d1083433e8144dbca1bd96600c373754e6bc81e4bf402417093bc94",
+  "created_at": "2026-11-05T06:16:42.819830+00:00",
+  "execution_status": "partial",
+  "expected_codex_version": "0.166.0",
+  "failure_evidence": {
+    "causal_status": "unresolved; original generic payloads were not retained and native log metadata could not identify benchmark failures; quota/auth/model-service cause is not established",
+    "native_exit_1_generic_error_attempts": 8,
+    "recorded_failures_retried": 0,
+    "resumed_original_requests": 7,
+    "resumed_requests_passed": 7,
+    "unusual_exit_attempts": 1,
+    "unusual_exit_code": 1073807364
+  },
+  "final_bootstrap_source_sha256": "85501d6d31d82eb7cc5a6b56cf54f399ca30a4a62ef5112238a3047093fb62d7",
+  "harness_sha256": "c2f098aff79f6dda2a376e359ebb04370a452cf29a48f839e5adb97af3d5d181",
+  "mode": "live",
+  "model": "gpt-6.1-sol",
+  "native_platform_flags": [
+    "-c",
+    "windows.sandbox=\"elevated\""
+  ],
+  "plan": [
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 1,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 2,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "midi-zero-velocity"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "frontend-reset"
+    },
+    {
+      "arm": "vercel-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "autoskills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "skillradar",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "baseline",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    },
+    {
+      "arm": "auto-skills",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "task": "rust-decoder-bounds"
+    }
+  ],
+  "plan_fully_accounted_for": true,
+  "platform": "Windows",
+  "policy": {
+    "approval_policy": "never",
+    "child_environment": "parent CODEX_* orchestration context removed except CODEX_HOME; authentication variables retained",
+    "confounds": [
+      "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
+      "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
+      "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+      "Autoskills detects the frontend workspace and installs its own pinned-registry recommendations; this adapter covers only that fixture.",
+      "SkillRadar uses an unmodified project-local router bundle with an offline pinned registry; it is not a native marketplace install and may not activate on these coding prompts.",
+      "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
+      "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
+      "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
+      "Three small synthetic fixes cannot establish general quality, cost or latency superiority."
+    ],
+    "external_skills": "explicitly disabled except project-local treatment skills",
+    "memory": "disabled equally",
+    "native_user_config": "ignored except the configured Windows sandbox backend; authentication remains in the original CODEX_HOME",
+    "ordering": "deterministic arm rotation between repetitions; no independent cache reset",
+    "plugins_mcp": "disabled equally in every runnable arm",
+    "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
+    "sandbox": "workspace-write",
+    "timing": "elapsed includes fixture creation, setup, inference and final validation; stages also separate",
+    "usage": "native completion events; missing fields remain null; no cost estimate",
+    "validators": "outside the agent worktree; immutable source hashes checked before/after"
+  },
+  "public_tasks_sha256": "b1803eeb68afc1dddf69757589201d1f5db70131722f860dac457d8c99466a0d",
+  "python_version": "3.13.17",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "resume_batches": [
+    {
+      "added_rows": 11,
+      "auto_skills_version": "1.4.0a1",
+      "bootstrap_source_sha256": "85501d6d31d82eb7cc5a6b56cf54f399ca30a4a62ef5112238a3047093fb62d7",
+      "ended_at": "2026-11-05T17:12:00.722198+00:00",
+      "harness_sha256": "78d31495983ca79c93c8a87538f36d409ecaf43d5c55d0788e27e9d3e1a32279",
+      "interrupted_slot_accounted_for": true,
+      "policy": "preserve prior rows; never retry recorded failures; stop new requests on native failure",
+      "preserved_rows": 34,
+      "source_report_sha256": "e881afc166bb89043d1ff41ef3b3374aadcab127fac67afbd3a13acda8c64e36",
+      "started_at": "2026-11-05T17:02:08.848740+00:00",
+      "stopped_on_native_failure": false
+    }
+  ],
+  "runs": [
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.046587,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.055001,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 43.552207,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 43.202368,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 10,
+        "item.started": 7,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 5,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 129024,
+        "events": 1,
+        "input_tokens": 151964,
+        "output_tokens": 1188,
+        "reasoning_output_tokens": 13,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.04509,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.053998,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 57.647217,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 56.596428,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.638041,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 204288,
+        "events": 1,
+        "input_tokens": 230450,
+        "output_tokens": 1504,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.039887,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.035505,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 84.485974,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 84.126303,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 12,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 397696,
+        "events": 1,
+        "input_tokens": 436704,
+        "output_tokens": 1753,
+        "reasoning_output_tokens": 74,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.037013,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.035933,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 87.066054,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 85.152229,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 1.463753,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 326016,
+        "events": 1,
+        "input_tokens": 370596,
+        "output_tokens": 2545,
+        "reasoning_output_tokens": 70,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.036368,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "vercel-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.035456,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 1,
+        "installed_skill_inventory_sha256": "01e5b3a5d7d7fdaebde201dcc5108ceba5c81d9081b7c6113dde19d95014cc5b",
+        "pin": {
+          "adapter": "vercel-skills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+          "name": "Vercel skills installer with React guidance",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+          "npm_package": "skills",
+          "npm_version": "1.7.6",
+          "skill": "vercel-react-best-practices",
+          "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+          "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 78.307469,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 72.865376,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 3.998915,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 337536,
+        "events": 1,
+        "input_tokens": 369311,
+        "output_tokens": 2106,
+        "reasoning_output_tokens": 82,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.035784,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "autoskills",
+      "before_validation": {
+        "elapsed_seconds": 0.036766,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 5,
+        "installed_skill_inventory_sha256": "95856a2b9cc315fa1866e39e70b53a81cf7c31c88c2697ffde2fa158f3ede7ce",
+        "pin": {
+          "adapter": "autoskills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+          "name": "midudev/autoskills",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+          "npm_package": "autoskills",
+          "npm_version": "0.4.1",
+          "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+          "source_repository": "https://github.com/midudev/autoskills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 89.70573,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 77.982328,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 14,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6.445382,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 434304,
+        "events": 1,
+        "input_tokens": 471020,
+        "output_tokens": 2102,
+        "reasoning_output_tokens": 48,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034989,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "skillradar",
+      "before_validation": {
+        "elapsed_seconds": 0.036181,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_files_sha256": {
+          "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9",
+          "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+          "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347"
+        },
+        "installed_skill_count": 1,
+        "pin": {
+          "adapter": "skillradar-router-bundle",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+          "name": "SkillRadar pinned plugin router bundle (project-local)",
+          "native_codex_support": true,
+          "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+          "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+          "source_tag": "v0.5.0"
+        },
+        "ranking_version": "2.1",
+        "registry_mode": "local-bundled",
+        "routing_source": "skillradar-registry",
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 93.073531,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 91.045739,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 15,
+        "item.started": 11,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 10,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 1.548089,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 376192,
+        "events": 1,
+        "input_tokens": 407297,
+        "output_tokens": 2092,
+        "reasoning_output_tokens": 68,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.276644,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.257326,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 54.690381,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 53.896828,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 11,
+        "item.started": 8,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 6,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 1,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 1,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 165248,
+        "events": 1,
+        "input_tokens": 188974,
+        "output_tokens": 1401,
+        "reasoning_output_tokens": 31,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 3.48749,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.232327,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 64.612939,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 59.914785,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 8,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 1,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.652989,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 169984,
+        "events": 1,
+        "input_tokens": 211398,
+        "output_tokens": 1493,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 1,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.045966,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.06215,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 56.423904,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 55.326133,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "item.completed": 12,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 7,
+        "file_change": 2
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "repetition": 2,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.656931,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 204672,
+        "events": 1,
+        "input_tokens": 230551,
+        "output_tokens": 1520,
+        "reasoning_output_tokens": 16,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.051574,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.055336,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 15.914572,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 15.571194,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "item.completed": 4,
+        "item.started": 3,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {
+        "agent_message": 1,
+        "command_execution": 3
+      },
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034853,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.037217,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 4.839887,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.980589,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 1.410262,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.043932,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "vercel-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.034653,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 1,
+        "installed_skill_inventory_sha256": "01e5b3a5d7d7fdaebde201dcc5108ceba5c81d9081b7c6113dde19d95014cc5b",
+        "pin": {
+          "adapter": "vercel-skills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+          "name": "Vercel skills installer with React guidance",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+          "npm_package": "skills",
+          "npm_version": "1.7.6",
+          "skill": "vercel-react-best-practices",
+          "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+          "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 7.003131,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.696775,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 3.338822,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.036342,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "autoskills",
+      "before_validation": {
+        "elapsed_seconds": 0.036633,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 5,
+        "installed_skill_inventory_sha256": "95856a2b9cc315fa1866e39e70b53a81cf7c31c88c2697ffde2fa158f3ede7ce",
+        "pin": {
+          "adapter": "autoskills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+          "name": "midudev/autoskills",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+          "npm_package": "autoskills",
+          "npm_version": "0.4.1",
+          "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+          "source_repository": "https://github.com/midudev/autoskills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 10.181507,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.737639,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6.09936,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.045403,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "skillradar",
+      "before_validation": {
+        "elapsed_seconds": 0.034874,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_files_sha256": {
+          "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9",
+          "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+          "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347"
+        },
+        "installed_skill_count": 1,
+        "pin": {
+          "adapter": "skillradar-router-bundle",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+          "name": "SkillRadar pinned plugin router bundle (project-local)",
+          "native_codex_support": true,
+          "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+          "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+          "source_tag": "v0.5.0"
+        },
+        "ranking_version": "2.1",
+        "registry_mode": "local-bundled",
+        "routing_source": "skillradar-registry",
+        "status": "ready"
+      },
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 4.590994,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 2.800696,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 1.470201,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034561,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.037231,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 3.655862,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 3.354731,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 3.1e-05,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.224373,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "auto-skills",
+      "before_validation": {
+        "elapsed_seconds": 0.242279,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 3.713744,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 2.440176,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.574592,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 2,
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.231234,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.233755,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [
+        "native_execution_error"
+      ],
+      "elapsed_seconds": 5.218788,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 4.540048,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "error": 1,
+        "thread.started": 1,
+        "turn.failed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 2,
+      "native_item_types": {},
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "reason": "native execution reported failure",
+      "repetition": 2,
+      "returncode": 1,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "arm": "vercel-skills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "autoskills",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "skillradar",
+      "codex_version": "0.166.0",
+      "elapsed_seconds": null,
+      "fixture_commit": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "status": "unavailable",
+      "task": "midi-zero-velocity",
+      "usage": null,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.038031,
+        "returncode": 3221226091,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "arm": "baseline",
+      "before_validation": {
+        "elapsed_seconds": 0.054541,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 1.695396,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "inference_seconds": 1.384272,
+      "model": "gpt-6.1-sol",
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {},
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "reason": "native execution reported failure",
+      "repetition": 3,
+      "returncode": 1073807364,
+      "setup_seconds": 6e-06,
+      "status": "failed",
+      "stderr_lines": 0,
+      "task": "midi-zero-velocity",
+      "timed_out": false,
+      "usage": null,
+      "usage_available": false,
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+    },
+    {
+      "arm": "auto-skills",
+      "attempt_state": "unknown",
+      "batch": 1,
+      "elapsed_seconds": null,
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "model": "gpt-6.1-sol",
+      "reason": "runner disappeared before this slot was recorded; it may have started; not replayed",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "interrupted",
+      "task": "midi-zero-velocity",
+      "usage": null
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.034728,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "vercel-skills",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.037481,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 1,
+        "installed_skill_inventory_sha256": "01e5b3a5d7d7fdaebde201dcc5108ceba5c81d9081b7c6113dde19d95014cc5b",
+        "pin": {
+          "adapter": "vercel-skills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "cli_commit": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+          "limitation": "Manually selected React guide installed project-locally; this measures one installer/guide configuration, not automatic repository-wide selection.",
+          "name": "Vercel skills installer with React guidance",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+          "npm_package": "skills",
+          "npm_version": "1.7.6",
+          "skill": "vercel-react-best-practices",
+          "source_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+          "source_repository": "https://github.com/vercel-labs/agent-skills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 102.142091,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 95.152399,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 15,
+        "item.started": 12,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 11,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 3,
+      "returncode": 0,
+      "setup_seconds": 5.565398,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 468992,
+        "events": 1,
+        "input_tokens": 546412,
+        "output_tokens": 1955,
+        "reasoning_output_tokens": 83,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.037542,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "autoskills",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.036024,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_skill_count": 5,
+        "installed_skill_inventory_sha256": "95856a2b9cc315fa1866e39e70b53a81cf7c31c88c2697ffde2fa158f3ede7ce",
+        "pin": {
+          "adapter": "autoskills",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Pinned npm CLI detects the frontend workspace; registry downloads are restricted to the pinned source commit and home/cache writes to the attempt directory. Only this React fixture is covered by the adapter.",
+          "name": "midudev/autoskills",
+          "native_codex_support": true,
+          "npm_integrity": "sha512-cAFYRWMlzHbdRUUxQRcTDfhtOWnaItHH9l8Lpky+y1mFzqWMHLh/ke6JVd2Dm3Q/U43Fs3N6AvFF05wbA7r1JQ==",
+          "npm_package": "autoskills",
+          "npm_version": "0.4.1",
+          "source_commit": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+          "source_repository": "https://github.com/midudev/autoskills.git"
+        },
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 94.576294,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 82.354694,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 8,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 3,
+      "returncode": 0,
+      "setup_seconds": 7.377506,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 403456,
+        "events": 1,
+        "input_tokens": 443530,
+        "output_tokens": 1569,
+        "reasoning_output_tokens": 55,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.035285,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "skillradar",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.035202,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "competitor_setup": {
+        "installed_files_sha256": {
+          "data/registry.json": "473278fc318c10bd63c82e83a080ca320c57a9630ce2b972a17c9f56da4f3ce9",
+          "scripts/skillradar.mjs": "462a36109bce16c592f9e266e4d967a7a2befd2d8acebb12200399b713016d05",
+          "skills/skill-router/SKILL.md": "32152cb494cc755d3969013043ac06f42713eaa192a388901ad88d9ef6117347"
+        },
+        "installed_skill_count": 1,
+        "pin": {
+          "adapter": "skillradar-router-bundle",
+          "applicable_tasks": [
+            "frontend-reset"
+          ],
+          "limitation": "Unmodified plugin router SKILL.md, lookup script and bundled registry are staged project-locally with their original relative layout. This is a selected router bundle, not native marketplace/plugin integration or fetched implementation guidance. Same coding prompt may not activate routing.",
+          "name": "SkillRadar pinned plugin router bundle (project-local)",
+          "native_codex_support": true,
+          "source_commit": "6354ef44bfe9a8502f4371674ec1c4f8cac5cc56",
+          "source_repository": "https://github.com/changchangidea-oss/SkillRadar.git",
+          "source_tag": "v0.5.0"
+        },
+        "ranking_version": "2.1",
+        "registry_mode": "local-bundled",
+        "routing_source": "skillradar-registry",
+        "status": "ready"
+      },
+      "diagnostic_categories": [],
+      "elapsed_seconds": 85.579609,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 83.520955,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 9
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 3,
+      "returncode": 0,
+      "setup_seconds": 1.599111,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 449152,
+        "events": 1,
+        "input_tokens": 488297,
+        "output_tokens": 2178,
+        "reasoning_output_tokens": 102,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.037545,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "baseline",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.035645,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 90.641869,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 90.283016,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 13,
+        "item.started": 9,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 8,
+        "file_change": 1
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 3,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 337408,
+        "events": 1,
+        "input_tokens": 368926,
+        "output_tokens": 2257,
+        "reasoning_output_tokens": 38,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.036316,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "arm": "auto-skills",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.037146,
+        "returncode": 1,
+        "status": "failed",
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "cleanup_status": "completed",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 96.715206,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "inference_seconds": 94.800556,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 16,
+        "item.started": 11,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 5,
+        "command_execution": 11
+      },
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "repetition": 3,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 1.458541,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "frontend-reset",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 468224,
+        "events": 1,
+        "input_tokens": 506742,
+        "output_tokens": 2556,
+        "reasoning_output_tokens": 166,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+    },
+    {
+      "arm": "vercel-skills",
+      "batch": 1,
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "autoskills",
+      "batch": 1,
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "arm": "skillradar",
+      "batch": 1,
+      "elapsed_seconds": null,
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "model": "gpt-6.1-sol",
+      "reason": "pinned competitor configuration is not applicable to this task",
+      "repetition": 3,
+      "sandbox": "workspace-write",
+      "status": "unavailable",
+      "task": "rust-decoder-bounds",
+      "usage": null
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 3.441763,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "baseline",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.235895,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 59.656412,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 55.718853,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 10,
+        "item.started": 7,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 5,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 3,
+      "returncode": 0,
+      "setup_seconds": 6e-06,
+      "status": "passed",
+      "stderr_lines": 1,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "usage": {
+        "cached_input_tokens": 112384,
+        "events": 1,
+        "input_tokens": 128796,
+        "output_tokens": 1353,
+        "reasoning_output_tokens": 36,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    },
+    {
+      "after_validation": {
+        "elapsed_seconds": 0.272125,
+        "returncode": 0,
+        "status": "passed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "arm": "auto-skills",
+      "batch": 1,
+      "before_validation": {
+        "elapsed_seconds": 0.229884,
+        "returncode": 101,
+        "status": "failed",
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "cleanup_reason": "temporary task directory could not be completely removed",
+      "cleanup_status": "incomplete",
+      "codex_version": "0.166.0",
+      "diagnostic_categories": [],
+      "elapsed_seconds": 62.490521,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "inference_seconds": 61.047882,
+      "model": "gpt-6.1-sol",
+      "native_error_fingerprints": [],
+      "native_event_types": {
+        "item.completed": 14,
+        "item.started": 10,
+        "thread.started": 1,
+        "turn.completed": 1,
+        "turn.started": 1
+      },
+      "native_failure_events": 0,
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 8,
+        "file_change": 2
+      },
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "repetition": 3,
+      "returncode": 0,
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "setup_seconds": 0.622367,
+      "status": "passed",
+      "stderr_lines": 0,
+      "task": "rust-decoder-bounds",
+      "timed_out": false,
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "usage": {
+        "cached_input_tokens": 196480,
+        "events": 1,
+        "input_tokens": 221004,
+        "output_tokens": 1588,
+        "reasoning_output_tokens": 43,
+        "source": "turn.completed"
+      },
+      "usage_available": true,
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+    }
+  ],
+  "schema_version": 1,
+  "source_change_notes": [
+    "Original and resumed startup source/harness receipts are preserved separately. This is not an immutable clean-commit comparison.",
+    "The root agent reported formatting changes around initial launch and later platform-alias/inspection fixes before the resumed batch. The product version string remained 1.4.0a1.",
+    "The resumed batch started before atomic writer improvement; derived statistics were corrected after all inference finished. Neither change restarted a paid request.",
+    "The requested gpt-6.1-sol identifier is a mutable service alias; service/cache state was not reset between attempts."
+  ],
+  "source_changes_during_run": true,
+  "summary": [
+    {
+      "arm": "baseline",
+      "attempt_cached_input_tokens": {
+        "max": 129024,
+        "median": 129024,
+        "min": 129024,
+        "n": 1
+      },
+      "attempt_elapsed_seconds": {
+        "max": 43.552207,
+        "median": 15.914572,
+        "min": 1.695396,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 151964,
+        "median": 151964,
+        "min": 151964,
+        "n": 1
+      },
+      "attempt_output_tokens": {
+        "max": 1188,
+        "median": 1188,
+        "min": 1188,
+        "n": 1
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 13,
+        "median": 13,
+        "min": 13,
+        "n": 1
+      },
+      "cached_input_tokens": {
+        "max": 129024,
+        "median": 129024,
+        "min": 129024,
+        "n": 1
+      },
+      "elapsed_seconds": {
+        "max": 43.552207,
+        "median": 43.552207,
+        "min": 43.552207,
+        "n": 1
+      },
+      "failed_elapsed_seconds": {
+        "max": 15.914572,
+        "median": 8.804984,
+        "min": 1.695396,
+        "n": 2
+      },
+      "failures": 2,
+      "inference_seconds": {
+        "max": 43.202368,
+        "median": 43.202368,
+        "min": 43.202368,
+        "n": 1
+      },
+      "input_tokens": {
+        "max": 151964,
+        "median": 151964,
+        "min": 151964,
+        "n": 1
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 1188,
+        "median": 1188,
+        "min": 1188,
+        "n": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 13,
+        "median": 13,
+        "min": 13,
+        "n": 1
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 129024
+        },
+        "input_tokens": {
+          "n": 1,
+          "total": 151964
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1188
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 13
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 6e-06,
+        "median": 6e-06,
+        "min": 6e-06,
+        "n": 1
+      },
+      "statuses": {
+        "failed": 2,
+        "passed": 1
+      },
+      "successes": 1,
+      "task": "midi-zero-velocity",
+      "unavailable": 0,
+      "validated_successes": 1
+    },
+    {
+      "arm": "auto-skills",
+      "attempt_cached_input_tokens": {
+        "max": 204672,
+        "median": 204480.0,
+        "min": 204288,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 57.647217,
+        "median": 57.0355605,
+        "min": 56.423904,
+        "n": 2
+      },
+      "attempt_input_tokens": {
+        "max": 230551,
+        "median": 230500.5,
+        "min": 230450,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 1520,
+        "median": 1512.0,
+        "min": 1504,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 204672,
+        "median": 204480.0,
+        "min": 204288,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 57.647217,
+        "median": 57.0355605,
+        "min": 56.423904,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": 56.596428,
+        "median": 55.9612805,
+        "min": 55.326133,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 230551,
+        "median": 230500.5,
+        "min": 230450,
+        "n": 2
+      },
+      "interrupted": 1,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 1520,
+        "median": 1512.0,
+        "min": 1504,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 16,
+        "median": 16.0,
+        "min": 16,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 408960
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 461001
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 3024
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 32
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 0.656931,
+        "median": 0.647486,
+        "min": 0.638041,
+        "n": 2
+      },
+      "statuses": {
+        "interrupted": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "midi-zero-velocity",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "vercel-skills",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3,
+      "validated_successes": 0
+    },
+    {
+      "arm": "autoskills",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3,
+      "validated_successes": 0
+    },
+    {
+      "arm": "skillradar",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "midi-zero-velocity",
+      "unavailable": 3,
+      "validated_successes": 0
+    },
+    {
+      "arm": "baseline",
+      "attempt_cached_input_tokens": {
+        "max": 397696,
+        "median": 367552.0,
+        "min": 337408,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 90.641869,
+        "median": 84.485974,
+        "min": 3.655862,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 436704,
+        "median": 402815.0,
+        "min": 368926,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 2257,
+        "median": 2005.0,
+        "min": 1753,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 74,
+        "median": 56.0,
+        "min": 38,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 397696,
+        "median": 367552.0,
+        "min": 337408,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 90.641869,
+        "median": 87.56392149999999,
+        "min": 84.485974,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 3.655862,
+        "median": 3.655862,
+        "min": 3.655862,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 90.283016,
+        "median": 87.20465949999999,
+        "min": 84.126303,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 436704,
+        "median": 402815.0,
+        "min": 368926,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 2257,
+        "median": 2005.0,
+        "min": 1753,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 74,
+        "median": 56.0,
+        "min": 38,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 735104
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 805630
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 4010
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 112
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 6e-06,
+        "median": 6e-06,
+        "min": 6e-06,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "frontend-reset",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "auto-skills",
+      "attempt_cached_input_tokens": {
+        "max": 468224,
+        "median": 397120.0,
+        "min": 326016,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 96.715206,
+        "median": 87.066054,
+        "min": 4.839887,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 506742,
+        "median": 438669.0,
+        "min": 370596,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 2556,
+        "median": 2550.5,
+        "min": 2545,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 166,
+        "median": 118.0,
+        "min": 70,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 468224,
+        "median": 397120.0,
+        "min": 326016,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 96.715206,
+        "median": 91.89062999999999,
+        "min": 87.066054,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 4.839887,
+        "median": 4.839887,
+        "min": 4.839887,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 94.800556,
+        "median": 89.9763925,
+        "min": 85.152229,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 506742,
+        "median": 438669.0,
+        "min": 370596,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 2556,
+        "median": 2550.5,
+        "min": 2545,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 166,
+        "median": 118.0,
+        "min": 70,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 794240
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 877338
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 5101
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 236
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 1.463753,
+        "median": 1.461147,
+        "min": 1.458541,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "frontend-reset",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "vercel-skills",
+      "attempt_cached_input_tokens": {
+        "max": 468992,
+        "median": 403264.0,
+        "min": 337536,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 102.142091,
+        "median": 78.307469,
+        "min": 7.003131,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 546412,
+        "median": 457861.5,
+        "min": 369311,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 2106,
+        "median": 2030.5,
+        "min": 1955,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 83,
+        "median": 82.5,
+        "min": 82,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 468992,
+        "median": 403264.0,
+        "min": 337536,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 102.142091,
+        "median": 90.22478,
+        "min": 78.307469,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 7.003131,
+        "median": 7.003131,
+        "min": 7.003131,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 95.152399,
+        "median": 84.0088875,
+        "min": 72.865376,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 546412,
+        "median": 457861.5,
+        "min": 369311,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 2106,
+        "median": 2030.5,
+        "min": 1955,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 83,
+        "median": 82.5,
+        "min": 82,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 806528
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 915723
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 4061
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 165
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 5.565398,
+        "median": 4.7821565,
+        "min": 3.998915,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "frontend-reset",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "autoskills",
+      "attempt_cached_input_tokens": {
+        "max": 434304,
+        "median": 418880.0,
+        "min": 403456,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 94.576294,
+        "median": 89.70573,
+        "min": 10.181507,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 471020,
+        "median": 457275.0,
+        "min": 443530,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 2102,
+        "median": 1835.5,
+        "min": 1569,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 55,
+        "median": 51.5,
+        "min": 48,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 434304,
+        "median": 418880.0,
+        "min": 403456,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 94.576294,
+        "median": 92.141012,
+        "min": 89.70573,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 10.181507,
+        "median": 10.181507,
+        "min": 10.181507,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 82.354694,
+        "median": 80.168511,
+        "min": 77.982328,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 471020,
+        "median": 457275.0,
+        "min": 443530,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 2102,
+        "median": 1835.5,
+        "min": 1569,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 55,
+        "median": 51.5,
+        "min": 48,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 837760
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 914550
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 3671
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 103
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 7.377506,
+        "median": 6.911444,
+        "min": 6.445382,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "frontend-reset",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "skillradar",
+      "attempt_cached_input_tokens": {
+        "max": 449152,
+        "median": 412672.0,
+        "min": 376192,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 93.073531,
+        "median": 85.579609,
+        "min": 4.590994,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 488297,
+        "median": 447797.0,
+        "min": 407297,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 2178,
+        "median": 2135.0,
+        "min": 2092,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 102,
+        "median": 85.0,
+        "min": 68,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 449152,
+        "median": 412672.0,
+        "min": 376192,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 93.073531,
+        "median": 89.32657,
+        "min": 85.579609,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 4.590994,
+        "median": 4.590994,
+        "min": 4.590994,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 91.045739,
+        "median": 87.28334699999999,
+        "min": 83.520955,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 488297,
+        "median": 447797.0,
+        "min": 407297,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 2178,
+        "median": 2135.0,
+        "min": 2092,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 102,
+        "median": 85.0,
+        "min": 68,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 825344
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 895594
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 4270
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 170
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 1.599111,
+        "median": 1.5735999999999999,
+        "min": 1.548089,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "frontend-reset",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "baseline",
+      "attempt_cached_input_tokens": {
+        "max": 165248,
+        "median": 138816.0,
+        "min": 112384,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 59.656412,
+        "median": 54.690381,
+        "min": 5.218788,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 188974,
+        "median": 158885.0,
+        "min": 128796,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 1401,
+        "median": 1377.0,
+        "min": 1353,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 36,
+        "median": 33.5,
+        "min": 31,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 165248,
+        "median": 138816.0,
+        "min": 112384,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 59.656412,
+        "median": 57.1733965,
+        "min": 54.690381,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 5.218788,
+        "median": 5.218788,
+        "min": 5.218788,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 55.718853,
+        "median": 54.8078405,
+        "min": 53.896828,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 188974,
+        "median": 158885.0,
+        "min": 128796,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 1401,
+        "median": 1377.0,
+        "min": 1353,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 36,
+        "median": 33.5,
+        "min": 31,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 277632
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 317770
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 2754
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 67
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 6e-06,
+        "median": 6e-06,
+        "min": 6e-06,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "rust-decoder-bounds",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "auto-skills",
+      "attempt_cached_input_tokens": {
+        "max": 196480,
+        "median": 183232.0,
+        "min": 169984,
+        "n": 2
+      },
+      "attempt_elapsed_seconds": {
+        "max": 64.612939,
+        "median": 62.490521,
+        "min": 3.713744,
+        "n": 3
+      },
+      "attempt_input_tokens": {
+        "max": 221004,
+        "median": 216201.0,
+        "min": 211398,
+        "n": 2
+      },
+      "attempt_output_tokens": {
+        "max": 1588,
+        "median": 1540.5,
+        "min": 1493,
+        "n": 2
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": 43,
+        "median": 29.5,
+        "min": 16,
+        "n": 2
+      },
+      "cached_input_tokens": {
+        "max": 196480,
+        "median": 183232.0,
+        "min": 169984,
+        "n": 2
+      },
+      "elapsed_seconds": {
+        "max": 64.612939,
+        "median": 63.55173,
+        "min": 62.490521,
+        "n": 2
+      },
+      "failed_elapsed_seconds": {
+        "max": 3.713744,
+        "median": 3.713744,
+        "min": 3.713744,
+        "n": 1
+      },
+      "failures": 1,
+      "inference_seconds": {
+        "max": 61.047882,
+        "median": 60.481333500000005,
+        "min": 59.914785,
+        "n": 2
+      },
+      "input_tokens": {
+        "max": 221004,
+        "median": 216201.0,
+        "min": 211398,
+        "n": 2
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": 1588,
+        "median": 1540.5,
+        "min": 1493,
+        "n": 2
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": 43,
+        "median": 29.5,
+        "min": 16,
+        "n": 2
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 2,
+          "total": 366464
+        },
+        "input_tokens": {
+          "n": 2,
+          "total": 432402
+        },
+        "output_tokens": {
+          "n": 2,
+          "total": 3081
+        },
+        "reasoning_output_tokens": {
+          "n": 2,
+          "total": 59
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": 0.652989,
+        "median": 0.637678,
+        "min": 0.622367,
+        "n": 2
+      },
+      "statuses": {
+        "failed": 1,
+        "passed": 2
+      },
+      "successes": 2,
+      "task": "rust-decoder-bounds",
+      "unavailable": 0,
+      "validated_successes": 2
+    },
+    {
+      "arm": "vercel-skills",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3,
+      "validated_successes": 0
+    },
+    {
+      "arm": "autoskills",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3,
+      "validated_successes": 0
+    },
+    {
+      "arm": "skillradar",
+      "attempt_cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "attempt_reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "cached_input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failed_elapsed_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "failures": 0,
+      "inference_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "input_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "interrupted": 0,
+      "not_attempted": 0,
+      "output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "performance_basis": "independently validated passed rows only",
+      "reasoning_output_tokens": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "reported_usage_totals": {
+        "cached_input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "input_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "output_tokens": {
+          "n": 0,
+          "total": null
+        },
+        "reasoning_output_tokens": {
+          "n": 0,
+          "total": null
+        }
+      },
+      "runs": 3,
+      "setup_seconds": {
+        "max": null,
+        "median": null,
+        "min": null,
+        "n": 0
+      },
+      "statuses": {
+        "unavailable": 3
+      },
+      "successes": 0,
+      "task": "rust-decoder-bounds",
+      "unavailable": 3,
+      "validated_successes": 0
+    }
+  ],
+  "summary_derivation": {
+    "all_attempt_metrics": "separate actual attempt/failure elapsed metrics and all reported usage totals; unknown values stay null",
+    "created_at": "2026-11-05T17:15:38.103968+00:00",
+    "harness_sha256": "925091e11dbaa9e515343290b90a89a5b7b2df9cca93a94ec04123f26562528f",
+    "performance_population": "status passed and external after_validation passed only",
+    "run_receipts_sha256": "9c68b044e113bc212c73922c8d4ba5540c0ae54c6f11f61f2b4e9d8acee2f504",
+    "schema_version": 2
+  },
+  "timeout_seconds": 120.0,
+  "usage_evidence": {
+    "known_usage_runs": 17,
+    "recorded_native_attempts_without_usage": 9,
+    "reported_usage_totals": {
+      "cached_input_tokens": {
+        "n": 17,
+        "total": 5181056
+      },
+      "input_tokens": {
+        "n": 17,
+        "total": 5771972
+      },
+      "output_tokens": {
+        "n": 17,
+        "total": 31160
+      },
+      "reasoning_output_tokens": {
+        "n": 17,
+        "total": 957
+      }
+    },
+    "totals_are_only_reported_usage_not_a_complete_charge_or_cost_measurement": true,
+    "unknown_interrupted_usage_slots": 1
+  },
+  "work_root": "explicit parent directory"
+}

@@ -1,0 +1,8 @@
+{
+  "profiles_examined": 0,
+  "owned_profiles_removed": 0,
+  "unproven_profiles_retained": 0,
+  "known_directory_cleanup": "incomplete; ordinary cleanup denied; permissions not changed",
+  "retained_task_directories": 6,
+  "other_directory_policy": "retained when exact per-attempt path ownership receipt was not available; no wildcard deletion or permission changes"
+}

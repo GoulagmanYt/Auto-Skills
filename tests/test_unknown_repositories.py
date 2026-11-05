@@ -74,3 +74,19 @@ class UnknownRepositoryTests(unittest.TestCase):
         )
         policy = policy_for(self.root, profile_repo(self.root))
         self.assertIn("repomix", {t["name"] for t in tool_plan(profile_repo(self.root), policy)})
+
+    def test_explicit_unknown_mode_keeps_portable_guides_and_explicit_roles_only(self):
+        from codex_bootstrap.proposal import propose
+
+        self.write("package.json", '{"dependencies":{"react":"^19"}}')
+        self.write("auto-skills.toml", '[repository]\nkind="unknown"\n')
+        report = propose(self.root, offline=True)
+        self.assertEqual(report["policy"]["repository_kind"], "unknown")
+        self.assertNotIn("framework-react", {s["slot"] for s in report["selected"]})
+        self.assertEqual([t["name"] for t in report["tool_plan"]], ["token-run", "repo-map"])
+        self.write(
+            "auto-skills.toml",
+            '[repository]\nkind="unknown"\n[[workspaces]]\npath="."\nslots=["framework-react"]\n',
+        )
+        explicit = propose(self.root, offline=True)
+        self.assertIn("framework-react", {s["slot"] for s in explicit["selected"]})

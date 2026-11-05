@@ -1,13 +1,19 @@
 # Benchmark recovery checkpoint
 
-Objective: real independently validated complete-task comparison, three repetitions of baseline/Auto-Skills on three public fixtures plus Vercel, autoskills and the SkillRadar router bundle on the frontend fixture. Acceptance: 27 bounded native requests, exact pins and usage, all failures retained; no comparative claim inferred from setup or blocked plans.
+Objective and acceptance: independently validated complete-task observations for three synthetic fixes, baseline and Auto-Skills across tasks, three competitor configurations on frontend; three planned repetitions; no fabricated metrics, hidden retries, global plugin changes, auth copies or sandbox bypass.
 
-Changed: `tools/benchmark_tasks.py`, `tests/test_task_benchmark.py`, `benchmarks/competitors.json`, `benchmarks/README.md`, new recovery report directories. No commits or pushes.
+Complete accounting: all 45 planned slots recorded: 17 validated passes, 9 native failures, 18 adapter/task-scope exclusions, 1 interrupted slot with unknown attempt state. There are 26 recorded native attempts; the interrupted slot may also have started. Original 34 row objects were preserved exactly. Seven genuinely remaining original requests passed during explicit resumption. Both owned shell sessions have ended.
 
-Decisions: retain workspace-write/approval never; preserve existing Windows sandbox backend while ignoring other native user config; remove parent orchestration context; report cleanup separately. Autoskills registry pinned and isolated; SkillRadar stages exactly three unmodified router-bundle files, not marketplace integration.
+Changed: tools/benchmark_tasks.py, tests/test_task_benchmark.py, benchmarks/competitors.json, benchmarks/README.md and public recovery/comparison evidence. The child agent made no commit or push. Root integrated code separately.
 
-Verified: 11 benchmark tests and scoped Ruff pass. Sanitized-context-only diagnostic failed; adding existing elevated Windows backend produced a validator-accepted baseline patch with historical cleanup status unavailable; final Auto-Skills diagnostic passed with completed cleanup. Real isolated competitor setup checks passed.
+Decisions: workspace-write/approval never retained; existing Windows sandbox backend preserved while ignoring other native user config; parent orchestration context removed. Cleanup status does not overwrite independently validated results. Autoskills registry/home/cache are pinned and isolated; SkillRadar stages exactly three unchanged router-bundle files with original layout and offline bundled lookup. Scope exclusions do not establish product capability gaps.
 
-Current: full 45-row matrix (27 applicable inference attempts + 18 inapplicable rows) is running sequentially with 120-second per-attempt budgets in `reports/benchmarks/recovery-measured` (owned shell session 7849). First baseline MIDI passed. Startup source receipt differs from current due root-disclosed formatting during launch; preserve initial receipt, add explicit source-change disclosure and separate final hash after completion. No paid reruns for formatting only.
+Resilience: --resume validates exact pins, preserves completed failures/successes, journals in-flight slots, never replays an ambiguous interrupted request, and stops further new requests on native failure. JSON/Markdown replacement is now atomic; active resumed batch began before that writer improvement, and its original startup receipt remains recorded.
 
-Next: wait on actual running process, interpret complete measured results, and report limitations. Preserve historical `blocked` report. Aggregate actual native usage and success/latency with causal limitations.
+Final analysis: performance total/inference/setup/token medians use validated successes only; all-attempt/failure timing and every known usage total remain separate. Initial and resumed source hashes differ; final derivation has a separate harness hash. Service/cache/model-alias confounds and unresolved earlier native errors preclude a causal ranking or savings claim.
+
+Verified: 15 benchmark tests and scoped Ruff/check-format pass; full 45-slot count, preserved 34-row prefix, and final derivation/run-receipt hashes checked. Known reported usage across 17 successful runs: 5,771,972 input, 5,181,056 cached input, 31,160 output, 957 reasoning output tokens. Usage for nine failed requests and the unknown slot remains unavailable.
+
+Cleanup: no temporary benchmark profiles remain in real Codex home. Six ignored scratch directories remain: normal cleanup was denied for one exact known diagnostic path; other paths lack exact retained ownership receipts. No wildcard deletion or ACL changes.
+
+Final public evidence: reports/benchmarks/comparison/analysis.md, report.json, report.md and README.md. Historical pre-resume snapshot: reports/benchmarks/recovery-before-resume/report.json. Sanitized cleanup: reports/benchmarks/recovery-setup/cleanup.json. Next: root commit/publication/final CI and user report; no more inference or child edits required.

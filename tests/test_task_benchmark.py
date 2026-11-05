@@ -222,6 +222,128 @@ class TaskBenchmarkTests(unittest.TestCase):
         self.assertEqual(len(result["installed_files_sha256"]), 3)
         self.assertFalse((target / "skills/manage-skills/SKILL.md").exists())
 
+    def resume_fixture(self, bench, *, interrupted=False):
+        arguments = [
+            "--model",
+            "fixture-model",
+            "--arms",
+            "baseline,auto-skills,vercel-skills",
+            "--task",
+            "frontend-reset",
+            "--repetitions",
+            "1",
+            "--output",
+            str(self.root / "resume-output"),
+        ]
+        planned = bench.run_benchmark(bench.parser().parse_args([*arguments, "--dry-run"]))
+        planned["mode"] = "live"
+        planned["codex_version"] = "0.166.0"
+        existing = {
+            **planned["plan"][0],
+            "status": "failed",
+            "reason": "historical native failure",
+            "usage": None,
+            "elapsed_seconds": 2,
+        }
+        planned["runs"] = [existing]
+        source = self.root / "existing.json"
+        source.write_text(json.dumps(planned))
+        flags = ["--assume-first-pending-interrupted"] if interrupted else []
+        args = bench.parser().parse_args([*arguments, "--resume", str(source), *flags])
+        return args, existing, source
+
+    def test_resume_keeps_failed_rows_and_skips_ambiguous_started_slot(self):
+        bench = self.benchmark()
+        args, existing, source = self.resume_fixture(bench, interrupted=True)
+        calls = []
+
+        def one(args, task, arm, repetition, version):
+            calls.append(arm)
+            return {
+                "task": task["id"],
+                "arm": arm,
+                "repetition": repetition,
+                "status": "passed",
+                "usage": None,
+                "returncode": 0,
+                "native_failure_events": 0,
+            }
+
+        with (
+            patch.object(bench, "run_one", side_effect=one),
+            patch.object(
+                bench, "run_checked", return_value=SimpleNamespace(stdout="codex-cli 0.166.0")
+            ),
+        ):
+            report = bench.run_benchmark(args)
+        self.assertEqual(calls, ["vercel-skills"])
+        self.assertEqual(report["runs"][0], existing)
+        self.assertEqual(report["runs"][1]["status"], "interrupted")
+        self.assertEqual(report["runs"][1]["attempt_state"], "unknown")
+        self.assertEqual(report["harness_sha256"], json.loads(source.read_text())["harness_sha256"])
+        self.assertEqual(report["resume_batches"][0]["preserved_rows"], 1)
+        self.assertTrue(report["plan_fully_accounted_for"])
+
+    def test_resume_rejects_changed_pins_before_native_calls(self):
+        bench = self.benchmark()
+        args, existing, source = self.resume_fixture(bench)
+        saved = json.loads(source.read_text())
+        saved["public_tasks_sha256"] = "different"
+        source.write_text(json.dumps(saved))
+        with (
+            patch.object(bench, "run_one", side_effect=AssertionError("must not launch")),
+            patch.object(
+                bench, "run_checked", side_effect=AssertionError("must validate pins first")
+            ),
+        ):
+            with self.assertRaisesRegex(ValueError, "pin"):
+                bench.run_benchmark(args)
+
+    def test_resume_native_failure_stops_unstarted_requests_without_retries(self):
+        bench = self.benchmark()
+        args, existing, source = self.resume_fixture(bench)
+        calls = []
+
+        def one(args, task, arm, repetition, version):
+            calls.append(arm)
+            return {
+                "task": task["id"],
+                "arm": arm,
+                "repetition": repetition,
+                "status": "failed",
+                "usage": None,
+                "returncode": 1,
+                "native_failure_events": 2,
+                "diagnostic_categories": ["native_execution_error"],
+            }
+
+        with (
+            patch.object(bench, "run_one", side_effect=one),
+            patch.object(
+                bench, "run_checked", return_value=SimpleNamespace(stdout="codex-cli 0.166.0")
+            ),
+        ):
+            report = bench.run_benchmark(args)
+        self.assertEqual(calls, ["auto-skills"])
+        self.assertEqual(report["runs"][0], existing)
+        self.assertEqual(report["runs"][2]["status"], "not_attempted")
+        self.assertIsNone(report["runs"][2]["usage"])
+        self.assertEqual(report["execution_status"], "partial")
+
+    def test_atomic_report_replacement_failure_preserves_previous_json_receipt(self):
+        bench = self.benchmark()
+        output = self.root / "receipt"
+        previous = {"mode": "live", "model": "fixture-model", "repetitions": 1, "summary": []}
+        bench.write_report(output, previous)
+        with patch(
+            "codex_bootstrap.fs.os.replace",
+            side_effect=OSError("synthetic interrupted replacement"),
+        ):
+            with self.assertRaises(OSError):
+                bench.write_report(output, {**previous, "model": "new-model"})
+        self.assertEqual(json.loads((output / "report.json").read_text()), previous)
+        self.assertFalse(list(output.glob(".bootstrap-*")))
+
     def test_summary_reports_failures_and_spread_without_fabricated_savings(self):
         bench = self.benchmark()
         rows = [
@@ -230,11 +352,14 @@ class TaskBenchmarkTests(unittest.TestCase):
                 "arm": "baseline",
                 "status": status,
                 "elapsed_seconds": elapsed,
+                "inference_seconds": elapsed / 2,
+                "setup_seconds": elapsed / 4,
+                "after_validation": {"status": "passed" if status == "passed" else "failed"},
                 "usage": {"input_tokens": tokens, "output_tokens": 2, "cached_input_tokens": 0},
             }
             for status, elapsed, tokens in [
                 ("passed", 2, 100),
-                ("failed", 4, 200),
+                ("failed", 0.01, 10000),
                 ("passed", 9, 900),
             ]
         ]
@@ -250,8 +375,17 @@ class TaskBenchmarkTests(unittest.TestCase):
         summary = bench.summarize(rows)
         self.assertEqual(summary[0]["successes"], 2)
         self.assertEqual(summary[0]["failures"], 1)
-        self.assertEqual(summary[0]["elapsed_seconds"], {"n": 3, "median": 4, "min": 2, "max": 9})
-        self.assertEqual(summary[0]["input_tokens"]["median"], 200)
+        self.assertEqual(summary[0]["elapsed_seconds"], {"n": 2, "median": 5.5, "min": 2, "max": 9})
+        self.assertEqual(
+            summary[0]["attempt_elapsed_seconds"], {"n": 3, "median": 2, "min": 0.01, "max": 9}
+        )
+        self.assertEqual(summary[0]["failed_elapsed_seconds"]["median"], 0.01)
+        self.assertEqual(summary[0]["inference_seconds"]["median"], 2.75)
+        self.assertEqual(summary[0]["setup_seconds"]["median"], 1.375)
+        self.assertEqual(summary[0]["input_tokens"]["median"], 500)
+        self.assertEqual(
+            summary[0]["reported_usage_totals"]["input_tokens"], {"n": 3, "total": 11000}
+        )
         self.assertIsNone(summary[1]["input_tokens"]["median"])
         self.assertNotIn("savings", json.dumps(summary))
 

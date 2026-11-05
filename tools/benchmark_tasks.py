@@ -37,6 +37,7 @@ from codex_bootstrap.config import (
     read_toml,
     toml_value,
 )
+from codex_bootstrap.fs import atomic_write
 
 POLICY = {
     "sandbox": "workspace-write",
@@ -291,6 +292,7 @@ def execute_native(command, prompt, cwd, timeout):
     diagnostics = set()
     event_types = Counter()
     item_types = Counter()
+    error_fingerprints = set()
     for line in stdout.splitlines():
         try:
             event = json.loads(line)
@@ -312,7 +314,9 @@ def execute_native(command, prompt, cwd, timeout):
                 "thread.failed",
             }:
                 failures += 1
-                diagnostics.add(diagnostic_category(json.dumps(event)))
+                payload = json.dumps(event, sort_keys=True)
+                diagnostics.add(diagnostic_category(payload))
+                error_fingerprints.add(hashlib.sha256(payload.encode()).hexdigest())
         except ValueError:
             continue
     if process.returncode and stderr:
@@ -326,6 +330,7 @@ def execute_native(command, prompt, cwd, timeout):
         "diagnostic_categories": sorted(diagnostics),
         "native_event_types": dict(event_types),
         "native_item_types": dict(item_types),
+        "native_error_fingerprints": sorted(error_fingerprints),
     }
 
 
@@ -334,7 +339,45 @@ def diagnostic_category(message):
     lowered = message.lower()
     for category, needles in (
         ("authentication", ("unauthorized", "authentication", "401", "log in", "token expired")),
-        ("quota_or_rate_limit", ("quota", "rate limit", "usage limit", "429")),
+        (
+            "quota_or_rate_limit",
+            (
+                "quota",
+                "rate limit",
+                "usage limit",
+                "usage_limit",
+                "429",
+                "credit balance",
+                "billing",
+            ),
+        ),
+        (
+            "context_length",
+            (
+                "context window",
+                "context length",
+                "context_length",
+                "input too large",
+                "maximum context",
+                "too many tokens",
+            ),
+        ),
+        (
+            "service_unavailable",
+            (
+                "internal server",
+                "server error",
+                "service unavailable",
+                "overloaded",
+                "502",
+                "503",
+                "504",
+            ),
+        ),
+        (
+            "stream_or_transport",
+            ("stream disconnected", "stream error", "socket", "transport", "connection closed"),
+        ),
         ("sandbox_or_permission", ("sandbox", "permission denied", "access denied")),
         ("network", ("network", "connection", "dns", "timed out")),
         (
@@ -367,6 +410,13 @@ def summarize(runs):
     result = []
     for (task, arm), rows in grouped.items():
         statuses = Counter(row["status"] for row in rows)
+        passed = [
+            row
+            for row in rows
+            if row["status"] == "passed"
+            and row.get("after_validation", {}).get("status") == "passed"
+        ]
+        failed = [row for row in rows if row["status"] in {"failed", "timeout"}]
         summary = {
             "task": task,
             "arm": arm,
@@ -375,11 +425,20 @@ def summarize(runs):
             "failures": sum(
                 count
                 for status, count in statuses.items()
-                if status not in {"passed", "unavailable"}
+                if status not in {"passed", "unavailable", "interrupted", "not_attempted"}
             ),
             "unavailable": statuses["unavailable"],
+            "interrupted": statuses["interrupted"],
+            "not_attempted": statuses["not_attempted"],
             "statuses": dict(statuses),
-            "elapsed_seconds": metric(row.get("elapsed_seconds") for row in rows),
+            "performance_basis": "independently validated passed rows only",
+            "validated_successes": len(passed),
+            "elapsed_seconds": metric(row.get("elapsed_seconds") for row in passed),
+            "inference_seconds": metric(row.get("inference_seconds") for row in passed),
+            "setup_seconds": metric(row.get("setup_seconds") for row in passed),
+            "attempt_elapsed_seconds": metric(row.get("elapsed_seconds") for row in rows),
+            "failed_elapsed_seconds": metric(row.get("elapsed_seconds") for row in failed),
+            "reported_usage_totals": {},
         }
         for key in (
             "input_tokens",
@@ -387,7 +446,18 @@ def summarize(runs):
             "cached_input_tokens",
             "reasoning_output_tokens",
         ):
-            summary[key] = metric((row.get("usage") or {}).get(key) for row in rows)
+            summary[key] = metric((row.get("usage") or {}).get(key) for row in passed)
+            summary["attempt_" + key] = metric((row.get("usage") or {}).get(key) for row in rows)
+            values = [(row.get("usage") or {}).get(key) for row in rows]
+            known = [
+                value
+                for value in values
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0
+            ]
+            summary["reported_usage_totals"][key] = {
+                "n": len(known),
+                "total": sum(known) if known else None,
+            }
         result.append(summary)
     return result
 
@@ -765,6 +835,16 @@ def parser():
     )
     result.add_argument("--dry-run", action="store_true")
     result.add_argument(
+        "--resume",
+        type=Path,
+        help="Resume only unrecorded plan slots from an existing report; preserve all measured rows",
+    )
+    result.add_argument(
+        "--assume-first-pending-interrupted",
+        action="store_true",
+        help="Account for an ambiguous first pending slot without replaying a possibly started request",
+    )
+    result.add_argument(
         "--blocked-preflight",
         type=Path,
         help="Record the plan as unattempted using a prior failed preflight report; make no native calls",
@@ -789,11 +869,11 @@ def markdown_report(report):
         (
             "Planned matrix only: attempts below were not executed because the operator designated a failed preflight. No comparative performance result is available."
             if report["mode"] == "blocked"
-            else "All figures come from completed local measurements. Missing usage remains unavailable; no savings or prices are inferred."
+            else "Performance medians use independently validated successful attempts only. All failures, interruption and inapplicable slots remain counted separately; missing usage is unavailable. No savings, price or winner is inferred."
         ),
         "",
-        "| Task | Arm | Passed | Failed | Unavailable | Median seconds [min, max] | Median input / output / cached tokens |",
-        "| --- | --- | ---: | ---: | ---: | --- | --- |",
+        "| Task | Arm | Passed | Failed | Unavailable | Interrupted | Not attempted | Passed total seconds [min, max] | Passed inference / setup seconds | Passed input / output / cached tokens |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
     ]
     for summary in report["summary"]:
         elapsed = summary["elapsed_seconds"]
@@ -802,7 +882,7 @@ def markdown_report(report):
             for key in ("input_tokens", "output_tokens", "cached_input_tokens")
         )
         lines.append(
-            f"| {summary['task']} | {summary['arm']} | {summary['successes']} | {summary['failures']} | {summary['unavailable']} | {elapsed['median']} [{elapsed['min']}, {elapsed['max']}] | {tokens} |"
+            f"| {summary['task']} | {summary['arm']} | {summary['successes']} | {summary['failures']} | {summary['unavailable']} | {summary.get('interrupted', 0)} | {summary.get('not_attempted', 0)} | {elapsed['median']} [{elapsed['min']}, {elapsed['max']}] | {summary.get('inference_seconds', {}).get('median')} / {summary.get('setup_seconds', {}).get('median')} | {tokens} |"
         )
     if report["mode"] == "dry-run":
         lines += [
@@ -815,8 +895,167 @@ def markdown_report(report):
             "The operator supplied a failed preflight. Planned attempts were not executed and have no repeated measurements.",
             f"Preflight report SHA256: `{report['preflight']['sha256']}`. Actual preflight usage is retained separately in JSON evidence.",
         ]
+    if report.get("resume_batches"):
+        lines += [
+            "",
+            "This is an observational interrupted run. All prior failures are preserved; a possibly started unrecorded slot is accounted for separately and is never replayed. Resumed batches have separate harness/source receipts. Native error causes from the original batch remain unresolved when only a generic category was recorded.",
+            "",
+        ]
     lines += ["", "## Measurement limits", "", *["- " + note for note in POLICY["confounds"]], ""]
     return "\n".join(lines)
+
+
+def resume_benchmark(args, current, tasks):
+    """Account for interruption and continue only genuinely unrecorded slots."""
+    if not args.resume.is_file():
+        raise ValueError("resume report is missing")
+    report = json.loads(args.resume.read_text(encoding="utf-8"))
+    required_pins = (
+        "model",
+        "expected_codex_version",
+        "auto_skills_version",
+        "repetitions",
+        "timeout_seconds",
+        "reasoning_effort",
+        "public_tasks_sha256",
+        "competitors_sha256",
+        "native_platform_flags",
+        "policy",
+        "plan",
+    )
+    if report.get("mode") != "live" or report.get("codex_version") != args.expected_codex_version:
+        raise ValueError("resume live/native version pin does not match")
+    for key in required_pins:
+        if report.get(key) != current.get(key):
+            raise ValueError("resume pin does not match: " + key)
+    rows = report.get("runs", [])
+    if not isinstance(rows, list) or len(rows) > len(report["plan"]):
+        raise ValueError("resume rows do not form a valid plan prefix")
+    for row, planned in zip(rows, report["plan"], strict=False):
+        if any(
+            row.get(key) != planned.get(key)
+            for key in ("task", "arm", "repetition", "fixture_sha256")
+        ):
+            raise ValueError("resume row/fixture pin does not match the plan prefix")
+    tasks_by_id = {task["id"]: task for task in tasks}
+    for row in rows:
+        task = tasks_by_id[row["task"]]
+        for key, expected in (
+            ("validator_sha256", sha256(EXAMPLES / task["validator"])),
+            ("prompt_sha256", hashlib.sha256(task["prompt"].encode()).hexdigest()),
+        ):
+            if key in row and row[key] != expected:
+                raise ValueError("resume task pin does not match: " + key)
+    if len(rows) == len(report["plan"]):
+        raise ValueError("resume report has no remaining plan slots")
+    initial_rows = len(rows)
+    batch = {
+        "started_at": datetime.now(UTC).isoformat(),
+        "source_report_sha256": sha256(args.resume),
+        "preserved_rows": initial_rows,
+        "harness_sha256": current["harness_sha256"],
+        "bootstrap_source_sha256": current["bootstrap_source_sha256"],
+        "auto_skills_version": current["auto_skills_version"],
+        "policy": "preserve prior rows; never retry recorded failures; stop new requests on native failure",
+    }
+    report.setdefault("resume_batches", []).append(batch)
+    batch_id = len(report["resume_batches"])
+    if args.work_root:
+        args.work_root.mkdir(parents=True, exist_ok=True)
+
+    def applicable(entry):
+        return entry["arm"] in {"baseline", "auto-skills"} or entry["task"] in report[
+            "competitors"
+        ][entry["arm"]].get("applicable_tasks", [])
+
+    first_pending = report["plan"][len(rows)]
+    in_flight = report.get("in_flight")
+    if in_flight is not None and any(
+        in_flight.get(key) != first_pending.get(key) for key in ("task", "arm", "repetition")
+    ):
+        raise ValueError("resume in-flight slot does not match the first pending plan slot")
+    if args.assume_first_pending_interrupted or in_flight is not None:
+        if not applicable(first_pending):
+            raise ValueError("an inapplicable slot cannot have an interrupted native attempt")
+        rows.append(
+            {
+                **first_pending,
+                "status": "interrupted",
+                "attempt_state": "unknown",
+                "reason": "runner disappeared before this slot was recorded; it may have started; not replayed",
+                "elapsed_seconds": None,
+                "usage": None,
+                "batch": batch_id,
+            }
+        )
+        batch["interrupted_slot_accounted_for"] = True
+        report.pop("in_flight", None)
+    stop_reason = None
+    try:
+        version = run_checked([args.codex, "--version"], timeout=15).stdout.strip()
+        if version != "codex-cli " + args.expected_codex_version:
+            raise ValueError("native CLI version differs from pin")
+    except (OSError, subprocess.TimeoutExpired, RuntimeError, ValueError):
+        stop_reason = (
+            "not attempted: resumed native CLI health check could not start with the pinned version"
+        )
+    for entry in report["plan"][len(rows) :]:
+        if not applicable(entry):
+            row = {
+                **entry,
+                "status": "unavailable",
+                "reason": "pinned competitor configuration is not applicable to this task",
+                "elapsed_seconds": None,
+                "usage": None,
+            }
+        elif stop_reason:
+            row = {
+                **entry,
+                "status": "not_attempted",
+                "reason": stop_reason,
+                "elapsed_seconds": None,
+                "usage": None,
+            }
+        else:
+            report["in_flight"] = {key: entry[key] for key in ("task", "arm", "repetition")}
+            report["summary"] = summarize(rows)
+            write_report(args.output, report)
+            print(
+                f"Resuming {entry['task']} / {entry['arm']} / repetition {entry['repetition']}",
+                flush=True,
+            )
+            row = run_one(
+                args,
+                tasks_by_id[entry["task"]],
+                entry["arm"],
+                entry["repetition"],
+                args.expected_codex_version,
+            )
+            report.pop("in_flight", None)
+            if (
+                row.get("returncode")
+                or row.get("native_failure_events")
+                or row.get("timed_out")
+                or row.get("status") == "unavailable"
+            ):
+                stop_reason = "not attempted: resumed native execution failed; additional requests stopped without retries"
+                batch["stop_diagnostic_categories"] = row.get("diagnostic_categories", [])
+        row["batch"] = batch_id
+        rows.append(row)
+        report["summary"] = summarize(rows)
+        write_report(args.output, report)
+    batch["ended_at"] = datetime.now(UTC).isoformat()
+    batch["added_rows"] = len(rows) - initial_rows
+    batch["stopped_on_native_failure"] = stop_reason is not None
+    report["plan_fully_accounted_for"] = len(rows) == len(report["plan"])
+    report["execution_status"] = (
+        "partial"
+        if any(row["status"] in {"interrupted", "not_attempted"} for row in rows)
+        else "complete"
+    )
+    report["summary"] = summarize(rows)
+    write_report(args.output, report)
+    return report
 
 
 def run_benchmark(args):
@@ -824,6 +1063,12 @@ def run_benchmark(args):
         raise ValueError("repetitions and timeout must be positive")
     if args.blocked_preflight and args.dry_run:
         raise ValueError("blocked-preflight and dry-run are separate reporting modes")
+    if args.resume and (args.blocked_preflight or args.dry_run):
+        raise ValueError(
+            "resume requires a live report and cannot combine with blocked-preflight or dry-run"
+        )
+    if args.assume_first_pending_interrupted and not args.resume:
+        raise ValueError("interrupted pending accounting requires --resume")
     arms = [arm.strip() for arm in args.arms.split(",") if arm.strip()]
     if (
         not arms
@@ -883,6 +1128,8 @@ def run_benchmark(args):
                         "model": args.model,
                     }
                 )
+    if args.resume:
+        return resume_benchmark(args, report, tasks)
     if args.blocked_preflight:
         if not args.blocked_preflight.is_file():
             raise ValueError("failed preflight report is missing")
@@ -1007,10 +1254,8 @@ def run_benchmark(args):
 
 def write_report(output, report):
     output.mkdir(parents=True, exist_ok=True)
-    (output / "report.json").write_text(
-        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    (output / "report.md").write_text(markdown_report(report), encoding="utf-8")
+    atomic_write(output / "report.json", json.dumps(report, indent=2, sort_keys=True) + "\n")
+    atomic_write(output / "report.md", markdown_report(report))
 
 
 def main(argv=None):

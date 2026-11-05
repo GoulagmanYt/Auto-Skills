@@ -87,6 +87,8 @@ Historical startup estimates showed 16,079 → 13,045 tokens for Piano and 16,07
 
 The [complete-task benchmark](docs/benchmark.md) uses public synthetic fixtures, model/version pins, repetitions and independent validators. Failures and unavailable competitor arms remain visible. A harness or a passing unit suite does not establish superiority.
 
+The [exploratory measured comparison](reports/benchmarks/comparison/analysis.md) accounts for all45 planned slots:17 validated passes,9 native failures,18 adapter/task exclusions and1 interrupted slot. It does not demonstrate whole-session token savings or an overall winner; complete usage, failures and limitations are published.
+
 Remote skills are untrusted instructions. Declared compatibility and relevance use conservative heuristics; undeclared compatibility is not certified. SHA-256 detects changes relative to recorded content, not safe behavior. Upstream licenses remain applicable. [Security model](docs/security-model.md).
 
 ## Develop

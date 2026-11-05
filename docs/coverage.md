@@ -10,6 +10,8 @@ Auto-Skills accepts Git repositories with supported, partially supported or unkn
 
 Unknown repositories retain portable guidance and the local Python tools. Auto mode does not download RTK or Repomix for unknown input. An explicit preset or manual declaration can change the plan. Agent instructions alone do not make a repository documentary.
 
+Explicitly selecting `kind = "unknown"` suppresses automatically inferred specialized guides. Individually requested manual `slots` remain available, so an informed user can opt into a particular role without asserting that the entire stack is understood.
+
 `propose` and `context` expose classification, reasons, relevant source filenames and inspection limits. They do not read implementation contents to guess a stack. Manual provenance and observed manifest declarations remain distinguishable.
 
 ## Recognized static evidence
