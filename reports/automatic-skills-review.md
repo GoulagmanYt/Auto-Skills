@@ -1,5 +1,7 @@
 # Revue de la gestion automatique des skills
 
+Cet audit conserve les observations initiales. Les validations supplémentaires et la CI effectivement exécutée figurent dans [le suivi](automatic-skills-followup.md) et [les résultats hébergés](automatic-skills-hosted-ci.json).
+
 Audit initial : arbre propre, commit `85b9bd6`. Travail sur la branche `feat/automatic-task-skills`, sans publication de release ni déplacement de tag. L'analyse a confirmé le wrapper, les adaptateurs de manifestes/workspaces, les filtres de versions, les téléchargements GitHub, le verrouillage, les transactions récupérables et les désinstallations réversibles. Les principales lacunes étaient l'absence d'inventaire local avant recherche, de décision par tâche et d'intégration par demande ; les consignes générées interdisaient encore les installations implicites.
 
 Le plan suivi : réutilisation locale et cache partagé ; protocole de décision validé ; intégration lancement/reprise/demande ; preuves déterministes, réseau et agent séparées ; revue des régressions. Le code réutilise les mécanismes de l'alpha. Aucune dépendance Python d'exécution, aucun autre service de modèle et aucune nouvelle clé API ne sont requis.

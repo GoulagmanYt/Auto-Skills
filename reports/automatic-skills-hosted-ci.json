@@ -2,7 +2,7 @@
   "schema_version": 1,
   "runs": [
     {
-      "conclusion": "",
+      "conclusion": "cancelled",
       "databaseId": 42265003057,
       "event": "push",
       "headSha": "8835f10ba96e95f2fbd7ae6c7c83ba806967b20a",
@@ -30,8 +30,8 @@
         },
         {
           "name": "test (windows-latest, 3.13)",
-          "status": "in_progress",
-          "conclusion": "",
+          "status": "completed",
+          "conclusion": "cancelled",
           "databaseId": 128054502206,
           "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502206"
         },
@@ -44,8 +44,8 @@
         },
         {
           "name": "test (windows-latest, 3.11)",
-          "status": "in_progress",
-          "conclusion": "",
+          "status": "completed",
+          "conclusion": "cancelled",
           "databaseId": 128054502225,
           "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502225"
         },
@@ -92,7 +92,7 @@
           "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054676085"
         }
       ],
-      "status": "in_progress",
+      "status": "completed",
       "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057",
       "observation": "Initial hosted attempt: both macOS unit jobs failed on noncanonical temporary fixture roots; no integration performed. Pending jobs are not counted as successful."
     },
@@ -285,6 +285,125 @@
       "status": "completed",
       "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346",
       "observation": "Windows Python3.13 passes; Python3.11 exposes independent validator timed out in the reference Rust check (30s budget). Other jobs pass. No integration. Contract test now uses a bounded 120s Rust allowance without changing measured benchmark budgets, and requires actual validator execution for the negative fixture."
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 42268009771,
+      "event": "pull_request",
+      "headSha": "4cba53ee7e1925b701db3750694cab9193676d60",
+      "jobs": [
+        {
+          "name": "skill-matrix",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891083,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891083"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891238,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891238",
+          "tests_run": 320,
+          "unit_seconds": 17.762,
+          "tests_skipped": 0
+        },
+        {
+          "name": "distribution",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891303,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891303"
+        },
+        {
+          "name": "test (macos-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891409,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891409",
+          "tests_run": 320,
+          "unit_seconds": 27.69,
+          "tests_skipped": 0
+        },
+        {
+          "name": "test (windows-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891410,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891410",
+          "tests_run": 320,
+          "unit_seconds": 312.995,
+          "tests_skipped": 0
+        },
+        {
+          "name": "test (macos-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891444,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891444",
+          "tests_run": 320,
+          "unit_seconds": 24.146,
+          "tests_skipped": 0
+        },
+        {
+          "name": "test (windows-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891505,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891505",
+          "tests_run": 320,
+          "unit_seconds": 238.172,
+          "tests_skipped": 0
+        },
+        {
+          "name": "test (ubuntu-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128064891867,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064891867",
+          "tests_run": 320,
+          "unit_seconds": 25.603,
+          "tests_skipped": 0
+        },
+        {
+          "name": "live-discovery",
+          "status": "completed",
+          "conclusion": "skipped",
+          "databaseId": 128064893588,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128064893588"
+        },
+        {
+          "name": "native-codex (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128065107454,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128065107454"
+        },
+        {
+          "name": "native-codex (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128065107467,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128065107467"
+        },
+        {
+          "name": "native-codex (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128065107633,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771/job/128065107633"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771",
+      "observation": "Final PR checks passed: six unit platform/Python combinations, three native installed wheel/sdist/catalog demonstrations, distributions and offline skill matrix. Optional live-discovery skipped; real network and inference evidence remains the separate Windows reports."
     }
+  ],
+  "verified_runtime_tree": "e91c0a266fb9b5e319d90094e58f95118a59ee12",
+  "limits": [
+    "Hosted native jobs verify installation/catalog/hooks/preparation without inference. Completed agent work and sustained four-turn consultation are observed on Windows only.",
+    "Initial macOS alias failure and Windows validator timeouts remain in this history. Rust reference-contract CI checks now have a bounded120s allowance; measured benchmark execution budgets are unchanged.",
+    "The final evidence/documentation commit changes no runtime modules; actual tested commit is recorded per run."
   ]
 }

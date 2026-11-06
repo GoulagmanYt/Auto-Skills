@@ -1,6 +1,6 @@
 # Suivi des validations automatiques
 
-Ce rapport complète [l'audit initial](automatic-skills-review.md). Les essais natifs locaux utilisent Windows, Python 3.13.17, Codex 0.166.0 et l'authentification existante. La CI multiplateforme est suivie sur la PR d'intégration ; sa définition seule ne prouve pas sa réussite.
+Ce rapport complète [l'audit initial](automatic-skills-review.md). Les essais natifs locaux utilisent Windows, Python 3.13.17, Codex 0.166.0 et l'authentification existante. La CI multiplateforme exécutée est enregistrée dans [les résultats hébergés](automatic-skills-hosted-ci.json).
 
 ## Résultats observés
 
@@ -29,3 +29,9 @@ python tools/measure_startup.py --network
 ```
 
 Les sorties brutes/profils restent dans `reports/private/`, hors Git et distributions. L'essai interactif s'arrête après un échec natif ; les tours non tentés sont distingués par le plan et les compteurs. Les mesures de tâches conservent toutes les lignes prévues, même en cas d'échec ou d'usage absent. Aucune release ni aucun tag ne fait partie de cette intégration.
+
+## CI hébergée finale
+
+[Exécution réussie](https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42268009771) au commit 4cba53ee7e1925b701db3750694cab9193676d60: 320 tests dans chacune des six combinaisons Linux/macOS/Windows et Python 3.11/3.13, contrôles natifs Codex 0.166.0 des distributions/catalogues sur trois systèmes, build et matrice hors ligne. La découverte réseau optionnelle de CI est ignorée ; les essais réseau/inférence Windows restent distincts.
+
+Les premiers passages macOS ont révélé un alias de fixture temporaire, corrigé sans affaiblir le refus des bundles liés. Les passages Windows ont révélé un timeout du validateur Rust dans le test de référence. Son budget de test est maintenant borné à 120 s ; les budgets des benchmarks mesurés restent inchangés. Le rejet de la fixture erronée doit désormais produire une empreinte du validateur exécuté, empêchant un timeout ou une compilation échouée de compter comme preuve de rejet sémantique. Ces échecs et leurs relances restent visibles.

@@ -1,6 +1,6 @@
 # Automatic skills
 
-After the global installation, use `codex` normally in any Git repository. No project selection command or configuration is required. Python 3.11+ and Codex CLI 0.166.0 are the baseline. The [review report](../reports/automatic-skills-review.md) distinguishes observed results from platform coverage still to verify.
+After the global installation, use `codex` normally in any Git repository. No project selection command or configuration is required. Python 3.11+ and Codex CLI 0.166.0 are the baseline. The [initial audit](../reports/automatic-skills-review.md), [follow-up](../reports/automatic-skills-followup.md) and [hosted CI evidence](../reports/automatic-skills-hosted-ci.json) distinguish observed agent work from installed/catalog checks.
 
 ```sh
 # Once, from this checkout; Windows: ./install.ps1
