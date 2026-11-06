@@ -104,12 +104,17 @@ class TaskBenchmarkTests(unittest.TestCase):
             with self.subTest(task=task["id"]):
                 worktree = self.root / task["id"]
                 shutil.copytree(bench.EXAMPLES / task["fixture"], worktree)
-                before = bench.validate_task(task, worktree)
+                # This checks the validator contract, not benchmark latency.
+                # Cold Rust linking on hosted Windows can exceed the benchmark's
+                # 30s execution budget. Keep a separate bounded test allowance.
+                timeout = 120 if task["runtime"] == "rustc" else 30
+                before = bench.validate_task(task, worktree, timeout=timeout)
                 if before["status"] == "unavailable":
                     self.skipTest(before["reason"])
                 self.assertEqual(before["status"], "failed", before)
+                self.assertIn("validator_sha256", before, before)
                 shutil.copyfile(bench.EXAMPLES / task["reference_fix"], worktree / task["source"])
-                after = bench.validate_task(task, worktree)
+                after = bench.validate_task(task, worktree, timeout=timeout)
                 self.assertEqual(after["status"], "passed", after)
 
     def test_usage_uses_native_completion_events_and_preserves_missing_cache(self):

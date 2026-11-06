@@ -190,6 +190,101 @@
       "status": "completed",
       "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413",
       "observation": "macOS fixture correction passes; all three native jobs pass. Windows Python3.13 fails the Rust reference-validator acceptance; exact suppressed validator result is not present in the original assertion. Investigation continues; not merged."
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 42266634346,
+      "event": "pull_request",
+      "headSha": "702934d3488eed19c2ba017e0a9d4943b09fe0ac",
+      "jobs": [
+        {
+          "name": "skill-matrix",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060163425,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060163425"
+        },
+        {
+          "name": "test (windows-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060163831,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060163831"
+        },
+        {
+          "name": "test (macos-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060163868,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060163868"
+        },
+        {
+          "name": "test (windows-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "failure",
+          "databaseId": 128060163913,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060163913"
+        },
+        {
+          "name": "test (macos-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060163977,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060163977"
+        },
+        {
+          "name": "distribution",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060164134,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060164134"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060164165,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060164165"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060164646,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060164646"
+        },
+        {
+          "name": "live-discovery",
+          "status": "completed",
+          "conclusion": "skipped",
+          "databaseId": 128060165705,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060165705"
+        },
+        {
+          "name": "native-codex (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060345311,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060345311"
+        },
+        {
+          "name": "native-codex (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060345334,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060345334"
+        },
+        {
+          "name": "native-codex (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128060345403,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346/job/128060345403"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42266634346",
+      "observation": "Windows Python3.13 passes; Python3.11 exposes independent validator timed out in the reference Rust check (30s budget). Other jobs pass. No integration. Contract test now uses a bounded 120s Rust allowance without changing measured benchmark budgets, and requires actual validator execution for the negative fixture."
     }
   ]
 }
