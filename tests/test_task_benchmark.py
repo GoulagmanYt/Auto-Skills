@@ -109,7 +109,8 @@ class TaskBenchmarkTests(unittest.TestCase):
                     self.skipTest(before["reason"])
                 self.assertEqual(before["status"], "failed", before)
                 shutil.copyfile(bench.EXAMPLES / task["reference_fix"], worktree / task["source"])
-                self.assertEqual(bench.validate_task(task, worktree)["status"], "passed")
+                after = bench.validate_task(task, worktree)
+                self.assertEqual(after["status"], "passed", after)
 
     def test_usage_uses_native_completion_events_and_preserves_missing_cache(self):
         bench = self.benchmark()

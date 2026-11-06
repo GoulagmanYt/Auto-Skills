@@ -95,6 +95,101 @@
       "status": "in_progress",
       "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057",
       "observation": "Initial hosted attempt: both macOS unit jobs failed on noncanonical temporary fixture roots; no integration performed. Pending jobs are not counted as successful."
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 42265530413,
+      "event": "pull_request",
+      "headSha": "44d007757d3eee66a30d56a161bd05d52962fa12",
+      "jobs": [
+        {
+          "name": "skill-matrix",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333162,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333162"
+        },
+        {
+          "name": "distribution",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333512,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333512"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333708,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333708"
+        },
+        {
+          "name": "test (macos-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333718,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333718"
+        },
+        {
+          "name": "test (windows-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333812,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333812"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333877,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333877"
+        },
+        {
+          "name": "test (macos-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056333941,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056333941"
+        },
+        {
+          "name": "test (windows-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "failure",
+          "databaseId": 128056334004,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056334004"
+        },
+        {
+          "name": "live-discovery",
+          "status": "completed",
+          "conclusion": "skipped",
+          "databaseId": 128056335715,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056335715"
+        },
+        {
+          "name": "native-codex (windows-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056526693,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056526693"
+        },
+        {
+          "name": "native-codex (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056526715,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056526715"
+        },
+        {
+          "name": "native-codex (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128056526813,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413/job/128056526813"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265530413",
+      "observation": "macOS fixture correction passes; all three native jobs pass. Windows Python3.13 fails the Rust reference-validator acceptance; exact suppressed validator result is not present in the original assertion. Investigation continues; not merged."
     }
   ]
 }
