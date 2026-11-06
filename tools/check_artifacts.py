@@ -25,6 +25,7 @@ ROOT_FILES = {
     "setup.cfg",
 }
 PUBLIC_DOCS = {
+    "automatic-skills.md",
     "configuration.md",
     "coverage.md",
     "positioning.md",
@@ -36,6 +37,10 @@ PUBLIC_DOCS = {
     "security-model.md",
 }
 REQUIRED_MODULES = {
+    "hooks.py",
+    "inventory.py",
+    "native_hooks.py",
+    "task.py",
     "adapters.py",
     "repo_config.py",
     "repo_inspection.py",

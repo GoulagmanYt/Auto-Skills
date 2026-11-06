@@ -1,0 +1,20 @@
+{
+  "slug": "vue-reactivity",
+  "repository": "vuejs/core",
+  "original_path": "packages/reactivity/package.json",
+  "license_original_path": "LICENSE",
+  "license_spdx": "MIT",
+  "expected_roles": [
+    "language-typescript"
+  ],
+  "allowed_specialties": [
+    "language-typescript",
+    "language-javascript"
+  ],
+  "annotation_basis": "Manifest constraint review; language guidance required; no dependency implementation work.",
+  "commit": "8b479a89445868d474f17e2d837765e7c9ece5e4",
+  "manifest_sha256": "89ceef0c1af636fd3ea64fe223da54a169e4faf24528995c78f61f6f744b9d36",
+  "license_sha256": "49190d1f742dd61e47fe816df4963e5186a2a62100d9122f9883a60ea32973ac",
+  "manifest_url": "https://github.com/vuejs/core/blob/8b479a89445868d474f17e2d837765e7c9ece5e4/packages/reactivity/package.json",
+  "license_url": "https://github.com/vuejs/core/blob/8b479a89445868d474f17e2d837765e7c9ece5e4/LICENSE"
+}

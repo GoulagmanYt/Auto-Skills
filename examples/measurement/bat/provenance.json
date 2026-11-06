@@ -1,0 +1,19 @@
+{
+  "slug": "bat",
+  "repository": "sharkdp/bat",
+  "original_path": "Cargo.toml",
+  "license_original_path": "LICENSE-MIT",
+  "license_spdx": "MIT",
+  "expected_roles": [
+    "language-rust"
+  ],
+  "allowed_specialties": [
+    "language-rust"
+  ],
+  "annotation_basis": "Manifest constraint review; language guidance required; no dependency implementation work.",
+  "commit": "408801f2a768a75f2db5b3608d9d2edac8406b20",
+  "manifest_sha256": "d494847ac2b7206873b44c29afaf18f864ac0c94a7a34a79d0b89e7eb5e971ef",
+  "license_sha256": "dccda9eb9533f5c65624a1106536c6cfde46008d58e60b3faf154e8b9fd5b46e",
+  "manifest_url": "https://github.com/sharkdp/bat/blob/408801f2a768a75f2db5b3608d9d2edac8406b20/Cargo.toml",
+  "license_url": "https://github.com/sharkdp/bat/blob/408801f2a768a75f2db5b3608d9d2edac8406b20/LICENSE-MIT"
+}

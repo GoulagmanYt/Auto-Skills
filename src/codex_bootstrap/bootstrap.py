@@ -11,7 +11,7 @@ from . import __version__
 from .config import agents_text, local_config
 from .fs import atomic_write, command, confined, digest, json_text, repo_mutex
 from .github import GitHub
-from .lifecycle import refresh, skill_artifacts, slot_inputs, status
+from .lifecycle import refresh, reserve_skill_paths, skill_artifacts, slot_inputs, status
 from .profile import manifest_fingerprint, profile_repo
 from .proposal import SELECTION_VERSION, scoped_profiles, selection_plan, slot_key
 from .repository_uninstall import IGNORE_BEGIN, IGNORE_END, STATE, snapshot
@@ -49,7 +49,9 @@ def verify_lock(root: Path):
         directory = confined(root, folder)
         if directory.exists():
             for path in directory.rglob("SKILL.md"):
-                if path.relative_to(root).as_posix() not in lock["files"]:
+                if path.relative_to(root).as_posix() not in lock["files"] and path.relative_to(
+                    root
+                ).as_posix() not in lock.get("preexisting_skills", []):
                     raise ValueError("integrity failure: unlisted local skill")
     return lock
 
@@ -110,6 +112,12 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
             profile, offline=offline, cache_dir=cache_dir, root=root, preset=preset
         )
         profiles, policy = scoped_profiles(root, profile, preset)
+        preexisting_skills = [
+            p.relative_to(root).as_posix()
+            for folder in (".agents/skills", ".codex/skills")
+            for p in (root / folder).rglob("SKILL.md")
+        ]
+        reserve_skill_paths(root, selected)
         stage = Path(tempfile.mkdtemp(prefix=".bootstrap-stage-", dir=root / ".codex"))
         try:
             tools = install_token_tools(
@@ -163,6 +171,7 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
                 "schema_version": 1,
                 "generator": "codex-auto-bootstrap/" + __version__,
                 "selection_version": SELECTION_VERSION,
+                "preexisting_skills": preexisting_skills,
                 "created_at": datetime.now(UTC).isoformat(),
                 "manifest_hashes": fingerprints,
                 "policy": policy,
@@ -183,7 +192,7 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
                     "manifests changed during bootstrap; no configuration was published"
                 )
             publish(root, writes, set(), lock, executable=executable, verify=verify_lock)
-            return verify_lock(root)
+            return lock  # publish already verified the entire committed lock under this mutex.
         finally:
             if not stage.resolve().is_relative_to((root / ".codex").resolve()):
                 raise ValueError("stage escaped repository")

@@ -43,6 +43,50 @@ def requested_cwd(args):
     return cwd.resolve()
 
 
+def requested_prompt(args):
+    """Best effort only; stdin remains untouched and per-turn hooks see the real prompt."""
+    values = {
+        "-C",
+        "--cd",
+        "-c",
+        "--config",
+        "-m",
+        "--model",
+        "-p",
+        "--profile",
+        "-s",
+        "--sandbox",
+        "-o",
+        "--output-last-message",
+        "--output-schema",
+        "--add-dir",
+        "--color",
+        "--local-provider",
+        "--thread-source",
+        "--cyber-access-program",
+        "-i",
+        "--image",
+    }
+    positionals = []
+    skip = False
+    for arg in args:
+        if skip:
+            skip = False
+            continue
+        if arg in values:
+            skip = True
+            continue
+        if arg.startswith("-") or arg in {"exec", "resume", "fork", "review"}:
+            continue
+        positionals.append(arg)
+    if positionals and len(positionals[0]) == 36:
+        import re
+
+        if re.fullmatch(r"[0-9a-fA-F-]{36}", positionals[0]):
+            positionals.pop(0)
+    return " ".join(positionals)[:64_000]
+
+
 def real_codex():
     override = os.environ.get("CODEX_BOOTSTRAP_REAL_CODEX")
     if override:
@@ -69,6 +113,9 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     env = dict(os.environ)
     if root is not None:
         lock = bootstrap(root, offline=offline)
+        from .task import prepare_task
+
+        decision = prepare_task(root, requested_prompt(args), cwd=cwd, offline=offline)
         bin_dir = str(root / ".codex/bin")
         # Codex shell subprocesses inherit this, including bundled Node where necessary.
         extra_bins = []
@@ -83,7 +130,12 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     try:
         if root is None:
             return subprocess.call([*real_command, *args], env=env)
-        with launch_profile(root, lock, args, cwd) as launch_args:
+        from .native_hooks import hook_overrides
+
+        hook_args = hook_overrides(real_command, root)
+        with launch_profile(
+            root, lock, args, cwd, decision=decision, hook_args=hook_args
+        ) as launch_args:
             return subprocess.call([*real_command, *launch_args], env=env)
     except KeyboardInterrupt:
         return 130
@@ -92,6 +144,39 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
     try:
+        if args[:1] == ["task"]:
+            from .task import prepare_task, task_context
+
+            parser = argparse.ArgumentParser(prog="codex-auto-bootstrap task")
+            parser.add_argument("--repo", type=Path, default=Path.cwd())
+            parser.add_argument("--prompt", default="")
+            parser.add_argument("--proposal", type=Path)
+            parser.add_argument("--session", default=os.environ.get("CODEX_THREAD_ID", "agent"))
+            parser.add_argument("--offline", action="store_true")
+            parser.add_argument("--json", action="store_true")
+            options = parser.parse_args(args[1:])
+            root = git_root(options.repo)
+            if root is None:
+                raise ValueError("not a Git repository")
+            proposal = None
+            if options.proposal:
+                if options.proposal.stat().st_size > 24_000:
+                    raise ValueError("task proposal exceeds budget")
+                proposal = json.loads(options.proposal.read_text(encoding="utf-8"))
+            result = prepare_task(
+                root,
+                options.prompt,
+                cwd=options.repo,
+                proposal=proposal,
+                session_id=options.session,
+                offline=options.offline or os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
+            )
+            print(
+                json.dumps(result, ensure_ascii=False, indent=2)
+                if options.json
+                else task_context(root, result)
+            )
+            return 0
         if args[:1] == ["context"]:
             from .context_preview import inspect_context, markdown_context
 

@@ -112,6 +112,9 @@ def load_candidate(root, entry, lock):
         "technologies": set(entry.get("technologies", [])),
         "declared_slot": entry.get("declared_slot", False),
         "scope": entry.get("scope", "."),
+        "origin_path": entry.get("origin_path", ""),
+        "license_origin": entry.get("license_origin", ""),
+        "install_suffix": entry["path"].removeprefix(".codex/skills/").removesuffix("/SKILL.md"),
     }
     optional = {k: v for k, v in optional.items() if k in {f.name for f in fields(Candidate)}}
     return Candidate(
@@ -137,7 +140,10 @@ def skill_artifacts(candidates):
     writes, executable, entries = {}, set(), []
     for candidate in candidates:
         entry = candidate_record(candidate)
-        suffix = skill_suffix(candidate.scope, candidate.slot)
+        suffix = candidate.install_suffix or skill_suffix(candidate.scope, candidate.slot)
+        from .github import safe_resource_path
+
+        safe_resource_path(suffix)
         entry["path"] = f".codex/skills/{suffix}/SKILL.md"
         entry["discovery_path"] = f".agents/skills/{suffix}/SKILL.md"
         entries.append(entry)
@@ -149,6 +155,43 @@ def skill_artifacts(candidates):
                 if name in candidate.executable_files:
                     executable.add(relative)
     return writes, executable, entries
+
+
+def reserve_skill_paths(root, candidates, previous=None):
+    """Keep existing owned paths; route first-install collisions around user files."""
+    entries = {
+        slot_key(s.get("scope", "."), s["slot"]): s for s in (previous or {}).get("skills", [])
+    }
+    for candidate in candidates:
+        key = slot_key(candidate.scope, candidate.slot)
+        if key in entries:
+            candidate.install_suffix = (
+                entries[key]["path"].removeprefix(".codex/skills/").removesuffix("/SKILL.md")
+            )
+            continue
+        suffix = skill_suffix(candidate.scope, candidate.slot)
+        for attempt in range(16):
+            try:
+                locations = [
+                    confined(root, folder + suffix)
+                    for folder in (".codex/skills/", ".agents/skills/")
+                ]
+                available = all(
+                    not p.exists() or (p.is_dir() and not any(p.iterdir())) for p in locations
+                )
+            except ValueError:
+                available = False
+            if available:
+                candidate.install_suffix = suffix
+                break
+            suffix = (
+                "@managed/"
+                + hashlib.sha256((key + ":" + str(attempt)).encode()).hexdigest()[:16]
+                + "/"
+                + candidate.slot
+            )
+        else:
+            raise ValueError("managed skill path collision budget exceeded")
 
 
 def skill_suffix(scope, slot):
@@ -177,6 +220,10 @@ def refresh_plan(root, lock, profile, *, force=False, preset=None):
             continue
         candidate = load_candidate(root, entry, lock)
         reason = rejection(candidate, scoped)
+        if candidate.source == "github":
+            from .inventory import admissible_remote
+
+            reason = reason or admissible_remote(candidate)
         if (
             force
             or migrate
@@ -200,6 +247,7 @@ def refresh(
     selected, report = selection_plan(
         profile, offline=offline, slots=affected, cache_dir=cache_dir, root=root, preset=preset
     )
+    reserve_skill_paths(root, selected, lock)
     refreshed = {slot_key(c.scope, c.slot): c for c in selected}
     wanted = [slot_key(scope, slot) for scope, p in profiles.items() for slot in p.slots]
     ordered = [refreshed.get(key) or retained[key] for key in wanted]
@@ -309,7 +357,7 @@ def refresh(
     publish(
         root, writes, deletes, updated, previous=lock, executable=executable, verify=verify_lock
     )
-    return verify_lock(root)
+    return updated  # Publication has completed its full integrity verification.
 
 
 def status(root, lock, profile, manifest_hashes, *, preset=None):

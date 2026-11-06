@@ -22,7 +22,18 @@ class ScopedInstallTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name) / "repo"
+        self.root.mkdir()
+        for guard in (
+            patch(
+                "codex_bootstrap.inventory.allowed_repositories",
+                return_value={"controlled-fixture/react-skills"},
+            ),
+            patch("codex_bootstrap.config.external_skills", return_value=set()),
+            patch.dict(os.environ, {"CODEX_BOOTSTRAP_CACHE": str(self.root.parent / "test-cache")}),
+        ):
+            guard.start()
+            self.addCleanup(guard.stop)
         subprocess.run(["git", "init", "-q", str(self.root)], check=True)
         (self.root / "package.json").write_text(
             '{"private":true,"workspaces":["apps/*"]}', encoding="utf-8"
@@ -46,7 +57,7 @@ class ScopedInstallTests(unittest.TestCase):
         )
 
     @staticmethod
-    def discovery(profile, github=None, *, slots=None, cache_dir=None):
+    def discovery(profile, github=None, *, slots=None, cache_dir=None, allowed_repositories=None):
         # Deliberately a controlled registry fixture, not a live GitHub discovery.
         candidates = [
             Candidate(

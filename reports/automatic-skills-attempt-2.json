@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "platform": "win32",
+  "python": "3.13.17",
+  "codex_version": "codex-cli 0.166.0",
+  "checks": [
+    {
+      "name": "new-repository-prepared-by-global-launcher",
+      "status": "passed",
+      "native_catalog_count": 9,
+      "startup_ms": 4916.86
+    },
+    {
+      "name": "local-rust-reused",
+      "status": "passed"
+    },
+    {
+      "name": "backend-task-excludes-frontend",
+      "status": "passed",
+      "selected_count": 9,
+      "irrelevant_specialties": 0
+    },
+    {
+      "name": "unchanged-return-zero-discovery-or-install",
+      "status": "passed",
+      "downloads": 0,
+      "search_requests": 0,
+      "model_requests": 0
+    },
+    {
+      "name": "new-task-replaces-specialties",
+      "status": "passed"
+    },
+    {
+      "name": "frontend-change-preserves-backend",
+      "status": "passed",
+      "preserved_files": 34
+    },
+    {
+      "name": "frontend-change-detected",
+      "status": "passed"
+    },
+    {
+      "name": "concurrent-sessions-coherent",
+      "status": "passed"
+    },
+    {
+      "name": "project-uninstall-restores-existing-instructions",
+      "status": "passed"
+    },
+    {
+      "name": "global-uninstall-restores-profile",
+      "status": "passed"
+    }
+  ],
+  "agent": {
+    "status": "passed",
+    "exit_code": 0,
+    "elapsed_seconds": 78.505,
+    "usage": {
+      "input_tokens": 247406,
+      "cached_input_tokens": 204416,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1738,
+      "reasoning_output_tokens": 57
+    },
+    "thread_started": true,
+    "consultation_instruction_observed": true,
+    "public_contract_passed": true,
+    "acceptance_tests_unchanged": true,
+    "frontend_unchanged": true
+  },
+  "network": {
+    "status": "failed",
+    "external_selected": 0,
+    "external_installed_and_native_visible": 0,
+    "native_catalog_count": 0,
+    "sources": [],
+    "requests": 115,
+    "errors": 0,
+    "elapsed_seconds": 23.929,
+    "limitation": "Native visibility is observed; remote instruction consultation/application requires an agent observation."
+  },
+  "status": "incomplete",
+  "claims": {
+    "whole_task_token_savings": "not-established",
+    "native_catalog_hot_reload": "not-assumed; hooks provide verified paths",
+    "other_platforms": "not-established-by-this-run"
+  }
+}

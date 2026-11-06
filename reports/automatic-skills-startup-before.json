@@ -1,0 +1,222 @@
+{
+  "mode": "before optimization; ordinary online cold start",
+  "elapsed_seconds": 224.55,
+  "files": 7186,
+  "tool_files": 6999,
+  "tools": [
+    {
+      "name": "token-run",
+      "status": "installed",
+      "version": "1"
+    },
+    {
+      "name": "repo-map",
+      "status": "installed",
+      "version": "1"
+    },
+    {
+      "name": "rtk",
+      "status": "installed",
+      "version": "v1.1.0"
+    },
+    {
+      "name": "repomix",
+      "status": "installed",
+      "version": "1.18.1"
+    }
+  ],
+  "profile": [
+    {
+      "module": "bootstrap.py",
+      "line": 77,
+      "function": "bootstrap",
+      "calls": 1,
+      "self_seconds": 0.053,
+      "cumulative_seconds": 224.542
+    },
+    {
+      "module": "transaction.py",
+      "line": 70,
+      "function": "publish",
+      "calls": 1,
+      "self_seconds": 0.077,
+      "cumulative_seconds": 104.214
+    },
+    {
+      "module": "bootstrap.py",
+      "line": 31,
+      "function": "verify_lock",
+      "calls": 2,
+      "self_seconds": 0.155,
+      "cumulative_seconds": 80.075
+    },
+    {
+      "module": "fs.py",
+      "line": 32,
+      "function": "confined",
+      "calls": 35984,
+      "self_seconds": 0.816,
+      "cumulative_seconds": 61.165
+    },
+    {
+      "module": "github.py",
+      "line": 535,
+      "function": "api",
+      "calls": 174,
+      "self_seconds": 0.004,
+      "cumulative_seconds": 58.308
+    },
+    {
+      "module": "proposal.py",
+      "line": 111,
+      "function": "selection_plan",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 57.865
+    },
+    {
+      "module": "discovery.py",
+      "line": 268,
+      "function": "discover",
+      "calls": 3,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 57.755
+    },
+    {
+      "module": "github.py",
+      "line": 410,
+      "function": "_request",
+      "calls": 148,
+      "self_seconds": 0.002,
+      "cumulative_seconds": 56.245
+    },
+    {
+      "module": "github.py",
+      "line": 553,
+      "function": "_http",
+      "calls": 129,
+      "self_seconds": 0.002,
+      "cumulative_seconds": 54.908
+    },
+    {
+      "module": "discovery.py",
+      "line": 177,
+      "function": "candidate_from_tree",
+      "calls": 10,
+      "self_seconds": 0.002,
+      "cumulative_seconds": 52.15
+    },
+    {
+      "module": "github.py",
+      "line": 636,
+      "function": "blob",
+      "calls": 116,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 52.092
+    },
+    {
+      "module": "fs.py",
+      "line": 70,
+      "function": "digest",
+      "calls": 14373,
+      "self_seconds": 0.077,
+      "cumulative_seconds": 48.994
+    },
+    {
+      "module": "_abc.py",
+      "line": 621,
+      "function": "read_bytes",
+      "calls": 7007,
+      "self_seconds": 0.016,
+      "cumulative_seconds": 33.009
+    },
+    {
+      "module": "_local.py",
+      "line": 510,
+      "function": "stat",
+      "calls": 672793,
+      "self_seconds": 0.239,
+      "cumulative_seconds": 21.672
+    },
+    {
+      "module": "fs.py",
+      "line": 49,
+      "function": "atomic_write",
+      "calls": 7214,
+      "self_seconds": 0.062,
+      "cumulative_seconds": 10.321
+    },
+    {
+      "module": "fs.py",
+      "line": 13,
+      "function": "command",
+      "calls": 29,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 7.745
+    },
+    {
+      "module": "token_tools.py",
+      "line": 332,
+      "function": "install_token_tools",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 7.72
+    },
+    {
+      "module": "token_tools.py",
+      "line": 238,
+      "function": "install_repomix",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 6.193
+    },
+    {
+      "module": "token_tools.py",
+      "line": 358,
+      "function": "<lambda>",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 6.193
+    },
+    {
+      "module": "fs.py",
+      "line": 73,
+      "function": "<lambda>",
+      "calls": 28825,
+      "self_seconds": 0.015,
+      "cumulative_seconds": 5.967
+    },
+    {
+      "module": "github.py",
+      "line": 341,
+      "function": "<genexpr>",
+      "calls": 10010,
+      "self_seconds": 0.042,
+      "cumulative_seconds": 5.208
+    },
+    {
+      "module": "github.py",
+      "line": 257,
+      "function": "_owned_cache_entry",
+      "calls": 9870,
+      "self_seconds": 0.034,
+      "cumulative_seconds": 5.082
+    },
+    {
+      "module": "discovery.py",
+      "line": 308,
+      "function": "search",
+      "calls": 21,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 3.543
+    },
+    {
+      "module": "github.py",
+      "line": 588,
+      "function": "search",
+      "calls": 21,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 3.542
+    }
+  ]
+}

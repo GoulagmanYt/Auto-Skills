@@ -240,24 +240,34 @@ def candidate_from_tree(
             executable_files.add(relative)
     text, files = normalize_resources(text, files)
     license_id = (meta.get("license") or {}).get("spdx_id", "")
+    license_origin = "repository-metadata" if license_id else "unverified"
+    frontmatter = text.split("---", 2)[1] if text.startswith("---") else ""
+    declaration = re.search(r"(?m)^license:[ \t]*[\"']?([A-Za-z0-9.+-]+)[\"']?[ \t]*$", frontmatter)
+    if declaration:
+        license_id, license_origin = declaration[1], "skill-frontmatter"
     # Registries commonly license each skill separately and have no repository SPDX metadata.
     for filename, content in files.items():
         if PurePosixPath(filename).name.lower().startswith(("license", "copying")):
             license_text = content.decode("utf-8", errors="replace")
             if "Apache License" in license_text and "Version 2.0" in license_text:
                 license_id = "Apache-2.0"
+                license_origin = filename
             elif "Permission is hereby granted, free of charge" in license_text:
                 license_id = "MIT"
+                license_origin = filename
     license_id = license_id or "NOASSERTION"
     for entry_name in ("LICENSE", "LICENSE.md", "LICENSE.txt", "COPYING", "NOTICE"):
         if entry_name in by_path and entry_name not in files:
             files["UPSTREAM-" + entry_name] = github.blob(repository, by_path[entry_name]["sha"])
     candidate.body, candidate.files = clean_markdown(text), files
     candidate.license, candidate.executable_files = license_id, executable_files
+    candidate.license_origin = license_origin
     return candidate
 
 
-def discover(profile, github=None, *, slots=None, cache_dir=None, offline=False):
+def discover(
+    profile, github=None, *, slots=None, cache_dir=None, offline=False, allowed_repositories=None
+):
     """Discover public skills; ``slots`` limits matching/search for incremental refresh.
 
     ``slots=None`` searches the full profile; an empty iterable does no remote work.
@@ -273,13 +283,17 @@ def discover(profile, github=None, *, slots=None, cache_dir=None, offline=False)
         if any(slot.startswith("token-") for slot in requested)
         else []
     )
-    queries += [
-        ("repos", "agent skills token optimization"),
-        ("repos", "awesome-agent-skills"),
-        ("repos", "rtk token compression"),
-        ("repos", "repomix"),
-        ("repos", "GitNexus"),
-    ]
+    queries += (
+        [
+            ("repos", "agent skills token optimization"),
+            ("repos", "awesome-agent-skills"),
+            ("repos", "rtk token compression"),
+            ("repos", "repomix"),
+            ("repos", "GitNexus"),
+        ]
+        if any(slot.startswith("token-") for slot in requested)
+        else []
+    )
     # Every requested slot gets a query; technology names are manifest keys, never source text.
     queries += [
         ("code", f'filename:SKILL.md "{terms_for(slot)[0]}"')
@@ -325,13 +339,17 @@ def discover(profile, github=None, *, slots=None, cache_dir=None, offline=False)
         repositories - set(REGISTRIES), key=lambda repo: (repo not in hints, repo)
     )[:SUPPLEMENTAL_REPOSITORIES]
     ordered = REGISTRIES + supplemental if requested else []
+    if allowed_repositories is not None:
+        allowed = set(allowed_repositories)
+        ordered = [repo for repo in ordered if repo in allowed]
+        ordered += sorted(allowed - set(ordered))[:SUPPLEMENTAL_REPOSITORIES]
     indexed, complete = {}, set()
 
     def scope_for(repository):
         if not hasattr(github, "budget_scope"):
             return nullcontext()
         return (
-            github.budget_scope(repository, 28)
+            github.budget_scope(repository, 96 if len(requested) == 1 else 28)
             if repository in REGISTRIES
             else github.budget_scope(repository, 8)
         )

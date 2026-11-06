@@ -1,0 +1,36 @@
+[
+  {
+    "package_version": "1.4.0a1",
+    "codex_version": "0.166.0",
+    "native_catalog_counts": {
+      ".": 15,
+      "frontend": 15,
+      "backend": 14
+    },
+    "preserved_files": 18,
+    "temporary_user_install_reversed": true,
+    "user_os_boundaries": "injected adapters in temporary home",
+    "platform": "win32",
+    "python": "3.13.17",
+    "inference_requests": 0,
+    "artifact": "codex_repo_auto_bootstrap-1.4.0a1-py3-none-any.whl",
+    "artifact_sha256": "3d80f0617a17f0ff29667929d72e6484ca3bf1e1ccd6ff772ecc198e5db54bfa"
+  },
+  {
+    "package_version": "1.4.0a1",
+    "codex_version": "0.166.0",
+    "native_catalog_counts": {
+      ".": 15,
+      "frontend": 15,
+      "backend": 14
+    },
+    "preserved_files": 18,
+    "temporary_user_install_reversed": true,
+    "user_os_boundaries": "injected adapters in temporary home",
+    "platform": "win32",
+    "python": "3.13.17",
+    "inference_requests": 0,
+    "artifact": "codex_repo_auto_bootstrap-1.4.0a1.tar.gz",
+    "artifact_sha256": "d85115a590d696bf354671e1bb9872ba36cc51b75a736698bb2aa472eb99450a"
+  }
+]

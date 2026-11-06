@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "platform": "win32",
+  "python": "3.13.17",
+  "codex_version": "codex-cli 0.166.0",
+  "checks": [
+    {
+      "name": "new-repository-prepared-by-global-launcher",
+      "status": "passed",
+      "native_catalog_count": 9,
+      "startup_ms": 3531.88
+    },
+    {
+      "name": "local-rust-reused",
+      "status": "passed"
+    },
+    {
+      "name": "backend-task-excludes-frontend",
+      "status": "passed",
+      "selected_count": 9,
+      "irrelevant_specialties": 0
+    },
+    {
+      "name": "unchanged-return-zero-discovery-or-install",
+      "status": "passed",
+      "downloads": 0,
+      "search_requests": 0,
+      "model_requests": 0
+    },
+    {
+      "name": "new-task-replaces-specialties",
+      "status": "passed"
+    },
+    {
+      "name": "frontend-change-preserves-backend",
+      "status": "passed",
+      "preserved_files": 6
+    },
+    {
+      "name": "frontend-change-detected",
+      "status": "passed"
+    },
+    {
+      "name": "concurrent-first-installation-coherent",
+      "status": "passed"
+    },
+    {
+      "name": "forced-interruption-leaves-recovery-journal",
+      "status": "passed"
+    },
+    {
+      "name": "forced-interruption-replayed-and-verified",
+      "status": "passed"
+    },
+    {
+      "name": "project-uninstall-restores-existing-instructions",
+      "status": "passed"
+    },
+    {
+      "name": "global-uninstall-restores-profile",
+      "status": "passed"
+    }
+  ],
+  "agent": {
+    "status": "not-requested"
+  },
+  "network": {
+    "status": "passed",
+    "external_selected": 1,
+    "external_installed_and_native_visible": 1,
+    "native_catalog_count": 15,
+    "consultation": {
+      "status": "not-requested"
+    },
+    "sources": [
+      {
+        "repository": "vercel-labs/agent-skills",
+        "commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+        "license": "MIT",
+        "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355"
+      }
+    ],
+    "requests": 149,
+    "errors": 18,
+    "ordinary_first_visit": true,
+    "elapsed_seconds": 272.76,
+    "limitation": "Native visibility is observed; remote instruction consultation/application requires an agent observation."
+  },
+  "status": "passed",
+  "claims": {
+    "whole_task_token_savings": "not-established",
+    "native_catalog_hot_reload": "not-assumed; hooks provide verified paths",
+    "other_platforms": "not-established-by-this-run"
+  }
+}

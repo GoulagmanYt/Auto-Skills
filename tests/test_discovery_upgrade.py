@@ -472,7 +472,9 @@ class DiscoveryUpgradeTests(unittest.TestCase):
             }
 
         client = GitHub(cache_dir=self.cache, transport=transport)
-        profile = SimpleNamespace(slots=["unit-testing"], technologies={}, slot_technologies={})
+        profile = SimpleNamespace(
+            slots=["unit-testing", "security"], technologies={}, slot_technologies={}
+        )
         candidates, report = discover(profile, client)
         self.assertLessEqual(counts[REGISTRIES[0]], 28)
         self.assertEqual({c.repository for c in candidates}, set(REGISTRIES[1:]))
