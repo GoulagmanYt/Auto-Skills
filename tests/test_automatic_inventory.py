@@ -23,7 +23,10 @@ class AutomaticInventoryTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.directory = Path(temporary.name)
+        # macOS temporary directories can use the system /var -> /private/var
+        # alias. Test admissible bundles under their canonical fixture root;
+        # linked bundle paths remain deliberately ineligible for copying.
+        self.directory = Path(temporary.name).resolve()
         self.cache = self.directory / "cache"
         self.profile = Profile(technologies={"rust": "detected"}, slots=["language-rust"])
         self.path = self.directory / "user-skills/rust/SKILL.md"

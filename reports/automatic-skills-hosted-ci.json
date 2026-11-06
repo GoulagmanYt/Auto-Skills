@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "conclusion": "",
+      "databaseId": 42265003057,
+      "event": "push",
+      "headSha": "8835f10ba96e95f2fbd7ae6c7c83ba806967b20a",
+      "jobs": [
+        {
+          "name": "skill-matrix",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054501764,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054501764"
+        },
+        {
+          "name": "test (macos-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "failure",
+          "databaseId": 128054502108,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502108"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054502175,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502175"
+        },
+        {
+          "name": "test (windows-latest, 3.13)",
+          "status": "in_progress",
+          "conclusion": "",
+          "databaseId": 128054502206,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502206"
+        },
+        {
+          "name": "distribution",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054502210,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502210"
+        },
+        {
+          "name": "test (windows-latest, 3.11)",
+          "status": "in_progress",
+          "conclusion": "",
+          "databaseId": 128054502225,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502225"
+        },
+        {
+          "name": "test (ubuntu-latest, 3.11)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054502330,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502330"
+        },
+        {
+          "name": "test (macos-latest, 3.13)",
+          "status": "completed",
+          "conclusion": "failure",
+          "databaseId": 128054502709,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054502709"
+        },
+        {
+          "name": "live-discovery",
+          "status": "completed",
+          "conclusion": "skipped",
+          "databaseId": 128054504343,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054504343"
+        },
+        {
+          "name": "native-codex (windows-latest)",
+          "status": "completed",
+          "conclusion": "failure",
+          "databaseId": 128054675754,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054675754"
+        },
+        {
+          "name": "native-codex (macos-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054675804,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054675804"
+        },
+        {
+          "name": "native-codex (ubuntu-latest)",
+          "status": "completed",
+          "conclusion": "success",
+          "databaseId": 128054676085,
+          "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057/job/128054676085"
+        }
+      ],
+      "status": "in_progress",
+      "url": "https://github.com/GoulagmanYt/Auto-Skills/actions/runs/42265003057",
+      "observation": "Initial hosted attempt: both macOS unit jobs failed on noncanonical temporary fixture roots; no integration performed. Pending jobs are not counted as successful."
+    }
+  ]
+}
