@@ -4,6 +4,7 @@ recursive-include tests *.py
 recursive-include tools *.py
 prune docs
 include docs/positioning.md docs/usage.md docs/compatibility.md docs/security-model.md docs/benchmark.md docs/release.md docs/public-alpha.md docs/configuration.md docs/coverage.md
+include docs/automatic-skills.md
 recursive-include examples *.json *.toml *.py *.js *.mjs *.rs *.md *.txt
 recursive-include benchmarks *.json *.md
 global-exclude __pycache__ *.py[cod] .DS_Store

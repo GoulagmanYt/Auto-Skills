@@ -98,6 +98,7 @@ class GitHub:
         self._mutex = threading.Lock()
         self._disk_mutex = threading.Lock()
         self._local = threading.local()
+        self._gh_unavailable = set()
         self._scopes = {}
         self._public = set()
         self._blocked = {}
@@ -407,7 +408,11 @@ class GitHub:
         return float(2**attempt)
 
     def _request(self, endpoint, resource):
-        use_gh = bool(self.gh and self._transport is None)
+        family = urllib.parse.urlsplit(endpoint).path if endpoint.startswith("search/") else "core"
+        with self._mutex:
+            use_gh = bool(
+                self.gh and self._transport is None and family not in self._gh_unavailable
+            )
         for attempt in range(self._max_retries + 1):
             self._reserve(resource)
             try:
@@ -461,6 +466,12 @@ class GitHub:
                         TimeoutError,
                         subprocess.TimeoutExpired,
                     ):
+                        # An unauthenticated/missing CLI otherwise spends two
+                        # requests for every blob in a multi-file skill. Keep
+                        # its credential fallback, but use HTTPS for this family
+                        # for the remainder of the bounded discovery operation.
+                        with self._mutex:
+                            self._gh_unavailable.add(family)
                         self._reserve(resource)
                 response = self._transport(endpoint) if self._transport else self._http(endpoint)
                 return response[0] if isinstance(response, tuple) else response

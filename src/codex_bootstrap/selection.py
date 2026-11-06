@@ -31,6 +31,9 @@ class Candidate:
     technologies: set[str] = field(default_factory=set)
     declared_slot: bool = False
     scope: str = "."
+    origin_path: str = ""
+    license_origin: str = ""
+    install_suffix: str = ""
 
 
 def clean_markdown(text: str) -> str:

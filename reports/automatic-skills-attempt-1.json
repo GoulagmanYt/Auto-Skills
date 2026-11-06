@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "platform": "win32",
+  "python": "3.13.17",
+  "codex_version": "codex-cli 0.166.0",
+  "checks": [
+    {
+      "name": "new-repository-prepared-by-global-launcher",
+      "status": "passed",
+      "native_catalog_count": 9,
+      "startup_ms": 4897.42
+    },
+    {
+      "name": "local-rust-reused",
+      "status": "passed"
+    },
+    {
+      "name": "backend-task-excludes-frontend",
+      "status": "passed",
+      "selected_count": 9,
+      "irrelevant_specialties": 0
+    },
+    {
+      "name": "unchanged-return-zero-discovery-or-install",
+      "status": "passed",
+      "downloads": 0,
+      "search_requests": 0,
+      "model_requests": 0
+    },
+    {
+      "name": "new-task-replaces-specialties",
+      "status": "passed"
+    },
+    {
+      "name": "frontend-change-preserves-backend",
+      "status": "passed",
+      "preserved_files": 34
+    },
+    {
+      "name": "frontend-change-detected",
+      "status": "passed"
+    },
+    {
+      "name": "concurrent-sessions-coherent",
+      "status": "passed"
+    },
+    {
+      "name": "project-uninstall-restores-existing-instructions",
+      "status": "passed"
+    },
+    {
+      "name": "global-uninstall-restores-profile",
+      "status": "passed"
+    }
+  ],
+  "agent": {
+    "status": "failed",
+    "reason": "native-agent-or-independent-validation-failed"
+  },
+  "network": {
+    "status": "failed",
+    "external_selected": 0,
+    "sources": [],
+    "requests": 76,
+    "errors": 0,
+    "elapsed_seconds": 9.963,
+    "limitation": "This arm checks live search/download; native activation is checked independently unless remote candidates are selected in the native fixture."
+  },
+  "status": "incomplete",
+  "claims": {
+    "whole_task_token_savings": "not-established",
+    "native_catalog_hot_reload": "not-assumed; hooks provide verified paths",
+    "other_platforms": "not-established-by-this-run"
+  },
+  "failure": "PermissionError"
+}

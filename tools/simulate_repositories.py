@@ -127,7 +127,10 @@ def assess_scenario(spec, root, *, live=False, github=None):
         return original_open(path, *args, **kwargs)
 
     errors_before = len(github.errors) if live and github is not None else 0
-    with patch.object(Path, "open", guarded_open):
+    with (
+        patch.object(Path, "open", guarded_open),
+        patch("codex_bootstrap.config.external_skills", return_value=set()),
+    ):
         report = propose(root, offline=not live, github=github)
     new_discovery_errors = (
         list(github.errors[errors_before:])
@@ -310,7 +313,13 @@ def adversarial_checks(base):
         create_repository(root, files)
         before = snapshot(root)
         registry = SyntheticRegistry(skills, unavailable=unavailable)
-        report = propose(root, github=registry)
+        with (
+            patch("codex_bootstrap.config.external_skills", return_value=set()),
+            patch(
+                "codex_bootstrap.inventory.allowed_repositories", return_value={registry.repository}
+            ),
+        ):
+            report = propose(root, github=registry, cache_dir=base / (name + "-isolated-cache"))
         selected = {entry["name"] for entry in report["selected"]}
         reasons = [
             entry.get("reason", "")

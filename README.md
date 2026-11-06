@@ -22,18 +22,16 @@ sh install.sh
 "$HOME/.local/share/codex-auto-bootstrap/bin/codex"
 ```
 
-The installer creates user launchers and records PATH/profile changes for reversal. It preserves the original Codex binary. Inspect and provision an existing Git repository:
+The installer creates user launchers and records PATH/profile changes for reversal. It preserves the original Codex binary. Start working in any Git repository; preparation is automatic:
 
 ```sh
-codex-auto-bootstrap propose --repo ./project --offline
-codex-auto-bootstrap bootstrap --repo ./project --offline
-codex-auto-bootstrap context --repo ./project --workspace backend
-codex -C ./project/backend
+codex -C ./project "Fix backend/src/lib.rs"
+codex -C ./project resume
 ```
 
-`propose` performs no project writes. `context` explains an installed, verified lock without changing files: active/excluded guides, reasons, provenance, fallback gaps and an estimated catalog cost. The estimate is not a billing measurement.
+Optional maintenance commands remain available: `propose --repo ./project` previews decisions without project writes; `context --repo ./project` explains the installed workspace lock, while `task` reports a task decision. Catalog estimates are not billing measurements.
 
-Offline mode uses bundled guides and local Python tools. Normal online provisioning can discover pinned upstream guides and download the optional tools listed in the proposal. Read the plan before choosing that behavior.
+Offline mode reuses eligible local/cached guides and bundled fallbacks. Online preparation searches locally missing capabilities under the global source/license policy and can provision the existing optional token tools. No per-project selection or approval is required. [Policy and evidence](docs/automatic-skills.md).
 
 ## Any repository, explicit limits
 
@@ -65,7 +63,7 @@ mode = "coexist"
 
 Coexist preserves user integrations and filters Auto-Skills' own guides. External context can add cost or conflicting instructions. [Policy and allowlists](docs/usage.md#integrations).
 
-The standalone Codex executable bypasses the wrapper. These policies are not an OS sandbox. Workspace activation happens at launch; start a scoped session with `-C` for the workspace you are changing.
+The standalone Codex executable bypasses the wrapper. These policies are not an OS sandbox. The wrapper selects guides from task evidence, reuses admissible local bundles before public discovery, and supplies per-prompt selection through verified native lifecycle hooks. See [automatic operation, source policy and covered entry points](docs/automatic-skills.md).
 
 ## Update or remove
 

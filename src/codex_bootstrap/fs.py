@@ -3,6 +3,7 @@
 import hashlib
 import json
 import os
+import stat
 import subprocess
 import tempfile
 import time
@@ -38,8 +39,15 @@ def confined(root: Path, relative: str | Path) -> Path:
     cursor = root
     for part in relative.parts:
         cursor = cursor / part
-        # Junctions and symlinks within the root are also disallowed for writes.
-        if cursor.is_symlink() or (cursor.exists() and cursor.resolve() != cursor):
+        try:
+            state = cursor.lstat()
+        except FileNotFoundError:
+            continue
+        tag = getattr(state, "st_reparse_tag", 0)
+        # lstat sees redirected components without resolving every ordinary
+        # ancestor repeatedly. Unknown reparse types retain the old check.
+        redirected = stat.S_ISLNK(state.st_mode) or tag in {0xA0000003, 0xA000000C}
+        if redirected or (tag and cursor.resolve() != cursor):
             raise ValueError(f"redirected path: {relative}")
     if not target.resolve().is_relative_to(root):
         raise ValueError(f"path escapes repository: {relative}")

@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "platform": "win32",
+  "python": "3.13.17",
+  "model": "gpt-6.1-sol",
+  "turns": [
+    {
+      "turn": 1,
+      "scope": "backend",
+      "native_status": "failed",
+      "elapsed_seconds": 82.808,
+      "same_process_alive": true,
+      "native_prompt_hook_observed": true,
+      "selection_relevant": true,
+      "selected": [
+        "token-cli-wrapper",
+        "token-context-pruning",
+        "token-output-compression",
+        "token-prompt-cache",
+        "token-reasoning",
+        "architecture",
+        "backend::build",
+        "backend::language-rust",
+        "backend::unit-testing",
+        "documentation"
+      ],
+      "new_guide_reads": [
+        ".::architecture",
+        ".::documentation",
+        ".::token-cli-wrapper",
+        ".::token-context-pruning",
+        ".::token-output-compression",
+        ".::token-prompt-cache",
+        ".::token-reasoning",
+        "backend::build",
+        "backend::language-rust",
+        "backend::unit-testing"
+      ],
+      "reads_relevant": true,
+      "consultation_marker_observed": true,
+      "independent_task_check_passed": true,
+      "unrelated_files_preserved": true,
+      "selection_latency_ms": 1749.53,
+      "status": "failed"
+    },
+    {
+      "turn": 2,
+      "scope": "frontend",
+      "native_status": "failed",
+      "elapsed_seconds": 6.21,
+      "same_process_alive": true,
+      "native_prompt_hook_observed": true,
+      "selection_relevant": true,
+      "selected": [
+        "token-cli-wrapper",
+        "token-context-pruning",
+        "token-output-compression",
+        "token-prompt-cache",
+        "token-reasoning",
+        "architecture",
+        "documentation",
+        "frontend::build",
+        "frontend::framework-react",
+        "frontend::language-javascript",
+        "frontend::unit-testing"
+      ],
+      "new_guide_reads": [],
+      "reads_relevant": false,
+      "consultation_marker_observed": false,
+      "independent_task_check_passed": false,
+      "unrelated_files_preserved": true,
+      "selection_latency_ms": 5072.09,
+      "status": "failed"
+    },
+    {
+      "turn": 3,
+      "scope": "frontend",
+      "native_status": "failed",
+      "elapsed_seconds": 2.971,
+      "same_process_alive": true,
+      "native_prompt_hook_observed": true,
+      "selection_relevant": true,
+      "selected": [
+        "token-cli-wrapper",
+        "token-context-pruning",
+        "token-output-compression",
+        "token-prompt-cache",
+        "token-reasoning",
+        "architecture",
+        "documentation",
+        "frontend::build",
+        "frontend::framework-react",
+        "frontend::language-javascript",
+        "frontend::unit-testing"
+      ],
+      "new_guide_reads": [],
+      "reads_relevant": false,
+      "consultation_marker_observed": false,
+      "independent_task_check_passed": false,
+      "unrelated_files_preserved": true,
+      "selection_latency_ms": 1732.43,
+      "status": "failed"
+    },
+    {
+      "turn": 4,
+      "scope": "backend",
+      "native_status": "failed",
+      "elapsed_seconds": 2.726,
+      "same_process_alive": true,
+      "native_prompt_hook_observed": true,
+      "selection_relevant": true,
+      "selected": [
+        "token-cli-wrapper",
+        "token-context-pruning",
+        "token-output-compression",
+        "token-prompt-cache",
+        "token-reasoning",
+        "architecture",
+        "backend::build",
+        "backend::language-rust",
+        "backend::unit-testing",
+        "documentation"
+      ],
+      "new_guide_reads": [],
+      "reads_relevant": false,
+      "consultation_marker_observed": false,
+      "independent_task_check_passed": false,
+      "unrelated_files_preserved": true,
+      "selection_latency_ms": 1656.15,
+      "status": "failed"
+    }
+  ],
+  "checks": [
+    {
+      "name": "exact-native-hook-trust-configured",
+      "passed": true
+    },
+    {
+      "name": "additional-capability-initially-absent",
+      "passed": true
+    },
+    {
+      "name": "additional-capability-installed-and-read-in-same-process",
+      "passed": false,
+      "lock_skill_count_before": 20,
+      "lock_skill_count_after": 20
+    },
+    {
+      "name": "one-thread-four-distinct-turns",
+      "passed": true
+    },
+    {
+      "name": "capability-retained-after-backend-return",
+      "passed": false
+    }
+  ],
+  "limits": [
+    "Controlled direct app-server launch with explicit manager preparation/profile/hooks; not automatic integration of arbitrary app-server clients.",
+    "One synthetic offline local capability acquisition; no claim of native hot catalog reload or actual browser coverage.",
+    "Same native process/thread; earlier guide context remains in thread history, so exclusion measures new selection/reads only.",
+    "Controlled guide markers and transcript reads establish consultation, not causal superiority or token savings.",
+    "All four native turns failed after workspace inference credits were exhausted; hooks/selections are observed, sustained adaptation and extra acquisition remain unproven. The completed-turn counter was corrected from attempted to actual native completion."
+  ],
+  "codex_version": "auto-skills-sustained-verifier/0.166.0 (Windows 10.0.28000; x86_64) WindowsTerminal (auto-skills-sustained-verifier; 1)",
+  "elapsed_seconds": 105.376,
+  "metrics": {
+    "completed_turns": 0,
+    "task_checks_passed": 1,
+    "relevant_selections": 4,
+    "irrelevant_sibling_new_reads": 0,
+    "attempted_turns": 4,
+    "planned_turns": 4
+  }
+}

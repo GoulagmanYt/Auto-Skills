@@ -20,4 +20,4 @@ Reversal snapshots in `.codex/original-state.json` contain original bytes of pre
 
 The source export and wheel/sdist are checked for local state, credentials, private reports and personal absolute paths. Public examples are synthetic. Do not upload Codex authentication files, raw inference logs or private audit output with an issue.
 
-Maintain upstream provenance and license information per skill. Do not redistribute a skill whose license is unknown merely because its repository is public. Use reviewed, pinned sources for maintained demonstrations. Live discovery remains an explicit trust decision with recorded limitations.
+Maintain upstream provenance and license information per skill. Do not redistribute a skill whose license is unknown merely because its repository is public. Use reviewed, pinned sources for maintained demonstrations. Live discovery follows the user-global authorization and source/license policy granted when installing the automatic wrapper, with recorded limitations. A repository or remote skill cannot extend that authorization. See [automatic policy and evidence](automatic-skills.md).

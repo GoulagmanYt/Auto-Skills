@@ -230,7 +230,9 @@ def assess_repositories(fixtures=FIXTURES):
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes((fixtures / spec["slug"] / "manifest.txt").read_bytes())
         before = tree_hashes(root)
-        report = propose(root, offline=True, cache_dir=Path(temporary) / "offline-cache")
+        report = propose(
+            root, offline=True, cache_dir=Path(temporary) / "offline-cache", local_paths=[]
+        )
         read_only = before == tree_hashes(root) and not report["installed"]
         profiles = report["workspaces"]
         selected = report["selected"]

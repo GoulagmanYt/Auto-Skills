@@ -1,5 +1,9 @@
 # Compatibility
 
+Task-aware preparation uses Codex 0.166.0's native lifecycle hooks and probes their exact definitions. A failed probe retains launch selection with an explicit limitation. See [covered clients and fallback behavior](automatic-skills.md); other clients bypassing the CLI wrapper are not automatically covered.
+
+The new lifecycle/task behavior is observed on Windows with Python 3.13 and native Codex 0.166.0. Linux/macOS and Python 3.11 remain CI verification targets for this change; the workflow definition alone is not a completed native run.
+
 | Component | Initial alpha contract |
 |---|---|
 | Python | 3.11+; CI matrix 3.11 and 3.13 |

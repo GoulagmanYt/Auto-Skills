@@ -1,0 +1,19 @@
+{
+  "slug": "github-cli",
+  "repository": "cli/cli",
+  "original_path": "go.mod",
+  "license_original_path": "LICENSE",
+  "license_spdx": "MIT",
+  "expected_roles": [
+    "language-go"
+  ],
+  "allowed_specialties": [
+    "language-go"
+  ],
+  "annotation_basis": "Manifest constraint review; language guidance required; no dependency implementation work.",
+  "commit": "eeb44bc432c0107de002dadd34a61b4e2bd15882",
+  "manifest_sha256": "9cb6e96bd0bf89c08a8c9d356ce136d1b1bcd506d670cb6194e494078e53c390",
+  "license_sha256": "6da4adc42392c8485e40b4251c7e332fc3352df1947c9ffade71dd60b14a7a4f",
+  "manifest_url": "https://github.com/cli/cli/blob/eeb44bc432c0107de002dadd34a61b4e2bd15882/go.mod",
+  "license_url": "https://github.com/cli/cli/blob/eeb44bc432c0107de002dadd34a61b4e2bd15882/LICENSE"
+}

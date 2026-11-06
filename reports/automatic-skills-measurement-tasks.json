@@ -1,0 +1,1622 @@
+{
+  "model": "gpt-6.1-sol",
+  "codex_version": "codex-cli 0.166.0",
+  "repetitions": 1,
+  "harness_sha256": "925091e11dbaa9e515343290b90a89a5b7b2df9cca93a94ec04123f26562528f",
+  "wrapper_sha256": "ca22e29895ad6fb8e34569ae31fac8be8f06d4668f3e8e64025d27b66236400c",
+  "bootstrap_source_sha256": "b9dc0dc151e515bdd260c0113338b84a64fafed331ab8369dbd0089dcd8b4062",
+  "policy": {
+    "sandbox": "danger-full-access equally for both arms in disposable synthetic fixtures",
+    "approval_policy": "never",
+    "native_user_config": "ignored except the configured Windows sandbox backend; authentication remains in the original CODEX_HOME",
+    "child_environment": "parent CODEX_* orchestration context removed except CODEX_HOME; authentication variables retained",
+    "external_skills": "explicitly disabled except project-local treatment skills",
+    "plugins_mcp": "disabled equally in every runnable arm",
+    "project_documents": "disabled equally; Auto-Skills supplies its generated developer policy",
+    "memory": "disabled equally",
+    "usage": "native completion events; missing fields remain null; no cost estimate",
+    "validators": "outside the agent worktree; immutable source hashes checked before/after",
+    "timing": "elapsed includes fixture creation, setup, inference and final validation; stages also separate",
+    "ordering": "deterministic arm rotation between repetitions; no independent cache reset",
+    "confounds": [
+      "Auto-Skills includes its developer policy and offline wrappers; it is a treatment bundle, not skills alone.",
+      "Offline Auto-Skills does not install RTK/repomix or discover remote winners.",
+      "Vercel uses manually selected React guidance and is applicable only to the frontend task.",
+      "Autoskills detects the frontend workspace and installs its own pinned-registry recommendations; this adapter covers only that fixture.",
+      "SkillRadar uses an unmodified project-local router bundle with an offline pinned registry; it is not a native marketplace install and may not activate on these coding prompts.",
+      "Same authentication/home and service caches are retained; cache hits are observed, never assumed.",
+      "A requested model identifier is recorded exactly; a mutable service alias is not an immutable model snapshot.",
+      "External validators are public and outside the writable worktree, not secret tests or a malicious-code sandbox.",
+      "Three small synthetic fixes cannot establish general quality, cost or latency superiority."
+    ],
+    "auto_skills_treatment": "offline prepare_task and task-scoped launch_profile; no hook, no remote skill search; isolated preparation inventory"
+  },
+  "runs": [
+    {
+      "task": "midi-zero-velocity",
+      "arm": "baseline",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "usage": {
+        "input_tokens": 154129,
+        "output_tokens": 1343,
+        "cached_input_tokens": 137856,
+        "reasoning_output_tokens": 36,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 44.239586,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 1,
+        "elapsed_seconds": 0.052789,
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "setup_seconds": 5e-06,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 10,
+        "item.started": 7,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 5,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 1,
+      "raw_event_sha256": "bfdfcf5d3f1062a5956df3820495f6c9e7c729dcad3538c7044e9cfbbe40f932",
+      "raw_stderr_sha256": "a206e05c537afa61a97dc106867a99314ca0d63b42497973c0368e1aa70e7ccc",
+      "inference_seconds": 43.930844,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 0.039139,
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed"
+    },
+    {
+      "task": "midi-zero-velocity",
+      "arm": "auto-skills",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "7efc21a6187847f227ac470b044b8d84894ddb1982c3763f8d163a8a16fc3901",
+      "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d",
+      "prompt_sha256": "95b6fd8cf176477f02fb4ccb4a67c7fa5eeb9739a2ab8d40386346db3b7800f5",
+      "usage": {
+        "input_tokens": 230948,
+        "output_tokens": 1497,
+        "cached_input_tokens": 204160,
+        "reasoning_output_tokens": 8,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 49.68849,
+      "fixture_commit": "3cbdfba4e640e387b82976c9344c8f12b77e2760",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 1,
+        "elapsed_seconds": 0.04669,
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "setup_seconds": 0.710477,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 11,
+        "item.started": 8,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 6,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 0,
+      "raw_event_sha256": "4ef0e01477ddc628c511ef5d00017299e6fa257924bda4e78bf35a6cc085ae3f",
+      "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inference_seconds": 48.67602,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 0.038668,
+        "validator_sha256": "b258bacc947c35069141f94a7001871ec80616e1df16ede63e587b11b8372a1d"
+      },
+      "changed_fixture_files": [
+        "midi_state.py"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed",
+      "installed_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        }
+      ],
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "midi-python",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        }
+      ],
+      "task_preparation_metrics": {
+        "model_requests": 0,
+        "selected_count": 11,
+        "latency_ms": 661.28
+      }
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "auto-skills",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7",
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "usage": {
+        "input_tokens": 240526,
+        "output_tokens": 1659,
+        "cached_input_tokens": 218624,
+        "reasoning_output_tokens": 10,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 60.418803,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 1,
+        "elapsed_seconds": 0.037903,
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        },
+        {
+          "name": "repomix",
+          "status": "unavailable"
+        }
+      ],
+      "setup_seconds": 1.756072,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 13,
+        "item.started": 9,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 4,
+        "command_execution": 7,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 0,
+      "raw_event_sha256": "a1c283b9fb0d7e2a7dbe94d547db6c6e917d9abdf73eafdb7535ade3f8c68798",
+      "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inference_seconds": 58.3267,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 0.039909,
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed",
+      "installed_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        }
+      ],
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "framework-react",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "language-javascript",
+          "source": "bundled"
+        },
+        {
+          "scope": "webinterface",
+          "slot": "unit-testing",
+          "source": "bundled"
+        }
+      ],
+      "task_preparation_metrics": {
+        "model_requests": 0,
+        "selected_count": 10,
+        "latency_ms": 1693.63
+      }
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "baseline",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "f63752fd2a90151f2a1ba0df4f1f27ed91bfaf4925858bdb9556557514f5412b",
+      "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7",
+      "prompt_sha256": "7a8391b57836011c549069e43733f116d36e3c96da323d4bbb85ef58da3d9240",
+      "usage": {
+        "input_tokens": 190362,
+        "output_tokens": 1255,
+        "cached_input_tokens": 167424,
+        "reasoning_output_tokens": 11,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 50.44409,
+      "fixture_commit": "dbf9688f7320366b7436fd6ec4bd36e4f88b3dcb",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 1,
+        "elapsed_seconds": 0.039627,
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "setup_seconds": 6e-06,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 10,
+        "item.started": 7,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 5,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 0,
+      "raw_event_sha256": "b57cdc153c9c372fd86298da0be16f7483113bf7bdb573d8fe526f75f9998a9f",
+      "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inference_seconds": 50.12909,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 0.037599,
+        "validator_sha256": "a96858747ba1a69679c01ae584ce8f5a068e66bbcbeb338acb9374944d234ac7"
+      },
+      "changed_fixture_files": [
+        "webinterface/selection.mjs"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed"
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "baseline",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "usage": {
+        "input_tokens": 159198,
+        "output_tokens": 1284,
+        "cached_input_tokens": 136704,
+        "reasoning_output_tokens": 50,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 44.731477,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 101,
+        "elapsed_seconds": 0.234045,
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "setup_seconds": 7e-06,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 9,
+        "item.started": 6,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 4,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 1,
+      "raw_event_sha256": "35a9af0621305a11a51d5187b242a74f4ce13c265a01f0f8d3c8d1e207eade53",
+      "raw_stderr_sha256": "472c77edd6132bff41d19f06cecc5f8de6c4521652e286339b751c9577db9698",
+      "inference_seconds": 43.923918,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 0.333653,
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed"
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "auto-skills",
+      "repetition": 1,
+      "model": "gpt-6.1-sol",
+      "codex_version": "codex-cli 0.166.0",
+      "fixture_sha256": "2ed4557993bb97bb979a0b3ab5dd8457b0853e7ed44f14e23b2bec0b864d7eec",
+      "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66",
+      "prompt_sha256": "2fdf89c2d14474c6771d53f40fa40f0de8872ce1631061b3944c49c0dd4794fb",
+      "usage": {
+        "input_tokens": 170591,
+        "output_tokens": 1289,
+        "cached_input_tokens": 150016,
+        "reasoning_output_tokens": 23,
+        "source": "turn.completed",
+        "events": 1
+      },
+      "elapsed_seconds": 57.510988,
+      "fixture_commit": "3d489fcbaa2d6fb868a0cdf6e1d1b78e77fe88c1",
+      "before_validation": {
+        "status": "failed",
+        "returncode": 101,
+        "elapsed_seconds": 0.238401,
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "tools": [
+        {
+          "name": "token-run",
+          "status": "installed"
+        },
+        {
+          "name": "repo-map",
+          "status": "installed"
+        },
+        {
+          "name": "rtk",
+          "status": "unavailable"
+        }
+      ],
+      "setup_seconds": 0.707755,
+      "returncode": 0,
+      "timed_out": false,
+      "native_failure_events": 0,
+      "native_event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 14,
+        "item.started": 11,
+        "turn.completed": 1
+      },
+      "native_item_types": {
+        "agent_message": 3,
+        "command_execution": 9,
+        "file_change": 2
+      },
+      "native_error_fingerprints": [],
+      "diagnostic_categories": [],
+      "stderr_lines": 0,
+      "raw_event_sha256": "10d48a469468d483732a4fbbded20d8941df3c3e83679534dfee90bc509d498d",
+      "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inference_seconds": 52.868925,
+      "after_validation": {
+        "status": "passed",
+        "returncode": 0,
+        "elapsed_seconds": 3.445082,
+        "validator_sha256": "db59320f5180276524c35065647ac43ed4f0ead4e29aa80ce971b9bd816a0f66"
+      },
+      "changed_fixture_files": [
+        "src/lib.rs"
+      ],
+      "status": "passed",
+      "usage_available": true,
+      "cleanup_status": "completed",
+      "installed_slots": [
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "security",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "performance",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "refactoring",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "ci-cd",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "documentation",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        }
+      ],
+      "selected_slots": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "build",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "language-rust",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "osc",
+          "source": "bundled"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing",
+          "source": "bundled"
+        }
+      ],
+      "task_preparation_metrics": {
+        "model_requests": 0,
+        "selected_count": 10,
+        "latency_ms": 659.59
+      }
+    }
+  ],
+  "plan": [
+    {
+      "task": "midi-zero-velocity",
+      "arm": "baseline",
+      "repetition": 1
+    },
+    {
+      "task": "midi-zero-velocity",
+      "arm": "auto-skills",
+      "repetition": 1
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "auto-skills",
+      "repetition": 1
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "baseline",
+      "repetition": 1
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "baseline",
+      "repetition": 1
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "auto-skills",
+      "repetition": 1
+    }
+  ],
+  "summary": [
+    {
+      "task": "midi-zero-velocity",
+      "arm": "baseline",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 44.239586,
+        "min": 44.239586,
+        "max": 44.239586
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 43.930844,
+        "min": 43.930844,
+        "max": 43.930844
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 5e-06,
+        "min": 5e-06,
+        "max": 5e-06
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 44.239586,
+        "min": 44.239586,
+        "max": 44.239586
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 154129
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1343
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 137856
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 36
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 154129,
+        "min": 154129,
+        "max": 154129
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 154129,
+        "min": 154129,
+        "max": 154129
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1343,
+        "min": 1343,
+        "max": 1343
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1343,
+        "min": 1343,
+        "max": 1343
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 137856,
+        "min": 137856,
+        "max": 137856
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 137856,
+        "min": 137856,
+        "max": 137856
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 36,
+        "min": 36,
+        "max": 36
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 36,
+        "min": 36,
+        "max": 36
+      }
+    },
+    {
+      "task": "midi-zero-velocity",
+      "arm": "auto-skills",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 49.68849,
+        "min": 49.68849,
+        "max": 49.68849
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 48.67602,
+        "min": 48.67602,
+        "max": 48.67602
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 0.710477,
+        "min": 0.710477,
+        "max": 0.710477
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 49.68849,
+        "min": 49.68849,
+        "max": 49.68849
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 230948
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1497
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 204160
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 8
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 230948,
+        "min": 230948,
+        "max": 230948
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 230948,
+        "min": 230948,
+        "max": 230948
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1497,
+        "min": 1497,
+        "max": 1497
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1497,
+        "min": 1497,
+        "max": 1497
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 204160,
+        "min": 204160,
+        "max": 204160
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 204160,
+        "min": 204160,
+        "max": 204160
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 8,
+        "min": 8,
+        "max": 8
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 8,
+        "min": 8,
+        "max": 8
+      }
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "auto-skills",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 60.418803,
+        "min": 60.418803,
+        "max": 60.418803
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 58.3267,
+        "min": 58.3267,
+        "max": 58.3267
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 1.756072,
+        "min": 1.756072,
+        "max": 1.756072
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 60.418803,
+        "min": 60.418803,
+        "max": 60.418803
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 240526
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1659
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 218624
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 10
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 240526,
+        "min": 240526,
+        "max": 240526
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 240526,
+        "min": 240526,
+        "max": 240526
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1659,
+        "min": 1659,
+        "max": 1659
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1659,
+        "min": 1659,
+        "max": 1659
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 218624,
+        "min": 218624,
+        "max": 218624
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 218624,
+        "min": 218624,
+        "max": 218624
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 10,
+        "min": 10,
+        "max": 10
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 10,
+        "min": 10,
+        "max": 10
+      }
+    },
+    {
+      "task": "frontend-reset",
+      "arm": "baseline",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 50.44409,
+        "min": 50.44409,
+        "max": 50.44409
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 50.12909,
+        "min": 50.12909,
+        "max": 50.12909
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 6e-06,
+        "min": 6e-06,
+        "max": 6e-06
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 50.44409,
+        "min": 50.44409,
+        "max": 50.44409
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 190362
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1255
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 167424
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 11
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 190362,
+        "min": 190362,
+        "max": 190362
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 190362,
+        "min": 190362,
+        "max": 190362
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1255,
+        "min": 1255,
+        "max": 1255
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1255,
+        "min": 1255,
+        "max": 1255
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 167424,
+        "min": 167424,
+        "max": 167424
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 167424,
+        "min": 167424,
+        "max": 167424
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 11,
+        "min": 11,
+        "max": 11
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 11,
+        "min": 11,
+        "max": 11
+      }
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "baseline",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 44.731477,
+        "min": 44.731477,
+        "max": 44.731477
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 43.923918,
+        "min": 43.923918,
+        "max": 43.923918
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 7e-06,
+        "min": 7e-06,
+        "max": 7e-06
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 44.731477,
+        "min": 44.731477,
+        "max": 44.731477
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 159198
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1284
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 136704
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 50
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 159198,
+        "min": 159198,
+        "max": 159198
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 159198,
+        "min": 159198,
+        "max": 159198
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1284,
+        "min": 1284,
+        "max": 1284
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1284,
+        "min": 1284,
+        "max": 1284
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 136704,
+        "min": 136704,
+        "max": 136704
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 136704,
+        "min": 136704,
+        "max": 136704
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 50,
+        "min": 50,
+        "max": 50
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 50,
+        "min": 50,
+        "max": 50
+      }
+    },
+    {
+      "task": "rust-decoder-bounds",
+      "arm": "auto-skills",
+      "runs": 1,
+      "successes": 1,
+      "failures": 0,
+      "unavailable": 0,
+      "interrupted": 0,
+      "not_attempted": 0,
+      "statuses": {
+        "passed": 1
+      },
+      "performance_basis": "independently validated passed rows only",
+      "validated_successes": 1,
+      "elapsed_seconds": {
+        "n": 1,
+        "median": 57.510988,
+        "min": 57.510988,
+        "max": 57.510988
+      },
+      "inference_seconds": {
+        "n": 1,
+        "median": 52.868925,
+        "min": 52.868925,
+        "max": 52.868925
+      },
+      "setup_seconds": {
+        "n": 1,
+        "median": 0.707755,
+        "min": 0.707755,
+        "max": 0.707755
+      },
+      "attempt_elapsed_seconds": {
+        "n": 1,
+        "median": 57.510988,
+        "min": 57.510988,
+        "max": 57.510988
+      },
+      "failed_elapsed_seconds": {
+        "n": 0,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "reported_usage_totals": {
+        "input_tokens": {
+          "n": 1,
+          "total": 170591
+        },
+        "output_tokens": {
+          "n": 1,
+          "total": 1289
+        },
+        "cached_input_tokens": {
+          "n": 1,
+          "total": 150016
+        },
+        "reasoning_output_tokens": {
+          "n": 1,
+          "total": 23
+        }
+      },
+      "input_tokens": {
+        "n": 1,
+        "median": 170591,
+        "min": 170591,
+        "max": 170591
+      },
+      "attempt_input_tokens": {
+        "n": 1,
+        "median": 170591,
+        "min": 170591,
+        "max": 170591
+      },
+      "output_tokens": {
+        "n": 1,
+        "median": 1289,
+        "min": 1289,
+        "max": 1289
+      },
+      "attempt_output_tokens": {
+        "n": 1,
+        "median": 1289,
+        "min": 1289,
+        "max": 1289
+      },
+      "cached_input_tokens": {
+        "n": 1,
+        "median": 150016,
+        "min": 150016,
+        "max": 150016
+      },
+      "attempt_cached_input_tokens": {
+        "n": 1,
+        "median": 150016,
+        "min": 150016,
+        "max": 150016
+      },
+      "reasoning_output_tokens": {
+        "n": 1,
+        "median": 23,
+        "min": 23,
+        "max": 23
+      },
+      "attempt_reasoning_output_tokens": {
+        "n": 1,
+        "median": 23,
+        "min": 23,
+        "max": 23
+      }
+    }
+  ],
+  "all_attempt_usage": {
+    "input_tokens": {
+      "baseline": {
+        "planned": 3,
+        "reported": 3,
+        "total": 503689
+      },
+      "auto-skills": {
+        "planned": 3,
+        "reported": 3,
+        "total": 642065
+      }
+    },
+    "cached_input_tokens": {
+      "baseline": {
+        "planned": 3,
+        "reported": 3,
+        "total": 441984
+      },
+      "auto-skills": {
+        "planned": 3,
+        "reported": 3,
+        "total": 572800
+      }
+    },
+    "output_tokens": {
+      "baseline": {
+        "planned": 3,
+        "reported": 3,
+        "total": 3882
+      },
+      "auto-skills": {
+        "planned": 3,
+        "reported": 3,
+        "total": 4445
+      }
+    }
+  }
+}

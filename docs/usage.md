@@ -1,5 +1,7 @@
 # Usage
 
+For automatic first visits, task changes, source policy and native lifecycle behavior, see [Automatic skills](automatic-skills.md). The commands below are optional inspection and maintenance tools.
+
 Install from a source checkout using install.ps1 on Windows or install.sh on Linux/macOS. The original Codex binary must already be available. The wrapper installs into a user environment and records owned changes for reversal.
 
 ```sh

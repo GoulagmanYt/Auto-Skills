@@ -1,0 +1,19 @@
+{
+  "slug": "requests",
+  "repository": "psf/requests",
+  "original_path": "pyproject.toml",
+  "license_original_path": "LICENSE",
+  "license_spdx": "Apache-2.0",
+  "expected_roles": [
+    "language-python"
+  ],
+  "allowed_specialties": [
+    "language-python"
+  ],
+  "annotation_basis": "Manifest constraint review; language guidance required; no dependency implementation work.",
+  "commit": "3c7baaa05ab4aa49cc819ce3a819d260de19c157",
+  "manifest_sha256": "345f26b9f691435e39d0eb6f7f4150a390f43175b22f8d61ac95e7f2827f0a77",
+  "license_sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b",
+  "manifest_url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/pyproject.toml",
+  "license_url": "https://github.com/psf/requests/blob/3c7baaa05ab4aa49cc819ce3a819d260de19c157/LICENSE"
+}

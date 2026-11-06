@@ -20,14 +20,14 @@ sh install.sh
 
 Ouvrir ensuite un nouveau terminal. L'exécutable Codex original est conservé.
 
+Le wrapper prépare automatiquement le dépôt, réutilise les skills locaux admissibles avant toute recherche externe et sélectionne les guides selon la tâche. Les hooks natifs vérifiés adaptent les instructions à chaque demande et à la reprise. [Fonctionnement automatique, politique globale, preuves et limites](docs/automatic-skills.md).
+
 ```sh
-codex-auto-bootstrap propose --repo ./projet --offline
-codex-auto-bootstrap bootstrap --repo ./projet --offline
-codex-auto-bootstrap context --repo ./projet --workspace backend
-codex -C ./projet/backend
+codex -C ./projet "Corrige backend/src/lib.rs"
+codex -C ./projet resume
 ```
 
-La prévisualisation affiche les guides actifs/exclus, raisons, provenance et estimation du catalogue. Un backend Rust ne reçoit pas les spécialités React/Vite de la racine. Un changement React conserve les guides Rust et les outils inchangés.
+Les commandes `propose`, `context`, `task` et `refresh` restent disponibles pour l'inspection et la maintenance. Elles ne sont pas nécessaires avant de travailler. Un backend Rust ne reçoit pas les spécialités React/Vite de la racine. Un changement React conserve les guides Rust et les outils inchangés.
 
 Les dépôts applicatifs, documentaires et inconnus sont distingués. C/C++, CMake/Meson, Flutter/Dart, Swift, Elixir, R et Julia disposent de nouveaux adaptateurs statiques. Un dépôt non reconnu conserve un socle portable, affiche ses lacunes et ne déclenche pas de téléchargement d'outils spéculatif. La [configuration manuelle](docs/configuration.md) permet de déclarer des workspaces et contraintes explicites. [Couverture et limites](docs/coverage.md).
 
