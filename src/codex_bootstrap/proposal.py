@@ -118,10 +118,11 @@ def selection_plan(
     root=None,
     preset="auto",
     local_paths=None,
+    seed_only=False,
 ):
     if root is not None:
         automatic_inventory = local_paths is None
-        if github is None and not offline:
+        if github is None and not offline and not seed_only:
             from .github import GitHub
 
             # One deadline/request budget for all workspaces, rather than one
@@ -151,7 +152,9 @@ def selection_plan(
         )
         for scope, scoped in ordered_profiles:
             scope_paths = (
-                local_skill_paths(root, root / scope, owned) if automatic_inventory else local_paths
+                local_skill_paths(root, root / scope, owned)
+                if automatic_inventory and not seed_only
+                else (local_paths or [])
             )
             wanted = (
                 None
@@ -165,6 +168,7 @@ def selection_plan(
                 slots=wanted,
                 cache_dir=cache_dir,
                 local_paths=scope_paths,
+                seed_only=seed_only,
             )
             chosen = [copy(candidate) for candidate in chosen]
             for candidate in chosen:
@@ -243,10 +247,14 @@ def selection_plan(
         # A standalone profile has no repository ancestry; inventory user locations.
 
         local_paths = []
-    reusable, inventory_report = inventory(profile, local_paths, requested, cache_dir)
+    reusable, inventory_report = (
+        ([], {"scanned": 0, "shared_hits": 0, "rejected": []})
+        if seed_only
+        else inventory(profile, local_paths, requested, cache_dir)
+    )
     covered = {c.slot for c in reusable}
     missing_local = requested - covered
-    if offline or not missing_local:
+    if offline or seed_only or not missing_local:
         remote, discovery = [], {"offline": offline, "queries": [], "errors": [], "rejected": []}
     else:
         from .github import GitHub

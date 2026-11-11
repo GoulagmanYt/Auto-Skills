@@ -2,6 +2,9 @@
 
 ## Unreleased — reliability and structure
 
+- Delegate guide comparison to an independent native `gpt-6-luna / medium` selector through bounded candidate catalogs and justified transactional choices; reuse identical requests without another model call.
+- Start wrapped sessions from a fast bundled seed; show setup stages and elapsed-time heartbeats on stderr without contaminating native JSON stdout.
+
 - Prepare one verified lock per native launch; retain integrity checks on subsequent hook events.
 - Reject force-staged private publication paths; validate session-cache schemas and respect literal prompts after `--`.
 - Isolate unit-test user/config/cache state and block direct socket connections.

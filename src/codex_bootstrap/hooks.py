@@ -57,6 +57,7 @@ def handle_event(event):
             cwd=cwd,
             proposal=proposal,
             allow_acquisition=False,
+            seed_only=True,
             session_id=session,
             offline=os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
         )
@@ -67,6 +68,7 @@ def handle_event(event):
             root,
             event.get("prompt", ""),
             cwd=cwd,
+            seed_only=True,
             session_id=session,
             offline=os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
         )

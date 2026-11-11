@@ -245,7 +245,16 @@ def refresh_plan(root, lock, profile, *, force=False, preset=None):
 
 
 def refresh(
-    root, lock, profile, manifest_hashes, *, offline=False, force=False, cache_dir=None, preset=None
+    root,
+    lock,
+    profile,
+    manifest_hashes,
+    *,
+    offline=False,
+    force=False,
+    cache_dir=None,
+    preset=None,
+    seed_only=False,
 ):
     from .bootstrap import verify_lock
 
@@ -253,7 +262,13 @@ def refresh(
     profiles, policy = scoped_profiles(root, profile, preset)
     affected, removed, retained = refresh_plan(root, lock, profile, force=force, preset=preset)
     selected, report = selection_plan(
-        profile, offline=offline, slots=affected, cache_dir=cache_dir, root=root, preset=preset
+        profile,
+        offline=offline,
+        slots=affected,
+        cache_dir=cache_dir,
+        root=root,
+        preset=preset,
+        seed_only=seed_only,
     )
     reserve_skill_paths(root, selected, lock)
     refreshed = {slot_key(c.scope, c.slot): c for c in selected}
@@ -282,7 +297,7 @@ def refresh(
     previous_entries = {slot_key(e.get("scope", "."), e["slot"]): e for e in lock["skills"]}
     new_entries = [entries_by_slot.get(key) or previous_entries[key] for key in wanted]
     tools, tool_writes, tool_executable, tool_deletes, tools_changed = refresh_tools(
-        root, lock, report["tool_plan"], offline=offline, cache_dir=cache_dir
+        root, lock, report["tool_plan"], offline=offline or seed_only, cache_dir=cache_dir
     )
     writes.update(
         {
@@ -324,6 +339,17 @@ def refresh(
     writes[".codex/profile.json"] = json_text(profile.to_dict()).encode()
     writes[".codex/bootstrap-report.json"] = json_text(report).encode()
     updated = dict(lock)
+    updated["agent_choices"] = {
+        k: v for k, v in lock.get("agent_choices", {}).items() if k not in affected | removed
+    }
+    for entry in new_entries:
+        choice = updated["agent_choices"].get(slot_key(entry.get("scope", "."), entry["slot"]))
+        if choice:
+            entry["reason"] = choice["reason"]
+            entry["quality"]["method"] = "agent decision after deterministic eligibility checks"
+    report["selected"] = new_entries
+    report["agent_choices"] = updated["agent_choices"]
+    writes[".codex/bootstrap-report.json"] = json_text(report).encode()
     updated.update(
         {
             "manifest_hashes": manifest_hashes,

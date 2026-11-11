@@ -25,6 +25,7 @@ ROOT_FILES = {
     "setup.cfg",
 }
 PUBLIC_DOCS = {
+    "ai-selection.md",
     "architecture.md",
     "diagnostics.md",
     "automatic-skills.md",
@@ -39,6 +40,9 @@ PUBLIC_DOCS = {
     "security-model.md",
 }
 REQUIRED_MODULES = {
+    "selector.py",
+    "agent_selection.py",
+    "progress.py",
     "manifest_parsers.py",
     "automatic_policy.py",
     "decision_state.py",

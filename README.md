@@ -31,6 +31,8 @@ The installer preserves the original executable and records its PATH/profile cha
 
 ## Inspect decisions
 
+The development agent identifies requirements and delegates guide comparison to **gpt-6-luna with medium effort**, using the existing Codex CLI authentication. The selector records an explicit choice and reason, reused for an identical request. First launch uses a fast bundled starting context with elapsed-time progress on stderr. [Agent selection workflow](docs/ai-selection.md).
+
 ```sh
 codex-auto-bootstrap propose --repo ./project --offline
 codex-auto-bootstrap context --repo ./project

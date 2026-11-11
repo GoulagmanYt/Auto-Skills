@@ -76,7 +76,15 @@ def check(root, *, preset=None):
 
 
 def bootstrap(
-    root: Path, *, offline=False, refresh_all=False, cache_dir=None, preset=None, metrics=None
+    root: Path,
+    *,
+    offline=False,
+    refresh_all=False,
+    cache_dir=None,
+    preset=None,
+    metrics=None,
+    seed_only=False,
+    progress=None,
 ):
     started = time.monotonic()
 
@@ -90,6 +98,8 @@ def bootstrap(
     from .repo_config import read_configuration
 
     read_configuration(root)
+    if progress:
+        progress.stage("Waiting for repository lock / checking installed file integrity")
     with repo_mutex(root):
         record("entry", started)
         phase = time.monotonic()
@@ -104,12 +114,16 @@ def bootstrap(
             raise ValueError(
                 "existing original backup has no ownership lock; preserve it for review"
             )
+        if progress:
+            progress.stage("Reading manifests and workspace boundaries")
         profile = profile_repo(root)
         preset = preset or (previous or {}).get("policy", {}).get("preset", "auto")
         fingerprints = manifest_fingerprint(root, profile)
         record("profile", phase)
         if previous is not None:
-            current = status(root, previous, profile, fingerprints, preset=preset, offline=offline)
+            current = status(
+                root, previous, profile, fingerprints, preset=preset, offline=offline or seed_only
+            )
             if not refresh_all and current["status"] == "current":
                 record("total", started)
                 return previous
@@ -123,13 +137,21 @@ def bootstrap(
                 force=refresh_all,
                 cache_dir=cache_dir,
                 preset=preset,
+                seed_only=seed_only,
             )
             record("refresh", phase)
             record("total", started)
             return updated
         phase = time.monotonic()
+        if progress:
+            progress.stage("Preparing bundled starting guides; AI selection follows in Codex")
         selected, report = selection_plan(
-            profile, offline=offline, cache_dir=cache_dir, root=root, preset=preset
+            profile,
+            offline=offline,
+            cache_dir=cache_dir,
+            root=root,
+            preset=preset,
+            seed_only=seed_only,
         )
         record("selection", phase)
         profiles, policy = scoped_profiles(root, profile, preset)
@@ -144,11 +166,13 @@ def bootstrap(
             phase = time.monotonic()
             tools = install_token_tools(
                 stage,
-                offline=offline,
+                offline=offline or seed_only,
                 github=GitHub(cache_dir=cache_dir),
                 enabled={item["name"] for item in report["tool_plan"]},
             )
             record("tools", phase)
+            if progress:
+                progress.stage("Writing guides and recovery snapshots")
             writes, executable, skills = skill_artifacts(selected)
             report.update(
                 {"mode": "bootstrap", "target": str(root), "installed": True, "tools": tools}
@@ -215,6 +239,8 @@ def bootstrap(
                     "manifests changed during bootstrap; no configuration was published"
                 )
             phase = time.monotonic()
+            if progress:
+                progress.stage("Publishing and verifying the installation")
             publish(root, writes, set(), lock, executable=executable, verify=verify_lock)
             record("publication", phase)
             return lock  # publish already verified the entire committed lock under this mutex.

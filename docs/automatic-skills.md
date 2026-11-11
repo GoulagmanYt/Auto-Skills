@@ -14,7 +14,9 @@ The wrapper covers interactive CLI, `exec`, `resume` and `exec resume`. Launchin
 
 ## Preparation
 
-Existing manifest/workspace adapters, version filters, slot selection, transactions and uninstall ownership remain authoritative. Unknown technologies receive common guidance and explicit uncertainty, without an invented framework classification. The current agent can refine a decision; there is no separate model service or new API key.
+**Agent-selection launch path:** ordinary wrapped launches and prompt hooks now seed bundled guides. The development agent identifies relevant roles and delegates guide comparison through `select` to a separate `gpt-6-luna / medium` invocation. They avoid pre-launch inventory/discovery/tool downloads. The local/shared/public discovery pipeline described below is used on explicit candidate requests and by maintenance commands. The initial task selection is provisional. [Protocol and limits](ai-selection.md).
+
+Existing manifest/workspace adapters, version filters, slot selection, transactions and uninstall ownership remain authoritative. Unknown technologies receive common guidance and explicit uncertainty, without an invented framework classification. The selector uses native Codex authentication; no separate model service or new API key is required. `candidates` / `choose` remain available for manual audits and offline decisions.
 
 Before remote discovery, the manager inventories user, repository, plugin-cache and admin skills. Eligible local bundles are copied into owned, hashed locations; originals remain untouched. Unsafe links, missing references, incompatible versions, unsupported declared tools and oversized bundles are rejected. Explicit coexist/keep integration settings remain available for user-managed integrations.
 

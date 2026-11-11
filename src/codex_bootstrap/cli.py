@@ -112,32 +112,47 @@ def real_codex():
 
 
 def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
+    from contextlib import ExitStack
+
+    from .progress import Progress
+
     real_command = real_command or real_codex()
     env = dict(os.environ)
-    if root is not None:
-        from .task import prepare_launch
-
-        lock, decision = prepare_launch(root, requested_prompt(args), cwd=cwd, offline=offline)
-        bin_dir = str(root / ".codex/bin")
-        # Codex shell subprocesses inherit this, including bundled Node where necessary.
-        extra_bins = []
-        for tool in lock["tools"]:
-            if tool["name"] == "node" and tool["status"] == "installed":
-                extra_bins.append(str((root / tool["path"]).parent))
-        env["PATH"] = os.pathsep.join([bin_dir, *extra_bins, env.get("PATH", "")])
-        env["CODEX_BOOTSTRAP_LOCK"] = str(root / ".codex/skills-lock.json")
-        # Prevent model tools from resolving the global codex shim recursively.
-        env["CODEX_BOOTSTRAP_REAL_CODEX"] = real_command[0]
     env["CODEX_BOOTSTRAP_ACTIVE"] = "1"
     try:
-        if root is None:
-            return subprocess.call([*real_command, *args], env=env)
-        from .native_hooks import hook_overrides
+        with ExitStack() as stack:
+            launch_args = args
+            if root is not None:
+                from .native_hooks import hook_overrides
+                from .task import prepare_launch
 
-        hook_args = hook_overrides(real_command, root)
-        with launch_profile(
-            root, lock, args, cwd, decision=decision, hook_args=hook_args
-        ) as launch_args:
+                with Progress() as progress:
+                    lock, decision = prepare_launch(
+                        root,
+                        requested_prompt(args),
+                        cwd=cwd,
+                        offline=offline,
+                        seed_only=True,
+                        progress=progress,
+                    )
+                    extra_bins = [
+                        str((root / tool["path"]).parent)
+                        for tool in lock["tools"]
+                        if tool["name"] == "node" and tool["status"] == "installed"
+                    ]
+                    env["PATH"] = os.pathsep.join(
+                        [str(root / ".codex/bin"), *extra_bins, env.get("PATH", "")]
+                    )
+                    env["CODEX_BOOTSTRAP_LOCK"] = str(root / ".codex/skills-lock.json")
+                    env["CODEX_BOOTSTRAP_REAL_CODEX"] = real_command[0]
+                    progress.stage("Checking native hooks and configuring the launch profile")
+                    hook_args = hook_overrides(real_command, root)
+                    launch_args = stack.enter_context(
+                        launch_profile(
+                            root, lock, args, cwd, decision=decision, hook_args=hook_args
+                        )
+                    )
+                    progress.stage("Starting Codex; the agent will review the skill candidates")
             return subprocess.call([*real_command, *launch_args], env=env)
     except KeyboardInterrupt:
         return 130
@@ -146,6 +161,66 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
     try:
+        if args[:1] in (["candidates"], ["choose"], ["select"]):
+            from .agent_selection import apply_choice, candidates, inspect_candidate
+            from .progress import Progress
+
+            parser = argparse.ArgumentParser(prog="codex-auto-bootstrap " + args[0])
+            parser.add_argument("--repo", type=Path, default=Path.cwd())
+            parser.add_argument("--scope", default=".")
+            parser.add_argument("--slot")
+            parser.add_argument("--catalog")
+            parser.add_argument("--candidate")
+            parser.add_argument("--reason")
+            parser.add_argument("--task", default="")
+            parser.add_argument("--local-only", action="store_true")
+            parser.add_argument("--resource")
+            parser.add_argument("--offset", type=int, default=0)
+            parser.add_argument("--limit", type=int, default=12000)
+            parser.add_argument("--offline", action="store_true")
+            options = parser.parse_args(args[1:])
+            root = git_root(options.repo)
+            if root is None:
+                raise ValueError("not a Git repository")
+            if args[0] == "select":
+                from .selector import auto_select
+
+                if options.offline or os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1":
+                    raise ValueError(
+                        "model selection needs network; use candidates --offline and choose for offline decisions"
+                    )
+                with Progress() as progress:
+                    result = auto_select(
+                        root,
+                        options.scope,
+                        options.slot,
+                        options.task,
+                        local_only=options.local_only,
+                        progress=progress,
+                    )
+            elif args[0] == "choose":
+                result = apply_choice(root, options.catalog, options.candidate, options.reason)
+                result = {"status": "installed", "agent_choices": result["agent_choices"]}
+            elif options.catalog and options.candidate:
+                result = inspect_candidate(
+                    root,
+                    options.catalog,
+                    options.candidate,
+                    resource=options.resource,
+                    offset=options.offset,
+                    limit=options.limit,
+                )
+            else:
+                with Progress() as progress:
+                    result = candidates(
+                        root,
+                        options.scope,
+                        options.slot,
+                        offline=options.offline or os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
+                        progress=progress,
+                    )
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
         if args[:1] == ["task"]:
             from .task import prepare_task, task_context
 
@@ -171,6 +246,7 @@ def main(argv=None):
                 cwd=options.repo,
                 proposal=proposal,
                 session_id=options.session,
+                seed_only=True,
                 offline=options.offline or os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
             )
             print(

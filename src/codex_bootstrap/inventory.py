@@ -178,7 +178,7 @@ def _store_bundle(candidate, cache_dir=None):
     return True
 
 
-def inventory(profile, paths, slots, cache_dir=None):
+def inventory(profile, paths, slots, cache_dir=None, *, rank=True):
     candidates, rejected = [], []
     shared_hits = 0
     directory = Path(cache_dir or default_cache_dir()) / "bundles-v1"
@@ -228,6 +228,8 @@ def inventory(profile, paths, slots, cache_dir=None):
             candidates.append(candidate)
         except (OSError, ValueError, TypeError) as exc:
             rejected.append({"source": "local", "path": str(path), "reason": str(exc)[:180]})
+    if not rank:
+        return candidates, {"scanned": len(seen), "shared_hits": shared_hits, "rejected": rejected}
     # Prefer an admissible local copy to an equivalent cached remote bundle.
     local, _ = select([c for c in candidates if c.source == "local"], profile)
     covered = {c.slot for c in local}
