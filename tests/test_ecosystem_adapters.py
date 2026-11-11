@@ -3,6 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.catalog import bundled_candidates
 from codex_bootstrap.profile import MANIFEST_LIMIT, manifest_fingerprint, profile_repo
 from codex_bootstrap.proposal import propose
@@ -10,7 +12,7 @@ from codex_bootstrap.selection import Candidate, select
 from codex_bootstrap.workspaces import workspace_profiles
 
 
-class EcosystemAdapterTests(unittest.TestCase):
+class EcosystemAdapterTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

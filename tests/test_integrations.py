@@ -1,14 +1,15 @@
 import os
 import tempfile
 import tomllib
-import unittest
 from pathlib import Path
 from unittest.mock import patch
+
+from suite_support import IsolatedTestCase
 
 from codex_bootstrap.config import launch_overrides
 
 
-class IntegrationPolicyTests(unittest.TestCase):
+class IntegrationPolicyTests(IsolatedTestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)

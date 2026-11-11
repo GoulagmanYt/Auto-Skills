@@ -11,6 +11,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from . import adapters
+from .manifest_parsers import extract_manifest
 
 SKIP = {
     ".git",
@@ -288,36 +289,6 @@ def manifest_fingerprint(root: Path, profile: Profile | None = None) -> dict[str
     return dict(sorted(result.items()))
 
 
-def _xml_manifest(text):
-    # No entity expansion or external definitions are needed in a build manifest.
-    if re.search(r"<!\s*(?:DOCTYPE|ENTITY)\b", text, re.I):
-        raise ValueError("XML declarations are unsupported")
-    tree = ET.fromstring(text)
-    for element in tree.iter():
-        element.tag = element.tag.rsplit("}", 1)[-1]
-    return tree
-
-
-def _property_value(value, properties):
-    value = value or "detected"
-    for _ in range(8):
-        if len(value) > 100:
-            return "unresolved"
-        resolved = re.sub(
-            r"\$\{([^}]+)\}|\$\(([^)]+)\)", lambda m: properties.get(m[1] or m[2], m[0]), value
-        )
-        if resolved == value:
-            break
-        value = resolved
-    return "unresolved" if "$" in value else value
-
-
-def _without_build_comments(text):
-    """Remove comments without executing config or interpreting quoted strings."""
-    pattern = r""""(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|//[^\n]*|/\*[\s\S]*?\*/"""
-    return re.sub(pattern, lambda m: " " if m[0].startswith(("//", "/*")) else m[0], text)
-
-
 def profile_repo(root: Path, *, paths=None) -> Profile:
     root = Path(root).resolve()
     p = Profile()
@@ -416,130 +387,12 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
         if name == "hardhat":
             add("solidity", kind="inference")
 
-    def jvm_dependency(group, artifact, version, ecosystem):
-        if not group or not artifact:
-            return
-        add(f"{group}:{artifact}", version, ecosystem=ecosystem)
-        if group == "org.springframework.boot" and artifact.startswith("spring-boot"):
-            add("spring", version, ecosystem=ecosystem)
-        elif group == "org.springframework" and artifact.startswith("spring-"):
-            add("spring", version, ecosystem=ecosystem)
-
     def python_dependency(spec):
         # Read declarations without evaluating environment markers or importing
         # packages. Hardware requirements remain useful target evidence on CI.
         match = re.match(r"\s*([\w.-]+)(?:\[[^]]+\])?\s*([^;#]*)", spec)
         if match:
             add(match[1], match[2].strip() or "detected", ecosystem="pypi")
-
-    def maven_manifest(text):
-        tree = _xml_manifest(text)
-        properties = {
-            element.tag: (element.text or "").strip() for element in tree.findall("./properties/*")
-        }
-        for key in ("java.version", "maven.compiler.release", "maven.compiler.target"):
-            if key in properties:
-                add("java", _property_value(properties[key], properties), ecosystem="maven")
-                break
-        for dependency in tree.findall(".//dependency") + tree.findall("./parent"):
-            group = dependency.findtext("groupId", "").strip()
-            artifact = dependency.findtext("artifactId", "").strip()
-            version = _property_value(dependency.findtext("version"), properties)
-            jvm_dependency(group, artifact, version, "maven")
-
-    def gradle_manifest(text):
-        text = _without_build_comments(text)
-        for version in re.findall(
-            r"""\bid\s*(?:\(\s*)?["']org\.springframework\.boot["']\s*\)?\s*version\s*["']([^"']+)["']""",
-            text,
-        ):
-            add("spring", version, ecosystem="gradle")
-        for group, artifact, version in re.findall(
-            r"""\b(?:implementation|api|compileOnly|runtimeOnly|testImplementation|classpath)\s*(?:\(\s*)?["']([\w.-]+):([\w.-]+):([^"']+)["']""",
-            text,
-        ):
-            jvm_dependency(group, artifact, "unresolved" if "$" in version else version, "gradle")
-        java = re.search(r"JavaLanguageVersion\.of\(\s*(\d+)\s*\)", text)
-        if not java:
-            java = re.search(
-                r"""\b(?:sourceCompatibility|targetCompatibility)\s*=\s*(?:JavaVersion\.VERSION_)?["']?(\d+(?:\.\d+)?)""",
-                text,
-            )
-        if java:
-            add("java", java[1], ecosystem="gradle")
-
-    def dotnet_manifest(text):
-        tree = _xml_manifest(text)
-        properties = {
-            element.tag: (element.text or "").strip()
-            for element in tree.findall("./PropertyGroup/*")
-        }
-        sdk = tree.get("Sdk", "").lower()
-        web = "microsoft.net.sdk.web" in sdk or any(
-            element.get("Name", "").lower() == "microsoft.net.sdk.web"
-            for element in tree.findall("./Sdk")
-        )
-        if web:
-            add("aspnet", ecosystem="nuget")
-        for framework in (
-            properties.get("TargetFramework") or properties.get("TargetFrameworks", "")
-        ).split(";"):
-            target = re.fullmatch(r"net(\d+\.\d+)(?:-[\w.-]+)?", framework.strip())
-            if target:
-                add("dotnet", target[1], ecosystem="nuget")
-                if web:
-                    add("aspnet", target[1], ecosystem="nuget")
-        if properties.get("RuntimeFrameworkVersion"):
-            add(
-                "dotnet",
-                _property_value(properties["RuntimeFrameworkVersion"], properties),
-                kind="runtime",
-                ecosystem="nuget",
-            )
-        for reference in tree.findall(".//PackageReference"):
-            package = reference.get("Include", reference.get("Update", ""))
-            if not package:
-                continue
-            version = _property_value(
-                reference.get("Version") or reference.findtext("Version"), properties
-            )
-            add(package, version, ecosystem="nuget")
-            if package.lower().startswith("microsoft.entityframeworkcore"):
-                add("entityframework", version, ecosystem="nuget")
-            if package.lower().startswith("microsoft.aspnetcore"):
-                add("aspnet", version, ecosystem="nuget")
-        for reference in tree.findall(".//FrameworkReference"):
-            if reference.get("Include", "").lower() == "microsoft.aspnetcore.app":
-                add("aspnet", ecosystem="nuget")
-
-    def hardhat_manifest(text):
-        text = _without_build_comments(text)
-        match = re.search(r"""\bsolidity\s*:\s*(?:["'](\d+\.\d+\.\d+)["']|\{)""", text)
-        versions = []
-        if match and match[1]:
-            versions.append(match[1])
-        elif match:
-            # Bound version keys to the solidity object; unrelated plugin versions
-            # and contract source pragmas do not describe the selected compiler.
-            depth, end = 1, match.end()
-            tokens = re.finditer(r""""(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[{}]""", text[end:])
-            for token in tokens:
-                if token[0] == "{":
-                    depth += 1
-                elif token[0] == "}":
-                    depth -= 1
-                    if depth == 0:
-                        end += token.start()
-                        break
-            else:
-                return
-            versions.extend(
-                re.findall(r"""\bversion\s*:\s*["'](\d+\.\d+\.\d+)["']""", text[match.end() : end])
-            )
-        add("hardhat", kind="detection")
-        for version in versions:
-            add("solidity", version)
-            add("solc", version, kind="runtime")
 
     for path in manifest_paths(root, diagnostics=p.diagnostics) if paths is None else paths:
         relative = path.relative_to(root).as_posix()
@@ -716,7 +569,8 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
                 add("terraform")
             elif name.endswith(".csproj"):
                 add("dotnet")
-                dotnet_manifest(text)
+                for observation in extract_manifest(name, text):
+                    add(**asdict(observation))
             elif name == "global.json":
                 add("dotnet")
                 sdk_version = json.loads(text).get("sdk", {}).get("version")
@@ -725,10 +579,8 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
             elif name in {"pom.xml", "build.gradle", "build.gradle.kts"}:
                 add("java")
                 add("maven" if name == "pom.xml" else "gradle")
-                if name == "pom.xml":
-                    maven_manifest(text)
-                else:
-                    gradle_manifest(text)
+                for observation in extract_manifest(name, text):
+                    add(**asdict(observation))
             elif name in {"maven-wrapper.properties", "gradle-wrapper.properties"}:
                 tool = "maven" if name.startswith("maven") else "gradle"
                 distribution = re.search(r"(?m)^\s*distributionUrl\s*=\s*(\S+)", text)
@@ -751,7 +603,8 @@ def profile_repo(root: Path, *, paths=None) -> Profile:
                         add("solidity", version)
                         add("solc", version, kind="runtime")
             elif name.startswith("hardhat.config."):
-                hardhat_manifest(text)
+                for observation in extract_manifest(name, text):
+                    add(**asdict(observation))
             elif relative.startswith(".github/workflows/") or name == ".gitlab-ci.yml":
                 add("github-actions" if relative.startswith(".github") else "gitlab-ci")
             for tool in (

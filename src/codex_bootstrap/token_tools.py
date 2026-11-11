@@ -330,6 +330,9 @@ def install_repomix(stage):
 
 
 def install_token_tools(stage: Path, *, offline=False, github=None, enabled=None):
+    from .automatic_policy import optional_tools
+
+    permitted_optional = optional_tools()
     bin_dir = stage / "bin"
     for name, module in (("token-run", token_runtime), ("repo-map", map_runtime)):
         atomic_write(
@@ -358,6 +361,15 @@ def install_token_tools(stage: Path, *, offline=False, github=None, enabled=None
         ("repomix", lambda: install_repomix(stage)),
     ):
         if enabled is not None and name not in enabled:
+            continue
+        if name == "repomix" and name not in permitted_optional:
+            tools.append(
+                {
+                    "name": name,
+                    "status": "deferred",
+                    "reason": "enable automatic.optional_tools=['repomix'] in the user-global auto-skills.toml, then refresh",
+                }
+            )
             continue
         if offline:
             tools.append({"name": name, "status": "unavailable", "reason": "offline mode"})

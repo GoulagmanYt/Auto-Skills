@@ -1,6 +1,6 @@
 # Automatic skills
 
-After the global installation, use `codex` normally in any Git repository. No project selection command or configuration is required. Python 3.11+ and Codex CLI 0.166.0 are the baseline. The [initial audit](../reports/automatic-skills-review.md), [follow-up](../reports/automatic-skills-followup.md) and [hosted CI evidence](../reports/automatic-skills-hosted-ci.json) distinguish observed agent work from installed/catalog checks.
+After the global installation, use `codex` normally in any Git repository. No project selection command or configuration is required. Python 3.11+ and Codex CLI 0.166.0 are the baseline. The [initial audit](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-review.md), [follow-up](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-followup.md) and [hosted CI evidence](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-hosted-ci.json) distinguish observed agent work from installed/catalog checks.
 
 ```sh
 # Once, from this checkout; Windows: ./install.ps1
@@ -61,6 +61,8 @@ Global installation authorizes automatic instruction downloads within the source
 ```toml
 [automatic]
 repositories = ["openai/skills", "vercel-labs/agent-skills", "anthropics/skills", "trailofbits/skills"]
+# Optional heavyweight npm tool. Omit this line to keep it deferred.
+optional_tools = ["repomix"]
 ```
 
 Repository and remote instructions cannot widen that list. Automatic redistribution accepts MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC and CC0-1.0; missing or other licenses lead to a useful local/bundled fallback. This conservative policy excludes some otherwise useful skills.
@@ -68,6 +70,8 @@ Repository and remote instructions cannot widen that list. Automatic redistribut
 All workspaces share a 120-second/180-request discovery client. Workspaces needing specialties are evaluated before a root needing only common roles; up to four missing framework/language/database roles receive targeted searches before generic roles. Multi-role registry quotas are 28 each; a targeted single-role search allows 96 per mandatory registry within the same global limit. A failed GitHub CLI transport falls back to HTTPS for that operation family for the remaining discovery, avoiding two attempts per blob. Limits include 80 resources/2 MB per bundle, 18,000 eligible instruction characters, and 256 bundles/64 MB in the shared cache. Concurrent cache maintenance is best effort and cannot invalidate an otherwise admissible installation. Downloading a script does not execute it or install its dependencies. Remote instructions cannot grant permissions, request secrets or trigger arbitrary installations. Correct model obedience remains an observed property, not an OS sandbox guarantee.
 
 ## Persistence and reversal
+
+Repomix is planned for relevant repositories but remains `deferred` until this user-global opt-in is present. An online `refresh` installs a deferred tool after opt-in. Offline returns keep the installation unchanged. Already installed tools retain their ownership and pins; removing the opt-in does not silently delete them. RTK remains available through the existing application tool policy. Repository configuration cannot enable optional binary downloads.
 
 The versioned repository lock retains workspaces, manifest fingerprints, pinned provenance, owned hashes and restoration data; its reports explain selections and exclusions. Per-session decisions and native hook observations live outside the project under the user cache (`CODEX_BOOTSTRAP_CACHE` overrides it). Prompts are hashed, not stored. Task, target-file hashes, manifests, selected guide hashes, branch/revision, Git directory and checkout location invalidate task decisions. Worktrees and moved checkouts cannot silently share a task-cache identity. At most 128 decisions per checkout are retained.
 
@@ -97,4 +101,4 @@ Raw transcripts and errors stay in ignored `reports/private/`; public reports pr
 
 The sustained-session verifier uses one native app-server process and thread with explicit preparation, hook trust and thread configuration. It exercises backend, frontend, a justified additional local capability and backend again. This is a controlled integration test; direct app-server clients still need their own integration. Failed native turns stop the test and remain failed, with attempted and completed turns counted separately.
 
-The measurement tool keeps five pinned public manifest/license extracts and annotations in `examples/measurement/`. It measures scope/role errors and unchanged returns offline; these extracts are not full upstream projects. Its optional inference arm uses three separate synthetic tasks, independent validators and both baseline/Auto-Skills arms, retaining failed or unattempted rows. A single repetition cannot establish token savings. Explicit `--refresh` replaces the public sample pins. The startup profiler uses an empty temporary home/cache and includes historical optional tools; its default is offline, while `--network` permits downloads. Full integrity verification remains mandatory; publication no longer repeats the verification that its transaction just completed.
+The measurement tool keeps five pinned public manifest/license extracts and annotations in `fixtures/measurement/`. It measures scope/role errors and unchanged returns offline; these extracts are not full upstream projects. Its optional inference arm uses three separate synthetic tasks, independent validators and both baseline/Auto-Skills arms, retaining failed or unattempted rows. A single repetition cannot establish token savings. Explicit `--refresh` replaces the public sample pins. The startup profiler uses an empty temporary home/cache and defaults to offline; `--network` permits downloads and `--optional-tools repomix` opts into that heavyweight tool inside its isolated policy. It reports cold/warm timings and preparation phases. Full integrity verification remains mandatory; a native launch reuses its one verified lock, and later hook events verify integrity independently.

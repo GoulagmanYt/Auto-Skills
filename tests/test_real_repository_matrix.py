@@ -8,6 +8,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from tools.verify_real_repositories import (
     FIXTURES,
     assess_repositories,
@@ -16,7 +18,7 @@ from tools.verify_real_repositories import (
 )
 
 
-class RealRepositoryMatrixTests(unittest.TestCase):
+class RealRepositoryMatrixTests(IsolatedTestCase):
     def test_genuine_pinned_manifests_classify_in_their_own_workspaces_offline(self):
         with (
             patch("urllib.request.urlopen", side_effect=AssertionError("network forbidden")),

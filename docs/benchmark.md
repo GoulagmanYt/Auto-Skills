@@ -2,10 +2,10 @@
 
 Two measurements answer different questions:
 
-- Native startup inspection measures exposed catalog/instructions before inference. Historical results for **Piano-LED-Visualizer** and **RTP-OSC-Midi-tool** are in [the startup measurement report](../reports/startup-context.md), with [per-workspace data](../reports/startup-context.json). They predate the expanded MIDI/LED/GPIO/Raspberry Pi coverage and are not current whole-session savings.
+- Native startup inspection measures exposed catalog/instructions before inference. Historical results for **Piano-LED-Visualizer** and **RTP-OSC-Midi-tool** are in [the startup measurement report](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/startup-context.md), with [per-workspace data](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/startup-context.json). They predate the expanded MIDI/LED/GPIO/Raspberry Pi coverage and are not current whole-session savings.
 - Complete-task benchmarks run the same task and independent validator against multiple conditions. They record native usage, cached input when available, elapsed time, success, failure and timeouts per run.
 
-The benchmark runner, public synthetic tasks and pinned competitor manifest live in tools/benchmark_tasks.py, examples/benchmark and benchmarks/competitors.json. Use `--help` for exact commands. Start with a dry run, then use an explicit model and repetitions. Inference uses the authenticated Codex CLI and consumes normal account usage.
+The benchmark runner, public synthetic tasks and pinned competitor manifest live in tools/benchmark_tasks.py, fixtures/benchmark and benchmarks/competitors.json. Use `--help` for exact commands. Start with a dry run, then use an explicit model and repetitions. Inference uses the authenticated Codex CLI and consumes normal account usage.
 
 The deterministic lifecycle demonstration is separate: `python tools/demo_workspaces.py --output reports/workspace-demo.json`. It checks React/Rust isolation and byte/mtime preservation without model calls. It does not measure task token savings.
 
@@ -19,10 +19,10 @@ The original-project startup script defaults to the user's cache `private-measur
 
 ## Historical blocked preflight
 
-The native preflight did not modify its MIDI fixture and failed independent validation despite exit zero. Diagnostic responses reported read-only execution with workspace-write requested; the precise cause is unresolved. A repeated task matrix would not be meaningful under this preflight failure. The [blocked plan](../reports/benchmarks/blocked/report.md) contains 45 unattempted rows, explicit unavailable adapters and retained actual preflight usage. It makes no comparative performance claim.
+The native preflight did not modify its MIDI fixture and failed independent validation despite exit zero. Diagnostic responses reported read-only execution with workspace-write requested; the precise cause is unresolved. A repeated task matrix would not be meaningful under this preflight failure. The [blocked plan](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/blocked/report.md) contains 45 unattempted rows, explicit unavailable adapters and retained actual preflight usage. It makes no comparative performance claim.
 
 ## Measured recovery run
 
-Execution recovered after preserving the configured Windows sandbox backend and isolating child process context, while retaining workspace-write. [The exploratory comparison](../reports/benchmarks/comparison/analysis.md) accounts for45 slots:17 validated passes,9 native failures,18 harness adapter/task exclusions and1 interrupted/unknown slot. These exclusions do not establish missing upstream product capabilities. All original34 run objects are preserved; seven remaining original requests completed without replaying failures.
+Execution recovered after preserving the configured Windows sandbox backend and isolating child process context, while retaining workspace-write. [The exploratory comparison](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/analysis.md) accounts for45 slots:17 validated passes,9 native failures,18 harness adapter/task exclusions and1 interrupted/unknown slot. These exclusions do not establish missing upstream product capabilities. All original34 run objects are preserved; seven remaining original requests completed without replaying failures.
 
 Median total/inference/setup timing and token metrics use validated successes only. Separate all-attempt/failure timing and reported usage totals remain available. Missing usage is unknown, not zero. Earlier native failure causes are unresolved, and source/startup/derivation receipts differ. The small interrupted dataset does not establish savings or a general winner.

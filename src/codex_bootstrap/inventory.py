@@ -46,16 +46,9 @@ def local_skill_paths(root, cwd=None, owned=()):
 
 def allowed_repositories():
     """Optional user-global policy; repository/remote instructions cannot widen it."""
-    import tomllib
+    from .automatic_policy import automatic_policy
 
-    home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
-    path = home / "auto-skills.toml"
-    if not path.exists():
-        return set(REGISTRIES)
-    if path.stat().st_size > 32_000:
-        raise ValueError("automatic source policy exceeds budget")
-    data = tomllib.loads(path.read_text(encoding="utf-8"))
-    sources = data.get("automatic", {}).get("repositories", REGISTRIES)
+    sources = automatic_policy().get("repositories", REGISTRIES)
     if (
         not isinstance(sources, list)
         or len(sources) > 32

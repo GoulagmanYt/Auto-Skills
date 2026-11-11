@@ -3,8 +3,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
 
-class SimulatedRepositoryTests(unittest.TestCase):
+
+class SimulatedRepositoryTests(IsolatedTestCase):
     def test_supported_stacks_and_known_gaps_are_reported_faithfully(self):
         from tools.repo_scenarios import SCENARIOS
         from tools.simulate_repositories import assess_scenario
@@ -41,7 +43,10 @@ class SimulatedRepositoryTests(unittest.TestCase):
             {tool["name"] for tool in tools}, {"rtk", "repomix", "repo-map", "token-run"}
         )
         unavailable = {tool["name"] for tool in tools if tool["status"] == "unavailable"}
-        self.assertEqual(unavailable, {"rtk", "repomix"})
+        self.assertEqual(unavailable, {"rtk"})
+        self.assertEqual(
+            {tool["name"] for tool in tools if tool["status"] == "deferred"}, {"repomix"}
+        )
 
     def test_database_driver_versions_are_not_reported_as_verified_engine_versions(self):
         from tools.repo_scenarios import SCENARIOS

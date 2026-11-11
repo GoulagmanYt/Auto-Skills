@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-11T17:53:01.169688+00:00",
+  "platform": "Windows",
+  "source_identity": {
+    "base_commit": "801b1e037448123553ad1301736df93c46a3025d",
+    "branch": "maintenance/reliability-and-structure",
+    "content_sha256": "1ff4d39480b999489fb33f74f49a8d5fe386d2a68c7f6914d0af1ed00365bddb",
+    "algorithm": "sorted Git-index paths excluding reports/: SHA256(path UTF8 + NUL + SHA256(current file bytes).digest), concatenated"
+  },
+  "unit_suites": [
+    {
+      "python": "3.13.17",
+      "tests": 340,
+      "passed": 335,
+      "skipped": 5,
+      "failed": 0,
+      "elapsed_seconds": 311.951
+    },
+    {
+      "python": "3.11.15",
+      "tests": 340,
+      "passed": 335,
+      "skipped": 5,
+      "failed": 0,
+      "elapsed_seconds": 353.325
+    }
+  ],
+  "checks": {
+    "ruff_version": "0.17.3",
+    "lint": "passed",
+    "format": "passed",
+    "source_publication": "passed",
+    "source_and_distribution_markdown_links": "passed",
+    "build": "passed",
+    "twine": "passed",
+    "distribution_allowlist": "passed",
+    "workflow_yaml": "passed",
+    "independent_review": "no remaining substantive findings",
+    "independent_targeted_tests_passed": 34,
+    "canonical_historical_json_receipts_unchanged": 33,
+    "sdist_source_files_compared": 196
+  },
+  "native_installed_artifacts": [
+    {
+      "package_version": "1.4.0a1",
+      "codex_version": "0.166.0",
+      "native_catalog_counts": {
+        ".": 15,
+        "frontend": 15,
+        "backend": 14
+      },
+      "preserved_files": 18,
+      "temporary_user_install_reversed": true,
+      "user_os_boundaries": "injected adapters in temporary home",
+      "platform": "win32",
+      "python": "3.13.17",
+      "inference_requests": 0,
+      "artifact": "codex_repo_auto_bootstrap-1.4.0a1-py3-none-any.whl",
+      "artifact_sha256": "d36abcea068c412300fed1d974810c0568b6ab9883d8e71897ff4ffa48be520c"
+    },
+    {
+      "package_version": "1.4.0a1",
+      "codex_version": "0.166.0",
+      "native_catalog_counts": {
+        ".": 15,
+        "frontend": 15,
+        "backend": 14
+      },
+      "preserved_files": 18,
+      "temporary_user_install_reversed": true,
+      "user_os_boundaries": "injected adapters in temporary home",
+      "platform": "win32",
+      "python": "3.13.17",
+      "inference_requests": 0,
+      "artifact": "codex_repo_auto_bootstrap-1.4.0a1.tar.gz",
+      "artifact_sha256": "7bbd637f92fa1292e1ed7bac521e341b332cf8abe64e2fa1a057f20b04c09421"
+    },
+    {
+      "package_version": "1.4.0a1",
+      "codex_version": "0.167.1",
+      "native_catalog_counts": {
+        ".": 15,
+        "frontend": 15,
+        "backend": 14
+      },
+      "preserved_files": 18,
+      "temporary_user_install_reversed": true,
+      "user_os_boundaries": "injected adapters in temporary home",
+      "platform": "win32",
+      "python": "3.13.17",
+      "inference_requests": 0,
+      "artifact": "codex_repo_auto_bootstrap-1.4.0a1-py3-none-any.whl",
+      "artifact_sha256": "d36abcea068c412300fed1d974810c0568b6ab9883d8e71897ff4ffa48be520c"
+    },
+    {
+      "package_version": "1.4.0a1",
+      "codex_version": "0.167.1",
+      "native_catalog_counts": {
+        ".": 15,
+        "frontend": 15,
+        "backend": 14
+      },
+      "preserved_files": 18,
+      "temporary_user_install_reversed": true,
+      "user_os_boundaries": "injected adapters in temporary home",
+      "platform": "win32",
+      "python": "3.13.17",
+      "inference_requests": 0,
+      "artifact": "codex_repo_auto_bootstrap-1.4.0a1.tar.gz",
+      "artifact_sha256": "7bbd637f92fa1292e1ed7bac521e341b332cf8abe64e2fa1a057f20b04c09421"
+    }
+  ],
+  "automatic_native": {
+    "codex_version": "0.166.0",
+    "checks_passed": 12,
+    "report": "automatic-skills-maintenance.json",
+    "inference_requests": 0
+  },
+  "offline_corpora": {
+    "synthetic_repositories": 18,
+    "adversarial_checks": 15,
+    "pinned_upstream_extracts": 14,
+    "task_cases": 12,
+    "failures": 0
+  },
+  "preparation_sample": {
+    "report": "preparation-offline.json",
+    "limits": "One isolated offline cold/warm sample, optional_tools=[]; not comparable to historical network/tool-heavy preparations."
+  },
+  "limits": [
+    "Local verification is Windows only; hosted Linux/macOS and candidate workflow were not executed in this session.",
+    "Five tests skipped in each Python suite are not counted as successful validations.",
+    "No inference or paid whole-task measurement; no token-savings or superiority claim.",
+    "Shared executable environments remain a documented design follow-up; installed tool ownership/pins are preserved.",
+    "No remote publication, tag, push or merge performed."
+  ]
+}

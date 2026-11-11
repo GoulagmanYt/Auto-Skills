@@ -10,11 +10,23 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.discovery import REGISTRIES, discover
 from codex_bootstrap.github import GitHub
 
 
-class DiscoveryUpgradeTests(unittest.TestCase):
+class DiscoveryUpgradeTests(IsolatedTestCase):
+    def test_cache_maintenance_does_not_rescan_every_entry_per_write(self):
+        first = GitHub(cache_dir=self.cache, transport=lambda endpoint: {"private": False})
+        for index in range(40):
+            first.api(f"repos/example/seed{index}")
+        client = GitHub(cache_dir=self.cache, transport=lambda endpoint: {"private": False})
+        with patch.object(client, "_owned_cache_entry", wraps=client._owned_cache_entry) as inspect:
+            for index in range(8):
+                client.api(f"repos/example/new{index}")
+        self.assertLess(inspect.call_count, 100)
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

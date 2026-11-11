@@ -16,10 +16,34 @@ LOCAL_PARTS = {
     ".ruff_cache",
     "dist",
     "dist-alpha",
+    "dist-ci",
+    "dist-coverage",
     "build",
     "node_modules",
     ".benchmark-work",
 }
+PRIVATE_PREFIXES = (
+    ("reports", "private"),
+    ("reports", "benchmarks", "raw"),
+    ("reports", "benchmarks", "recovery-measured"),
+    ("docs", "superpowers"),
+    (".superpowers",),
+)
+
+
+def is_private(relative):
+    """Apply the same policy to indexed files and unstaged source exports."""
+    parts = tuple(part.casefold() for part in relative.parts)
+    return (
+        any(part in LOCAL_PARTS for part in parts)
+        or any(parts[: len(prefix)] == prefix for prefix in PRIVATE_PREFIXES)
+        or any(part.startswith(".env") and part != ".env.example" for part in parts)
+        or (
+            parts[0] == "reports"
+            and len(parts) > 1
+            and parts[1].startswith(("ci-", "simulations", "user-projects"))
+        )
+    )
 
 
 def source_paths(root):
@@ -36,7 +60,7 @@ def source_paths(root):
 
     def allowed(path):
         parts = path.relative_to(root).parts
-        if any(p in LOCAL_PARTS for p in parts) or "superpowers" in parts:
+        if is_private(path.relative_to(root)):
             return False
         if len(parts) == 1:
             return path.name in ROOT_FILES | {".gitignore", ".gitattributes"}
@@ -49,8 +73,20 @@ def source_paths(root):
             ".github",
             "reports",
             "examples",
+            "fixtures",
             "benchmarks",
-        } and path.suffix in {".py", ".md", ".json", ".toml", ".txt", ".rs", ".js", ".yml", ".yaml"}
+        } and path.suffix in {
+            ".py",
+            ".md",
+            ".json",
+            ".toml",
+            ".txt",
+            ".rs",
+            ".js",
+            ".mjs",
+            ".yml",
+            ".yaml",
+        }
 
     return [p for p in root.rglob("*") if p.is_file() and allowed(p)]
 
@@ -60,7 +96,7 @@ def check_source(root):
     paths = source_paths(root)
     for path in paths:
         relative = path.relative_to(root)
-        if any(p in LOCAL_PARTS for p in relative.parts) or path.name.startswith(".env"):
+        if is_private(relative):
             issues.append(f"{relative.as_posix()}: local/generated file")
             continue
         if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):

@@ -6,10 +6,48 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap
 
 
-class TaskDecisionTests(unittest.TestCase):
+class TaskDecisionTests(IsolatedTestCase):
+    def test_cached_metadata_cannot_claim_consultation_or_model_requests(self):
+        first = self.decision("Check Rust", session_id="metadata")
+        state = next((self.directory / "cache/task-state-v1").rglob("*.json"))
+        first["states"]["consulted"] = "observed"
+        first["metrics"]["model_requests"] = 999
+        state.write_text(json.dumps(first))
+        result = self.decision("Check Rust", session_id="metadata")
+        self.assertEqual(result["states"]["consulted"], "unobserved")
+        self.assertEqual(result["metrics"]["model_requests"], 0)
+
+    def test_invalid_cached_decisions_are_recomputed(self):
+        import copy
+        import hashlib
+
+        first = self.decision("Check Rust", session_id="corrupt")
+        state = next(
+            (self.directory / "cache/task-state-v1").rglob(
+                hashlib.sha256(b"corrupt").hexdigest() + ".json"
+            )
+        )
+        invalid = [
+            [],
+            None,
+            "wrong",
+            {},
+            {**first, "metrics": []},
+            {**first, "scopes": ["frontend"]},
+            {**first, "repository": {}},
+        ]
+        for value in invalid:
+            with self.subTest(value=type(value).__name__):
+                state.write_text(json.dumps(copy.deepcopy(value)), encoding="utf-8")
+                result = self.decision("Check Rust", session_id="corrupt")
+                self.assertFalse(result["cache_hit"])
+                self.assertEqual(result["selected"], first["selected"])
+
     def setUp(self):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)

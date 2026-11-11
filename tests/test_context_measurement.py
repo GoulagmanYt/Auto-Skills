@@ -4,6 +4,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from tools.verify_context_savings import delta, prompt_metrics
 
 
@@ -14,7 +16,7 @@ class CharacterEncoding:
         return list(text)
 
 
-class ContextMeasurementTests(unittest.TestCase):
+class ContextMeasurementTests(IsolatedTestCase):
     def test_duplicate_skill_entries_remain_visible_in_native_measurement(self):
         section = (
             "<skills_instructions>\n### Available skills\n"

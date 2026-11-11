@@ -1,0 +1,3 @@
+# Benchmark evidence
+
+Read [analysis.md](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/analysis.md) for the exploratory comparison and limits. [report.json](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/report.json) is the canonical full receipt; [report.md](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/report.md) is its generated table. All 45 slots are accounted for, including nine native failures and one interrupted/unknown slot.

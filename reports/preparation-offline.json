@@ -1,0 +1,289 @@
+{
+  "mode": "offline cold start",
+  "platform": "Windows",
+  "python": "3.13.17",
+  "optional_tools": [],
+  "elapsed_seconds": 0.715,
+  "phases_ms": {
+    "entry_ms": 45.017,
+    "integrity_ms": 1.096,
+    "profile_ms": 197.524,
+    "selection_ms": 56.534,
+    "tools_ms": 51.548,
+    "publication_ms": 295.149,
+    "total_ms": 715.024
+  },
+  "warm_elapsed_seconds": 0.289,
+  "warm_phases_ms": {
+    "entry_ms": 43.795,
+    "integrity_ms": 56.976,
+    "profile_ms": 173.351,
+    "total_ms": 288.824
+  },
+  "files": 49,
+  "tools": [
+    {
+      "name": "token-run",
+      "status": "installed",
+      "version": "1"
+    },
+    {
+      "name": "repo-map",
+      "status": "installed",
+      "version": "1"
+    },
+    {
+      "name": "rtk",
+      "status": "unavailable",
+      "version": null
+    },
+    {
+      "name": "repomix",
+      "status": "deferred",
+      "version": null
+    }
+  ],
+  "profile": [
+    {
+      "module": "bootstrap.py",
+      "line": 78,
+      "function": "bootstrap",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.715
+    },
+    {
+      "module": "transaction.py",
+      "line": 70,
+      "function": "publish",
+      "calls": 1,
+      "self_seconds": 0.001,
+      "cumulative_seconds": 0.295
+    },
+    {
+      "module": "profile.py",
+      "line": 292,
+      "function": "profile_repo",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.195
+    },
+    {
+      "module": "fs.py",
+      "line": 33,
+      "function": "confined",
+      "calls": 247,
+      "self_seconds": 0.002,
+      "cumulative_seconds": 0.145
+    },
+    {
+      "module": "fs.py",
+      "line": 57,
+      "function": "atomic_write",
+      "calls": 68,
+      "self_seconds": 0.001,
+      "cumulative_seconds": 0.126
+    },
+    {
+      "module": "bootstrap.py",
+      "line": 32,
+      "function": "verify_lock",
+      "calls": 1,
+      "self_seconds": 0.001,
+      "cumulative_seconds": 0.103
+    },
+    {
+      "module": "fs.py",
+      "line": 78,
+      "function": "digest",
+      "calls": 49,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.063
+    },
+    {
+      "module": "proposal.py",
+      "line": 111,
+      "function": "selection_plan",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.057
+    },
+    {
+      "module": "inventory.py",
+      "line": 26,
+      "function": "local_skill_paths",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.049
+    },
+    {
+      "module": "token_tools.py",
+      "line": 332,
+      "function": "install_token_tools",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.045
+    },
+    {
+      "module": "fs.py",
+      "line": 14,
+      "function": "command",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.042
+    },
+    {
+      "module": "bootstrap.py",
+      "line": 23,
+      "function": "git_root",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.042
+    },
+    {
+      "module": "config.py",
+      "line": 106,
+      "function": "external_skills",
+      "calls": 1,
+      "self_seconds": 0.001,
+      "cumulative_seconds": 0.038
+    },
+    {
+      "module": "token_tools.py",
+      "line": 106,
+      "function": "write_launcher",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.033
+    },
+    {
+      "module": "fs.py",
+      "line": 81,
+      "function": "<lambda>",
+      "calls": 98,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.021
+    },
+    {
+      "module": "lifecycle.py",
+      "line": 166,
+      "function": "reserve_skill_paths",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.019
+    },
+    {
+      "module": "inventory.py",
+      "line": 39,
+      "function": "<genexpr>",
+      "calls": 224,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.009
+    },
+    {
+      "module": "proposal.py",
+      "line": 25,
+      "function": "scoped_profiles",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.008
+    },
+    {
+      "module": "github.py",
+      "line": 57,
+      "function": "__init__",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.006
+    },
+    {
+      "module": "workspaces.py",
+      "line": 88,
+      "function": "workspace_profiles",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.005
+    },
+    {
+      "module": "workspaces.py",
+      "line": 124,
+      "function": "selection_profiles",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.005
+    },
+    {
+      "module": "config.py",
+      "line": 89,
+      "function": "skill_roots",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.003
+    },
+    {
+      "module": "profile.py",
+      "line": 190,
+      "function": "manifest_paths",
+      "calls": 10,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.003
+    },
+    {
+      "module": "repo_config.py",
+      "line": 73,
+      "function": "read_configuration",
+      "calls": 5,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.003
+    },
+    {
+      "module": "profile.py",
+      "line": 266,
+      "function": "manifest_fingerprint",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.002
+    },
+    {
+      "module": "workspaces.py",
+      "line": 31,
+      "function": "_roots",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.002
+    },
+    {
+      "module": "config.py",
+      "line": 76,
+      "function": "config_layers",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.001
+    },
+    {
+      "module": "policy.py",
+      "line": 39,
+      "function": "policy_for",
+      "calls": 2,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.001
+    },
+    {
+      "module": "proposal.py",
+      "line": 67,
+      "function": "candidate_record",
+      "calls": 45,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.001
+    },
+    {
+      "module": "lifecycle.py",
+      "line": 145,
+      "function": "skill_artifacts",
+      "calls": 1,
+      "self_seconds": 0.0,
+      "cumulative_seconds": 0.001
+    }
+  ],
+  "limits": "One run; host/network variance and optional tool installation are included."
+}

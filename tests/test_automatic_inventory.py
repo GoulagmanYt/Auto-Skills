@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.profile import Profile
 from codex_bootstrap.proposal import selection_plan
 from codex_bootstrap.selection import Candidate
@@ -19,7 +21,7 @@ def guide(name="local-rust", slot="language-rust"):
     )
 
 
-class AutomaticInventoryTests(unittest.TestCase):
+class AutomaticInventoryTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

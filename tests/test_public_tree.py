@@ -1,12 +1,36 @@
 import subprocess
 import tempfile
-import unittest
 from pathlib import Path
+
+from suite_support import IsolatedTestCase
 
 from tools.check_public_tree import check_source
 
 
-class PublicTreeTests(unittest.TestCase):
+class PublicTreeTests(IsolatedTestCase):
+    def test_force_staged_private_paths_are_rejected(self):
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        for relative in (
+            "reports/private/session.json",
+            "reports/PRIVATE/session.json",
+            "reports/benchmarks/raw/transcript.json",
+            "docs/superpowers/plans/internal.md",
+            "dist-ci/package.txt",
+        ):
+            with self.subTest(relative=relative):
+                target = self.root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text("synthetic private note")
+                subprocess.run(["git", "-C", str(self.root), "add", "-f", relative], check=True)
+                with self.assertRaisesRegex(ValueError, "local/generated"):
+                    check_source(self.root)
+                subprocess.run(
+                    ["git", "-C", str(self.root), "rm", "--cached", relative],
+                    check=True,
+                    capture_output=True,
+                )
+                target.unlink()
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

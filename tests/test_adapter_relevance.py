@@ -1,10 +1,10 @@
-import unittest
+from suite_support import IsolatedTestCase
 
 from codex_bootstrap.profile import Profile
 from codex_bootstrap.selection import Candidate, rejection
 
 
-class AdapterRelevanceTests(unittest.TestCase):
+class AdapterRelevanceTests(IsolatedTestCase):
     def test_new_ecosystem_hints_do_not_fill_unrelated_general_slots(self):
         for technology in ("cpp", "cmake", "flutter", "julia", "elixir"):
             with self.subTest(technology=technology):

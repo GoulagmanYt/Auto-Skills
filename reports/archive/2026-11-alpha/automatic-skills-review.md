@@ -1,6 +1,6 @@
 # Revue de la gestion automatique des skills
 
-Cet audit conserve les observations initiales. Les validations supplémentaires et la CI effectivement exécutée figurent dans [le suivi](automatic-skills-followup.md) et [les résultats hébergés](automatic-skills-hosted-ci.json).
+Cet audit conserve les observations initiales. Les validations supplémentaires et la CI effectivement exécutée figurent dans [le suivi](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-followup.md) et [les résultats hébergés](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-hosted-ci.json).
 
 Audit initial : arbre propre, commit `85b9bd6`. Travail sur la branche `feat/automatic-task-skills`, sans publication de release ni déplacement de tag. L'analyse a confirmé le wrapper, les adaptateurs de manifestes/workspaces, les filtres de versions, les téléchargements GitHub, le verrouillage, les transactions récupérables et les désinstallations réversibles. Les principales lacunes étaient l'absence d'inventaire local avant recherche, de décision par tâche et d'intégration par demande ; les consignes générées interdisaient encore les installations implicites.
 
@@ -12,10 +12,10 @@ Environnement des essais natifs : Windows, Python 3.13.17, Codex CLI 0.166.0. Le
 
 | Critère | Preuve reproductible |
 |---|---|
-| 1. Première visite automatique | Installation réelle dans un home temporaire puis lancement du vrai Codex par son wrapper, sans commande de sélection du dépôt : [démonstration](automatic-skills.json) |
+| 1. Première visite automatique | Installation réelle dans un home temporaire puis lancement du vrai Codex par son wrapper, sans commande de sélection du dépôt : [démonstration](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills.json) |
 | 2. Retour inchangé | Zéro appel de découverte/installation/analyse par modèle du gestionnaire ; verrou et empreintes/dates des fichiers conservés |
 | 3. Skill local admissible | Guide Rust local sélectionné/coplié ; test interdisant toute recherche d'un équivalent distant |
-| 4. Capacité externe | Guide Vercel téléchargé réellement, commit et SHA-256 enregistrés, installation et catalogue natif vérifiés : [réseau](automatic-skills-network.json), [consultation par l'agent](automatic-skills-live.json) |
+| 4. Capacité externe | Guide Vercel téléchargé réellement, commit et SHA-256 enregistrés, installation et catalogue natif vérifiés : [réseau](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-network.json), [consultation par l'agent](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-live.json) |
 | 5. Isolation monorepo | Catalogue natif et décision backend excluent les spécialités React ; les mentions de conservation d'un sibling n'en font plus une cible |
 | 6. Changement frontend | Contenu et dates des ressources backend préservés ; assertions natives et démonstration existante conservées |
 | 7. Nouvelle tâche | Même thread Codex repris pour corriger le frontend après Rust : nouveau hook observé, sélection remplacée, guide JavaScript consulté, validation Node et backend inchangé |
@@ -35,11 +35,11 @@ La première préparation réseau ordinaire, sans précharger un rôle ni le cac
 
 ## Échecs conservés et corrections
 
-[Essai 1](automatic-skills-attempt-1.json) : l'agent terminait Rust, mais la validation indépendante échouait et les ACL de sortie du sandbox Windows empêchaient le nettoyage. Le quota initial empêchait aussi le téléchargement complet du bundle React.
+[Essai 1](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-attempt-1.json) : l'agent terminait Rust, mais la validation indépendante échouait et les ACL de sortie du sandbox Windows empêchaient le nettoyage. Le quota initial empêchait aussi le téléchargement complet du bundle React.
 
-[Essai 2](automatic-skills-attempt-2.json) : correction/consultation Rust et validation indépendante réussies ; acquisition distante encore refusée par le quota. [Essai réseau intermédiaire](automatic-skills-network-attempt-1.json) : téléchargement possible après correction du transport `gh`, mais déclaration de licence du `SKILL.md` non reconnue. Ces résultats restent incomplets/échoués dans leurs fichiers.
+[Essai 2](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-attempt-2.json) : correction/consultation Rust et validation indépendante réussies ; acquisition distante encore refusée par le quota. [Essai réseau intermédiaire](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-network-attempt-1.json) : téléchargement possible après correction du transport `gh`, mais déclaration de licence du `SKILL.md` non reconnue. Ces résultats restent incomplets/échoués dans leurs fichiers.
 
-[Essai 3](automatic-skills-attempt-3.json) : tâches Rust et frontend correctes et téléchargement distant réussi, mais la sélection frontend conservait Rust à cause de la phrase « préserver le backend ». Le guide React n'était pas consulté pour une modification purement JavaScript. La sélection privilégie maintenant les chemins ciblés ; le harnais mesure la consultation du guide JavaScript effectivement pertinent.
+[Essai 3](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-attempt-3.json) : tâches Rust et frontend correctes et téléchargement distant réussi, mais la sélection frontend conservait Rust à cause de la phrase « préserver le backend ». Le guide React n'était pas consulté pour une modification purement JavaScript. La sélection privilégie maintenant les chemins ciblés ; le harnais mesure la consultation du guide JavaScript effectivement pertinent.
 
 Les essais contrôlés avec inférence utilisent désormais `danger-full-access` pour leur fixture publique afin d'éviter les ACL de compilation du sandbox Windows. Le choix de sandbox de l'utilisateur n'est pas modifié par le produit. Les sorties brutes, y compris les échecs, sont conservées localement dans `reports/private/` et exclues des distributions et des rapports publics.
 
@@ -74,4 +74,4 @@ python -m build --outdir dist-alpha
 python tools/verify_native_install.py --codex PATH_TO_NATIVE_CODEX --expected-codex-version 0.166.0 --artifact dist-alpha/codex_repo_auto_bootstrap-1.4.0a1-py3-none-any.whl --artifact dist-alpha/codex_repo_auto_bootstrap-1.4.0a1.tar.gz
 ```
 
-La vérification native des distributions est enregistrée dans [les résultats wheel/sdist](automatic-skills-artifacts.json). Les résultats ignorés ou indéterminés doivent rester visibles ; les bras sans `--agent` ou `--network` ne sont pas présentés comme les ayant exécutés.
+La vérification native des distributions est enregistrée dans [les résultats wheel/sdist](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/automatic-skills-artifacts.json). Les résultats ignorés ou indéterminés doivent rester visibles ; les bras sans `--agent` ou `--network` ne sont pas présentés comme les ayant exécutés.

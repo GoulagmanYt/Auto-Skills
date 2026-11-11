@@ -1,0 +1,730 @@
+{
+  "schema_version": 1,
+  "evidence_scope": "Pinned upstream manifest extracts only: tests reconstruct the copied manifest paths, not entire upstream repositories. No upstream source, build, dependency installation, or external skill discovery is executed; results do not certify whole-repository behavior.",
+  "network_used_for_verification": false,
+  "upstream_execution": false,
+  "refresh_failures": [],
+  "repositories": [
+    {
+      "repository": "google/googletest",
+      "slug": "googletest",
+      "commit": "a8380b01a25ebdb130097b607b3afed2a58d04ba",
+      "original_path": "CMakeLists.txt",
+      "license_spdx": "BSD-3-Clause",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "googletest",
+      "technologies": {
+        "cmake": ">=3.16",
+        "c": "detected",
+        "cpp": "detected"
+      },
+      "expected_technologies": [
+        "cmake",
+        "cpp",
+        "c"
+      ],
+      "expected_slots": [
+        "language-cpp",
+        "build-cmake"
+      ],
+      "selected_slots": [
+        "build",
+        "build-cmake",
+        "language-c",
+        "language-cpp",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "e75c65d8fc992b3fbc0bdab9669944996166ca64dd4383e2f2eca2ecc345dbd9",
+      "manifest_url": "https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/CMakeLists.txt",
+      "license_url": "https://github.com/google/googletest/blob/a8380b01a25ebdb130097b607b3afed2a58d04ba/LICENSE",
+      "github_reported_license_spdx": "BSD-3-Clause",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "p11-glue/p11-kit",
+      "slug": "p11-kit",
+      "commit": "e5ee541ae14ec2e3324fdf393cb069163ee9666b",
+      "original_path": "meson.build",
+      "license_spdx": "BSD-3-Clause",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "p11-kit",
+      "technologies": {
+        "meson": ">= 0.51",
+        "c": "detected"
+      },
+      "expected_technologies": [
+        "meson",
+        "c"
+      ],
+      "expected_slots": [
+        "language-c",
+        "build-meson"
+      ],
+      "selected_slots": [
+        "build",
+        "build-meson",
+        "language-c",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "3e9a822fe3a55828761f12ecf7443d3ddbf735e3b34c9833d13e136e22b6dcb1",
+      "manifest_url": "https://github.com/p11-glue/p11-kit/blob/e5ee541ae14ec2e3324fdf393cb069163ee9666b/meson.build",
+      "license_url": "https://github.com/p11-glue/p11-kit/blob/e5ee541ae14ec2e3324fdf393cb069163ee9666b/COPYING",
+      "github_reported_license_spdx": "BSD-3-Clause",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "flutter/samples",
+      "slug": "flutter-samples",
+      "commit": "9df2cac15cc3d28a51aace018ad822387d30ac72",
+      "original_path": "form_app/pubspec.yaml",
+      "license_spdx": "BSD-3-Clause",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "flutter-samples/form_app",
+      "technologies": {
+        "dart": "^3.9.0-0",
+        "flutter": "detected",
+        "cupertino_icons": "^1.0.0",
+        "intl": "^0.20.0",
+        "http": "^1.0.0",
+        "json_annotation": "detected",
+        "english_words": "^4.0.0",
+        "go_router": "^16.0.0",
+        "analysis_defaults": "detected",
+        "flutter_test": "detected",
+        "json_serializable": "^6.2.0",
+        "build_runner": "^2.1.8"
+      },
+      "expected_technologies": [
+        "dart",
+        "flutter"
+      ],
+      "expected_slots": [
+        "language-dart",
+        "framework-flutter"
+      ],
+      "selected_slots": [
+        "build",
+        "framework-flutter",
+        "language-dart",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "cfd1de99a73356a57508ce0c241d38c15363003d52b541627ca73792378de424",
+      "manifest_url": "https://github.com/flutter/samples/blob/9df2cac15cc3d28a51aace018ad822387d30ac72/form_app/pubspec.yaml",
+      "license_url": "https://github.com/flutter/samples/blob/9df2cac15cc3d28a51aace018ad822387d30ac72/LICENSE",
+      "github_reported_license_spdx": "NOASSERTION",
+      "license_review": {
+        "spdx": "BSD-3-Clause",
+        "license_sha256": "687c3d4c3a553c0fa995e9d3c35b245872fa4a0f5c2bd6494decc2fa410f7ce9",
+        "basis": "Reviewed upstream LICENSE: source code uses the opening BSD 3-Clause notice; the complete copied LICENSE also retains upstream font OFL terms. Only the source manifest is extracted."
+      },
+      "passed": true
+    },
+    {
+      "repository": "apple/swift-argument-parser",
+      "slug": "swift-argument-parser",
+      "commit": "38ca4eceb349155836701b88da3e0986eb9d1e1c",
+      "original_path": "Package.swift",
+      "license_spdx": "Apache-2.0",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "swift-argument-parser",
+      "technologies": {
+        "swift": "detected",
+        "swift-tools": "6.0"
+      },
+      "expected_technologies": [
+        "swift",
+        "swift-tools"
+      ],
+      "expected_slots": [
+        "language-swift"
+      ],
+      "selected_slots": [
+        "build",
+        "language-swift",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "4eae0e28d24671d6ab75c2c7a0dd0326e6d48f8785510a3e403886fe8cf17d88",
+      "manifest_url": "https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/Package.swift",
+      "license_url": "https://github.com/apple/swift-argument-parser/blob/38ca4eceb349155836701b88da3e0986eb9d1e1c/LICENSE.txt",
+      "github_reported_license_spdx": "Apache-2.0",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "elixir-plug/plug",
+      "slug": "plug",
+      "commit": "0d5b5eacb93b6de8f89454452cb232aa57672733",
+      "original_path": "mix.exs",
+      "license_spdx": "Apache-2.0",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "plug",
+      "technologies": {
+        "elixir": "~> 1.15",
+        "mix": "detected",
+        "mime": "~> 1.0 or ~> 2.0",
+        "telemetry": "~> 0.4.3 or ~> 1.0",
+        "ex_doc": "~> 0.21"
+      },
+      "expected_technologies": [
+        "elixir",
+        "mix"
+      ],
+      "expected_slots": [
+        "language-elixir"
+      ],
+      "selected_slots": [
+        "build",
+        "build-mix",
+        "language-elixir",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "ca654fdc19facf2d0f3807ce75b18e07fad12ae521470db36b82b3e1552841e5",
+      "manifest_url": "https://github.com/elixir-plug/plug/blob/0d5b5eacb93b6de8f89454452cb232aa57672733/mix.exs",
+      "license_url": "https://github.com/elixir-plug/plug/blob/0d5b5eacb93b6de8f89454452cb232aa57672733/LICENSE",
+      "github_reported_license_spdx": "NOASSERTION",
+      "license_review": {
+        "spdx": "Apache-2.0",
+        "license_sha256": "b25c71a74ae1e2961b15c611ee26d9b3bd171d0833e407867a3debd9d1de3759",
+        "basis": "Reviewed upstream LICENSE explicitly states Licensed under the Apache License, Version 2.0 and links its terms."
+      },
+      "passed": true
+    },
+    {
+      "repository": "JuliaLang/Example.jl",
+      "slug": "julia-example",
+      "commit": "82d1224c32990c0105898fa44009864f5648e98d",
+      "original_path": "Project.toml",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "julia-example",
+      "technologies": {
+        "julia": "1",
+        "test": "detected"
+      },
+      "expected_technologies": [
+        "julia"
+      ],
+      "expected_slots": [
+        "language-julia"
+      ],
+      "selected_slots": [
+        "build",
+        "language-julia",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "51d5263ab2f29c9b77609f8c52121a8ed7efbee7507d93876604d076624570cc",
+      "manifest_url": "https://github.com/JuliaLang/Example.jl/blob/82d1224c32990c0105898fa44009864f5648e98d/Project.toml",
+      "license_url": "https://github.com/JuliaLang/Example.jl/blob/82d1224c32990c0105898fa44009864f5648e98d/LICENSE",
+      "github_reported_license_spdx": "MIT",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "r-lib/cli",
+      "slug": "r-cli",
+      "commit": "633bc27770f3357238d0f797132ad000cd1a8eb4",
+      "original_path": "DESCRIPTION",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "r-cli",
+      "technologies": {
+        "r": ">= 3.4",
+        "utils": "detected",
+        "callr": "detected",
+        "covr": "detected",
+        "crayon": "detected",
+        "digest": "detected",
+        "glue": ">= 1.6.0",
+        "grdevices": "detected",
+        "htmltools": "detected",
+        "htmlwidgets": "detected",
+        "knitr": "detected",
+        "methods": "detected",
+        "processx": "detected",
+        "ps": ">= 1.3.4.9000",
+        "rlang": ">= 1.0.2.9003",
+        "rmarkdown": "detected",
+        "rprojroot": "detected",
+        "rstudioapi": "detected",
+        "testthat": ">= 3.2.0",
+        "tibble": "detected",
+        "whoami": "detected",
+        "withr": "detected",
+        "fs": "detected"
+      },
+      "expected_technologies": [
+        "r"
+      ],
+      "expected_slots": [
+        "language-r"
+      ],
+      "selected_slots": [
+        "build",
+        "language-r",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "5876a659a5f4ce55dd501c4b040edd09ce57f828faa846af832b56b608950f6b",
+      "manifest_url": "https://github.com/r-lib/cli/blob/633bc27770f3357238d0f797132ad000cd1a8eb4/DESCRIPTION",
+      "license_url": "https://github.com/r-lib/cli/blob/633bc27770f3357238d0f797132ad000cd1a8eb4/LICENSE",
+      "github_reported_license_spdx": "NOASSERTION",
+      "license_review": {
+        "spdx": "MIT",
+        "license_sha256": "7ca9da25537a5e7e628150a0e6e60de2eaad6c4d5f2d64e4cc63e75aa053e591",
+        "basis": "Upstream DESCRIPTION declares License: MIT + file LICENSE; the copied original LICENSE retains YEAR and COPYRIGHT HOLDER. The upstream MIT declaration supplies the license terms."
+      },
+      "passed": true
+    },
+    {
+      "repository": "pallets/flask",
+      "slug": "flask",
+      "commit": "49943b5a94413a530761350f04e896f76e8d620e",
+      "original_path": "pyproject.toml",
+      "license_spdx": "BSD-3-Clause",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "flask",
+      "technologies": {
+        "python": ">=3.11",
+        "blinker": ">=1.9.0",
+        "click": ">=8.1.3",
+        "itsdangerous": ">=2.2.0",
+        "jinja2": ">=3.1.2",
+        "markupsafe": ">=2.1.1",
+        "werkzeug": ">=3.1.0",
+        "asgiref": ">=3.2",
+        "python-dotenv": "detected",
+        "ruff": "detected",
+        "tox": "detected",
+        "tox-uv": "detected",
+        "pallets-sphinx-themes": "detected",
+        "sphinx": "<9",
+        "sphinx-tabs": "detected",
+        "sphinxcontrib-log-cabinet": "detected",
+        "sphinx-autobuild": "detected",
+        "gha-update": "detected",
+        "pre-commit": "detected",
+        "pre-commit-uv": "detected",
+        "pytest": "detected",
+        "cryptography": "detected",
+        "mypy": "detected",
+        "pyright": "detected",
+        "types-contextvars": "detected",
+        "types-dataclasses": "detected",
+        "uv": "detected"
+      },
+      "expected_technologies": [
+        "python"
+      ],
+      "expected_slots": [
+        "language-python"
+      ],
+      "selected_slots": [
+        "build",
+        "language-python",
+        "static-analysis",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "4a55dd7e69bca85ecba232489bda7f89bb8620dde35e8f5eb08a92f4087d74cb",
+      "manifest_url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/pyproject.toml",
+      "license_url": "https://github.com/pallets/flask/blob/49943b5a94413a530761350f04e896f76e8d620e/LICENSE.txt",
+      "github_reported_license_spdx": "BSD-3-Clause",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "BurntSushi/ripgrep",
+      "slug": "ripgrep",
+      "commit": "91f5d22ef48bde459d90a8c7dbeab416e97d0f2b",
+      "original_path": "Cargo.toml",
+      "license_spdx": "Unlicense",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "ripgrep",
+      "technologies": {
+        "rust": "unresolved",
+        "anyhow": "1.0.75",
+        "bstr": "1.7.0",
+        "grep": "0.4.1",
+        "ignore": "0.4.29",
+        "lexopt": "0.3.0",
+        "log": "0.4.5",
+        "serde_json": "1.0.23",
+        "termcolor": "1.4.0",
+        "textwrap": "0.16.0",
+        "serde": "1.0.77",
+        "serde_derive": "1.0.77",
+        "walkdir": "2",
+        "tikv-jemallocator": "0.7.0"
+      },
+      "expected_technologies": [
+        "rust"
+      ],
+      "expected_slots": [
+        "language-rust"
+      ],
+      "selected_slots": [
+        "build",
+        "language-rust",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "b47eda568db69ec2b299c24a588a4ee5ecf3fb6ebf7ba9b4623ff47f83ba07f7",
+      "manifest_url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/Cargo.toml",
+      "license_url": "https://github.com/BurntSushi/ripgrep/blob/91f5d22ef48bde459d90a8c7dbeab416e97d0f2b/UNLICENSE",
+      "github_reported_license_spdx": "NOASSERTION",
+      "license_review": {
+        "spdx": "Unlicense",
+        "license_sha256": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c",
+        "basis": "Reviewed upstream UNLICENSE grants unrestricted public-domain use and redistribution. The complete notice is copied."
+      },
+      "passed": true
+    },
+    {
+      "repository": "gin-gonic/gin",
+      "slug": "gin",
+      "commit": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+      "original_path": "go.mod",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "gin",
+      "technologies": {
+        "go": "1.26.0",
+        "github.com/bytedance/sonic": "v1.15.0",
+        "github.com/gin-contrib/sse": "v1.1.0",
+        "github.com/go-playground/validator/v10": "v10.30.3",
+        "github.com/goccy/go-json": "v0.10.6",
+        "github.com/goccy/go-yaml": "v1.19.2",
+        "github.com/json-iterator/go": "v1.1.12",
+        "github.com/mattn/go-isatty": "v0.0.20",
+        "github.com/modern-go/reflect2": "v1.0.2",
+        "github.com/pelletier/go-toml/v2": "v2.2.4",
+        "github.com/quic-go/quic-go": "v0.60.0",
+        "github.com/stretchr/testify": "v1.12.1",
+        "github.com/ugorji/go/codec": "v1.3.1",
+        "go.mongodb.org/mongo-driver/v2": "v2.5.0",
+        "golang.org/x/net": "v0.57.0",
+        "google.golang.org/protobuf": "v1.36.11",
+        "github.com/bytedance/gopkg": "v0.1.3",
+        "github.com/bytedance/sonic/loader": "v0.5.0",
+        "github.com/cloudwego/base64x": "v0.1.6",
+        "github.com/gabriel-vasile/mimetype": "v1.4.13",
+        "github.com/go-playground/locales": "v0.14.1",
+        "github.com/go-playground/universal-translator": "v0.18.1",
+        "github.com/klauspost/cpuid/v2": "v2.3.0",
+        "github.com/leodido/go-urn": "v1.4.0",
+        "github.com/modern-go/concurrent": "v0.0.0-20180306012644-bacd9c7ef1dd",
+        "github.com/quic-go/qpack": "v0.6.0",
+        "github.com/twitchyliquid64/golang-asm": "v0.15.1",
+        "go.uber.org/mock": "v0.6.0",
+        "go.yaml.in/yaml/v3": "v3.0.5",
+        "golang.org/x/arch": "v0.25.0",
+        "golang.org/x/crypto": "v0.56.0",
+        "golang.org/x/sys": "v0.47.0",
+        "golang.org/x/text": "v0.41.0"
+      },
+      "expected_technologies": [
+        "go"
+      ],
+      "expected_slots": [
+        "language-go"
+      ],
+      "selected_slots": [
+        "build",
+        "language-go",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "eacd14f8b0ba24c34cd7ec9166588d864a92b2bb553526fea0b80491c5210020",
+      "manifest_url": "https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/go.mod",
+      "license_url": "https://github.com/gin-gonic/gin/blob/0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646/LICENSE",
+      "github_reported_license_spdx": "MIT",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "vitejs/vite",
+      "slug": "vite",
+      "commit": "483512809bbdb399d66be59af0f5aeb01ccb7181",
+      "original_path": "packages/vite/package.json",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "vite/packages/vite",
+      "technologies": {
+        "javascript": "detected",
+        "node": "^20.19.0 || >=22.12.0",
+        "lightningcss": "^1.33.0",
+        "picomatch": "^4.0.7",
+        "postcss": "^8.5.32",
+        "rolldown": "~1.2.16",
+        "tinyglobby": "^0.2.17",
+        "@babel/parser": "^7.29.12",
+        "@jridgewell/remapping": "^2.3.5",
+        "@jridgewell/trace-mapping": "^0.3.31",
+        "@polka/compression": "^1.0.0-next.25",
+        "@rollup/plugin-alias": "^6.0.1",
+        "@rollup/plugin-dynamic-import-vars": "2.1.4",
+        "@rollup/pluginutils": "^5.5.1",
+        "@types/escape-html": "^1.0.4",
+        "@types/pnpapi": "^0.0.5",
+        "@vitejs/devtools": "multiple",
+        "@vitest/utils": "^4.1.12",
+        "@voidzero-dev/vite-task-client": "^0.2.0",
+        "artichokie": "^0.4.5",
+        "baseline-browser-mapping": "^2.11.34",
+        "cac": "^7.1.0",
+        "chokidar": "^3.6.0",
+        "connect": "^3.7.0",
+        "convert-source-map": "^2.0.0",
+        "cors": "^2.8.6",
+        "dotenv-expand": "^13.0.0",
+        "es-module-lexer": "^2.3.2",
+        "esbuild": "multiple",
+        "escape-html": "^1.0.3",
+        "estree-walker": "^3.0.3",
+        "etag": "^1.8.1",
+        "fresh-import": "^0.2.1",
+        "host-validation-middleware": "^0.1.4",
+        "http-proxy-3": "^1.23.3",
+        "launch-editor-middleware": "^2.14.2",
+        "magic-string": "^1.4.5",
+        "mlly": "^1.8.2",
+        "mrmime": "^2.0.1",
+        "nanoid": "^5.1.16",
+        "obug": "^1.0.2",
+        "open": "^10.2.0",
+        "parse5": "^8.0.1",
+        "pathe": "^2.0.3",
+        "periscopic": "^4.0.3",
+        "picocolors": "^1.1.1",
+        "postcss-import": "^16.2.0",
+        "postcss-load-config": "^6.0.1",
+        "postcss-modules": "^9.0.1",
+        "premove": "^4.0.0",
+        "resolve.exports": "^2.0.4",
+        "rolldown-plugin-dts": "^0.29.0",
+        "rollup": "^4.59.0",
+        "rollup-plugin-license": "^3.7.1",
+        "sass": "multiple",
+        "sass-embedded": "multiple",
+        "sirv": "^3.0.2",
+        "std-env": "^4.3.0",
+        "strip-literal": "^4.0.0",
+        "terser": "multiple",
+        "tinyexec": "^1.3.1",
+        "ufo": "^1.6.4",
+        "ws": "^8.22.1",
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "stylus": ">=0.54.8",
+        "sugarss": "^5.0.0",
+        "tsx": "^4.8.1",
+        "yaml": "^2.4.2",
+        "fsevents": "~2.3.3"
+      },
+      "expected_technologies": [
+        "javascript",
+        "node"
+      ],
+      "expected_slots": [
+        "language-javascript"
+      ],
+      "selected_slots": [
+        "build",
+        "language-javascript",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "1678f17b24af0a7ffa6f7b98e089ca57b331624074b9e72b08b7d59c8f34780e",
+      "manifest_url": "https://github.com/vitejs/vite/blob/483512809bbdb399d66be59af0f5aeb01ccb7181/packages/vite/package.json",
+      "license_url": "https://github.com/vitejs/vite/blob/483512809bbdb399d66be59af0f5aeb01ccb7181/LICENSE",
+      "github_reported_license_spdx": "MIT",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "spring-guides/gs-rest-service",
+      "slug": "spring-rest-service",
+      "commit": "e15fec6773dc1eb6028055630e3e68cbd8653240",
+      "original_path": "complete/pom.xml",
+      "license_spdx": "Apache-2.0",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "spring-rest-service/complete",
+      "technologies": {
+        "java": "17",
+        "maven": "detected",
+        "org.springframework.boot:spring-boot-starter-webmvc": "detected",
+        "spring": "4.0.9",
+        "org.springframework.boot:spring-boot-starter-webmvc-test": "detected",
+        "org.springframework.boot:spring-boot-starter-parent": "4.0.9"
+      },
+      "expected_technologies": [
+        "java",
+        "spring",
+        "maven"
+      ],
+      "expected_slots": [
+        "language-java",
+        "framework-spring"
+      ],
+      "selected_slots": [
+        "build",
+        "framework-spring",
+        "language-java",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "a706276d78eca8ebb412621b214bd42917126f3b0106843d3eb8d34edff0cd20",
+      "manifest_url": "https://github.com/spring-guides/gs-rest-service/blob/e15fec6773dc1eb6028055630e3e68cbd8653240/complete/pom.xml",
+      "license_url": "https://github.com/spring-guides/gs-rest-service/blob/e15fec6773dc1eb6028055630e3e68cbd8653240/LICENSE.txt",
+      "github_reported_license_spdx": "Apache-2.0",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "rails/rails",
+      "slug": "rails",
+      "commit": "2f4d502119c0d0cf9500a2d49a00eea9c557bacb",
+      "original_path": "Gemfile",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "rails",
+      "technologies": {
+        "ruby": "detected"
+      },
+      "expected_technologies": [
+        "ruby"
+      ],
+      "expected_slots": [
+        "language-ruby"
+      ],
+      "selected_slots": [
+        "build",
+        "language-ruby",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "028db8b4f1a56f23a41b044bd10a294bdbfacbabf0af94e157521635ea156db2",
+      "manifest_url": "https://github.com/rails/rails/blob/2f4d502119c0d0cf9500a2d49a00eea9c557bacb/Gemfile",
+      "license_url": "https://github.com/rails/rails/blob/2f4d502119c0d0cf9500a2d49a00eea9c557bacb/MIT-LICENSE",
+      "github_reported_license_spdx": "MIT",
+      "license_review": null,
+      "passed": true
+    },
+    {
+      "repository": "laravel/framework",
+      "slug": "laravel",
+      "commit": "7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c",
+      "original_path": "composer.json",
+      "license_spdx": "MIT",
+      "integrity_errors": [],
+      "failures": [],
+      "scope": "laravel",
+      "technologies": {
+        "php": "^8.3",
+        "ext-ctype": "*",
+        "ext-filter": "*",
+        "ext-hash": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-session": "*",
+        "ext-tokenizer": "*",
+        "composer-runtime-api": "^2.2",
+        "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19 || ^0.20 || ^1.0",
+        "doctrine/inflector": "^2.0.5",
+        "dragonmantank/cron-expression": "^3.4",
+        "egulias/email-validator": "^4.0",
+        "fruitcake/php-cors": "^1.3",
+        "guzzlehttp/guzzle": "^7.8.2 || ^8.0",
+        "guzzlehttp/promises": "^2.0.3 || ^3.0",
+        "guzzlehttp/psr7": "^2.9 || ^3.0",
+        "guzzlehttp/uri-template": "^1.0 || ^2.0",
+        "laravel/prompts": "^0.3.25",
+        "laravel/serializable-closure": "^2.0.10",
+        "league/commonmark": "^2.8.1",
+        "league/flysystem": "^3.25.1",
+        "league/flysystem-local": "^3.25.1",
+        "league/uri": "^7.5.1",
+        "monolog/monolog": "^3.10",
+        "nesbot/carbon": "^3.8.4",
+        "nunomaduro/termwind": "^2.0",
+        "psr/container": "^1.1.1 || ^2.0.1",
+        "psr/http-message": "^1.0 || ^2.0",
+        "psr/log": "^1.0 || ^2.0 || ^3.0",
+        "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
+        "ramsey/uuid": "^4.7",
+        "symfony/console": "^7.4.0 || ^8.0.0",
+        "symfony/error-handler": "^7.4.0 || ^8.0.0",
+        "symfony/finder": "^7.4.0 || ^8.0.0",
+        "symfony/http-foundation": "^7.4.0 || ^8.0.0",
+        "symfony/http-kernel": "^7.4.0 || ^8.0.0",
+        "symfony/mailer": "^7.4.0 || ^8.0.0",
+        "symfony/mime": "^7.4.0 || ^8.0.0",
+        "symfony/polyfill-php84": "^1.36",
+        "symfony/polyfill-php85": "^1.36",
+        "symfony/polyfill-php86": "^1.36",
+        "symfony/process": "^7.4.5 || ^8.0.5",
+        "symfony/routing": "^7.4.0 || ^8.0.0",
+        "symfony/uid": "^7.4.0 || ^8.0.0",
+        "symfony/var-dumper": "^7.4.0 || ^8.0.0",
+        "tijsverkoyen/css-to-inline-styles": "^2.2.5",
+        "vlucas/phpdotenv": "^5.6.1",
+        "voku/portable-ascii": "^2.0.2"
+      },
+      "expected_technologies": [
+        "php"
+      ],
+      "expected_slots": [
+        "language-php"
+      ],
+      "selected_slots": [
+        "build",
+        "language-php",
+        "unit-testing"
+      ],
+      "repository_kind": "application",
+      "read_only": true,
+      "manifest_sha256": "4020e1f85b5949e221d7f329b1b973bcc5ba65c96902a5dbb02ca2ae4ee55ff5",
+      "manifest_url": "https://github.com/laravel/framework/blob/7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c/composer.json",
+      "license_url": "https://github.com/laravel/framework/blob/7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c/LICENSE.md",
+      "github_reported_license_spdx": "MIT",
+      "license_review": null,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

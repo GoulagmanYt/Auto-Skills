@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "description": "Pre-annotated synthetic workspace tasks; no inference or upstream builds.",
+  "files": {
+    "auto-skills.toml": "schema_version=1\n[[workspaces]]\npath=\"manual\"\nkind=\"documentation\"\n[[workspaces]]\npath=\"custom\"\nkind=\"unknown\"\n",
+    "backend/Cargo.toml": "[package]\nname=\"backend\"\nversion=\"0.1.0\"\n",
+    "backend/src/lib.rs": "pub fn value() -> u8 { 1 }\n",
+    "frontend/package.json": "{\"dependencies\":{\"react\":\"^19\"}}",
+    "frontend/src/App.jsx": "export default function App() { return null; }\n",
+    "service/pyproject.toml": "[project]\nname=\"service\"\nversion=\"0.1.0\"\nrequires-python=\">=3.11\"\n",
+    "service/main.py": "value = 1\n",
+    "api/go.mod": "module example.invalid/api\n\ngo 1.23\n",
+    "api/main.go": "package main\n",
+    "processor/pom.xml": "<project><modelVersion>4.0.0</modelVersion><properties><java.version>21</java.version></properties></project>",
+    "processor/src/Main.java": "class Main {}\n",
+    "native/CMakeLists.txt": "cmake_minimum_required(VERSION 3.22)\nproject(native LANGUAGES CXX)\nset(CMAKE_CXX_STANDARD 20)\n",
+    "native/src/main.cpp": "int main() { return 0; }\n",
+    "manual/README.md": "# Public manual\n",
+    "custom/src/module.opaque": "Opaque custom source\n"
+  },
+  "cases": [
+    {"id":"rust-path","prompt":"Fix backend/src/lib.rs","scopes":["backend"],"required":["language-rust"],"forbidden":["framework-react"]},
+    {"id":"react-path","prompt":"Fix frontend/src/App.jsx","scopes":["frontend"],"required":["framework-react"],"forbidden":["language-rust"]},
+    {"id":"python-path","prompt":"Review service/main.py","scopes":["service"],"required":["language-python"],"forbidden":["framework-react","language-java"]},
+    {"id":"go-path","prompt":"Fix api/main.go","scopes":["api"],"required":["language-go"],"forbidden":["language-rust"]},
+    {"id":"java-path","prompt":"Review processor/src/Main.java","scopes":["processor"],"required":["language-java"],"forbidden":["framework-react"]},
+    {"id":"cpp-path","prompt":"Fix native/src/main.cpp","scopes":["native"],"required":["language-cpp"],"forbidden":["language-python"]},
+    {"id":"documentation","prompt":"Update manual/README.md documentation","scopes":["manual"],"required":["documentation"],"forbidden":["framework-react","language-rust"]},
+    {"id":"unknown","prompt":"Fix custom/src/module.opaque","scopes":["custom"],"required":["token-reasoning"],"forbidden":["framework-react","language-rust"]},
+    {"id":"preserve-sibling","prompt":"Fix frontend/src/App.jsx. Preserve backend files.","scopes":["frontend"],"required":["framework-react"],"forbidden":["language-rust"]},
+    {"id":"workspace-relative","cwd":"backend","prompt":"Review src/lib.rs","scopes":["backend"],"required":["language-rust"],"forbidden":["framework-react"]},
+    {"id":"ambiguous-current","cwd":"service","prompt":"Review error handling","scopes":["service"],"required":["language-python"],"forbidden":["framework-react"]},
+    {"id":"multi-workspace","prompt":"Review backend/src/lib.rs and frontend/src/App.jsx","scopes":["backend","frontend"],"required":["language-rust","framework-react"],"forbidden":["language-java"]}
+  ]
+}

@@ -27,6 +27,7 @@ except ModuleNotFoundError:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--network", action="store_true")
+    parser.add_argument("--optional-tools", nargs="*", choices=["repomix"], default=[])
     parser.add_argument(
         "--output", type=Path, default=Path("reports/automatic-skills-startup.json")
     )
@@ -39,15 +40,29 @@ def main():
         home = Path(temporary) / "home"
         root.mkdir()
         home.mkdir()
+        if args.optional_tools:
+            policy = home / ".codex/auto-skills.toml"
+            policy.parent.mkdir(parents=True, exist_ok=True)
+            policy.write_text(
+                "[automatic]\noptional_tools=" + json.dumps(args.optional_tools) + "\n",
+                encoding="utf-8",
+            )
         subprocess.run(["git", "init", "-q", str(root)], check=True, capture_output=True)
         (root / "package.json").write_text('{"dependencies":{"react":"^19.2"}}')
         env = isolated_environment(home)
+        env["CODEX_BOOTSTRAP_CACHE"] = str(Path(temporary) / "cache")
         env["CODEX_BOOTSTRAP_OFFLINE"] = "0" if args.network else "1"
         cache = Path(temporary) / "cache"
         with patch.dict(os.environ, env, clear=True):
             started = time.monotonic()
-            lock = profiler.runcall(bootstrap, root, offline=not args.network, cache_dir=cache)
+            cold_phases, warm_phases = {}, {}
+            lock = profiler.runcall(
+                bootstrap, root, offline=not args.network, cache_dir=cache, metrics=cold_phases
+            )
             elapsed = time.monotonic() - started
+            warm_started = time.monotonic()
+            bootstrap(root, offline=not args.network, cache_dir=cache, metrics=warm_phases)
+            warm_elapsed = time.monotonic() - warm_started
         # The lock/profile contain temporary paths and remain private.
         (args.evidence / "lock.json").write_text(json.dumps(lock, indent=2), encoding="utf-8")
         profiler.dump_stats(str(args.evidence / "startup.pstats"))
@@ -68,7 +83,11 @@ def main():
             "mode": "ordinary online cold start" if args.network else "offline cold start",
             "platform": platform.system(),
             "python": platform.python_version(),
+            "optional_tools": args.optional_tools,
             "elapsed_seconds": round(elapsed, 3),
+            "phases_ms": cold_phases,
+            "warm_elapsed_seconds": round(warm_elapsed, 3),
+            "warm_phases_ms": warm_phases,
             "files": len(lock["files"]),
             "tools": [
                 {key: tool.get(key) for key in ("name", "status", "version")}

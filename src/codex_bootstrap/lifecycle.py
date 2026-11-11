@@ -16,22 +16,30 @@ def refresh_tools(root, lock, plan, *, offline=False, cache_dir=None):
     import tempfile
     from pathlib import Path
 
+    from .automatic_policy import optional_tools
     from .github import GitHub
     from .token_tools import install_token_tools
 
     wanted = {item["name"] for item in plan}
     old = {item["name"]: item for item in lock["tools"]}
     added = wanted - set(old)
+    added |= {
+        name
+        for name in wanted & optional_tools()
+        if name in old and old[name]["status"] == "deferred" and not offline
+    }
     removed = set(old) - wanted - ({"node"} if "repomix" in wanted else set())
     writes, executable = {}, set()
-    tools = [item for item in lock["tools"] if item["name"] not in removed]
+    tools = [item for item in lock["tools"] if item["name"] not in removed | added]
     if added:
         stage = Path(tempfile.mkdtemp(prefix=".bootstrap-tools-", dir=root / ".codex"))
         try:
             installed = install_token_tools(
                 stage, offline=offline, github=GitHub(cache_dir=cache_dir), enabled=added
             )
-            tools.extend(item for item in installed if item["name"] not in old)
+            tools.extend(
+                item for item in installed if item["name"] in added or item["name"] not in old
+            )
             for path in stage.rglob("*"):
                 if path.is_file() and not path.is_symlink():
                     relative = ".codex/" + path.relative_to(stage).as_posix()
@@ -360,7 +368,8 @@ def refresh(
     return updated  # Publication has completed its full integrity verification.
 
 
-def status(root, lock, profile, manifest_hashes, *, preset=None):
+def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
+    from .automatic_policy import optional_tools
     from .policy import tool_plan
 
     preset = preset or lock.get("policy", {}).get("preset", "auto")
@@ -371,6 +380,12 @@ def status(root, lock, profile, manifest_hashes, *, preset=None):
         changed
         or lock.get("policy") != policy
         or lock.get("tool_plan") != tool_plan(profile, policy)
+        or (
+            not offline
+            and any(
+                t["name"] in optional_tools() and t["status"] == "deferred" for t in lock["tools"]
+            )
+        )
     )
     return {
         "status": "stale" if changed or affected or removed else "current",

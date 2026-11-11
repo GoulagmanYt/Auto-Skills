@@ -10,13 +10,15 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap, recover_transaction
 from codex_bootstrap.config import launch_profile
 from codex_bootstrap.fs import digest
 from codex_bootstrap.token_tools import extract_regular
 
 
-class EdgeTests(unittest.TestCase):
+class EdgeTests(IsolatedTestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

@@ -7,10 +7,12 @@ import unittest
 import zipfile
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from tools.check_artifacts import PUBLIC_DOCS, REQUIRED_MODULES, ROOT_FILES, check_archive
 
 
-class DistributionValidationTests(unittest.TestCase):
+class DistributionValidationTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
@@ -19,6 +21,7 @@ class DistributionValidationTests(unittest.TestCase):
     def wheel(self, extra=None):
         path = self.root / "codex_repo_auto_bootstrap-1.3.0a1-py3-none-any.whl"
         files = {"codex_bootstrap/" + name: b"# public runtime\n" for name in REQUIRED_MODULES}
+        files["codex_bootstrap/resources/guides.json"] = b"{}"
         files["codex_repo_auto_bootstrap-1.3.0a1.dist-info/entry_points.txt"] = (
             b"[console_scripts]\n"
         )
@@ -37,6 +40,7 @@ class DistributionValidationTests(unittest.TestCase):
     def sdist(self, extra=None):
         path = self.root / "codex_repo_auto_bootstrap-1.3.0a1.tar.gz"
         files = {"src/codex_bootstrap/" + name: b"# public runtime\n" for name in REQUIRED_MODULES}
+        files["src/codex_bootstrap/resources/guides.json"] = b"{}"
         files.update({name: b"public\n" for name in ROOT_FILES})
         files.update({"docs/" + name: b"public\n" for name in PUBLIC_DOCS})
         files.update(

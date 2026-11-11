@@ -5,12 +5,14 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap, recover_transaction, verify_lock
 from codex_bootstrap.cli import main
 from codex_bootstrap.fs import digest
 
 
-class LifecycleUpgradeTests(unittest.TestCase):
+class LifecycleUpgradeTests(IsolatedTestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

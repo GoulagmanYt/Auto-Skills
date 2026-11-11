@@ -5,11 +5,13 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.catalog import bundled_candidates
 from codex_bootstrap.profile import profile_repo
 
 
-class ProfileUpgradeTests(unittest.TestCase):
+class ProfileUpgradeTests(IsolatedTestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

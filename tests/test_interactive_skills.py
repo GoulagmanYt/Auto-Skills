@@ -9,10 +9,12 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+from suite_support import IsolatedTestCase
+
 from tools.verify_interactive_skills import RpcClient, demonstrate, observed_reads
 
 
-class InteractiveEvidenceTests(unittest.TestCase):
+class InteractiveEvidenceTests(IsolatedTestCase):
     def test_read_evidence_excludes_mentions_failed_commands_and_wrong_guides(self):
         lock = {
             "skills": [

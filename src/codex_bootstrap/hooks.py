@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from .bootstrap import git_root
+from .decision_state import read_decision
 from .fs import atomic_write, json_text
 from .github import default_cache_dir
 from .task import prepare_task, repository_identity, task_context
@@ -36,9 +37,9 @@ def handle_event(event):
             / hashlib.sha256(str(root).encode()).hexdigest()
             / (hashlib.sha256(session.encode()).hexdigest() + ".json")
         )
-        if state.is_file() and not state.is_symlink() and state.stat().st_size <= 500_000:
+        previous = read_decision(state)
+        if previous is not None:
             try:
-                previous = json.loads(state.read_text(encoding="utf-8"))
                 if previous.get("repository") == repository_identity(root):
                     proposal = {
                         "schema_version": 1,
@@ -55,6 +56,7 @@ def handle_event(event):
             event.get("prompt", ""),
             cwd=cwd,
             proposal=proposal,
+            allow_acquisition=False,
             session_id=session,
             offline=os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1",
         )

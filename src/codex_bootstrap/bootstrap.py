@@ -4,6 +4,7 @@ import hashlib
 import json
 import shutil
 import tempfile
+import time
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -74,7 +75,15 @@ def check(root, *, preset=None):
     return result
 
 
-def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, preset=None):
+def bootstrap(
+    root: Path, *, offline=False, refresh_all=False, cache_dir=None, preset=None, metrics=None
+):
+    started = time.monotonic()
+
+    def record(name, since):
+        if metrics is not None:
+            metrics[name + "_ms"] = round((time.monotonic() - since) * 1000, 3)
+
     root = root.resolve()
     if git_root(root) != root:
         raise ValueError("bootstrap target must be a Git repository root")
@@ -82,9 +91,13 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
 
     read_configuration(root)
     with repo_mutex(root):
+        record("entry", started)
+        phase = time.monotonic()
         recover_transaction(root)
         lock_path = confined(root, ".codex/skills-lock.json")
         previous = verify_lock(root) if lock_path.exists() else None
+        record("integrity", phase)
+        phase = time.monotonic()
         if previous is None and any(
             confined(root, relative).exists() for relative in (STATE, ".codex/original/AGENTS.md")
         ):
@@ -94,11 +107,14 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
         profile = profile_repo(root)
         preset = preset or (previous or {}).get("policy", {}).get("preset", "auto")
         fingerprints = manifest_fingerprint(root, profile)
+        record("profile", phase)
         if previous is not None:
-            current = status(root, previous, profile, fingerprints, preset=preset)
+            current = status(root, previous, profile, fingerprints, preset=preset, offline=offline)
             if not refresh_all and current["status"] == "current":
+                record("total", started)
                 return previous
-            return refresh(
+            phase = time.monotonic()
+            updated = refresh(
                 root,
                 previous,
                 profile,
@@ -108,9 +124,14 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
                 cache_dir=cache_dir,
                 preset=preset,
             )
+            record("refresh", phase)
+            record("total", started)
+            return updated
+        phase = time.monotonic()
         selected, report = selection_plan(
             profile, offline=offline, cache_dir=cache_dir, root=root, preset=preset
         )
+        record("selection", phase)
         profiles, policy = scoped_profiles(root, profile, preset)
         preexisting_skills = [
             p.relative_to(root).as_posix()
@@ -120,12 +141,14 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
         reserve_skill_paths(root, selected)
         stage = Path(tempfile.mkdtemp(prefix=".bootstrap-stage-", dir=root / ".codex"))
         try:
+            phase = time.monotonic()
             tools = install_token_tools(
                 stage,
                 offline=offline,
                 github=GitHub(cache_dir=cache_dir),
                 enabled={item["name"] for item in report["tool_plan"]},
             )
+            record("tools", phase)
             writes, executable, skills = skill_artifacts(selected)
             report.update(
                 {"mode": "bootstrap", "target": str(root), "installed": True, "tools": tools}
@@ -191,9 +214,12 @@ def bootstrap(root: Path, *, offline=False, refresh_all=False, cache_dir=None, p
                 raise RuntimeError(
                     "manifests changed during bootstrap; no configuration was published"
                 )
+            phase = time.monotonic()
             publish(root, writes, set(), lock, executable=executable, verify=verify_lock)
+            record("publication", phase)
             return lock  # publish already verified the entire committed lock under this mutex.
         finally:
             if not stage.resolve().is_relative_to((root / ".codex").resolve()):
                 raise ValueError("stage escaped repository")
             shutil.rmtree(stage)
+            record("total", started)

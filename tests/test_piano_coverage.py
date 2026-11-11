@@ -3,6 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.catalog import bundled_candidates
 from codex_bootstrap.lifecycle import slot_inputs
 from codex_bootstrap.profile import manifest_fingerprint, profile_repo
@@ -13,7 +15,7 @@ from codex_bootstrap.workspaces import selection_profiles
 PIANO_SLOTS = {"midi-python", "led-ws281x", "gpio-python", "platform-raspberry-pi"}
 
 
-class PianoCoverageTests(unittest.TestCase):
+class PianoCoverageTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
