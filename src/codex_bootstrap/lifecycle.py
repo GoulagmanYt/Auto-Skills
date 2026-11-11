@@ -438,8 +438,7 @@ def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
             for t in lock["tools"]
         )
         or any(
-            t["status"] == "unavailable"
-            and (not offline or (t["name"] == "rtk" and shutil.which("rtk")))
+            t["status"] == "unavailable" and t["name"] == "rtk" and shutil.which("rtk")
             for t in lock["tools"]
         )
         or (

@@ -10,6 +10,19 @@ from suite_support import IsolatedTestCase
 
 
 class RuntimeRegressions(IsolatedTestCase):
+    def test_unavailable_optional_tool_does_not_make_offline_lock_stale(self):
+        from codex_bootstrap.bootstrap import bootstrap, check
+
+        with (
+            tempfile.TemporaryDirectory() as folder,
+            patch("codex_bootstrap.token_tools.shutil.which", return_value=None),
+        ):
+            root = Path(folder)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            (root / "pyproject.toml").write_text('[project]\nname="app"\nversion="1.0"\n')
+            bootstrap(root, offline=True)
+            self.assertEqual(check(root)["status"], "current")
+
     def test_profile_preserves_model_effort_and_cli_selection(self):
         from codex_bootstrap.bootstrap import bootstrap
         from codex_bootstrap.config import launch_profile

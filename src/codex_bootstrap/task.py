@@ -26,7 +26,7 @@ TOKEN_SLOTS = set(BASE_SLOTS[:5])
 COMMON = TOKEN_SLOTS | {"architecture", "unit-testing", "build", "static-analysis"}
 EXTRA_CAPABILITIES = set(BASE_SLOTS) | {"e2e-testing", "static-analysis"}
 PURPOSES = {
-    "security": r"security|vulnerab|sÃƒÂ©curitÃƒÂ©|audit",
+    "security": r"security|vulnerab|sécurité|audit",
     "performance": r"performance|optimi|latency|latence|slow|lent",
     "documentation": r"document|readme|guide",
     "ci-cd": r"\bci\b|pipeline|github actions|workflow",
