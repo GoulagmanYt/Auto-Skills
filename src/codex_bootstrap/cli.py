@@ -159,6 +159,10 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
 
 
 def main(argv=None):
+    # Help and reports contain Unicode even through Windows legacy pipes.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     args = list(sys.argv[1:] if argv is None else argv)
     try:
         if args[:1] in (["candidates"], ["choose"], ["select"]):

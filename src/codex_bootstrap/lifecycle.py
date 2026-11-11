@@ -25,6 +25,17 @@ def refresh_tools(root, lock, plan, *, offline=False, cache_dir=None):
     added = wanted - set(old)
     added |= {
         name
+        for name in wanted & {"token-run", "repo-map"}
+        if old.get(name, {}).get("version") != "2"
+    }
+    added |= {
+        name
+        for name in wanted
+        if old.get(name, {}).get("status") == "unavailable"
+        and (not offline or (name == "rtk" and shutil.which("rtk")))
+    }
+    added |= {
+        name
         for name in wanted & optional_tools()
         if name in old and old[name]["status"] == "deferred" and not offline
     }
@@ -236,6 +247,11 @@ def refresh_plan(root, lock, profile, *, force=False, preset=None):
             force
             or migrate
             or reason
+            or (
+                candidate.source == "bundled"
+                and slot == "token-reasoning"
+                and "The wrapper defaults model_reasoning_effort to low." in candidate.body
+            )
             or lock.get("slot_inputs", {}).get(key) != slot_inputs(scoped, slot, candidate)
         ):
             affected.add(key)
@@ -330,7 +346,16 @@ def refresh(
     report["coverage"]["bundled_slots"] = [
         slot_key(c.scope, c.slot) for c in ordered if c.source == "bundled"
     ]
-    from .config import agents_text
+    from .config import agents_text, local_config
+
+    # Only migrate exact generated defaults after verify_lock has checked ownership.
+    legacy = (
+        b"# Generated defaults; the wrapper also supplies explicit launch overrides.\n"
+        b'model_reasoning_effort = "low"\n'
+    )
+    for relative in (".codex/config.toml", ".codex/bootstrap.config.toml"):
+        if relative in lock["files"] and confined(root, relative).read_bytes() == legacy:
+            writes[relative] = local_config().encode()
 
     existing_agents = confined(root, "AGENTS.md").read_text(encoding="utf-8")
     updated_agents = agents_text(existing_agents).encode()
@@ -379,7 +404,7 @@ def refresh(
         or bool(report["discovery"].get("degraded"))
         or (bool(lock.get("degraded")) and bool(retained))
         or not report["coverage"]["remote_slots"]
-        or any(t["status"] != "installed" for t in tools)
+        or any(t["status"] == "unavailable" for t in tools)
     )
     report["degraded"] = updated["degraded"]
     writes[".codex/bootstrap-report.json"] = json_text(report).encode()
@@ -395,6 +420,8 @@ def refresh(
 
 
 def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
+    import shutil
+
     from .automatic_policy import optional_tools
     from .policy import tool_plan
 
@@ -406,6 +433,15 @@ def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
         changed
         or lock.get("policy") != policy
         or lock.get("tool_plan") != tool_plan(profile, policy)
+        or any(
+            t["name"] in {"token-run", "repo-map"} and t.get("version") != "2"
+            for t in lock["tools"]
+        )
+        or any(
+            t["status"] == "unavailable"
+            and (not offline or (t["name"] == "rtk" and shutil.which("rtk")))
+            for t in lock["tools"]
+        )
         or (
             not offline
             and any(

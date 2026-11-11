@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from suite_support import IsolatedTestCase
 
@@ -37,7 +38,10 @@ class SimulatedRepositoryTests(IsolatedTestCase):
     def test_tool_inventory_is_actual_installer_offline_output(self):
         from tools.simulate_repositories import tool_inventory
 
-        with tempfile.TemporaryDirectory(prefix="auto-skills-tool-inventory-") as directory:
+        with (
+            tempfile.TemporaryDirectory(prefix="auto-skills-tool-inventory-") as directory,
+            patch("codex_bootstrap.token_tools.shutil.which", return_value=None),
+        ):
             tools = tool_inventory(Path(directory))
         self.assertEqual(
             {tool["name"] for tool in tools}, {"rtk", "repomix", "repo-map", "token-run"}

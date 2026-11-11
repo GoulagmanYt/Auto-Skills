@@ -89,7 +89,7 @@
   ],
   "token-reasoning": [
     "Use when choosing effort for a task or a subsequent Codex invocation.",
-    "The wrapper defaults model_reasoning_effort to low. Use low for routine edits and searches. For substantial reasoning, verification or debugging, use medium or high on a subsequent invocation with -c model_reasoning_effort=\"high\". Do not claim a SKILL.md changes the running model's effort mid-turn. Keep internal reasoning private. Validate the result with relevant checks."
+    "Preserve the user's selected model and model_reasoning_effort. Auto-Skills must not override these settings. Change effort on a subsequent invocation only when the user requests it. Do not claim a SKILL.md changes the running model's effort mid-turn. Keep internal reasoning private. Validate the result with relevant checks."
   ],
   "token-prompt-cache": [
     "Use when constructing instructions or updating repository automation.",

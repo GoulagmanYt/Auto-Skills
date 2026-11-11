@@ -232,7 +232,7 @@ def bootstrap(
                 "files": {
                     relative: hashlib.sha256(data).hexdigest() for relative, data in writes.items()
                 },
-                "degraded": report["degraded"] or any(t["status"] != "installed" for t in tools),
+                "degraded": report["degraded"] or any(t["status"] == "unavailable" for t in tools),
             }
             if fingerprints != manifest_fingerprint(root):
                 raise RuntimeError(

@@ -124,7 +124,7 @@ class BootstrapTests(IsolatedTestCase):
                 "import tomllib\n"
                 "profile=Path(os.environ['CODEX_HOME'])/(sys.argv[2]+'.config.toml')\n"
                 "data=tomllib.loads(profile.read_text())\n"
-                "assert data['model_reasoning_effort']=='low'\n"
+                "assert 'model_reasoning_effort' not in data\n"
                 "assert data['skills']['bundled']['enabled'] is False\n"
                 "assert len(data['skills']['config'])>=26\n"
                 "raise SystemExit(7)",

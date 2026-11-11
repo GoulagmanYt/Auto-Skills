@@ -19,8 +19,8 @@ class PackagedGuideTests(IsolatedTestCase):
                 for v in data.values()
             )
         )
-        # Pin prose through the extraction: refactoring must not rewrite instructions.
+        # Pin reviewed prose, including preservation of the user's reasoning preference.
         self.assertEqual(
             hashlib.sha256(json.dumps(RULES, sort_keys=True).encode()).hexdigest(),
-            "14779beef77f80d7c9346a37f809b06b389e1d04ffaca391068ad5e467c596a6",
+            "2cc4f1062b65e772db4bc926eeb2a87529b9c9d96b22b822964d9c37d52aaf3a",
         )
