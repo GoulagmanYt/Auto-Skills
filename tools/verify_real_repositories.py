@@ -24,7 +24,7 @@ sys.path.insert(0, str(WORKSPACE))
 
 from codex_bootstrap.proposal import propose
 
-FIXTURES = WORKSPACE / "examples" / "real-repositories"
+FIXTURES = WORKSPACE / "fixtures" / "real-repositories"
 LIMITATION = (
     "Pinned upstream manifest extracts only: tests reconstruct the copied manifest paths, "
     "not entire upstream repositories. No upstream source, build, dependency installation, "
@@ -324,7 +324,7 @@ def markdown_report(report):
     rows.extend(
         [
             "",
-            "All copied files retain their upstream license in `examples/real-repositories/<slug>/LICENSE.txt`; each provenance record links the exact pinned original files. Refresh is explicit (`python tools/verify_real_repositories.py --refresh`) and uses a request limit, per-request timeout, total deadline and file-size cap. Default verification never accesses the network.",
+            "All copied files retain their upstream license in `fixtures/real-repositories/<slug>/LICENSE.txt`; each provenance record links the exact pinned original files. Refresh is explicit (`python tools/verify_real_repositories.py --refresh`) and uses a request limit, per-request timeout, total deadline and file-size cap. Default verification never accesses the network.",
             "",
         ]
     )

@@ -3,6 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from tools.measure_automatic_skills import (
     FIXTURES,
     markdown,
@@ -12,7 +14,16 @@ from tools.measure_automatic_skills import (
 )
 
 
-class MeasurementTests(unittest.TestCase):
+class MeasurementTests(IsolatedTestCase):
+    def test_extended_task_corpus_retains_every_annotated_case(self):
+        from tools.verify_task_selection import verify_tasks
+
+        report = verify_tasks()
+        self.assertGreaterEqual(report["summary"]["planned"], 12)
+        self.assertEqual(report["summary"]["failed"], 0, report["cases"])
+        self.assertEqual(report["summary"]["passed"], report["summary"]["planned"])
+        self.assertTrue(all(row["return_cache_hit"] for row in report["cases"]))
+
     def test_scoring_keeps_wrong_scope_extras_and_missing_roles(self):
         decision = {
             "scopes": ["backend", "frontend"],

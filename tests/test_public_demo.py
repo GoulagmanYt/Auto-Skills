@@ -1,7 +1,7 @@
-import unittest
+from suite_support import IsolatedTestCase
 
 
-class PublicDemoTests(unittest.TestCase):
+class PublicDemoTests(IsolatedTestCase):
     def test_frontend_update_preserves_backend_and_reports_isolation(self):
         from tools.demo_workspaces import demonstrate
 

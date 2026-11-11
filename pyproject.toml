@@ -31,6 +31,9 @@ Issues = "https://github.com/GoulagmanYt/Auto-Skills/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+codex_bootstrap = ["resources/*.json"]
+
 [tool.ruff]
 target-version = "py311"
 line-length = 100

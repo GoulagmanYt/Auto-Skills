@@ -1,0 +1,649 @@
+{
+  "schema_version": 1,
+  "evidence_scope": "Pre-annotated synthetic workspace tasks; no inference or upstream builds.",
+  "cases": [
+    {
+      "id": "rust-path",
+      "expected_scopes": [
+        "backend"
+      ],
+      "actual_scopes": [
+        "backend"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "backend",
+          "slot": "build"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "react-path",
+      "expected_scopes": [
+        "frontend"
+      ],
+      "actual_scopes": [
+        "frontend"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "frontend",
+          "slot": "build"
+        },
+        {
+          "scope": "frontend",
+          "slot": "framework-react"
+        },
+        {
+          "scope": "frontend",
+          "slot": "language-javascript"
+        },
+        {
+          "scope": "frontend",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "python-path",
+      "expected_scopes": [
+        "service"
+      ],
+      "actual_scopes": [
+        "service"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "service",
+          "slot": "build"
+        },
+        {
+          "scope": "service",
+          "slot": "language-python"
+        },
+        {
+          "scope": "service",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "go-path",
+      "expected_scopes": [
+        "api"
+      ],
+      "actual_scopes": [
+        "api"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": "api",
+          "slot": "build"
+        },
+        {
+          "scope": "api",
+          "slot": "language-go"
+        },
+        {
+          "scope": "api",
+          "slot": "unit-testing"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "java-path",
+      "expected_scopes": [
+        "processor"
+      ],
+      "actual_scopes": [
+        "processor"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "processor",
+          "slot": "build"
+        },
+        {
+          "scope": "processor",
+          "slot": "language-java"
+        },
+        {
+          "scope": "processor",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "cpp-path",
+      "expected_scopes": [
+        "native"
+      ],
+      "actual_scopes": [
+        "native"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "native",
+          "slot": "build"
+        },
+        {
+          "scope": "native",
+          "slot": "build-cmake"
+        },
+        {
+          "scope": "native",
+          "slot": "language-cpp"
+        },
+        {
+          "scope": "native",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "documentation",
+      "expected_scopes": [
+        "manual"
+      ],
+      "actual_scopes": [
+        "manual"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": ".",
+          "slot": "build"
+        },
+        {
+          "scope": "manual",
+          "slot": "documentation"
+        },
+        {
+          "scope": ".",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "unknown",
+      "expected_scopes": [
+        "custom"
+      ],
+      "actual_scopes": [
+        "custom"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "custom",
+          "slot": "build"
+        },
+        {
+          "scope": "custom",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "preserve-sibling",
+      "expected_scopes": [
+        "frontend"
+      ],
+      "actual_scopes": [
+        "frontend"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "frontend",
+          "slot": "build"
+        },
+        {
+          "scope": "frontend",
+          "slot": "framework-react"
+        },
+        {
+          "scope": "frontend",
+          "slot": "language-javascript"
+        },
+        {
+          "scope": "frontend",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "workspace-relative",
+      "expected_scopes": [
+        "backend"
+      ],
+      "actual_scopes": [
+        "backend"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "backend",
+          "slot": "build"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-current",
+      "expected_scopes": [
+        "service"
+      ],
+      "actual_scopes": [
+        "service"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "service",
+          "slot": "build"
+        },
+        {
+          "scope": "service",
+          "slot": "language-python"
+        },
+        {
+          "scope": "service",
+          "slot": "unit-testing"
+        }
+      ]
+    },
+    {
+      "id": "multi-workspace",
+      "expected_scopes": [
+        "backend",
+        "frontend"
+      ],
+      "actual_scopes": [
+        "frontend",
+        "backend"
+      ],
+      "missed_capabilities": [],
+      "forbidden_selected": [],
+      "return_cache_hit": true,
+      "passed": true,
+      "selected": [
+        {
+          "scope": ".",
+          "slot": "token-cli-wrapper"
+        },
+        {
+          "scope": ".",
+          "slot": "token-context-pruning"
+        },
+        {
+          "scope": ".",
+          "slot": "token-output-compression"
+        },
+        {
+          "scope": ".",
+          "slot": "token-prompt-cache"
+        },
+        {
+          "scope": ".",
+          "slot": "token-reasoning"
+        },
+        {
+          "scope": ".",
+          "slot": "architecture"
+        },
+        {
+          "scope": "backend",
+          "slot": "build"
+        },
+        {
+          "scope": "backend",
+          "slot": "language-rust"
+        },
+        {
+          "scope": "backend",
+          "slot": "unit-testing"
+        },
+        {
+          "scope": "frontend",
+          "slot": "build"
+        },
+        {
+          "scope": "frontend",
+          "slot": "framework-react"
+        },
+        {
+          "scope": "frontend",
+          "slot": "language-javascript"
+        },
+        {
+          "scope": "frontend",
+          "slot": "unit-testing"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "planned": 12,
+    "passed": 12,
+    "failed": 0
+  }
+}

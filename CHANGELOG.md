@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — reliability and structure
+
+- Prepare one verified lock per native launch; retain integrity checks on subsequent hook events.
+- Reject force-staged private publication paths; validate session-cache schemas and respect literal prompts after `--`.
+- Isolate unit-test user/config/cache state and block direct socket connections.
+- Report cold/warm preparation phases and amortize owned GitHub cache maintenance.
+- Defer Repomix until a user-global opt-in; preserve existing installed tool pins.
+- Extract static JVM/.NET/Hardhat Evidence parsers and distribute bundled guide prose as a package resource.
+- Separate fixtures, examples and indexed historical evidence; check Markdown file targets in source and distributions.
+- Add candidate Codex compatibility CI alongside the pinned release gate, plus an expanded offline task-selection corpus.
+- Document automatic per-task selection, native hooks, cache invalidation, architecture and recovery.
+
 ## 1.4.0a1 — repository coverage
 
 - Distinguish unknown applications from documentary repositories; unknown mode keeps a portable baseline and local tools.

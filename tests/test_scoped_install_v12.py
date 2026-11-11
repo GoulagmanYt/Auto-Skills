@@ -10,6 +10,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap, check, verify_lock
 from codex_bootstrap.cli import requested_cwd
 from codex_bootstrap.config import STATIC_HEADER, launch_overrides
@@ -18,7 +20,7 @@ from codex_bootstrap.selection import Candidate
 from codex_bootstrap.token_tools import install_token_tools
 
 
-class ScopedInstallTests(unittest.TestCase):
+class ScopedInstallTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

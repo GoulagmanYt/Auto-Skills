@@ -1,7 +1,9 @@
 import unittest
 
+from suite_support import IsolatedTestCase
 
-class NativeHookTests(unittest.TestCase):
+
+class NativeHookTests(IsolatedTestCase):
     def test_only_exact_manager_session_hooks_receive_native_trust(self):
         from codex_bootstrap.native_hooks import trusted_overrides
 

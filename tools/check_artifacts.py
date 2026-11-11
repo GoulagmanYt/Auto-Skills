@@ -25,6 +25,8 @@ ROOT_FILES = {
     "setup.cfg",
 }
 PUBLIC_DOCS = {
+    "architecture.md",
+    "diagnostics.md",
     "automatic-skills.md",
     "configuration.md",
     "coverage.md",
@@ -37,6 +39,9 @@ PUBLIC_DOCS = {
     "security-model.md",
 }
 REQUIRED_MODULES = {
+    "manifest_parsers.py",
+    "automatic_policy.py",
+    "decision_state.py",
     "hooks.py",
     "inventory.py",
     "native_hooks.py",
@@ -101,6 +106,8 @@ def safe_name(name):
 
 def allowed_sdist(path):
     parts = path.parts
+    if parts == ("src", "codex_bootstrap", "resources", "guides.json"):
+        return True
     if len(parts) == 1:
         return path.name in ROOT_FILES
     if parts[0] == "src" and len(parts) == 3:
@@ -119,7 +126,7 @@ def allowed_sdist(path):
         return len(parts) == 2 and path.suffix == ".py"
     if parts[0] == "docs":
         return len(parts) == 2 and path.name in PUBLIC_DOCS
-    if parts[0] == "examples":
+    if parts[0] in {"examples", "fixtures"}:
         return path.suffix in {".json", ".toml", ".py", ".js", ".mjs", ".rs", ".md", ".txt"}
     if parts[0] == "benchmarks":
         return len(parts) == 2 and path.suffix in {".json", ".md"}
@@ -128,6 +135,8 @@ def allowed_sdist(path):
 
 def allowed_wheel(path):
     parts = path.parts
+    if parts == ("codex_bootstrap", "resources", "guides.json"):
+        return True
     if parts[0] == "codex_bootstrap":
         return len(parts) == 2 and path.suffix == ".py"
     if re.fullmatch(r"codex_repo_auto_bootstrap-[A-Za-z0-9_.+]+\.dist-info", parts[0]):
@@ -177,9 +186,15 @@ def members(archive):
 
 
 def check_archive(archive):
+    try:
+        from tools.check_docs import missing_links
+    except ModuleNotFoundError:
+        from check_docs import missing_links
+
     archive = Path(archive)
     wheel = archive.name.endswith(".whl")
     names, total, roots = set(), 0, set()
+    documents = {}
     for name, data in members(archive):
         total += len(data)
         if total > MAX_ARCHIVE_BYTES:
@@ -204,10 +219,13 @@ def check_archive(archive):
             if pattern.search(content):
                 # Never print the credential/path value, even when validation fails.
                 raise ValueError(f"{label} found in {relative}")
+        if path.suffix == ".md":
+            documents[relative] = content
     if not wheel and len(roots) != 1:
         raise ValueError("source distribution must have one enclosing directory")
     prefix = "codex_bootstrap/" if wheel else "src/codex_bootstrap/"
     required = {prefix + name for name in REQUIRED_MODULES}
+    required.add(prefix + "resources/guides.json")
     if wheel:
         metadata = {PurePosixPath(name).parts[0] for name in names if ".dist-info/" in name}
         if len(metadata) != 1:
@@ -223,6 +241,13 @@ def check_archive(archive):
     missing = required - names
     if missing:
         raise ValueError("required distribution files missing: " + ", ".join(sorted(missing)))
+    issues = [
+        issue
+        for relative, text in documents.items()
+        for issue in missing_links(relative, text, names)
+    ]
+    if issues:
+        raise ValueError("\n".join(issues))
     return {"artifact": archive.name, "members": len(names), "uncompressed_bytes": total}
 
 

@@ -4,12 +4,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap, check
 from codex_bootstrap.cli import requested_cwd
 from codex_bootstrap.proposal import propose
 
 
-class PolicyTests(unittest.TestCase):
+class PolicyTests(IsolatedTestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

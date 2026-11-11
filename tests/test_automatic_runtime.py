@@ -8,11 +8,93 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.bootstrap import bootstrap
 from codex_bootstrap.config import launch_profile
 
 
-class AutomaticRuntimeTests(unittest.TestCase):
+class AutomaticRuntimeTests(IsolatedTestCase):
+    def test_resume_cache_cannot_authorize_a_new_capability(self):
+        from codex_bootstrap.hooks import handle_event
+
+        event = {
+            "hook_event_name": "UserPromptSubmit",
+            "cwd": str(self.root),
+            "session_id": "forged",
+            "prompt": "Fix frontend/src/App.tsx",
+        }
+        handle_event(event)
+        state = next((self.directory / "cache/task-state-v1").rglob("*.json"))
+        cached = json.loads(state.read_text())
+        cached["required_capabilities"].append("e2e-testing")
+        cached["selected"].append(
+            {
+                **cached["selected"][0],
+                "slot": "e2e-testing",
+                "reason": "cache-provided justification",
+            }
+        )
+        cached["metrics"]["selected_count"] = len(cached["selected"])
+        state.write_text(json.dumps(cached))
+        lock_path = self.root / ".codex/skills-lock.json"
+        before = lock_path.read_bytes()
+        result = handle_event({**event, "hook_event_name": "SessionStart", "source": "resume"})
+        self.assertIn("hookSpecificOutput", result)
+        self.assertEqual(lock_path.read_bytes(), before)
+
+    def test_literal_prompt_after_separator_is_preserved(self):
+        from codex_bootstrap.cli import requested_prompt
+
+        for literal in ("resume", "review", "-C backend/src/lib.rs", "--model"):
+            with self.subTest(literal=literal):
+                self.assertEqual(requested_prompt(["exec", "--", literal]), literal)
+
+    def test_resume_ignores_wrong_cached_json_types(self):
+        from codex_bootstrap.hooks import handle_event
+
+        handle_event(
+            {
+                "hook_event_name": "UserPromptSubmit",
+                "cwd": str(self.root),
+                "session_id": "corrupt",
+                "prompt": "Fix backend/src/lib.rs",
+            }
+        )
+        state = next((self.directory / "cache/task-state-v1").rglob("*.json"))
+        state.write_text("[]", encoding="utf-8")
+        result = handle_event(
+            {
+                "hook_event_name": "SessionStart",
+                "cwd": str(self.root),
+                "session_id": "corrupt",
+                "source": "resume",
+            }
+        )
+        self.assertIn("hookSpecificOutput", result)
+
+    def test_warm_launch_verifies_lock_once(self):
+        from codex_bootstrap.bootstrap import verify_lock
+        from codex_bootstrap.cli import run_codex
+
+        bootstrap(self.root, offline=True)
+        with (
+            patch("codex_bootstrap.bootstrap.verify_lock", wraps=verify_lock) as verify,
+            patch("codex_bootstrap.native_hooks.hook_overrides", return_value=[]),
+            patch("codex_bootstrap.cli.subprocess.call", return_value=0),
+        ):
+            self.assertEqual(
+                run_codex(
+                    self.root,
+                    ["exec", "Fix backend/src/lib.rs"],
+                    real_command=["synthetic"],
+                    offline=True,
+                    cwd=self.root,
+                ),
+                0,
+            )
+        self.assertEqual(verify.call_count, 1)
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

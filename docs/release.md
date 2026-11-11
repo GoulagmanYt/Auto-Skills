@@ -4,6 +4,9 @@ The current prerelease is `1.4.0a1`. Keep pyproject.toml and codex_bootstrap.__v
 
 ```sh
 python -m unittest discover -s tests -v
+python -m tools.check_public_tree
+python -m tools.check_docs
+python tools/verify_task_selection.py
 uv run --no-project --with ruff ruff check src tests tools
 uv run --no-project --with ruff ruff format --check src tests tools
 uv run --no-project --with build python -m build --outdir dist-alpha

@@ -12,6 +12,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from .config import active_scope, enabled_skills
+from .decision_state import RepositoryIdentity, read_decision
 from .fs import atomic_write, command, confined, digest, json_text
 from .github import default_cache_dir
 from .profile import BASE_SLOTS
@@ -34,7 +35,7 @@ PURPOSES = {
 }
 
 
-def repository_identity(root):
+def repository_identity(root) -> RepositoryIdentity:
     git_dir = Path(
         command(["git", "-C", root, "rev-parse", "--absolute-git-dir"]).strip()
     ).resolve()
@@ -243,16 +244,50 @@ def decide(root, lock, prompt, *, cwd=None, proposal=None):
 
 
 def prepare_task(
-    root, prompt="", *, cwd=None, proposal=None, session_id="launch", offline=False, cache_dir=None
+    root,
+    prompt="",
+    *,
+    cwd=None,
+    proposal=None,
+    session_id="launch",
+    offline=False,
+    cache_dir=None,
+    allow_acquisition=True,
 ):
+    return prepare_launch(
+        root,
+        prompt,
+        cwd=cwd,
+        proposal=proposal,
+        session_id=session_id,
+        offline=offline,
+        cache_dir=cache_dir,
+        allow_acquisition=allow_acquisition,
+    )[1]
+
+
+def prepare_launch(
+    root,
+    prompt="",
+    *,
+    cwd=None,
+    proposal=None,
+    session_id="launch",
+    offline=False,
+    cache_dir=None,
+    allow_acquisition=True,
+):
+    """Return the same verified lock used to compute the launch decision."""
     from .bootstrap import bootstrap
 
     started = time.monotonic()
     root = Path(root).resolve()
-    lock = bootstrap(root, offline=offline, cache_dir=cache_dir)
+    phases = {}
+    lock = bootstrap(root, offline=offline, cache_dir=cache_dir, metrics=phases)
     if proposal is not None:
-        validate_proposal(root, lock, proposal, allow_missing=True)
-        lock = ensure_capabilities(root, lock, proposal, offline=offline, cache_dir=cache_dir)
+        validate_proposal(root, lock, proposal, allow_missing=allow_acquisition)
+        if allow_acquisition:
+            lock = ensure_capabilities(root, lock, proposal, offline=offline, cache_dir=cache_dir)
     decision = decide(root, lock, prompt, cwd=cwd, proposal=proposal)
     identity = repository_identity(root)
     inputs = {
@@ -277,23 +312,18 @@ def prepare_task(
         / hashlib.sha256(str(root).encode()).hexdigest()
     )
     state = location / (hashlib.sha256(str(session_id).encode()).hexdigest() + ".json")
-    if state.is_file() and not state.is_symlink() and state.stat().st_size <= 500_000:
-        try:
-            previous = json.loads(state.read_text(encoding="utf-8"))
-            if (
-                previous.get("decision_id") == decision_id
-                and previous.get("selected") == decision["selected"]
-            ):
-                previous["cache_hit"] = True
-                previous["metrics"]["latency_ms"] = round((time.monotonic() - started) * 1000, 2)
-                return previous
-        except (OSError, ValueError, KeyError, TypeError):
-            pass
+    previous = read_decision(state)
+    cache_hit = (
+        previous is not None
+        and previous["decision_id"] == decision_id
+        and previous["repository"] == identity
+        and all(previous.get(k) == v for k, v in decision.items())
+    )
     decision.update(
         {
             "decision_id": decision_id,
-            "cache_hit": False,
-            "created_at": datetime.now(UTC).isoformat(),
+            "cache_hit": cache_hit,
+            "created_at": previous["created_at"] if cache_hit else datetime.now(UTC).isoformat(),
             "reevaluate_when": [
                 "task, target files, manifests, skill integrity, branch/revision, worktree or checkout location changes"
             ],
@@ -306,12 +336,16 @@ def prepare_task(
                 "applied": "unobserved",
             },
             "metrics": {
+                "preparation_phases_ms": phases,
                 "model_requests": 0,
                 "selected_count": len(decision["selected"]),
                 "latency_ms": round((time.monotonic() - started) * 1000, 2),
             },
         }
     )
+    if cache_hit:
+        # Reuse the decision identity, never claims/metrics supplied by cached data.
+        return lock, decision
     try:
         location.mkdir(parents=True, exist_ok=True)
         atomic_write(state, json_text(decision))
@@ -329,7 +363,7 @@ def prepare_task(
     except OSError:
         decision["metrics"]["cache_errors"] = 1
         decision["persistence"] = "unavailable; verified guides remain usable"
-    return decision
+    return lock, decision
 
 
 def ensure_capabilities(root, lock, proposal, *, offline=False, cache_dir=None):

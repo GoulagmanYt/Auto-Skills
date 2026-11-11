@@ -2,15 +2,16 @@ import os
 import shutil
 import subprocess
 import tempfile
-import unittest
 from pathlib import Path
+
+from suite_support import IsolatedTestCase
 
 from codex_bootstrap.profile import manifest_paths, profile_repo
 from codex_bootstrap.repo_inspection import inspect_repository
 from codex_bootstrap.workspaces import workspace_profiles
 
 
-class RepositoryBoundaryTests(unittest.TestCase):
+class RepositoryBoundaryTests(IsolatedTestCase):
     def make_alias(self, link, target):
         if os.name != "nt":
             link.symlink_to(target, target_is_directory=True)

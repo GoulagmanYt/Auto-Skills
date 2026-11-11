@@ -24,7 +24,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parents[1]
-EXAMPLES = WORKSPACE / "examples/benchmark"
+EXAMPLES = WORKSPACE / "fixtures/benchmark"
 COMPETITORS = WORKSPACE / "benchmarks/competitors.json"
 sys.path.insert(0, str(WORKSPACE / "src"))
 

@@ -21,7 +21,7 @@ Offline verification checks pinned identities, copied manifest/license SHA-256 v
 | [rails/rails](https://github.com/rails/rails/tree/2f4d502119c0d0cf9500a2d49a00eea9c557bacb) | `2f4d502119c0d0cf9500a2d49a00eea9c557bacb` | `Gemfile` | PASS |
 | [laravel/framework](https://github.com/laravel/framework/tree/7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c) | `7d6d8e86138e9dcc250a29bd72cfe5d5dd7b3d6c` | `composer.json` | PASS |
 
-All copied files retain their upstream license in `examples/real-repositories/<slug>/LICENSE.txt`; each provenance record links the exact pinned original files. Refresh is explicit (`python tools/verify_real_repositories.py --refresh`) and uses a request limit, per-request timeout, total deadline and file-size cap. Default verification never accesses the network.
+All copied files retain their upstream license in `fixtures/real-repositories/<slug>/LICENSE.txt`; each provenance record links the exact pinned original files. Refresh is explicit (`python tools/verify_real_repositories.py --refresh`) and uses a request limit, per-request timeout, total deadline and file-size cap. Default verification never accesses the network.
 
 GitHub license detection returned `NOASSERTION` for the following notices. Their applicable licenses were reviewed against the pinned upstream text; each review is bound to the copied notice's SHA-256:
 

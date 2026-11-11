@@ -2,6 +2,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.profile import Profile, profile_repo
 from codex_bootstrap.selection import Candidate, compatible, rejection, select
 
@@ -23,7 +25,7 @@ def skill(name="general-documentation", slot="documentation", metadata="", text=
     )
 
 
-class SelectionUpgradeTests(unittest.TestCase):
+class SelectionUpgradeTests(IsolatedTestCase):
     def profile(self):
         return Profile(technologies={"react": "^19.0.0", "rust": "1.82"})
 

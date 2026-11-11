@@ -9,10 +9,34 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.fs import confined
 
 
-class StartupFilesystemTests(unittest.TestCase):
+class StartupFilesystemTests(IsolatedTestCase):
+    def test_preparation_reports_cold_and_warm_phase_timings(self):
+        from codex_bootstrap.bootstrap import bootstrap
+
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True, capture_output=True)
+        (self.root / "README.md").write_text("# Guide")
+        cold, warm = {}, {}
+        bootstrap(self.root, offline=True, metrics=cold)
+        bootstrap(self.root, offline=True, metrics=warm)
+        self.assertTrue(
+            {
+                "integrity_ms",
+                "profile_ms",
+                "selection_ms",
+                "tools_ms",
+                "publication_ms",
+                "total_ms",
+            }.issubset(cold)
+        )
+        self.assertTrue({"integrity_ms", "profile_ms", "total_ms"}.issubset(warm))
+        self.assertNotIn("selection_ms", warm)
+        self.assertTrue(all(isinstance(v, (int, float)) and v >= 0 for v in cold.values()))
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

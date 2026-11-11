@@ -1,52 +1,80 @@
 # Auto-Skills
 
-**Un contexte de skills Codex explicable par workspace, maintenu quand le projet change.**
+**Des consignes Codex explicables pour chaque workspace, maintenues quand le projet change.**
 
-Version **1.4.0a1 alpha**, avec Codex CLI **0.166.0** comme référence native initiale. Auto-Skills analyse les manifestes, sélectionne un guide par rôle et workspace, verrouille les fichiers et réévalue les guides concernés par les changements de dépendances.
+Auto-Skills analyse les manifestes, sélectionne les skills pertinents, verrouille leur provenance et actualise les workspaces concernés. Un backend Rust conserve ses guides quand le frontend React change. Les dépôts inconnus reçoivent un socle portable avec leurs limites explicites.
+
+**Alpha : 1.4.0a1.** La référence native vérifiée est Codex CLI **0.166.0**. [English](README.md) · [Utilisation](docs/usage.md) · [Couverture](docs/coverage.md) · [Compatibilité et preuves](docs/public-alpha.md)
 
 ## Installation
 
-Prérequis : Python 3.11+, Git et Codex CLI déjà installé. Depuis ce dépôt :
+Prérequis : Python **3.11+**, Git et le Codex CLI original. Depuis un checkout de la version souhaitée :
 
 ```powershell
-# Windows
+# Windows PowerShell
 .\install.ps1
 ```
 
 ```sh
-# Linux/macOS
+# Linux / macOS
 sh install.sh
 ```
 
-Ouvrir ensuite un nouveau terminal. L'exécutable Codex original est conservé.
-
-Le wrapper prépare automatiquement le dépôt, réutilise les skills locaux admissibles avant toute recherche externe et sélectionne les guides selon la tâche. Les hooks natifs vérifiés adaptent les instructions à chaque demande et à la reprise. [Fonctionnement automatique, politique globale, preuves et limites](docs/automatic-skills.md).
+Ouvrir un nouveau terminal, puis utiliser Codex normalement :
 
 ```sh
 codex -C ./projet "Corrige backend/src/lib.rs"
 codex -C ./projet resume
 ```
 
-Les commandes `propose`, `context`, `task` et `refresh` restent disponibles pour l'inspection et la maintenance. Elles ne sont pas nécessaires avant de travailler. Un backend Rust ne reçoit pas les spécialités React/Vite de la racine. Un changement React conserve les guides Rust et les outils inchangés.
+L’installeur conserve l’exécutable original et enregistre ses modifications de PATH et de profil pour permettre leur annulation. La préparation utilise les skills locaux admissibles, les sources publiques autorisées et les guides intégrés. **Repomix attend une activation explicite** dans la politique globale. [Fonctionnement automatique et outils optionnels](docs/automatic-skills.md).
 
-Les dépôts applicatifs, documentaires et inconnus sont distingués. C/C++, CMake/Meson, Flutter/Dart, Swift, Elixir, R et Julia disposent de nouveaux adaptateurs statiques. Un dépôt non reconnu conserve un socle portable, affiche ses lacunes et ne déclenche pas de téléchargement d'outils spéculatif. La [configuration manuelle](docs/configuration.md) permet de déclarer des workspaces et contraintes explicites. [Couverture et limites](docs/coverage.md).
-
-Le mode strict désactive pour le lancement les skills externes, plugins et serveurs MCP non explicitement conservés. Le mode `coexist`, dans `.codex/integrations.toml`, préserve les intégrations utilisateur ; le contexte externe n'est alors pas isolé. Le Codex original contourne le wrapper.
-
-## Mise à jour et désinstallation
-
-Relancer l'installeur depuis la version souhaitée pour mettre à jour le wrapper. Les manifestes modifiés déclenchent une mise à jour ciblée des guides.
+## Comprendre la sélection
 
 ```sh
+codex-auto-bootstrap propose --repo ./projet --offline
+codex-auto-bootstrap context --repo ./projet
+codex-auto-bootstrap check --repo ./projet
+```
+
+Les rapports expliquent les frontières des workspaces, les versions, la provenance, les exclusions et les incertitudes. Les déclarations personnalisées appartiennent à [auto-skills.toml](docs/configuration.md). [Diagnostic et récupération](docs/diagnostics.md).
+
+## Intégrations
+
+Le mode **strict**, activé par défaut, désactive pour ce lancement les skills externes, plugins et serveurs MCP non conservés explicitement. Pour préserver les intégrations utilisateur, ajouter dans `.codex/integrations.toml` :
+
+```toml
+[integrations]
+mode = "coexist"
+```
+
+Des listes d’autorisation permettent aussi de conserver certaines intégrations en mode strict. Les configurations externes sont préservées. Le Codex original contourne le wrapper ; les clients Desktop/IDE restent hors intégration automatique du CLI. [Détails](docs/usage.md#integrations).
+
+## Mise à jour et retrait
+
+Relancer l’installeur depuis la version souhaitée. Les changements de manifestes déclenchent une actualisation ciblée.
+
+```sh
+codex-auto-bootstrap refresh --repo ./projet --offline
 codex-auto-bootstrap uninstall --repo ./projet --dry-run
 codex-auto-bootstrap uninstall --repo ./projet
 codex-auto-bootstrap uninstall
 ```
 
-Les ajouts utilisateur indépendants sont conservés. Un fichier généré modifié ou une ancienne installation ambiguë peut nécessiter une résolution explicite. Ouvrir un nouveau terminal après retrait du wrapper.
+Le retrait du dépôt et celui du wrapper sont distincts. Les ajouts indépendants sont conservés ; les conflits sont explicites. Ouvrir un nouveau terminal après retrait du wrapper. [Annulation](docs/diagnostics.md).
 
-Les estimations historiques du contexte initial passent de 16 079 à 13 045 tokens pour **Piano-LED-Visualizer** (−18,87 %) et de 16 079 à 13 366 pour **RTP-OSC-Midi-tool** (−16,87 %). Elles précèdent la couverture MIDI/LED/GPIO/Raspberry Pi étendue et les modes d'intégration de cette alpha. Elles concernent un seul environnement de démarrage et ne mesurent pas les économies sur une session complète, la facturation ou le cache. [Détail des mesures historiques](reports/startup-context.md). Les guides distants restent des instructions non fiables par défaut ; les filtres et empreintes ne sont pas une certification de sécurité.
+## Preuves et limites
 
-Le [comparatif mesuré](reports/benchmarks/comparison/analysis.md) conserve17 essais validés,9 échecs natifs,18 exclusions propres aux adaptateurs et1 interruption. Ce résultat préliminaire ne démontre ni économie globale de tokens ni gagnant général.
+Les tests couvrent l’isolation, l’intégrité, l’actualisation et la désinstallation. Les contrôles natifs des distributions utilisent la référence Codex épinglée. Les mesures et échecs historiques restent accessibles dans [le guide des preuves](docs/public-alpha.md). Les échantillons disponibles ne démontrent pas d’économie globale de tokens ni d’avantage général de performance.
 
-[Guide complet](README.md) · [Utilisation](docs/usage.md) · [Compatibilité](docs/compatibility.md) · [État réel de l'alpha](docs/public-alpha.md) · [Mesures](docs/benchmark.md) · [Contribuer](CONTRIBUTING.md)
+Les guides distants restent des consignes non fiables par défaut. Les filtres et empreintes ne certifient pas leur innocuité. [Modèle de sécurité](docs/security-model.md).
+
+## Développement
+
+```sh
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python -m tools.check_docs
+```
+
+Les tests isolent la configuration et le cache utilisateur et bloquent les connexions réseau directes. Les contrôles natifs et mesures avec inférence ont des commandes distinctes. [Contribution](CONTRIBUTING.md) · [Architecture](docs/architecture.md) · [Changelog](CHANGELOG.md) · [Publication](docs/release.md) · [Licence MIT](LICENSE)

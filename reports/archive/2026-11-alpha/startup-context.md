@@ -7,4 +7,4 @@ Measured on **Piano-LED-Visualizer** and **RTP-OSC-Midi-tool** with Codex CLI 0.
 | Piano-LED-Visualizer | 16079 | 13045 | 18.87% |
 | RTP-OSC-Midi-tool | 16079 | 13366 | 16.87% |
 
-Zero duplicates and no inherited root specializations across six scopes. See [scope evidence](startup-context.json) and [complete-task measurement](../docs/benchmark.md).
+Zero duplicates and no inherited root specializations across six scopes. See [scope evidence](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/startup-context.json) and [complete-task measurement](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/docs/benchmark.md).

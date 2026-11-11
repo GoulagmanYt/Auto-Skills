@@ -45,6 +45,9 @@ def requested_cwd(args):
 
 def requested_prompt(args):
     """Best effort only; stdin remains untouched and per-turn hooks see the real prompt."""
+    if "--" in args:
+        before, after = args[: args.index("--")], args[args.index("--") + 1 :]
+        return " ".join(filter(None, [requested_prompt(before), " ".join(after)]))[:64_000]
     values = {
         "-C",
         "--cd",
@@ -112,10 +115,9 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     real_command = real_command or real_codex()
     env = dict(os.environ)
     if root is not None:
-        lock = bootstrap(root, offline=offline)
-        from .task import prepare_task
+        from .task import prepare_launch
 
-        decision = prepare_task(root, requested_prompt(args), cwd=cwd, offline=offline)
+        lock, decision = prepare_launch(root, requested_prompt(args), cwd=cwd, offline=offline)
         bin_dir = str(root / ".codex/bin")
         # Codex shell subprocesses inherit this, including bundled Node where necessary.
         extra_bins = []

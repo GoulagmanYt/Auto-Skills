@@ -1,10 +1,12 @@
 import unittest
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.profile import Profile
 from codex_bootstrap.selection import Candidate, rejection
 
 
-class ExternalQualityTests(unittest.TestCase):
+class ExternalQualityTests(IsolatedTestCase):
     def skill(self, description, instructions):
         return Candidate(
             "performance",

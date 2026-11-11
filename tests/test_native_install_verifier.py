@@ -8,6 +8,8 @@ from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 from tools.verify_native_install import (
     assert_catalog,
     catalog,
@@ -25,7 +27,7 @@ def prompt(entries):
     ]
 
 
-class NativeInstallVerifierTests(unittest.TestCase):
+class NativeInstallVerifierTests(IsolatedTestCase):
     def test_native_catalog_expands_aliases(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

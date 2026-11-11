@@ -33,7 +33,7 @@ from tools import benchmark_tasks as tasks
 from tools.verify_native_install import isolated_environment
 from tools.verify_real_repositories import PublicGitHub, safe_relative
 
-FIXTURES = WORKSPACE / "examples/measurement"
+FIXTURES = WORKSPACE / "fixtures/measurement"
 DEFAULT_CODEX = Path.home() / "AppData/Local/Programs/OpenAI/Codex/bin/codex.exe"
 LIMITATION = (
     "Relevance uses pinned manifest/license extracts reconstructed as sibling workspaces, "
@@ -489,7 +489,7 @@ def markdown(report):
     lines.extend(
         [
             "",
-            "Reproduce: `python tools/measure_automatic_skills.py`; refresh public pins explicitly with `--refresh`; run inference explicitly with `--tasks --model gpt-6.1-sol --codex PATH_TO_NATIVE_CODEX`. The pinned extracts and provenance are in `examples/measurement/`. Refreshing selects new commits and therefore changes the sample.",
+            "Reproduce: `python tools/measure_automatic_skills.py`; refresh public pins explicitly with `--refresh`; run inference explicitly with `--tasks --model gpt-6.1-sol --codex PATH_TO_NATIVE_CODEX`. The pinned extracts and provenance are in `fixtures/measurement/`. Refreshing selects new commits and therefore changes the sample.",
             "",
         ]
     )

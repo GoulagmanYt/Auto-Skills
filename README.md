@@ -1,14 +1,14 @@
 # Auto-Skills
 
-**An explainable Codex skill context for each workspace, maintained as your project changes.**
+**Explainable Codex guidance for each workspace, maintained as your project changes.**
 
-Auto-Skills profiles dependency manifests, selects a guide per role and workspace, pins the results, and refreshes affected guides when a manifest changes. A React frontend keeps its own guidance while a Rust backend sees its own stack and portable shared guides.
+Auto-Skills reads dependency manifests, selects relevant skills, pins their provenance and refreshes affected workspaces. A Rust backend keeps its own guidance when a React frontend changes. Unknown repositories receive portable guidance with explicit gaps.
 
-**Status: 1.4.0a1 alpha.** Initial native compatibility is tested with Codex CLI **0.166.0**. [Français](README.fr.md) · [Usage](docs/usage.md) · [Coverage](docs/coverage.md) · [Release evidence](docs/public-alpha.md)
+**Alpha: 1.4.0a1.** The verified native baseline is Codex CLI **0.166.0**. [Français](README.fr.md) · [Usage](docs/usage.md) · [Coverage](docs/coverage.md) · [Compatibility and evidence](docs/public-alpha.md)
 
-## Try it
+## Install
 
-Requirements: Python **3.11+**, Git and the original Codex CLI. From this source checkout:
+Requires Python **3.11+**, Git and the original Codex CLI. From a checkout of the intended release:
 
 ```powershell
 # Windows PowerShell
@@ -16,88 +16,65 @@ Requirements: Python **3.11+**, Git and the original Codex CLI. From this source
 ```
 
 ```sh
-# Linux or macOS
+# Linux / macOS
 sh install.sh
-# Open a new shell, or launch immediately using:
-"$HOME/.local/share/codex-auto-bootstrap/bin/codex"
 ```
 
-The installer creates user launchers and records PATH/profile changes for reversal. It preserves the original Codex binary. Start working in any Git repository; preparation is automatic:
+Open a new terminal, then use Codex normally:
 
 ```sh
 codex -C ./project "Fix backend/src/lib.rs"
 codex -C ./project resume
 ```
 
-Optional maintenance commands remain available: `propose --repo ./project` previews decisions without project writes; `context --repo ./project` explains the installed workspace lock, while `task` reports a task decision. Catalog estimates are not billing measurements.
+The installer preserves the original executable and records its PATH/profile changes for reversal. Preparation uses eligible local skills, public sources allowed by user-global policy, and bundled fallbacks. **Repomix is deferred until explicitly enabled** in the user-global policy. [Automatic operation and optional tools](docs/automatic-skills.md).
 
-Offline mode reuses eligible local/cached guides and bundled fallbacks. Online preparation searches locally missing capabilities under the global source/license policy and can provision the existing optional token tools. No per-project selection or approval is required. [Policy and evidence](docs/automatic-skills.md).
+## Inspect decisions
 
-## Any repository, explicit limits
+```sh
+codex-auto-bootstrap propose --repo ./project --offline
+codex-auto-bootstrap context --repo ./project
+codex-auto-bootstrap check --repo ./project
+```
 
-Application, documentation and unknown repositories have distinct plans. Unsupported projects remain usable with portable guidance and no speculative tool downloads. C/C++/CMake/Meson, Flutter/Dart, Swift, Elixir, R and Julia now have static adapters alongside the existing ecosystems. A README never turns unknown application files into documentation evidence.
+Reports explain workspace boundaries, versions, provenance, exclusions and uncertainty. Declare custom boundaries in [auto-skills.toml](docs/configuration.md). [Diagnostics and recovery](docs/diagnostics.md).
 
-Declare custom workspace boundaries, intended versions or repository kind in [auto-skills.toml](docs/configuration.md). Manual inputs retain provenance and do not erase observed manifest/lock evidence. [Coverage and parser limits](docs/coverage.md).
+## Integration policy
 
-## What you can verify
-
-| Behavior | Evidence |
-|---|---|
-| One active native discovery path per guide | Packaged real-Codex check in `tools/verify_native_install.py` |
-| Rust excludes React/Vite root guidance | Workspace integration tests and native catalog assertions |
-| React updates preserve Rust skills and tools | Targeted refresh tests and public demonstration |
-| Selection explains constraints, provenance and exclusions | `propose` and `context` commands |
-| Installation reverses without discarding unrelated edits | Temporary-home/profile/PATH and project uninstall tests |
-| Piano guidance follows relevant Python dependencies | Positive and negative MIDI/LED/GPIO/Raspberry Pi relevance tests |
-
-Run the public React/Rust demonstration with `python tools/demo_workspaces.py`. Its [recorded result](reports/workspace-demo.json) shows which guides are excluded and which files remain unchanged. It uses a temporary synthetic repository and no inference.
-
-## Integrations are explicit
-
-Default **strict** mode disables discovered external skills, bundled native guides, unlisted plugins and MCP servers for the launched profile. External configuration files are not rewritten. Keep selected integrations with allowlists or opt into **coexist** in `.codex/integrations.toml`:
+Default **strict** mode disables external skills, unlisted plugins and MCP servers for the launched profile. To preserve user integrations, put this in `.codex/integrations.toml`:
 
 ```toml
 [integrations]
 mode = "coexist"
 ```
 
-Coexist preserves user integrations and filters Auto-Skills' own guides. External context can add cost or conflicting instructions. [Policy and allowlists](docs/usage.md#integrations).
-
-The standalone Codex executable bypasses the wrapper. These policies are not an OS sandbox. The wrapper selects guides from task evidence, reuses admissible local bundles before public discovery, and supplies per-prompt selection through verified native lifecycle hooks. See [automatic operation, source policy and covered entry points](docs/automatic-skills.md).
+Allowlisted integrations can also be retained in strict mode. External configuration files are preserved. The original Codex executable bypasses the wrapper; Desktop/IDE clients are outside automatic CLI integration. [Details](docs/usage.md#integrations).
 
 ## Update or remove
 
-Rerun the installer from the intended release to update the wrapper. Manifest changes trigger targeted guide refresh at the next launch. `refresh --all` deliberately reselects all guides.
+Rerun the installer from the intended release to update the wrapper. Manifest changes trigger scoped refresh.
 
 ```sh
-codex-auto-bootstrap check --repo ./project
 codex-auto-bootstrap refresh --repo ./project --offline
 codex-auto-bootstrap uninstall --repo ./project --dry-run
 codex-auto-bootstrap uninstall --repo ./project
 codex-auto-bootstrap uninstall
 ```
 
-Project and wrapper removal are separate. Later unrelated edits are retained; changed generated artifacts or ambiguous legacy records require explicit conflict resolution. Open a new shell after wrapper removal. [Reversal details](docs/usage.md#updates-and-reversal).
+Repository and wrapper removal are separate. Unrelated edits are preserved; conflicts are explicit. Open a new terminal after wrapper removal. [Reversal](docs/diagnostics.md).
 
-## Measurements and limits
+## Evidence and limits
 
-Historical startup estimates showed 16,079 → 13,045 tokens for **Piano-LED-Visualizer** and 16,079 → 13,366 for **RTP-OSC-Midi-tool**. They predate the expanded MIDI/LED/GPIO/Raspberry Pi coverage and integration modes in this alpha. They describe one startup environment, not whole-session, billing or cache savings. [Historical measurement details](reports/startup-context.md).
+Tests cover workspace isolation, integrity, refresh and uninstall. Installed-package native checks cover the pinned CLI baseline. Historical measurements and failures remain traceable in [the evidence guide](docs/public-alpha.md). Available whole-task samples do not establish token savings or a general performance advantage.
 
-The [complete-task benchmark](docs/benchmark.md) uses public synthetic fixtures, model/version pins, repetitions and independent validators. Failures and unavailable competitor arms remain visible. A harness or a passing unit suite does not establish superiority.
-
-The [exploratory measured comparison](reports/benchmarks/comparison/analysis.md) accounts for all45 planned slots:17 validated passes,9 native failures,18 adapter/task exclusions and1 interrupted slot. It does not demonstrate whole-session token savings or an overall winner; complete usage, failures and limitations are published.
-
-Remote skills are untrusted instructions. Declared compatibility and relevance use conservative heuristics; undeclared compatibility is not certified. SHA-256 detects changes relative to recorded content, not safe behavior. Upstream licenses remain applicable. [Security model](docs/security-model.md).
+Remote skills are untrusted instructions. Compatibility filters and checksums do not certify safe behavior. [Security model](docs/security-model.md).
 
 ## Develop
 
 ```sh
 python -m pip install -e .
 python -m unittest discover -s tests -v
-uv run --no-project --with build python -m build --outdir dist-alpha
-python tools/verify_native_install.py --codex codex --expected-codex-version 0.166.0 --artifact dist-alpha/*.whl --artifact dist-alpha/*.tar.gz
+python -m tools.check_docs
 ```
 
-The native check uses temporary repositories/homes and makes no inference request. CI definitions cover Windows/Linux/macOS and packaged artifacts; consult release evidence for completed runs.
-
-[Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [Changelog](CHANGELOG.md) · [Release procedure](docs/release.md) · [MIT license](LICENSE)
+Unit tests isolate user configuration/cache and block direct network connections. Native checks and inference measurements use explicit, separate commands. [Contributing](CONTRIBUTING.md) · [Architecture](docs/architecture.md) · [Changelog](CHANGELOG.md) · [Release procedure](docs/release.md) · [MIT license](LICENSE)

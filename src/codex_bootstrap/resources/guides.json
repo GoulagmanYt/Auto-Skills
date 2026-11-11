@@ -1,0 +1,234 @@
+{
+  "language-c": [
+    "Use when changing C code, ownership, ABI or native interfaces.",
+    "Confirm the declared C standard and compiler flags in the nearest native build. Keep pointer ownership, buffer lengths, integer ranges and cleanup explicit. Check error returns before using outputs and preserve ABI and platform guards. Exercise boundary sizes and failure cleanup with existing tests; use the configured sanitizers where available."
+  ],
+  "language-cpp": [
+    "Use when changing C++ code, lifetimes, templates or native interfaces.",
+    "Confirm the C++ standard, compiler, ABI and target settings in the nearest native manifest. Use RAII for resources and make ownership and object lifetimes explicit. Review iterator invalidation, exception guarantees and thread synchronization. Preserve public ABI where required. Run the existing native tests and configured sanitizers for affected boundaries."
+  ],
+  "build-cmake": [
+    "Use when editing CMake targets, dependency discovery or native build configuration.",
+    "Read the nearest CMakeLists.txt and distinguish the CMake minimum from C/C++ standards and the project's release version. Prefer target-scoped sources, features, includes and linking. Preserve toolchain and cross-compilation settings. Configure outside the source tree and verify the existing build, CTest tests and install rules without downloading dependencies unless the task authorizes it."
+  ],
+  "build-meson": [
+    "Use when editing Meson projects, native targets or build options.",
+    "Confirm meson_version, language standards and native/cross files separately. Keep dependency visibility and target options explicit; preserve wrap and fallback policy. Use a separate build directory and the repository's configured Meson setup, compile and test commands. Verify supported build options and install paths; project version is not compiler evidence."
+  ],
+  "build-conan": [
+    "Use when changing Conan native dependency declarations or consumer configuration.",
+    "Confirm the Conan major, lockfile, profiles, compiler ABI and build/host contexts before changing requirements. Package versions do not establish the C++ standard. Preserve options and transitive compatibility with the existing generators and build integration. Check the normal consumer build and tests; avoid changing remotes or installing packages without task authorization."
+  ],
+  "language-dart": [
+    "Use when changing Dart libraries, async behavior or package APIs.",
+    "Match APIs to pubspec's Dart SDK constraint and existing null-safety and analyzer settings. Keep Futures, Streams, cancellation and resource disposal explicit. Preserve public package contracts and separate pure logic from platform adapters. Run the configured Dart formatter, analyzer and affected tests; dependency and app release versions are not SDK versions."
+  ],
+  "framework-flutter": [
+    "Use when editing Flutter widgets, navigation, state or platform integrations.",
+    "Confirm Flutter constraints separately from the Dart SDK and package releases. Preserve state ownership, widget lifecycle and mounted checks across asynchronous work. Reuse existing themes and accessible controls; test loading, error, navigation and disposal behavior with widget tests. Run existing analyzer and platform checks; report device-only verification separately."
+  ],
+  "language-swift": [
+    "Use when changing Swift packages, concurrency or native APIs.",
+    "Distinguish swift-tools-version from explicit Swift language modes and deployment targets. Preserve value and reference ownership, actor isolation and cancellation behavior. Avoid force-unwrapping external input and keep platform availability checks. Validate the package's existing Swift tests and supported target builds with the configured toolchain."
+  ],
+  "language-elixir": [
+    "Use when changing Elixir modules, processes or application supervision.",
+    "Confirm the Elixir constraint in mix.exs separately from application and Hex package versions. Keep process ownership, supervision restart behavior, mailbox growth and failure semantics explicit. Preserve immutable data contracts and validate external input. Run the existing formatter and focused ExUnit tests, including process failure and timeout behavior."
+  ],
+  "build-mix": [
+    "Use when changing Mix projects, applications or Hex dependency declarations.",
+    "Confirm the declared Elixir requirement, dependency constraints and existing mix.lock before editing. Preserve application supervision entries, environment-specific configuration and umbrella ownership. Use existing Mix compile and test aliases; do not evaluate mix.exs for profiling or infer the language version from the application's release."
+  ],
+  "framework-phoenix": [
+    "Use when changing Phoenix routes, controllers, channels or LiveView boundaries.",
+    "Confirm the Phoenix and LiveView dependency releases before selecting APIs. Preserve endpoint, router pipeline, authentication and authorization boundaries. Validate changesets and handle socket disconnect and process cleanup. Exercise request, channel or LiveView success and failure behavior using the project's existing ConnCase and integration conventions."
+  ],
+  "language-r": [
+    "Use when changing R packages, statistical analysis or data transformations.",
+    "Confirm the R requirement in DESCRIPTION or runtime in renv.lock separately from package releases. Keep units, missing values, factor levels and random seeds explicit. Validate input shape and numerical tolerances and avoid relying on mutable global state. Run existing testthat or package checks and retain reproducible data provenance without exposing datasets."
+  ],
+  "build-renv": [
+    "Use when changing an R project's reproducible dependency environment.",
+    "Read DESCRIPTION and renv.lock together, distinguishing direct requirements, resolved package releases and the recorded R runtime. Preserve repository and platform constraints. Review lockfile changes for intended dependencies and verify existing package tests in the supported environment. Restoring packages changes the environment and requires task authorization."
+  ],
+  "language-julia": [
+    "Use when changing Julia packages, numerical methods or scientific workflows.",
+    "Confirm Julia and dependency compatibility from Project.toml separately from the package release. Preserve array axes, element types, units and numerical tolerances. Keep random seeds and data provenance reproducible and avoid hidden global mutation. Respect dispatch and allocation behavior in hot paths. Run the existing Julia tests and relevant numerical checks with the project's declared environment."
+  ],
+  "framework-spring": [
+    "Use when changing Spring Boot services, dependency injection or HTTP endpoints.",
+    "Confirm the Spring Boot parent/plugin version and Java toolchain in the nearest build. Use its managed dependency versions and existing constructor injection patterns. Validate request bodies and enforce authorization at service boundaries. Define transaction ownership and avoid lazy database reads during response serialization. Verify configuration profiles, failure responses and affected endpoints with the existing Spring test setup."
+  ],
+  "framework-aspnet": [
+    "Use when changing ASP.NET Core endpoints, middleware or application configuration.",
+    "Match APIs to the target framework and pinned .NET SDK. Preserve middleware ordering, dependency injection lifetimes and cancellation propagation. Validate bound input, keep authorization on endpoints and avoid exposing secrets through configuration or errors. Check scoped service ownership and asynchronous disposal. Exercise success and failure paths through the existing application factory and HTTP integration tests."
+  ],
+  "orm-entityframework": [
+    "Use when changing Entity Framework Core models, queries or migrations.",
+    "Confirm EF Core and provider versions separately from the database server version. Keep DbContext scoped to a unit of work and avoid concurrent operations on one context. Parameterize SQL, project bounded results and inspect generated queries for N+1 reads. Review migration SQL, nullability and data preservation. Test transactions and concurrency against the project's configured provider; an in-memory provider cannot prove SQL behavior."
+  ],
+  "database-sqlserver": [
+    "Use when changing SQL Server queries, schema or transaction behavior.",
+    "Obtain the SQL Server engine version and compatibility level from server configuration; SqlClient and EF Core versions describe client APIs. Parameterize queries, inspect actual execution plans and keep index and pagination choices tied to the workload. Review locking, deadlocks and transaction isolation. Use reviewed additive migrations and verify rollback, constraints and concurrent updates with the existing database tests."
+  ],
+  "language-solidity": [
+    "Use when changing Solidity contracts, compiler settings or deployment interfaces.",
+    "Confirm the compiler and optimizer/EVM settings in Foundry or Hardhat configuration. Trace authorization and external-call boundaries, preserve storage layout for upgrades and account for reentrancy, rounding and checked arithmetic. Bound loops and gas use. Use the existing contract test runner for revert paths, invariant and fuzz tests. Review deployed bytecode changes and deployment parameters before any network transaction."
+  ],
+  "test-hardhat": [
+    "Use when writing or debugging Hardhat contract tests and local network configuration.",
+    "Confirm the installed Hardhat major, plugins and configured Solidity compiler. Use the project's existing fixture and network helpers, deterministic accounts and isolated chain state. Assert revert reasons, events and balance/storage effects through public contract interfaces. Await transactions and distinguish call results from mined receipts. Keep private keys outside configuration and run the affected tests on the local test network."
+  ],
+  "token-output-compression": [
+    "Use for every terminal command and response.",
+    "Use .codex/bin/token-run for git, test and build commands; it selects RTK when supported. Keep exit codes and actionable errors. Recover omitted output from the indicated local log. Report the result once, with only evidence needed for the task. Apply edits with the native patch tool; use exact SEARCH/REPLACE blocks only when a patch tool is unavailable. Never discard failures to meet an output budget."
+  ],
+  "token-context-pruning": [
+    "Use before reading repository content or invoking MCP tools.",
+    "Find paths using rg --files, then rg -n with a narrow expression. Read bounded line ranges around the relevant symbols. Use .codex/bin/repo-map for a bounded Python AST or file map. Do not dump the repository or load generated bundles into context. Respect .codexignore through the supplied tools; Codex itself may not support that filename. Load only the locked skill relevant to the action. Unused configured MCP servers are disabled by the wrapper."
+  ],
+  "token-reasoning": [
+    "Use when choosing effort for a task or a subsequent Codex invocation.",
+    "The wrapper defaults model_reasoning_effort to low. Use low for routine edits and searches. For substantial reasoning, verification or debugging, use medium or high on a subsequent invocation with -c model_reasoning_effort=\"high\". Do not claim a SKILL.md changes the running model's effort mid-turn. Keep internal reasoning private. Validate the result with relevant checks."
+  ],
+  "token-prompt-cache": [
+    "Use when constructing instructions or updating repository automation.",
+    "Keep the generated AGENTS.md header byte-stable. Place variable profile data, provenance, timestamps and hashes in skills-lock.json and bootstrap-report.json. Load task-specific context after the static prefix. Reuse the lock on later launches. Do not rewrite instructions each turn or promise cache hits: caching is controlled by the service."
+  ],
+  "token-cli-wrapper": [
+    "Use for git status/diff/log, tests, linters and build output.",
+    "Run .codex/bin/token-run -- <program> <args>. It uses the verified local RTK binary when the command is supported; otherwise it compresses output with an exact recovery log. Use .codex/bin/repo-map --limit 150 before broad code navigation. Inspect individual symbols after the map. Never load the whole repomix output; use repomix only for a requested bounded export."
+  ],
+  "architecture": [
+    "Use when designing interfaces or changing module boundaries.",
+    "Map the affected entry points, dependencies and state owners with repo-map and targeted search. State the invariant the change must preserve. Prefer a small interface hiding complex details. Keep dependency direction explicit and avoid cycles. Verify callers at the boundary and test the public behavior. Record significant decisions near existing architecture documentation."
+  ],
+  "unit-testing": [
+    "Use when changing behavior or fixing a reproducible bug.",
+    "Detect the existing test runner from manifests/configuration. Run the nearest failing behavior test, apply the fix and run the affected suite. Assert observable outputs and invariants. Cover failure paths and boundary values; mock only external boundaries. Do not create tests that merely restate an implementation or install another competing test runner."
+  ],
+  "security": [
+    "Use when handling untrusted input, permissions, dependencies or credentials.",
+    "Trace input to the sensitive operation. Validate type, size and path containment at the boundary. Use argument arrays instead of shell interpolation. Keep credentials out of logs and generated configurations. Check authorization on every state-changing entry point. Pin dependency artifacts, verify available digests and avoid executing lifecycle scripts from discovered skills. Reproduce concrete defects and verify the fix against the original input."
+  ],
+  "performance": [
+    "Use when optimizing latency, memory, database calls or build time.",
+    "Measure the affected operation with representative input before editing. Identify the dominant cost, change one cause and compare the same workload. Bound caches and allocations. Check query plans and avoid N+1 calls. Preserve correctness tests and report the measured effect with workload and units; do not claim an improvement from intuition."
+  ],
+  "refactoring": [
+    "Use when restructuring code while preserving public behavior.",
+    "Search references and define the behavior that must remain stable. Make small mechanical steps, preserve public interfaces and run the relevant existing checks. Keep renames consistent across callers and configuration. Avoid unrelated cleanup. Verify failure semantics, return types and ownership after extracting a module."
+  ],
+  "ci-cd": [
+    "Use when editing build pipelines, release automation or deployment configuration.",
+    "Read only the affected workflow and its referenced scripts. Use least-privilege job permissions, pin external actions where practical, and never interpolate untrusted issue/PR text into shell commands. Cache by lockfile and runtime version. Run the same checks locally when available. Keep secrets in the CI secret store and publish artifacts only from the intended event/ref."
+  ],
+  "build": [
+    "Use when running or changing builds and dependency resolution.",
+    "Choose the package manager already represented by the project lockfile. Respect runtime versions and workspace boundaries. Use frozen/locked dependency resolution in CI. Run the existing build command through token-run, inspect the first actionable failure and verify the resulting artifact. Keep generated output outside source paths and avoid updating unrelated dependencies."
+  ],
+  "documentation": [
+    "Use when documenting public interfaces, setup or operational changes.",
+    "Document observable behavior, prerequisites and copyable commands. Verify example paths and flags against the implementation. Explain limits where they affect a user's decision. Keep stable instructions separate from volatile run results. Update the existing documentation near the changed feature and avoid duplicating large code blocks."
+  ],
+  "e2e-testing": [
+    "Use when changing a user journey across frontend/backend boundaries.",
+    "Use the detected E2E runner and deterministic fixtures. Exercise the critical journey through public UI/API boundaries. Wait on observable conditions instead of fixed sleeps. Verify success, validation and authorization failures. Keep test data isolated and retain failure traces locally. Run the smallest relevant journey through token-run, then the affected suite."
+  ],
+  "static-analysis": [
+    "Use when checking types, formatting or lint diagnostics.",
+    "Use the repository's existing analyzer and configuration. Limit initial checks to affected files, then run the required project check. Fix the underlying type/invariant rather than suppressing diagnostics. Keep formatting separate from semantic changes when practical. Run diagnostics through token-run and inspect bounded error locations."
+  ],
+  "containers": [
+    "Use when editing Dockerfiles or compose services.",
+    "Use a supported pinned base image, multi-stage builds and a non-root runtime where applicable. Keep secrets out of build arguments and image layers. Copy manifests before source to reuse dependency layers. Bound the build context with .dockerignore. Verify health checks, exposed ports and writable runtime directories with the existing container checks."
+  ],
+  "infrastructure": [
+    "Use when changing infrastructure as code.",
+    "Inspect provider/runtime constraints and module inputs. Run formatting, validation and a plan. Preserve state identity and review replacement/destruction in the plan. Use least-privilege identities, encrypted state and secret references. Keep environment-specific values outside reusable modules. Do not apply a plan unless the requested task authorizes that deployment."
+  ],
+  "ui-components": [
+    "Use when adding or editing shared UI components.",
+    "Use the detected component library and styling configuration. Preserve keyboard navigation, semantic controls, focus visibility and accessible names. Reuse design tokens rather than adding conflicting global styles. Verify loading, error, empty and responsive states in the existing UI tests. Keep state local and avoid unnecessary render work."
+  ],
+  "framework-tauri": [
+    "Use when changing the Tauri desktop boundary, commands, capabilities or packaging.",
+    "Read the Rust and frontend manifests and confirm the installed Tauri major together. For Tauri 2, scope capabilities and plugin permissions to the intended windows and commands. Validate every IPC argument in Rust, preserve structured errors, and keep privileged work off the UI thread. Review sidecar paths, CSP and asset access. Test command success, denied permissions and shutdown using the existing desktop checks before packaging."
+  ],
+  "realtime-audio": [
+    "Use when changing audio callbacks, device streams or realtime scheduling.",
+    "Confirm sample format, channel count, sample rate and buffer size at the device boundary. Keep allocation, logging, blocking locks, network calls and file I/O outside the audio callback. Transfer bounded messages through an existing realtime-safe queue. Define underrun and device-loss behavior and stop streams before freeing callback state. Measure callback time against the buffer deadline and test format conversion and reconnect without requiring hardware."
+  ],
+  "audio-cpal": [
+    "Use when configuring CPAL hosts, devices, supported formats or stream lifetimes.",
+    "Check the installed CPAL API and enabled backend features. Enumerate supported configurations and handle missing default devices explicitly. Convert sample formats deliberately, retain the stream owner for its full lifetime and surface asynchronous stream errors outside callbacks. Keep callbacks bounded and free of blocking operations. Test configuration selection and error paths with deterministic data; document separately any hardware smoke test performed."
+  ],
+  "audio-asio": [
+    "Use when changing Windows ASIO device selection, builds or low-latency streams.",
+    "Confirm CPAL/ASIO feature flags, target architecture and the project's existing SDK setup. Keep driver architecture consistent with the application and validate channel and buffer constraints returned by the driver. Avoid driver enumeration or reconfiguration in callbacks. Handle exclusive device ownership and teardown failures explicitly. Check the normal Windows backend too; report driver-specific tests only when that hardware was available."
+  ],
+  "midi": [
+    "Use when parsing, routing, scheduling or emitting MIDI messages.",
+    "Confirm whether the boundary uses MIDI 1 byte streams or MIDI 2 UMP. Validate message lengths, running status, realtime-byte interleaving and bounded SysEx accumulation. Keep timestamps and clock units explicit. Preserve note-off ordering, device disconnect cleanup and panic/all notes off behavior. Test malformed messages, reconnect and timing with deterministic virtual ports or fixtures rather than assuming attached hardware."
+  ],
+  "rtp-midi": [
+    "Use when changing RTP-MIDI sessions, packets, timestamps or network recovery.",
+    "Map session negotiation, peer identity, sequence numbers and the RTP timestamp clock before editing. Bound packet and journal parsing, reject truncated commands and handle sequence/timestamp wraparound. Keep network work off the audio callback and bound jitter queues and peer state. Test invitation rejection, disconnect, packet loss, duplicates and reordered packets with deterministic datagrams. Verify timestamp conversion separately from wall-clock time."
+  ],
+  "midi-python": [
+    "Use when changing Mido or python-rtmidi message handling, ports or callbacks.",
+    "Confirm the declared Mido and python-rtmidi versions and selected backend before choosing APIs. Treat note_on with velocity 0 as note-off, preserve channel/note identity and define sustain, disconnect and all-notes-off cleanup. Distinguish MIDI-file delta time from live event timestamps. Own ports explicitly, close them on shutdown and serialize open/close with callback teardown. Callbacks may run on another thread: hand off bounded messages to the state owner; keep GPIO, LED rendering, logging and blocking work outside callbacks. Test note transitions, reconnect and callback races deterministically with fake ports and clocks; require no attached MIDI device. Check backend guarantees in https://mido.github.io/mido/ports/index.html and https://mido.github.io/mido/backends/rtmidi.html against the installed release."
+  ],
+  "led-ws281x": [
+    "Use when changing Python rpi-ws281x strip configuration, frame output or cleanup.",
+    "Confirm the installed rpi-ws281x release, board support and chosen PWM/PCM/SPI driver. Keep LED count, color order, channel, BCM pin, DMA/device choice and signal timing explicit; check conflicts with audio and other device users. Respect the strip's documented voltage and current budget, power supply, common ground and level shifting; bound brightness and never power an arbitrary strip from a GPIO data pin. Separate pure note-to-color/frame mapping from the hardware adapter, bound frame rate and serialize writes. Define safe blackout and cleanup on shutdown/failure. Verify frame contents, indexing and timing with a fake strip and clock without importing or opening hardware in CI. Report physical signal and power tests separately. Reference: https://github.com/rpi-ws281x/rpi-ws281x-python."
+  ],
+  "gpio-python": [
+    "Use when changing RPi.GPIO or GPIO Zero pins, events or device lifecycles.",
+    "Confirm library versions, board support and pin factory; preserve BCM versus physical pin numbering, input/output mode, pull resistors and active polarity. Define debounce and edge handling without blocking callback threads, and transfer events to one state owner. Keep import and construction free of hardware effects in pure logic tests. Close GPIO Zero devices or clean up owned RPi.GPIO pins during shutdown and partial startup failure. Use GPIO Zero MockFactory or an injected GPIO adapter for deterministic button, bounce and cleanup tests; remote or mock GPIO does not prove the host is a Raspberry Pi. Verify device permissions and electrical behavior separately on the supported board. Reference: https://gpiozero.readthedocs.io/en/stable/api_pins.html."
+  ],
+  "platform-raspberry-pi": [
+    "Use when deploying or configuring Raspberry Pi specific Python device dependencies.",
+    "A Pi-specific dependency is target evidence, not proof of an attached board or a specific model. Confirm board generation, Raspberry Pi OS/kernel, CPU architecture, Python ABI and the installed library's support before selecting GPIO/PWM/SPI APIs; do not assume Pi 5 uses older peripheral access. Check enabled device interfaces, pin conflicts and actual device permissions. Run services with the intended user, groups, virtualenv, working directory and environment; grant only permissions required by the selected driver. Bound restart behavior, handle unavailable devices and stop callbacks before releasing outputs on SIGTERM. Keep CI hardware-free through adapters and clocks. Verify service startup, shutdown and device access separately on the supported target; a host unit test is not hardware validation. Reference: https://www.raspberrypi.com/documentation/computers/os.html."
+  ],
+  "osc": [
+    "Use when parsing or routing Open Sound Control messages and bundles.",
+    "Validate OSC address patterns, type tags, alignment and declared lengths before indexing. Bound nested bundles, strings, blobs and incoming datagram size. Define timetag clock conversion and late-message behavior explicitly. Restrict externally reachable routes and validate values before control changes. Test malformed padding, unsupported tags, nested bundles and scheduling using captured or generated protocol fixtures."
+  ],
+  "audio-plugin-vst": [
+    "Use when changing VST plugin lifecycle, processing, parameters or host integration.",
+    "Confirm the VST generation and binding version in the manifest. Preserve ABI, ownership and host lifecycle ordering. Keep processing callbacks free of allocation and blocking work; validate bus layout, buffer sizes and parameter/event offsets. Transfer UI updates safely across threads and preserve serialized state compatibility. Test activation/deactivation, zero-length processing, automation and state round trips with the existing plugin harness."
+  ],
+  "native-windows": [
+    "Use when changing native Windows API calls, handles, messages or platform packaging.",
+    "Confirm target architecture, binding features and API availability before selecting calls. Make handle ownership and close behavior explicit, check return values before using output buffers, and preserve UTF-16/path conversion semantics. Keep blocking calls outside UI and audio threads. Verify Windows error paths and compile guards with the existing target checks; avoid claiming platform runtime coverage from a build on another operating system."
+  ],
+  "process-workers": [
+    "Use when changing child processes, desktop sidecars or worker lifecycles.",
+    "Define process ownership, startup handshake, cancellation and shutdown deadlines. Spawn with argument arrays and explicit executable paths, never interpolated shell text. Bound pipe buffers and drain stdout/stderr concurrently to prevent deadlocks. Keep credentials out of arguments and logs. Reap exited children and terminate owned descendants on shutdown. Test startup failure, unexpected exit, cancellation and sustained output with local fixtures."
+  ],
+  "build-vite": [
+    "Use when changing Vite configuration, plugins, environment access or frontend output.",
+    "Check the installed Vite major, Node constraint and package manager lockfile. Preserve plugin ordering and workspace path resolution. Treat exposed environment variables as public browser data and keep server credentials outside client imports. Verify asset/base URLs and production output with the existing build and preview workflow. Check HMR behavior separately from the production build and keep generated bundles out of source control."
+  ],
+  "test-vitest": [
+    "Use when writing or debugging Vitest tests and test configuration.",
+    "Respect the installed Vitest major and existing workspace/environment settings. Test public behavior with deterministic fixtures. Restore spies, fake timers and environment changes after each test. Await asynchronous assertions and isolate module state deliberately. Use the repository's run mode in CI, retain actionable failure output and run the nearest relevant test before the affected suite through token-run."
+  ],
+  "test-jest": [
+    "Use when writing or debugging Jest tests, transforms or environments.",
+    "Confirm the configured Jest version, module system and transform pipeline. Assert public behavior instead of private implementation calls. Restore mocks and timers between tests, await asynchronous work and avoid tests dependent on execution order. Preserve existing coverage and environment conventions. Run the affected test in non-watch mode through token-run and inspect the first actionable transform or assertion failure."
+  ],
+  "test-testing-library": [
+    "Use when testing frontend components with Testing Library.",
+    "Use the existing framework adapter and DOM environment. Query by role and accessible name and interact through the installed user-event helpers where available. Await observable UI changes instead of sleeping or inspecting internal component state. Exercise keyboard focus, loading, empty, error and validation behavior. Clean up renders and asynchronous work between tests, then run the affected tests through the project's existing test command."
+  ],
+  "frontend-state": [
+    "Use when changing frontend stores, subscriptions or shared application state.",
+    "Map the state owner and its public actions before editing. Preserve immutable updates and select narrow subscriptions to avoid unnecessary renders. Keep derived state computed from one source of truth. Define reset, persistence migration and asynchronous request ordering. Test actions and observable UI results, including stale responses and logout/reset. Respect the installed store library and keep server credentials out of persisted client state."
+  ],
+  "frontend-routing": [
+    "Use when changing client routing, loaders, navigation or route guards.",
+    "Confirm the installed router major and existing route configuration. Validate path and query parameters at the route boundary and preserve deep links and browser history behavior. Keep authorization enforced by the backend as well as reflected in navigation. Handle loading, not-found and error routes deliberately. Test direct entry, navigation, back/forward and invalid parameters through the existing router and frontend test fixtures."
+  ]
+}

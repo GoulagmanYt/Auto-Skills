@@ -1,11 +1,14 @@
 include install.ps1 install.sh codex-auto-bootstrap codex-auto-bootstrap.ps1 LICENSE README.md README.fr.md
 include SECURITY.md CONTRIBUTING.md CHANGELOG.md CODE_OF_CONDUCT.md
 recursive-include tests *.py
+recursive-include src/codex_bootstrap/resources *.json
 recursive-include tools *.py
 prune docs
 include docs/positioning.md docs/usage.md docs/compatibility.md docs/security-model.md docs/benchmark.md docs/release.md docs/public-alpha.md docs/configuration.md docs/coverage.md
 include docs/automatic-skills.md
+include docs/architecture.md docs/diagnostics.md
 recursive-include examples *.json *.toml *.py *.js *.mjs *.rs *.md *.txt
+recursive-include fixtures *.json *.toml *.py *.js *.mjs *.rs *.md *.txt
 recursive-include benchmarks *.json *.md
 global-exclude __pycache__ *.py[cod] .DS_Store
 prune .serena

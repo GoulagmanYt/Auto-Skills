@@ -8,11 +8,13 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from suite_support import IsolatedTestCase
+
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "tools/benchmark_tasks.py"
 
 
-class TaskBenchmarkTests(unittest.TestCase):
+class TaskBenchmarkTests(IsolatedTestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)

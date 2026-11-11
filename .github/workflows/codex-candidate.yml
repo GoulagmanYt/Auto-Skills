@@ -1,0 +1,59 @@
+name: Candidate Codex compatibility
+on:
+  schedule:
+    - cron: '43 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      candidate:
+        description: Exact Codex version or npm tag to inspect
+        type: string
+        default: latest
+permissions:
+  contents: read
+jobs:
+  candidate:
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - run: python -m pip install build
+      - run: python -m build --outdir dist-ci
+      - name: Install candidate and verify isolated wheel/sdist
+        shell: bash
+        env:
+          CODEX_CANDIDATE: ${{ inputs.candidate || 'latest' }}
+        run: |
+          if ! [[ "$CODEX_CANDIDATE" =~ ^[A-Za-z0-9][A-Za-z0-9.+-]*$ ]]; then
+            echo 'Invalid candidate version/tag'
+            exit 1
+          fi
+          npm install --prefix "$RUNNER_TEMP/auto-skills-candidate" --no-audit --no-fund "@openai/codex@$CODEX_CANDIDATE"
+          codex_path="$RUNNER_TEMP/auto-skills-candidate/node_modules/.bin/codex"
+          if [ "$RUNNER_OS" = "Windows" ]; then codex_path="$codex_path.cmd"; fi
+          version=$("$codex_path" --version | awk '{print $NF}' | tr -d '\r')
+          echo "Candidate native version: $version" >> "$GITHUB_STEP_SUMMARY"
+          python tools/verify_native_install.py --codex "$codex_path" --expected-codex-version "$version" --artifact dist-ci/*.whl --artifact dist-ci/*.tar.gz > "$RUNNER_TEMP/codex-candidate-result.json"
+          python -m pip install --no-deps dist-ci/*.whl
+          python tools/verify_automatic_skills.py --codex "$codex_path" --output "$RUNNER_TEMP/codex-candidate-automatic.json" --evidence "$RUNNER_TEMP/codex-candidate-private"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: codex-candidate-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/codex-candidate-result.json
+            ${{ runner.temp }}/codex-candidate-automatic.json
+          if-no-files-found: ignore
+          retention-days: 30

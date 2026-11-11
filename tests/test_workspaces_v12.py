@@ -3,12 +3,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from suite_support import IsolatedTestCase
+
 from codex_bootstrap.profile import BASE_SLOTS, profile_repo
 from codex_bootstrap.selection import Candidate, select
 from codex_bootstrap.workspaces import selection_profiles, workspace_profiles, workspace_roots
 
 
-class WorkspaceProfileTests(unittest.TestCase):
+class WorkspaceProfileTests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

@@ -40,4 +40,4 @@ Requested model: `gpt-6.1-sol` (mutable service alias). Native CLI: `0.166.0`. P
 
 No temporary benchmark profiles remained in the real Codex home after completion. Six ignored scratch directories remain: ordinary cleanup was denied for one exactly attributed directory, and the others lacked an exact retained path receipt. No broad deletion, permission change, authentication copy or sandbox bypass was used.
 
-[Full per-run receipts, source hashes, usage and derived metrics](report.json) · [Generated detailed table](report.md) · [Pre-resume historical snapshot](../recovery-before-resume/report.json)
+[Full per-run receipts, source hashes, usage and derived metrics](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/report.json) · [Generated detailed table](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/comparison/report.md) · [Pre-resume historical snapshot](https://github.com/GoulagmanYt/Auto-Skills/blob/801b1e037448123553ad1301736df93c46a3025d/reports/benchmarks/recovery-before-resume/report.json)

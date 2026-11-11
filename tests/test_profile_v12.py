@@ -1,14 +1,15 @@
 import json
 import tempfile
-import unittest
 from pathlib import Path
+
+from suite_support import IsolatedTestCase
 
 from codex_bootstrap.catalog import RULES, bundled_candidates
 from codex_bootstrap.profile import profile_repo
 from codex_bootstrap.selection import Candidate, rejection
 
 
-class ProfileV12Tests(unittest.TestCase):
+class ProfileV12Tests(IsolatedTestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)

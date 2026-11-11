@@ -97,6 +97,8 @@ class GitHub:
         self._cache = {}
         self._mutex = threading.Lock()
         self._disk_mutex = threading.Lock()
+        self._disk_index = None
+        self._disk_since_scan = 0
         self._local = threading.local()
         self._gh_unavailable = set()
         self._scopes = {}
@@ -337,19 +339,30 @@ class GitHub:
                 finally:
                     if os.path.exists(temporary):
                         os.unlink(temporary)
-                entries = sorted(
-                    (
-                        entry
+                # Reconcile independent writers periodically; avoid O(entries)
+                # JSON parsing after every downloaded blob. Concurrent eviction
+                # remains best effort, while this writer enforces its known budget.
+                if self._disk_index is None or self._disk_since_scan >= 32:
+                    self._disk_index = {
+                        entry[1]: entry
                         for p in self.cache_dir.glob("*.json")
                         if (entry := self._owned_cache_entry(p)) is not None
-                    ),
-                    key=lambda item: (item[0], item[1].name),
+                    }
+                    self._disk_since_scan = 0
+                self._disk_index[target] = (self._clock(), target, len(payload))
+                self._disk_since_scan += 1
+                entries = sorted(
+                    self._disk_index.values(), key=lambda item: (item[0], item[1].name)
                 )
                 size, count = sum(e[2] for e in entries), len(entries)
                 for _, path, length in entries:
                     if size <= self._cache_bytes and count <= self._cache_entries:
                         break
-                    path.unlink(missing_ok=True)
+                    # Recheck ownership before deleting an entry another client
+                    # may have replaced since our last scan.
+                    if self._owned_cache_entry(path) is not None:
+                        path.unlink(missing_ok=True)
+                    self._disk_index.pop(path, None)
                     size, count = size - length, count - 1
             with self._mutex:
                 self.stats["cache_writes"] += 1
