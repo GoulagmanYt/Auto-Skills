@@ -28,6 +28,10 @@ SIGNAL = re.compile(r"error|fail|warn|exception|traceback|panic|fatal|passed|sum
 
 
 def main():
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
     args = sys.argv[1:]
     if args[:1] == ["--"]:
         args = args[1:]
@@ -51,13 +55,28 @@ def main():
     elif os.name == "nt" and not Path(args[0]).suffix:
         import shutil
 
-        args[0] = shutil.which(args[0]) or args[0]
+        # Execute our Python entry points directly: cmd.exe treats forward-slash
+        # relative batch paths as switches and can reinterpret quoted arguments.
+        local = root / ".codex/bin" / (name + ".py")
+        if (
+            name in {"repo-map", "token-run", "repomix"}
+            and (Path(args[0]).resolve().parent == local.parent.resolve())
+            and local.is_file()
+        ):
+            args = [sys.executable, str(local), *args[1:]]
+        else:
+            args[0] = shutil.which(args[0]) or args[0]
     head, tail, signals = [], deque(maxlen=45), deque(maxlen=30)
     total, previous, repeats = 0, None, 0
     try:
         with os.fdopen(fd, "wb") as log:
             child = subprocess.Popen(
-                args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=None, shell=False
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                stdin=None,
+                shell=False,
+                env=env,
             )
             try:
                 # Bounded reads also handle a single multi-gigabyte line without retaining it.

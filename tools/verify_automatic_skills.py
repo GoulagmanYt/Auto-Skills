@@ -160,8 +160,21 @@ def demonstrate(codex, directory, evidence, *, network=False, agent=False, model
             native_catalog_count=count,
             startup_ms=latency,
         )
+        # Exercise the explicit agent-decision API with a fixture driver. This
+        # validates selection/application plumbing, not live model obedience.
+        from codex_bootstrap.agent_selection import apply_choice, candidates
+
+        catalog = candidates(root, "backend", "language-rust", offline=True)
+        local = next(c for c in catalog["candidates"] if c["source"] == "local")
+        lock = apply_choice(
+            root,
+            catalog["catalog_id"],
+            local["id"],
+            "Fixture driver chooses the local Rust ownership guide",
+        )
+        decision = prepare_task(root, prompt, offline=True)
         check(
-            "local-rust-reused",
+            "local-rust-explicitly-selected-through-agent-api",
             any(
                 s["source"] == "local" and s["scope"] == "backend" and s["slot"] == "language-rust"
                 for s in lock["skills"]

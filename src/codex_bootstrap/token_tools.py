@@ -8,6 +8,7 @@ import platform
 import re
 import shlex
 import shutil
+import subprocess
 import tarfile
 import urllib.request
 import zipfile
@@ -109,6 +110,7 @@ def write_launcher(bin_dir, name, argv):
     script = (
         "#!/usr/bin/env python3\nimport os,subprocess,sys\n"
         "from pathlib import Path\nroot=Path(__file__).resolve().parents[2]\n"
+        "os.environ['PYTHONIOENCODING']='utf-8'\nos.environ['PYTHONUTF8']='1'\n"
         f"args={argv!r}\n"
         "args=[str(root/a[5:]) if a.startswith('REPO:') else a for a in args]\n"
         "raise SystemExit(subprocess.call(args+sys.argv[1:]))\n"
@@ -344,14 +346,14 @@ def install_token_tools(stage: Path, *, offline=False, github=None, enabled=None
             "name": "token-run",
             "slot": "tool-terminal-budget",
             "status": "installed",
-            "version": "1",
+            "version": "2",
             "path": ".codex/bin/token-run.py",
         },
         {
             "name": "repo-map",
             "slot": "tool-repo-map",
             "status": "installed",
-            "version": "1",
+            "version": "2",
             "path": ".codex/bin/repo-map.py",
             "ast_languages": ["python"],
         },
@@ -371,6 +373,27 @@ def install_token_tools(stage: Path, *, offline=False, github=None, enabled=None
                 }
             )
             continue
+        if name == "rtk" and (available := shutil.which("rtk")):
+            try:
+                version = command([available, "--version"], timeout=15).strip()
+                if not re.fullmatch(r"rtk \d+\.\d+\.\d+[^\r\n]*", version):
+                    raise ValueError("unexpected local RTK version")
+                binary = bin_dir / ("rtk.exe" if os.name == "nt" else "rtk")
+                atomic_write(binary, Path(available).read_bytes(), executable=True)
+                tools.append(
+                    {
+                        "name": "rtk",
+                        "slot": "tool-output-compression",
+                        "status": "installed",
+                        "version": version,
+                        "path": ".codex/bin/" + binary.name,
+                        "source": "local",
+                        "sha256": digest(binary),
+                    }
+                )
+                continue
+            except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
+                pass
         if offline:
             tools.append({"name": name, "status": "unavailable", "reason": "offline mode"})
             continue

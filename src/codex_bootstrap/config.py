@@ -34,8 +34,8 @@ with rg --files and symbols with rg -n; read bounded line ranges. Use
 .codex/bin/repo-map --symbols for bounded Python AST navigation, or its path
 map for other languages. Respect .codexignore with the supplied tools.
 
-Default reasoning effort is low; raise it explicitly for a subsequent invocation
-when the task needs it. A skill cannot change live model settings. Keep this
+Preserve the user's selected model and reasoning effort. A skill cannot change
+live model settings. Keep this
 header stable for prefix reuse. Load variable context after this header.
 
 Automatic instruction downloads are authorized only through codex-auto-bootstrap,
@@ -253,7 +253,6 @@ def launch_overrides(root, lock, cwd=None, *, decision=None):
         + "]"
     )
     overrides = [
-        'model_reasoning_effort="low"',
         "skills.config=" + array,
         "developer_instructions="
         + json.dumps(
@@ -320,10 +319,7 @@ def launch_overrides(root, lock, cwd=None, *, decision=None):
 
 
 def local_config():
-    return (
-        "# Generated defaults; the wrapper also supplies explicit launch overrides.\n"
-        'model_reasoning_effort = "low"\n'
-    )
+    return "# Auto-Skills preserves the user's model and reasoning effort.\n"
 
 
 def toml_value(value):

@@ -48,6 +48,6 @@ After user uninstall, open a new shell to discard inherited PATH/function state.
 
 If the Python package was installed with pip into an existing environment, removing the wrapper preserves that environment and package. Remove the package separately with `python -m pip uninstall codex-repo-auto-bootstrap` when wanted. Source installation owns its private virtual environment.
 
-The wrapper defaults to low model reasoning effort. An explicit native CLI override such as `codex -C ./project/backend -c 'model_reasoning_effort="high"'` takes precedence for demanding work; skills cannot change a running model's settings.
+The wrapper preserves your selected model and reasoning effort, including native profiles and explicit CLI overrides. It does not set a development model or force low effort. The independent guide selector uses its own model and effort. Upgrades remove the old low-effort default only from unchanged, owned generated configuration; user configuration is preserved.
 
 Source-install exceptions roll back from a private recovery copy. A forcibly killed process or power loss may require manual recovery from that saved copy; automatic crash replay is not implemented in this alpha. Preserve the recovery directory and inspect its record before retrying or removing anything.

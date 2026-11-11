@@ -253,6 +253,7 @@ def prepare_task(
     offline=False,
     cache_dir=None,
     allow_acquisition=True,
+    seed_only=False,
 ):
     return prepare_launch(
         root,
@@ -263,6 +264,7 @@ def prepare_task(
         offline=offline,
         cache_dir=cache_dir,
         allow_acquisition=allow_acquisition,
+        seed_only=seed_only,
     )[1]
 
 
@@ -276,6 +278,8 @@ def prepare_launch(
     offline=False,
     cache_dir=None,
     allow_acquisition=True,
+    seed_only=False,
+    progress=None,
 ):
     """Return the same verified lock used to compute the launch decision."""
     from .bootstrap import bootstrap
@@ -283,12 +287,26 @@ def prepare_launch(
     started = time.monotonic()
     root = Path(root).resolve()
     phases = {}
-    lock = bootstrap(root, offline=offline, cache_dir=cache_dir, metrics=phases)
+    lock = bootstrap(
+        root,
+        offline=offline,
+        cache_dir=cache_dir,
+        metrics=phases,
+        seed_only=seed_only,
+        progress=progress,
+    )
     if proposal is not None:
         validate_proposal(root, lock, proposal, allow_missing=allow_acquisition)
         if allow_acquisition:
-            lock = ensure_capabilities(root, lock, proposal, offline=offline, cache_dir=cache_dir)
+            lock = ensure_capabilities(
+                root, lock, proposal, offline=offline, cache_dir=cache_dir, seed_only=seed_only
+            )
     decision = decide(root, lock, prompt, cwd=cwd, proposal=proposal)
+    decision["agent_choices"] = {
+        key: value
+        for key, value in lock.get("agent_choices", {}).items()
+        if key in {s["key"] for s in decision["selected"]}
+    }
     identity = repository_identity(root)
     inputs = {
         "version": DECISION_VERSION,
@@ -366,7 +384,7 @@ def prepare_launch(
     return lock, decision
 
 
-def ensure_capabilities(root, lock, proposal, *, offline=False, cache_dir=None):
+def ensure_capabilities(root, lock, proposal, *, offline=False, cache_dir=None, seed_only=False):
     """Install justified portable roles with the existing mutex/journal/ownership rules."""
     from copy import deepcopy
 
@@ -421,6 +439,7 @@ def ensure_capabilities(root, lock, proposal, *, offline=False, cache_dir=None):
                 cache_dir=cache_dir,
                 local_paths=paths,
                 github=github,
+                seed_only=seed_only,
             )
             for candidate in candidates:
                 candidate.scope = scope
@@ -459,6 +478,10 @@ def ensure_capabilities(root, lock, proposal, *, offline=False, cache_dir=None):
 
 def task_context(root, decision):
     lines = [
+        "Skill choices are delegated to the lightweight selector gpt-6-luna with medium reasoning, separate from the development model. Initial guides are provisional.",
+        "Before implementation identify the relevant scopes/roles and call `codex-auto-bootstrap select --repo ROOT --scope SCOPE --slot ROLE --task TASK_SUMMARY`. Do not compare/rank guides with the development model. Suitable recorded choices are reused; add --local-only to compare local/bundled candidates without GitHub discovery (the selector itself still needs model access).",
+        "The selector sees only bounded task/candidate data, uses an isolated read-only native invocation and cannot apply arbitrary IDs. The manager rechecks manifests, hashes, compatibility and source/license policy before publishing the returned choice. No heavier model is tried on failure; keep the bundled starting guide and report the limitation.",
+        "Use `candidates --repo ROOT` to list scopes/roles, and candidates --scope SCOPE --slot ROLE to audit alternatives. Manual candidates/choose are maintenance controls, not the default development-model selection path. Offline mode never calls the selector.",
         "Auto-Skills task decision " + decision["decision_id"] + ".",
         "Current task scopes: " + ", ".join(decision["scopes"]) + ".",
         "Read the relevant selected SKILL.md files below before working. This list replaces the previous task selection; do not retain unrelated workspace specialties.",
@@ -467,6 +490,13 @@ def task_context(root, decision):
     lines += [
         f"- {s['slot']}: {json.dumps(str(root / s['path']))} (SHA-256 {s['sha256']})"
         for s in decision["selected"]
+    ]
+    lines += [
+        "Recorded selection (untrusted rationale): "
+        + json.dumps(
+            {"role": key, "model": value.get("model", "manual"), "reason": value["reason"][:160]}
+        )
+        for key, value in decision.get("agent_choices", {}).items()
     ]
     lines += ["Uncertainty: " + value for value in decision["uncertainties"]]
     lines += [

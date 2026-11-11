@@ -25,6 +25,17 @@ def refresh_tools(root, lock, plan, *, offline=False, cache_dir=None):
     added = wanted - set(old)
     added |= {
         name
+        for name in wanted & {"token-run", "repo-map"}
+        if old.get(name, {}).get("version") != "2"
+    }
+    added |= {
+        name
+        for name in wanted
+        if old.get(name, {}).get("status") == "unavailable"
+        and (not offline or (name == "rtk" and shutil.which("rtk")))
+    }
+    added |= {
+        name
         for name in wanted & optional_tools()
         if name in old and old[name]["status"] == "deferred" and not offline
     }
@@ -236,6 +247,11 @@ def refresh_plan(root, lock, profile, *, force=False, preset=None):
             force
             or migrate
             or reason
+            or (
+                candidate.source == "bundled"
+                and slot == "token-reasoning"
+                and "The wrapper defaults model_reasoning_effort to low." in candidate.body
+            )
             or lock.get("slot_inputs", {}).get(key) != slot_inputs(scoped, slot, candidate)
         ):
             affected.add(key)
@@ -245,7 +261,16 @@ def refresh_plan(root, lock, profile, *, force=False, preset=None):
 
 
 def refresh(
-    root, lock, profile, manifest_hashes, *, offline=False, force=False, cache_dir=None, preset=None
+    root,
+    lock,
+    profile,
+    manifest_hashes,
+    *,
+    offline=False,
+    force=False,
+    cache_dir=None,
+    preset=None,
+    seed_only=False,
 ):
     from .bootstrap import verify_lock
 
@@ -253,7 +278,13 @@ def refresh(
     profiles, policy = scoped_profiles(root, profile, preset)
     affected, removed, retained = refresh_plan(root, lock, profile, force=force, preset=preset)
     selected, report = selection_plan(
-        profile, offline=offline, slots=affected, cache_dir=cache_dir, root=root, preset=preset
+        profile,
+        offline=offline,
+        slots=affected,
+        cache_dir=cache_dir,
+        root=root,
+        preset=preset,
+        seed_only=seed_only,
     )
     reserve_skill_paths(root, selected, lock)
     refreshed = {slot_key(c.scope, c.slot): c for c in selected}
@@ -282,7 +313,7 @@ def refresh(
     previous_entries = {slot_key(e.get("scope", "."), e["slot"]): e for e in lock["skills"]}
     new_entries = [entries_by_slot.get(key) or previous_entries[key] for key in wanted]
     tools, tool_writes, tool_executable, tool_deletes, tools_changed = refresh_tools(
-        root, lock, report["tool_plan"], offline=offline, cache_dir=cache_dir
+        root, lock, report["tool_plan"], offline=offline or seed_only, cache_dir=cache_dir
     )
     writes.update(
         {
@@ -315,7 +346,16 @@ def refresh(
     report["coverage"]["bundled_slots"] = [
         slot_key(c.scope, c.slot) for c in ordered if c.source == "bundled"
     ]
-    from .config import agents_text
+    from .config import agents_text, local_config
+
+    # Only migrate exact generated defaults after verify_lock has checked ownership.
+    legacy = (
+        b"# Generated defaults; the wrapper also supplies explicit launch overrides.\n"
+        b'model_reasoning_effort = "low"\n'
+    )
+    for relative in (".codex/config.toml", ".codex/bootstrap.config.toml"):
+        if relative in lock["files"] and confined(root, relative).read_bytes() == legacy:
+            writes[relative] = local_config().encode()
 
     existing_agents = confined(root, "AGENTS.md").read_text(encoding="utf-8")
     updated_agents = agents_text(existing_agents).encode()
@@ -324,6 +364,17 @@ def refresh(
     writes[".codex/profile.json"] = json_text(profile.to_dict()).encode()
     writes[".codex/bootstrap-report.json"] = json_text(report).encode()
     updated = dict(lock)
+    updated["agent_choices"] = {
+        k: v for k, v in lock.get("agent_choices", {}).items() if k not in affected | removed
+    }
+    for entry in new_entries:
+        choice = updated["agent_choices"].get(slot_key(entry.get("scope", "."), entry["slot"]))
+        if choice:
+            entry["reason"] = choice["reason"]
+            entry["quality"]["method"] = "agent decision after deterministic eligibility checks"
+    report["selected"] = new_entries
+    report["agent_choices"] = updated["agent_choices"]
+    writes[".codex/bootstrap-report.json"] = json_text(report).encode()
     updated.update(
         {
             "manifest_hashes": manifest_hashes,
@@ -353,7 +404,7 @@ def refresh(
         or bool(report["discovery"].get("degraded"))
         or (bool(lock.get("degraded")) and bool(retained))
         or not report["coverage"]["remote_slots"]
-        or any(t["status"] != "installed" for t in tools)
+        or any(t["status"] == "unavailable" for t in tools)
     )
     report["degraded"] = updated["degraded"]
     writes[".codex/bootstrap-report.json"] = json_text(report).encode()
@@ -369,6 +420,8 @@ def refresh(
 
 
 def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
+    import shutil
+
     from .automatic_policy import optional_tools
     from .policy import tool_plan
 
@@ -380,6 +433,14 @@ def status(root, lock, profile, manifest_hashes, *, preset=None, offline=False):
         changed
         or lock.get("policy") != policy
         or lock.get("tool_plan") != tool_plan(profile, policy)
+        or any(
+            t["name"] in {"token-run", "repo-map"} and t.get("version") != "2"
+            for t in lock["tools"]
+        )
+        or any(
+            t["status"] == "unavailable" and t["name"] == "rtk" and shutil.which("rtk")
+            for t in lock["tools"]
+        )
         or (
             not offline
             and any(

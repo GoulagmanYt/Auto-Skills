@@ -12,6 +12,10 @@ from codex_bootstrap.bootstrap import bootstrap
 
 
 class TaskDecisionTests(IsolatedTestCase):
+    def test_french_security_prompt_selects_security_guidance(self):
+        result = self.decision("Vérifie la sécurité du projet.")
+        self.assertIn("security", [entry["slot"] for entry in result["selected"]])
+
     def test_cached_metadata_cannot_claim_consultation_or_model_requests(self):
         first = self.decision("Check Rust", session_id="metadata")
         state = next((self.directory / "cache/task-state-v1").rglob("*.json"))

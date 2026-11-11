@@ -7,6 +7,7 @@ prune docs
 include docs/positioning.md docs/usage.md docs/compatibility.md docs/security-model.md docs/benchmark.md docs/release.md docs/public-alpha.md docs/configuration.md docs/coverage.md
 include docs/automatic-skills.md
 include docs/architecture.md docs/diagnostics.md
+include docs/ai-selection.md
 recursive-include examples *.json *.toml *.py *.js *.mjs *.rs *.md *.txt
 recursive-include fixtures *.json *.toml *.py *.js *.mjs *.rs *.md *.txt
 recursive-include benchmarks *.json *.md

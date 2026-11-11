@@ -31,6 +31,8 @@ L’installeur conserve l’exécutable original et enregistre ses modifications
 
 ## Comprendre la sélection
 
+L’agent de développement identifie les besoins et délègue le choix des guides à **gpt-6-luna avec l’effort medium**, via le CLI Codex et son authentification existante. Ce sélecteur compare les candidats admissibles et enregistre son choix motivé, réutilisé pour une demande identique. Le premier lancement prépare un socle intégré rapide, avec une progression et la durée écoulée. [Fonctionnement détaillé](docs/ai-selection.md).
+
 ```sh
 codex-auto-bootstrap propose --repo ./projet --offline
 codex-auto-bootstrap context --repo ./projet
