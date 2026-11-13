@@ -56,6 +56,8 @@ Des listes d’autorisation permettent aussi de conserver certaines intégration
 
 Relancer l’installeur depuis la version souhaitée. Les changements de manifestes déclenchent une actualisation ciblée.
 
+Les mises à jour de Codex CLI restent gérées par Codex. Le wrapper conserve le chemin du lanceur natif et suit la version standalone courante, y compris pour les installations enregistrées par une ancienne version du wrapper.
+
 ```sh
 codex-auto-bootstrap refresh --repo ./projet --offline
 codex-auto-bootstrap uninstall --repo ./projet --dry-run

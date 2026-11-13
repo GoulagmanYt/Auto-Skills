@@ -11,6 +11,7 @@ import venv
 from contextlib import contextmanager
 from pathlib import Path
 
+from .codex_paths import launcher_path
 from .fs import atomic_write, command, confined, digest, json_text
 from .repository_uninstall import remove_block, restore, snapshot
 from .transaction import decoded
@@ -342,11 +343,13 @@ def install(
             raise ValueError("installation platform changed")
     elif base.exists() and any(base.iterdir()):
         raise ValueError("refusing to overwrite unowned installation directory")
-    real = real or (previous or {}).get("real_codex") or shutil.which("codex")
+    if real is None and previous:
+        real = launcher_path(previous["real_codex"], migrate_release=True)
+    real = real or shutil.which("codex")
     if real is None or not Path(real).is_file():
         raise ValueError("install Codex CLI before installing this wrapper")
-    real = str(Path(real).resolve())
-    if Path(real).is_relative_to(base):
+    real = str(launcher_path(real))
+    if Path(real).resolve().is_relative_to(base):
         raise ValueError("original Codex executable cannot be the wrapper")
     source = Path(source or Path(__file__).resolve().parents[2])
     chosen_profiles = shell_profiles(home, platform) if profiles is None else profiles

@@ -56,6 +56,8 @@ Allowlisted integrations can also be retained in strict mode. External configura
 
 Rerun the installer from the intended release to update the wrapper. Manifest changes trigger scoped refresh.
 
+Codex CLI updates remain managed by Codex. The wrapper preserves the native launcher path and follows the current standalone release, including installations recorded by older wrapper versions.
+
 ```sh
 codex-auto-bootstrap refresh --repo ./project --offline
 codex-auto-bootstrap uninstall --repo ./project --dry-run

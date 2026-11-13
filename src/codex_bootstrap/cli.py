@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from .bootstrap import bootstrap, check, git_root
+from .codex_paths import launcher_path
 from .config import launch_profile
 from .proposal import output_report, propose
 
@@ -93,22 +94,23 @@ def requested_prompt(args):
 def real_codex():
     override = os.environ.get("CODEX_BOOTSTRAP_REAL_CODEX")
     if override:
-        path = Path(override).expanduser().resolve()
+        path = launcher_path(override)
         if not path.is_file():
             raise ValueError("CODEX_BOOTSTRAP_REAL_CODEX is not a file")
         return [str(path)]
     config = Path.home() / ".local/share/codex-auto-bootstrap/installation.json"
     if config.is_file():
         data = json.loads(config.read_text())
-        if Path(data["real_codex"]).is_file():
-            return [data["real_codex"]]
+        path = launcher_path(data["real_codex"], migrate_release=True)
+        if path.is_file():
+            return [str(path)]
     candidate = shutil.which("codex")
     if not candidate:
         raise ValueError("Codex CLI not installed")
     resolved = Path(candidate).resolve()
     if "codex-auto-bootstrap" in str(resolved.parent):
         raise ValueError("recursive wrapper: real Codex path not recorded")
-    return [str(resolved)]
+    return [str(launcher_path(candidate))]
 
 
 def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
