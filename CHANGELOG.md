@@ -2,6 +2,8 @@
 
 ## Unreleased — reliability and structure
 
+- Fix concurrent first-time preparation on Windows when path resolution retains an extended prefix during directory creation. Preserve worker exit codes and sanitized diagnostics in the native concurrency check.
+
 - Update managed bootstrap installations from official GitHub `main` in the background, with daily checks, isolated SHA-pinned builds, atomic next-launch activation, interruption recovery and rollback. Preserve open sessions and refuse to overwrite modified installation files.
 
 - Add an F9 repository dashboard for managed skills, native plugin/MCP inventory and observed consultation/tool outcomes, preserving the running Codex session and composer draft.
