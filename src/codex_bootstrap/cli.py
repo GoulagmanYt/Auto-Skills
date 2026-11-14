@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 import sys
+import uuid
 from pathlib import Path
 
 from .bootstrap import bootstrap, check, git_root
@@ -121,6 +122,7 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     real_command = real_command or real_codex()
     env = dict(os.environ)
     env["CODEX_BOOTSTRAP_ACTIVE"] = "1"
+    env["CODEX_BOOTSTRAP_OBSERVATION_SESSION"] = uuid.uuid4().hex
     try:
         with ExitStack() as stack:
             launch_args = args
@@ -155,6 +157,17 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
                         )
                     )
                     progress.stage("Starting Codex; the agent will review the skill candidates")
+            from .terminal_dashboard import interactive_launch, run_terminal
+
+            if root is not None and interactive_launch(args):
+                print("Auto-Skills: F9 opens skills, plugins and observed usage.", file=sys.stderr)
+                return run_terminal(
+                    [*real_command, *launch_args],
+                    root,
+                    env=env,
+                    cwd=cwd,
+                    inventory_command=[*real_command, *launch_args[:2]],
+                )
             return subprocess.call([*real_command, *launch_args], env=env)
     except KeyboardInterrupt:
         return 130
@@ -167,6 +180,30 @@ def main(argv=None):
             stream.reconfigure(encoding="utf-8", errors="replace")
     args = list(sys.argv[1:] if argv is None else argv)
     try:
+        if args[:1] == ["dashboard"]:
+            from .dashboard import native_integrations, render, snapshot
+
+            parser = argparse.ArgumentParser(prog="codex-auto-bootstrap dashboard")
+            parser.add_argument("--repo", type=Path, default=Path.cwd())
+            parser.add_argument(
+                "--session", default=os.environ.get("CODEX_BOOTSTRAP_OBSERVATION_SESSION", "")
+            )
+            parser.add_argument("--json", action="store_true")
+            options = parser.parse_args(args[1:])
+            root = git_root(options.repo)
+            if root is None:
+                raise ValueError("not a Git repository")
+            report = snapshot(
+                root,
+                session=options.session,
+                integrations=native_integrations(real_codex(), cwd=options.repo),
+            )
+            if options.json:
+                print(json.dumps(report, ensure_ascii=False))
+            else:
+                for tab in range(3):
+                    print(render(report, tab=tab, height=1000))
+            return 0
         if args[:1] in (["candidates"], ["choose"], ["select"]):
             from .agent_selection import apply_choice, candidates, inspect_candidate
             from .progress import Progress

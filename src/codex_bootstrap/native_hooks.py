@@ -99,7 +99,7 @@ def hook_overrides(real_command, root):
     command = " ".join(map(shlex.quote, [sys.executable, "-I", "-m", "codex_bootstrap.hooks"]))
     if os.name == "nt":
         command = "& '" + sys.executable.replace("'", "''") + "' -I -m codex_bootstrap.hooks"
-    expected = {event: command for event in ("SessionStart", "UserPromptSubmit")}
+    expected = {event: command for event in ("SessionStart", "UserPromptSubmit", "PostToolUse")}
     definitions = {
         event: [
             {
@@ -107,9 +107,11 @@ def hook_overrides(real_command, root):
                     {
                         "type": "command",
                         "command": cmd,
-                        "timeout": 180,
+                        "timeout": 5 if event == "PostToolUse" else 180,
                         "additionalContextLimit": 8000,
-                        "statusMessage": "Preparing task skills",
+                        "statusMessage": "Observing tool usage"
+                        if event == "PostToolUse"
+                        else "Preparing task skills",
                     }
                 ]
             }
