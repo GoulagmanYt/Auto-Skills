@@ -15,6 +15,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from contextlib import ExitStack
 from pathlib import Path
 from unittest.mock import patch
 
@@ -26,9 +27,9 @@ from codex_bootstrap.repository_uninstall import uninstall_repository
 from codex_bootstrap.task import prepare_task
 
 try:
-    from tools.verify_native_install import assert_catalog, isolated_environment
+    from tools.verify_native_install import assert_catalog, isolated_environment, sanitized
 except ModuleNotFoundError:
-    from verify_native_install import assert_catalog, isolated_environment
+    from verify_native_install import assert_catalog, isolated_environment, sanitized
 
 
 def run(command, *, root, env, timeout=60):
@@ -46,6 +47,49 @@ def run(command, *, root, env, timeout=60):
     if result.returncode:
         raise RuntimeError(f"{Path(str(command[0])).name} exited {result.returncode}")
     return result.stdout
+
+
+def run_concurrently(command, *, root, env, evidence, timeout=60):
+    """Keep failed worker diagnostics and reap all children on every exit path."""
+    children, logs = [], []
+    deadline = time.monotonic() + timeout
+    try:
+        with ExitStack() as stack:
+            try:
+                for index in range(2):
+                    path = evidence / f"concurrent-bootstrap-{index}.log"
+                    stream = stack.enter_context(path.open("w+b"))
+                    logs.append(path)
+                    children.append(
+                        subprocess.Popen(
+                            list(map(str, command)),
+                            cwd=root,
+                            env=env,
+                            stdin=subprocess.DEVNULL,
+                            stdout=stream,
+                            stderr=subprocess.STDOUT,
+                        )
+                    )
+                return [
+                    child.wait(timeout=max(0, deadline - time.monotonic())) for child in children
+                ]
+            finally:
+                for child in children:
+                    if child.poll() is None:
+                        child.kill()
+                for child in children:
+                    child.wait()
+    finally:
+        for index, path in enumerate(logs):
+            with path.open("rb") as stream:
+                stream.seek(max(0, path.stat().st_size - 16000))
+                detail = sanitized(stream.read().decode("utf-8", errors="replace"), root.parent)
+            path.write_text(detail, encoding="utf-8")
+            if index < len(children) and children[index].returncode:
+                print(
+                    f"concurrent bootstrap {index} exited {children[index].returncode}: {detail}",
+                    file=sys.stderr,
+                )
 
 
 def local_guide(home, name, slot, technology):
@@ -230,19 +274,16 @@ def demonstrate(codex, directory, evidence, *, network=False, agent=False, model
         # Two actual first preparations must converge on one committed lock.
         concurrent = directory / "concurrent-repository"
         fixture(concurrent)
-        children = [
-            subprocess.Popen(
-                [*launcher, "bootstrap", "--repo", str(concurrent), "--offline"],
-                env=env,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            for _ in range(2)
-        ]
-        codes = [child.wait(timeout=60) for child in children]
+        codes = run_concurrently(
+            [*launcher, "bootstrap", "--repo", str(concurrent), "--offline"],
+            root=concurrent,
+            env=env,
+            evidence=evidence,
+        )
         check(
             "concurrent-first-installation-coherent",
             codes == [0, 0] and bool(verify_lock(concurrent)),
+            exit_codes=codes,
         )
         uninstall_repository(concurrent)
         interrupted = directory / "interrupted-repository"

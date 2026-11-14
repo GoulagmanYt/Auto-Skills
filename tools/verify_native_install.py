@@ -67,7 +67,7 @@ def sanitized(message, temporary=None):
         for value in (str(path), path.as_posix(), json.dumps(str(path))[1:-1]):
             message = message.replace(value, label)
     message = re.sub(
-        r"\b(?:sk-[\w-]{12,}|gh[pousr]_[\w]{12,}|github_pat_[\w]{12,})", "<REDACTED>", message
+        r"(?:sk-[\w-]{12,}|gh[pousr]_[\w]{12,}|github_pat_[\w]{12,})", "<REDACTED>", message
     )
     message = re.sub(r"(https?://)[^/\s:@]+:[^/\s@]+@", r"\1<REDACTED>@", message)
     message = re.sub(r"(?i)(authorization:\s*(?:Bearer|Basic)\s+)\S+", r"\1<REDACTED>", message)
