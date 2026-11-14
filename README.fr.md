@@ -31,6 +31,8 @@ L’installeur conserve l’exécutable original et enregistre ses modifications
 
 ## Comprendre la sélection
 
+Dans une session interactive lancée avec Auto-Skills, **F9** ouvre le tableau de bord du dépôt. Les onglets **1 Skills**, **2 Plugins** et **3 MCP** affichent les fichiers installés, les lectures observées et les résultats des appels d’outils. **F9**, **Échap** ou **Q** revient à Codex en conservant la saisie. Un plugin sans appel observable reste **non vérifié**. [Détails et limites](docs/usage.md#keyboard-dashboard).
+
 L’agent de développement identifie les besoins et délègue le choix des guides à **gpt-6-luna avec l’effort medium**, via le CLI Codex et son authentification existante. Ce sélecteur compare les candidats admissibles et enregistre son choix motivé, réutilisé pour une demande identique. Le premier lancement prépare un socle intégré rapide, avec une progression et la durée écoulée. [Fonctionnement détaillé](docs/ai-selection.md).
 
 ```sh
@@ -55,6 +57,8 @@ Des listes d’autorisation permettent aussi de conserver certaines intégration
 ## Mise à jour et retrait
 
 Relancer l’installeur depuis la version souhaitée. Les changements de manifestes déclenchent une actualisation ciblée.
+
+Les mises à jour de Codex CLI restent gérées par Codex. Le wrapper conserve le chemin du lanceur natif et suit la version standalone courante, y compris pour les installations enregistrées par une ancienne version du wrapper.
 
 ```sh
 codex-auto-bootstrap refresh --repo ./projet --offline

@@ -18,6 +18,31 @@ codex -C ./project/backend
 
 A manifest change refreshes affected slots. Unchanged pinned guides and tools are reused. `refresh --all` deliberately reselects all slots. A modified managed artifact fails integrity verification; inspect the change before deciding how to restore it.
 
+## Keyboard dashboard
+
+Interactive repository launches automatically host the unchanged Codex terminal in a pseudo terminal. Press **F9** to open or close the Auto-Skills dashboard. **1**, **2**, **3** or **Tab** switches between Skills, Plugins and MCP. **Up/Down** scrolls, **R** reloads native inventories, and **Esc/Q** returns to Codex. Codex keeps running while the panel is open; the panel does not submit a chat turn or change the composer draft.
+
+Keyboard batches preserve their order when closing the panel. Bracketed paste is forwarded unchanged while Codex has focus and ignored while the read-only dashboard is open, so pasted text cannot invoke panel shortcuts or submit commands.
+
+The dashboard shows managed skill files and their integrity, plugin/MCP inventory and repository integration policy. Auto-Skills manages skills and tooling; it does not install the plugins listed by the native Codex inventory. Strict-mode exclusions remain visible as disabled. Native inventory commands do not start MCP servers or invoke plugin tools.
+
+Usage evidence comes from the manager-owned `PostToolUse` hook. A supported literal file read, including through `token-run`, counts as a consultation when its successful result is known or the actual guide content is present in native text output. Arbitrary dynamic shell/Python reads may remain unobserved. Reading a guide does not certify that the model applied its instructions. Plugin/MCP health describes the latest associated observed call, not a continuing availability guarantee. No call, missing hook evidence or an ambiguous result means **unverified**, not healthy. Plugin association is limited to known MCP declarations; other observed server calls remain visible in the MCP tab.
+
+Evidence is limited to the current wrapper launch and the latest 1,000 relevant tool calls. Only repository-relative guide paths, server names, timestamps and outcomes are retained in the user cache; tool arguments, output, credentials and prompts are not stored. The dashboard never changes hook trust for external plugins or servers.
+
+Refreshes reuse unchanged observation records in memory; changed, replaced or deleted records invalidate those entries. **R** forces a fresh read. Skill integrity still hashes the files on refresh. Malformed evidence is ignored, a broken plugin manifest does not hide other plugins, and native inventory processes are cancelled and reaped when the terminal closes. Text is clipped by display cells so wide characters cannot spill across terminal rows.
+
+Run `python tools/benchmark_dashboard.py` for a reproducible comparison of cached and uncached refreshes using 1,000 synthetic events in an isolated temporary cache. `python tools/verify_dashboard.py --repo . --codex /path/to/codex` checks the real native terminal without sending a model prompt; the native CI matrix also runs this check.
+
+For a terminal without F9, inspect a snapshot with:
+
+```sh
+codex-auto-bootstrap dashboard --repo ./project
+codex-auto-bootstrap dashboard --repo ./project --json
+```
+
+Outside a running wrapper session, this command has no current-session usage evidence. Set `CODEX_BOOTSTRAP_DASHBOARD=0` to use the native terminal directly. Piped/noninteractive commands such as `codex exec` bypass the terminal host automatically. Windows uses ConPTY (Windows 10 1809+); Linux/macOS use the system PTY. There is no native Codex tab extension or binary modification.
+
 ## Integrations
 
 Strict mode is the default. Configure a repository using an unowned `.codex/integrations.toml`:

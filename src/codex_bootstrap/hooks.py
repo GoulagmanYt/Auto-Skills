@@ -15,6 +15,17 @@ from .task import prepare_task, repository_identity, task_context
 def handle_event(event):
     import hashlib
 
+    if isinstance(event, dict) and event.get("hook_event_name") == "PostToolUse":
+        # Observability is advisory: it never changes a tool result or user turn.
+        try:
+            from .observations import record_tool_event
+
+            root = git_root(Path(event.get("cwd", str(Path.cwd()))))
+            if root is not None:
+                record_tool_event(root, event)
+        except (OSError, ValueError, TypeError, KeyError, RecursionError):
+            pass
+        return {}
     if not isinstance(event, dict) or event.get("hook_event_name") not in {
         "SessionStart",
         "UserPromptSubmit",

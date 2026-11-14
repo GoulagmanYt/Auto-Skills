@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from suite_support import IsolatedTestCase
 
@@ -49,6 +50,25 @@ class InstallerTests(IsolatedTestCase):
             package_install=lambda base, source: self.real,
             **kwargs,
         )
+
+    def test_install_preserves_codex_launcher_alias(self):
+        requested, canonical = self.ancestor_alias_home()
+        (canonical / "codex.exe").write_bytes(b"native executable")
+        launcher = requested / "codex.exe"
+        record = installer.install(
+            home=self.home,
+            real=launcher,
+            source=self.home,
+            platform="posix",
+            profiles=[],
+            package_install=lambda base, source: self.real,
+        )
+        self.assertEqual(json.loads(record.read_text())["real_codex"], str(launcher))
+
+        from codex_bootstrap.cli import real_codex
+
+        with patch.dict(os.environ, {"CODEX_BOOTSTRAP_REAL_CODEX": str(launcher)}):
+            self.assertEqual(real_codex(), [str(launcher)])
 
     def ancestor_alias_home(self):
         parent = self.home / "canonical-parent"

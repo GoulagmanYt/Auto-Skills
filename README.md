@@ -31,6 +31,8 @@ The installer preserves the original executable and records its PATH/profile cha
 
 ## Inspect decisions
 
+In an interactive Auto-Skills session, **F9** opens the repository dashboard. Tabs **1 Skills**, **2 Plugins** and **3 MCP** show installed files, observed reads and tool-call outcomes. **F9**, **Esc** or **Q** returns to Codex with the draft preserved. Plugins without observed calls remain **unverified**. [Controls and evidence limits](docs/usage.md#keyboard-dashboard).
+
 The development agent identifies requirements and delegates guide comparison to **gpt-6-luna with medium effort**, using the existing Codex CLI authentication. The selector records an explicit choice and reason, reused for an identical request. First launch uses a fast bundled starting context with elapsed-time progress on stderr. [Agent selection workflow](docs/ai-selection.md).
 
 ```sh
@@ -55,6 +57,8 @@ Allowlisted integrations can also be retained in strict mode. External configura
 ## Update or remove
 
 Rerun the installer from the intended release to update the wrapper. Manifest changes trigger scoped refresh.
+
+Codex CLI updates remain managed by Codex. The wrapper preserves the native launcher path and follows the current standalone release, including installations recorded by older wrapper versions.
 
 ```sh
 codex-auto-bootstrap refresh --repo ./project --offline
