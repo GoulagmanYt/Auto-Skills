@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import subprocess
+import time
 import unicodedata
 from pathlib import Path
 
@@ -11,30 +12,59 @@ from .config import integration_settings
 from .observations import read_observations
 
 
-def native_integrations(command, *, env=None, cwd=None):
+def inventory_json(command, *, env=None, cwd=None, cancel=None):
+    """Bound metadata processes and reap them when the panel's owner exits."""
+    with subprocess.Popen(
+        command,
+        env=env,
+        cwd=cwd,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+    ) as process:
+        deadline = time.monotonic() + 15
+        try:
+            while True:
+                if (cancel is not None and cancel.is_set()) or time.monotonic() >= deadline:
+                    raise TimeoutError("native inventory cancelled or timed out")
+                try:
+                    output, _ = process.communicate(timeout=0.1)
+                    break
+                except subprocess.TimeoutExpired:
+                    continue
+            if process.returncode or len(output) > 2_000_000:
+                raise ValueError("native inventory unavailable")
+            return json.loads(output)
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.communicate(timeout=2)
+
+
+def native_integrations(command, *, env=None, cwd=None, cancel=None):
     """Read native inventories, without starting servers or invoking plugin tools."""
     result = {"plugins": [], "mcp": [], "errors": []}
     for kind, args in (
         ("plugins", ["plugin", "list", "--json"]),
         ("mcp", ["mcp", "list", "--json"]),
     ):
+        if cancel is not None and cancel.is_set():
+            break
         try:
-            process = subprocess.run(
-                [*command, *args],
-                env=env,
-                cwd=cwd,
-                capture_output=True,
-                timeout=15,
-                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
-            )
-            if process.returncode or len(process.stdout) > 2_000_000:
-                raise ValueError("native inventory unavailable")
-            data = json.loads(process.stdout)
+            data = inventory_json([*command, *args], env=env, cwd=cwd, cancel=cancel)
+            if kind == "plugins" and not isinstance(data, dict):
+                raise ValueError("unsupported native plugin inventory")
             items = data.get("installed", []) if kind == "plugins" else data
             if not isinstance(items, list):
                 raise ValueError("unsupported native inventory")
             for item in items[:1000]:
                 if not isinstance(item, dict):
+                    continue
+                if not isinstance(item.get("name"), str) or not isinstance(
+                    item.get("pluginId", ""), str
+                ):
+                    result["errors"].append(kind + ": identifiant invalide")
                     continue
                 if kind == "plugins":
                     name = item.get("name", "")
@@ -42,12 +72,20 @@ def native_integrations(command, *, env=None, cwd=None):
                     servers = []
                     source = item.get("source", {})
                     if isinstance(source, dict) and isinstance(source.get("path"), str):
-                        manifest = Path(source["path"]) / ".mcp.json"
-                        if manifest.is_file() and manifest.stat().st_size <= 100_000:
-                            payload = json.loads(manifest.read_text(encoding="utf-8"))
-                            declarations = payload.get("mcpServers", payload)
-                            if isinstance(declarations, dict):
+                        try:
+                            manifest = Path(source["path"]) / ".mcp.json"
+                            if manifest.is_file() and manifest.stat().st_size <= 100_000:
+                                payload = json.loads(manifest.read_text(encoding="utf-8"))
+                                declarations = (
+                                    payload.get("mcpServers", payload)
+                                    if isinstance(payload, dict)
+                                    else None
+                                )
+                                if not isinstance(declarations, dict):
+                                    raise ValueError("invalid MCP manifest")
                                 servers.extend(k for k in declarations if isinstance(k, str))
+                        except (OSError, ValueError, RecursionError):
+                            result["errors"].append("plugins: manifeste MCP invalide")
                     result[kind].append(
                         {
                             "id": item.get("pluginId", name),
@@ -61,19 +99,31 @@ def native_integrations(command, *, env=None, cwd=None):
                     result[kind].append(
                         {"name": item.get("name", ""), "enabled": item.get("enabled") is True}
                     )
-        except (OSError, ValueError, TypeError, subprocess.SubprocessError):
+        except (OSError, ValueError, TypeError, RecursionError, subprocess.SubprocessError):
             result["errors"].append(kind + ": inventaire natif indisponible")
     return result
 
 
-def snapshot(root, *, session="", integrations=None):
+def snapshot(root, *, session="", integrations=None, observation_cache=None):
     root = root.resolve()
     lock_path = root / ".codex/skills-lock.json"
     if lock_path.stat().st_size > 4_000_000:
         raise ValueError("skill lock exceeds dashboard budget")
-    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    try:
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    except RecursionError as exc:
+        raise ValueError("invalid dashboard skill lock") from exc
+    if (
+        not isinstance(lock, dict)
+        or not isinstance(lock.get("skills"), list)
+        or not all(isinstance(s, dict) for s in lock["skills"])
+        or not isinstance(lock.get("files", {}), dict)
+    ):
+        raise ValueError("invalid dashboard skill lock")
+    if any(not isinstance(s.get("path"), str) for s in lock["skills"]):
+        raise ValueError("invalid dashboard skill paths")
     policy = integration_settings(root)
-    events = read_observations(root, session)
+    events = read_observations(root, session, cache=observation_cache)
     reads, servers = {}, {}
     for event in events:
         for path in event.get("reads", []):
@@ -146,6 +196,27 @@ def clean(value):
     return "".join(c if not unicodedata.category(c).startswith("C") else " " for c in str(value))
 
 
+def clipped(value, width):
+    result, cells = [], 0
+    text = clean(value)
+    for index, character in enumerate(text):
+        size = (
+            0
+            if unicodedata.category(character) in {"Mn", "Me"}
+            else 2
+            if unicodedata.east_asian_width(character) in {"W", "F"}
+            else 1
+        )
+        # VS16 and keycap marks promote otherwise narrow bases to emoji width.
+        if size and index + 1 < len(text) and text[index + 1] in {"\ufe0f", "\u20e3"}:
+            size = 2
+        if cells + size > width:
+            break
+        result.append(character)
+        cells += size
+    return "".join(result)
+
+
 def render(report, *, tab=0, width=100, height=30, offset=0):
     status = {
         "ok": "OK (observe)",
@@ -185,4 +256,4 @@ def render(report, *, tab=0, width=100, height=30, offset=0):
     rows.extend(report.get("errors", []))
     lines.extend(rows[max(0, offset) : max(0, offset) + max(0, height - 7)])
     lines.extend(["", "Haut/Bas : defiler | Actif ne signifie pas fonctionnel"])
-    return "\n".join(clean(line)[: max(1, width)] for line in lines[: max(1, height)])
+    return "\n".join(clipped(line, max(1, width)) for line in lines[: max(1, height)])

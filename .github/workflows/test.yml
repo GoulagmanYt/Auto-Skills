@@ -92,6 +92,7 @@ jobs:
           if [ "$RUNNER_OS" = "Windows" ]; then codex_path="$codex_path.cmd"; fi
           python tools/verify_native_install.py --codex "$codex_path" --expected-codex-version 0.166.0 --artifact dist-ci/*.whl --artifact dist-ci/*.tar.gz
           python -m pip install --no-deps dist-ci/*.whl
+          python tools/verify_dashboard.py --codex "$codex_path" --repo .
           python tools/verify_automatic_skills.py --codex "$codex_path" --output "$RUNNER_TEMP/automatic-skills.json" --evidence "$RUNNER_TEMP/automatic-skills-evidence"
   skill-matrix:
     runs-on: ubuntu-latest

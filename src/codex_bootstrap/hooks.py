@@ -23,7 +23,7 @@ def handle_event(event):
             root = git_root(Path(event.get("cwd", str(Path.cwd()))))
             if root is not None:
                 record_tool_event(root, event)
-        except (OSError, ValueError, TypeError, KeyError):
+        except (OSError, ValueError, TypeError, KeyError, RecursionError):
             pass
         return {}
     if not isinstance(event, dict) or event.get("hook_event_name") not in {

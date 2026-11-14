@@ -99,7 +99,7 @@ class ConsoleProcessTests(IsolatedTestCase):
                 self.assertIn(marker, transcript)
 
             try:
-                until(b"CODEX_READY")
+                until(b"F9 opens skills")
                 child.write(b"draft")
                 child.write(b"\x1b[120;67;0;1;0;1_" if os.name == "nt" else b"\x1b[20~")
                 until(b"AUTO-SKILLS")

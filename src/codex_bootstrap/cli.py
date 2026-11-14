@@ -160,7 +160,6 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
             from .terminal_dashboard import interactive_launch, run_terminal
 
             if root is not None and interactive_launch(args):
-                print("Auto-Skills: F9 opens skills, plugins and observed usage.", file=sys.stderr)
                 return run_terminal(
                     [*real_command, *launch_args],
                     root,

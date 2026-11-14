@@ -55,7 +55,7 @@ def main():
             except queue.Empty:
                 pass
         if marker not in transcript:
-            raise RuntimeError("native dashboard smoke test did not reach its next screen")
+            raise RuntimeError(f"native dashboard did not reach {marker!r}; exit={child.poll()}")
 
     try:
         until(b"F9 opens skills")

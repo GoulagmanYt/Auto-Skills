@@ -110,6 +110,24 @@ class DashboardTests(IsolatedTestCase):
         self.assertEqual(snapshot(self.root, session="one")["skills"][0]["reads"], 1)
         self.assertEqual(snapshot(self.root, session="two")["skills"][0]["reads"], 0)
 
+    def test_native_discovery_alias_counts_as_the_same_managed_skill(self):
+        from codex_bootstrap.dashboard import snapshot
+
+        discovery = self.root / ".agents/skills/python/SKILL.md"
+        discovery.parent.mkdir(parents=True)
+        discovery.write_text(self.guide.read_text())
+        self.lock["skills"][0]["discovery_path"] = ".agents/skills/python/SKILL.md"
+        (self.root / ".codex/skills-lock.json").write_text(json.dumps(self.lock))
+        self.observe("read_file", {"path": str(discovery)}, {"content": "# Python guide"})
+        self.assertEqual(snapshot(self.root, session="one")["skills"][0]["reads"], 1)
+
+    def test_mcp_usage_does_not_depend_on_parsing_the_skill_lock(self):
+        from codex_bootstrap.observations import read_observations
+
+        (self.root / ".codex/skills-lock.json").write_text("{invalid")
+        self.observe("mcp__example__lookup", {}, {"isError": False})
+        self.assertEqual(read_observations(self.root, "one")[0]["server"], "example")
+
     def test_failed_read_and_merely_mentioning_path_are_not_consultation(self):
         from codex_bootstrap.dashboard import snapshot
 

@@ -28,6 +28,10 @@ Usage evidence comes from the manager-owned `PostToolUse` hook. A supported lite
 
 Evidence is limited to the current wrapper launch and the latest 1,000 relevant tool calls. Only repository-relative guide paths, server names, timestamps and outcomes are retained in the user cache; tool arguments, output, credentials and prompts are not stored. The dashboard never changes hook trust for external plugins or servers.
 
+Refreshes reuse unchanged observation records in memory; changed, replaced or deleted records invalidate those entries. **R** forces a fresh read. Skill integrity still hashes the files on refresh. Malformed evidence is ignored, a broken plugin manifest does not hide other plugins, and native inventory processes are cancelled and reaped when the terminal closes. Text is clipped by display cells so wide characters cannot spill across terminal rows.
+
+Run `python tools/benchmark_dashboard.py` for a reproducible comparison of cached and uncached refreshes using 1,000 synthetic events in an isolated temporary cache. `python tools/verify_dashboard.py --repo . --codex /path/to/codex` checks the real native terminal without sending a model prompt; the native CI matrix also runs this check.
+
 For a terminal without F9, inspect a snapshot with:
 
 ```sh

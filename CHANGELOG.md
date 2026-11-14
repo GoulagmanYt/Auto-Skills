@@ -2,6 +2,11 @@
 
 ## Unreleased — reliability and structure
 
+- Add an F9 repository dashboard for managed skills, native plugin/MCP inventory and observed consultation/tool outcomes, preserving the running Codex session and composer draft.
+- Cache unchanged observation records, isolate malformed metadata, bound and cancel native inventory processes, and handle Windows keyboard records and wide/emoji terminal text safely.
+- Follow stable native Codex launchers across standalone updates; recover legacy records pinned to removed releases.
+- Add reproducible dashboard benchmarks and a no-inference native terminal smoke check to the Windows/macOS/Linux compatibility matrix.
+
 - Preserve the user's development model and reasoning effort; migrate owned legacy low-effort defaults and guidance.
 - Fix Windows Unicode output and nested repository tool launchers; reuse working local RTK offline and distinguish deferred optional tools from failures.
 - Delegate guide comparison to an independent native `gpt-6-luna / medium` selector through bounded candidate catalogs and justified transactional choices; reuse identical requests without another model call.

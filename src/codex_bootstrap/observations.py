@@ -9,6 +9,7 @@ import shlex
 import time
 from itertools import islice
 from pathlib import Path
+from stat import S_ISLNK
 
 from .fs import atomic_write, json_text
 from .github import default_cache_dir
@@ -61,13 +62,14 @@ def literal_reads(command, depth=0):
 
     if (
         len(tokens) > 2
-        and Path(unquote(tokens[0])).name.lower() in {"token-run", "token-run.cmd", "token-run.ps1"}
+        and unquote(tokens[0]).replace("\\", "/").rsplit("/", 1)[-1].lower()
+        in {"token-run", "token-run.cmd", "token-run.ps1"}
         and tokens[1] == "--"
     ):
         tokens = tokens[2:]
     if not tokens:
         return []
-    program = Path(unquote(tokens[0])).name.lower().removesuffix(".exe")
+    program = unquote(tokens[0]).replace("\\", "/").rsplit("/", 1)[-1].lower().removesuffix(".exe")
     if program in {"powershell", "pwsh"}:
         for index, token in enumerate(tokens[1:], 1):
             if token.lower() in {"-command", "-c"}:
@@ -126,14 +128,21 @@ def record_tool_event(root, event):
                 except (ValueError, SyntaxError):
                     paths = []
         lock_path = root / ".codex/skills-lock.json"
-        if lock_path.is_file() and lock_path.stat().st_size <= 4_000_000:
+        if paths and lock_path.is_file() and lock_path.stat().st_size <= 4_000_000:
             lock = json.loads(lock_path.read_text(encoding="utf-8"))
             cwd = Path(event.get("cwd", str(root)))
             requested = {(cwd / p).resolve() for p in paths if isinstance(p, str) and p}
             for skill in lock.get("skills", []):
                 path = skill.get("path", "")
                 target = (root / path).resolve()
-                if target.is_relative_to(root.resolve()) and target in requested:
+                aliases = [target]
+                if isinstance(skill.get("discovery_path"), str):
+                    discovery = (root / skill["discovery_path"]).resolve()
+                    if discovery.is_relative_to(root.resolve()):
+                        aliases.append(discovery)
+                if target.is_relative_to(root.resolve()) and any(
+                    alias in requested for alias in aliases
+                ):
                     verified_read = result == "ok" and not require_contents
                     returned_text = response if isinstance(response, str) else ""
                     if isinstance(response, dict):
@@ -172,20 +181,46 @@ def record_tool_event(root, event):
         directory / (hashlib.sha256(call.encode()).hexdigest() + ".json"), json_text(record)
     )
     # Keep disk use bounded for long sessions. Each file is independently replaceable.
-    files = sorted(islice(directory.glob("*.json"), 1100), key=lambda p: p.stat().st_mtime_ns)
-    for old in files[:-1000]:
-        old.unlink(missing_ok=True)
+    files = list(islice(directory.glob("*.json"), 1100))
+    if len(files) > 1000:
+        files.sort(key=lambda p: p.stat().st_mtime_ns)
+        for old in files[:-1000]:
+            old.unlink(missing_ok=True)
 
 
-def read_observations(root, session):
+def read_observations(root, session, *, cache=None):
     records = []
+    seen = set()
     for path in islice(observation_directory(root, session).glob("*.json"), 1000):
         try:
-            if path.is_symlink() or path.stat().st_size > 32_000:
+            seen.add(path)
+            stat = path.lstat()
+            if S_ISLNK(stat.st_mode) or stat.st_size > 32_000:
                 continue
-            value = json.loads(path.read_text(encoding="utf-8"))
-            if isinstance(value, dict) and value.get("version") == 1:
-                records.append(value)
-        except (OSError, ValueError):
+            stamp = (stat.st_mtime_ns, stat.st_ctime_ns, stat.st_ino, stat.st_size)
+            previous = cache.get(path) if cache is not None else None
+            value = (
+                previous[1]
+                if previous and previous[0] == stamp
+                else json.loads(path.read_text(encoding="utf-8"))
+            )
+            if (
+                not isinstance(value, dict)
+                or value.get("version") != 1
+                or type(value.get("time")) is not int
+                or not isinstance(value.get("reads"), list)
+                or not all(isinstance(p, str) for p in value["reads"])
+                or not isinstance(value.get("server"), str)
+                or not isinstance(value.get("outcome"), str)
+                or value.get("outcome") not in {"ok", "error", "unverified"}
+            ):
+                continue
+            if cache is not None:
+                cache[path] = (stamp, value)
+            records.append(value)
+        except (OSError, ValueError, RecursionError):
             continue
+    if cache is not None:
+        for stale in set(cache) - seen:
+            del cache[stale]
     return sorted(records, key=lambda v: v.get("time", 0))

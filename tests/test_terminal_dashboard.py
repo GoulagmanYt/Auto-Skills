@@ -4,6 +4,16 @@ from suite_support import IsolatedTestCase
 
 
 class TerminalDashboardTests(IsolatedTestCase):
+    def test_windows_surrogate_key_records_do_not_crash_open_panel(self):
+        from codex_bootstrap.terminal_dashboard import PanelState
+
+        panel = PanelState()
+        panel.handle("toggle", b"")
+        self.assertEqual(
+            panel.handle("input", b"\x1b[0;0;55357;1;0;1_\x1b[0;0;56832;1;0;1_"), "redraw"
+        )
+        self.assertTrue(panel.open)
+
     def test_dashboard_key_release_is_not_forwarded_after_close(self):
         from codex_bootstrap.terminal_dashboard import InputDecoder, PanelState
 

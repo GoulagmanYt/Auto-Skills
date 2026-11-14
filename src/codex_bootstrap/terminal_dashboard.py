@@ -165,7 +165,8 @@ class PanelState:
                 return b""
             code = int(match[3])
             if code:
-                return chr(code).encode("utf-8") if code <= 0x10FFFF else b""
+                # Panel controls are ASCII; preserve UTF-16 events only for Codex.
+                return bytes([code]) if code < 128 else b""
             return {38: b"\x1b[A", 40: b"\x1b[B"}.get(int(match[1]), b"")
 
         data = re.sub(rb"\x1b\[(\d+);(\d+);(\d+);(\d+);(\d+);(\d+)_", windows_key, data)
@@ -244,6 +245,8 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
     panel, decoder = PanelState(), InputDecoder()
     integrations = {"plugins": [], "mcp": [], "errors": []}
     checking = False
+    refresh_thread = None
+    observation_cache = {}
     size = shutil.get_terminal_size((100, 30))
     session = env.get("CODEX_BOOTSTRAP_OBSERVATION_SESSION", "")
 
@@ -269,11 +272,21 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
             send(kind + "_eof", b"")
 
     def refresh():
-        send("inventory", native_integrations(inventory_command or command[:1], env=env, cwd=cwd))
+        send(
+            "inventory",
+            native_integrations(
+                inventory_command or command[:1], env=env, cwd=cwd, cancel=stopping
+            ),
+        )
 
     def display():
         try:
-            report = snapshot(root, session=session, integrations=integrations)
+            report = snapshot(
+                root,
+                session=session,
+                integrations=integrations,
+                observation_cache=observation_cache,
+            )
             text = render(
                 report,
                 tab=panel.tab,
@@ -308,6 +321,9 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
             return buffer.raw[: count.value]
 
         threading.Thread(target=drain, args=(read_keyboard, "input"), daemon=True).start()
+        os.write(
+            sys.stdout.fileno(), b"Auto-Skills: F9 opens skills, plugins and observed usage.\r\n"
+        )
         redraw_at, restore_at, input_at = 0.0, 0.0, 0.0
         if start_open:
             panel.open = True
@@ -358,16 +374,21 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
                         restore_at = now + 0.08
                     elif action != "ignore":
                         redraw_at = 0
+                        if action == "refresh":
+                            observation_cache.clear()
                         if not checking and (action == "refresh" or not integrations.get("loaded")):
                             checking = True
                             integrations["loaded"] = True
-                            threading.Thread(target=refresh, daemon=True).start()
+                            refresh_thread = threading.Thread(target=refresh, daemon=True)
+                            refresh_thread.start()
             code = child.poll()
             return code if code is not None else 130
         finally:
             stopping.set()
             child.close()
             reader.join(timeout=2)
+            if refresh_thread is not None:
+                refresh_thread.join(timeout=2)
             while not events.empty():
                 kind, data = events.get_nowait()
                 if kind == "output" and not panel.open:
