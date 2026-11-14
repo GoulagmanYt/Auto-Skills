@@ -9,11 +9,14 @@ import sys
 import tempfile
 import venv
 from contextlib import contextmanager
+from functools import wraps
+from importlib.resources import files as package_files
 from pathlib import Path
 
 from .codex_paths import launcher_path
 from .fs import atomic_write, command, confined, digest, json_text
 from .repository_uninstall import remove_block, restore, snapshot
+from .runtime_loader import installation_mutex, state_directory
 from .transaction import decoded
 
 BEGIN = "# >>> codex-auto-bootstrap >>>"
@@ -92,8 +95,62 @@ def install_package(base, source):
             str(source),
         ],
         timeout=300,
+        env=dict(os.environ, CODEX_BOOTSTRAP_DISABLE_RUNTIME="1"),
     )
     return python
+
+
+def install_runtime_loader(base, python):
+    """Install the stable entry selector only inside our own virtual environment."""
+    if not python.is_relative_to(base) or not (base / "venv/pyvenv.cfg").is_file():
+        return
+    env = dict(os.environ, CODEX_BOOTSTRAP_DISABLE_RUNTIME="1")
+    site = Path(
+        command(
+            [python, "-I", "-B", "-c", "import sysconfig;print(sysconfig.get_path('purelib'))"],
+            timeout=15,
+            env=env,
+        ).strip()
+    ).resolve()
+    if not site.is_relative_to(base):
+        raise ValueError("managed Python site-packages is outside installation")
+    loader = site / "_codex_auto_bootstrap_runtime.py"
+    atomic_write(
+        loader, package_files("codex_bootstrap").joinpath("runtime_loader.py").read_bytes()
+    )
+    atomic_write(
+        site / "codex_auto_bootstrap_runtime.pth",
+        "import _codex_auto_bootstrap_runtime; _codex_auto_bootstrap_runtime.activate("
+        + repr(str(base))
+        + ")\n",
+    )
+    command(
+        [
+            python,
+            "-I",
+            "-B",
+            "-c",
+            "import py_compile,sys;py_compile.compile(sys.argv[1],doraise=True)",
+            loader,
+        ],
+        timeout=15,
+        env=env,
+    )
+
+
+def serialized_installation(function):
+    @wraps(function)
+    def protected(*args, **kwargs):
+        home = Path(kwargs.get("home") or Path.home()).resolve()
+        base = confined(home, BASE)
+        with installation_mutex(base):
+            if (state_directory(base) / "pending.json").exists():
+                from .self_update import recover_pending
+
+                recover_pending(base)
+            return function(*args, **kwargs)
+
+    return protected
 
 
 def managed_block(path, content):
@@ -314,6 +371,7 @@ def _installation_transaction(base, profiles, registry):
         _discard_recovery(backup)
 
 
+@serialized_installation
 def install(
     *,
     home=None,
@@ -323,6 +381,7 @@ def install(
     profiles=None,
     registry=None,
     package_install=None,
+    revision=None,
 ):
     """Install or update, retaining the first installation's exact original snapshots."""
     requested_home = Path(home or Path.home()).absolute()
@@ -352,6 +411,13 @@ def install(
     if Path(real).resolve().is_relative_to(base):
         raise ValueError("original Codex executable cannot be the wrapper")
     source = Path(source or Path(__file__).resolve().parents[2])
+    source_project = (source / "pyproject.toml").is_file()
+    if revision is None:
+        from .self_update import source_revision
+
+        revision = (
+            source_revision(source) if source_project else (previous or {}).get("source_commit")
+        )
     chosen_profiles = shell_profiles(home, platform) if profiles is None else profiles
     profile_paths = {}
     for candidate in chosen_profiles:
@@ -386,6 +452,7 @@ def install(
         }
     with _installation_transaction(base, profile_paths, registry):
         python = Path((package_install or install_package)(base, source)).resolve()
+        install_runtime_loader(base, python)
         bin_dir = confined(base, "bin")
         for name in ("codex", "codex-auto-bootstrap"):
             if platform == "nt":
@@ -428,7 +495,17 @@ def install(
             "path": path_state,
             "files": files,
             "links": links,
+            "source_commit": revision,
+            "base_commit": revision
+            if source_project or previous is None
+            else previous.get("base_commit"),
+            "runtime_path": None if source_project else (previous or {}).get("runtime_path"),
         }
+        if previous and not source_project and "previous_commit" in previous:
+            data.update(
+                previous_commit=previous["previous_commit"],
+                previous_runtime_path=previous.get("previous_runtime_path"),
+            )
         atomic_write(record, json_text(data))
         for relative, path in profile_paths.items():
             installed = managed_block(path, function)
@@ -456,6 +533,7 @@ def install(
         return record
 
 
+@serialized_installation
 def uninstall(*, home=None, dry_run=False, platform=None, registry=None):
     home = Path(home or Path.home()).resolve()
     base = confined(home, BASE)
