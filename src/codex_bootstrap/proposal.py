@@ -392,14 +392,14 @@ def markdown_report(report):
         "",
     ]
     for source_kind, title in (
-        ("bundled", "Skills intérieurs — catalogue intégré"),
-        ("github", "Skills extérieurs — GitHub"),
+        ("bundled", "Bundled skills — built-in catalog"),
+        ("github", "External skills — GitHub"),
     ):
         lines += [
             "",
             "## " + title,
             "",
-            "| Workspace | Slot | Skill | Source | Motif | Score |",
+            "| Workspace | Slot | Skill | Source | Reason | Score |",
             "|---|---|---|---|---|---|",
         ]
         entries = [entry for entry in report["selected"] if entry["source"] == source_kind]
@@ -414,15 +414,15 @@ def markdown_report(report):
                 f"| `{entry.get('scope', '.')}` | `{entry['slot']}` | `{entry['name']}` | {source} | {reason} | {entry['score']} |"
             )
         if not entries:
-            lines.append("| — | — | Aucun candidat retenu | — | — | — |")
+            lines.append("| — | — | No candidate selected | — | — | — |")
     lines += [
         "",
-        "La qualité et la compatibilité sont filtrées par heuristiques ; une plage de versions non déclarée n'est pas certifiée.",
+        "Quality and compatibility are filtered using heuristics; an undeclared version range is not certified.",
         "",
-        "## Outils prévus",
+        "## Planned tools",
         "",
     ]
-    lines.extend(f"- `{item['name']}` : {item['reason']}" for item in report.get("tool_plan", []))
+    lines.extend(f"- `{item['name']}`: {item['reason']}" for item in report.get("tool_plan", []))
     lines += ["", "## Versions", ""]
     lines.extend(
         f"- `{tech}`: `{version}`"

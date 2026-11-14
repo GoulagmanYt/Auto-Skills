@@ -64,7 +64,7 @@ def native_integrations(command, *, env=None, cwd=None, cancel=None):
                 if not isinstance(item.get("name"), str) or not isinstance(
                     item.get("pluginId", ""), str
                 ):
-                    result["errors"].append(kind + ": identifiant invalide")
+                    result["errors"].append(kind + ": invalid identifier")
                     continue
                 if kind == "plugins":
                     name = item.get("name", "")
@@ -85,7 +85,7 @@ def native_integrations(command, *, env=None, cwd=None, cancel=None):
                                     raise ValueError("invalid MCP manifest")
                                 servers.extend(k for k in declarations if isinstance(k, str))
                         except (OSError, ValueError, RecursionError):
-                            result["errors"].append("plugins: manifeste MCP invalide")
+                            result["errors"].append("plugins: invalid MCP manifest")
                     result[kind].append(
                         {
                             "id": item.get("pluginId", name),
@@ -100,7 +100,7 @@ def native_integrations(command, *, env=None, cwd=None, cancel=None):
                         {"name": item.get("name", ""), "enabled": item.get("enabled") is True}
                     )
         except (OSError, ValueError, TypeError, RecursionError, subprocess.SubprocessError):
-            result["errors"].append(kind + ": inventaire natif indisponible")
+            result["errors"].append(kind + ": native inventory unavailable")
     return result
 
 
@@ -219,41 +219,41 @@ def clipped(value, width):
 
 def render(report, *, tab=0, width=100, height=30, offset=0):
     status = {
-        "ok": "OK (observe)",
-        "error": "ERREUR observee",
-        "disabled": "Desactive",
-        "unverified": "Non verifie",
-        "missing": "Fichier absent",
-        "changed": "Fichier modifie",
+        "ok": "OK (observed)",
+        "error": "Observed error",
+        "disabled": "Disabled",
+        "unverified": "Unverified",
+        "missing": "Missing file",
+        "changed": "Modified file",
     }
     tabs = ["1 Skills", "2 Plugins", "3 MCP"]
     navigation = "  ".join(
         "[" + label + (" *]" if index == tab else "]") for index, label in enumerate(tabs)
     )
     lines = [
-        "AUTO-SKILLS  |  F9 / Esc : retour Codex",
-        navigation + "  |  R : actualiser",
-        "Depot : " + clean(report["repository"]),
-        "Mode : " + report["mode"] + "  |  Preuves de cette session uniquement",
+        "AUTO-SKILLS  |  F9 / Esc: return to Codex",
+        navigation + "  |  R: refresh",
+        "Repository: " + clean(report["repository"]),
+        "Mode: " + report["mode"] + "  |  Evidence from this session only",
         "",
     ]
     kind = ("skills", "plugins", "mcp")[tab]
     rows = []
     if kind == "skills":
-        rows.append("Installes / lectures observees (application non certifiee)")
+        rows.append("Installed / observed reads (application not verified)")
         for item in report[kind]:
             rows.append(
-                f"{item['reads']:>3} lecture(s) | {status[item['integrity']]} | {item['slot']} [{item['scope']}] | {item['name']}"
+                f"{item['reads']:>3} read(s) | {status[item['integrity']]} | {item['slot']} [{item['scope']}] | {item['name']}"
             )
     else:
-        rows.append("Disponibilite / derniers appels observes")
+        rows.append("Availability / latest observed calls")
         for item in report[kind]:
             rows.append(
-                f"{item['name']} | {item['calls']} appel(s) | {status.get(item['health'], 'Non verifie')}"
+                f"{item['name']} | {item['calls']} call(s) | {status.get(item['health'], 'Unverified')}"
             )
         if not report[kind]:
-            rows.append("Aucun element connu. R : lire les inventaires natifs.")
+            rows.append("No known items. R: read native inventories.")
     rows.extend(report.get("errors", []))
     lines.extend(rows[max(0, offset) : max(0, offset) + max(0, height - 7)])
-    lines.extend(["", "Haut/Bas : defiler | Actif ne signifie pas fonctionnel"])
+    lines.extend(["", "Up/Down: scroll | Active does not mean functional"])
     return "\n".join(clipped(line, max(1, width)) for line in lines[: max(1, height)])
