@@ -18,6 +18,27 @@ codex -C ./project/backend
 
 A manifest change refreshes affected slots. Unchanged pinned guides and tools are reused. `refresh --all` deliberately reselects all slots. A modified managed artifact fails integrity verification; inspect the change before deciding how to restore it.
 
+## Bootstrap updates
+
+New managed installations from a clean official Git checkout enable automatic updates. Older installations need one manual reinstall using `install.ps1` or `install.sh`. Source development sessions and installations with unknown or modified source provenance do not automatically update by default; use `enable` to opt in explicitly.
+
+On a normal Codex launch, a detached worker checks the official `GoulagmanYt/Auto-Skills` GitHub `main` commit at most once every 24 hours. It downloads the source pinned to that commit, builds a wheel using the managed Python, validates its contents and tests importing the CLI before atomically activating an immutable package directory. The next launch uses that version, including existing shell functions and isolated Python invocations. Running sessions keep their original package. This follows `main` commits, rather than GitHub release tags or the package version number.
+
+```sh
+codex-auto-bootstrap self-update status
+codex-auto-bootstrap self-update check
+codex-auto-bootstrap self-update run
+codex-auto-bootstrap self-update disable
+codex-auto-bootstrap self-update enable
+codex-auto-bootstrap self-update rollback
+```
+
+`status` is local; `check` only queries the latest GitHub revision; `run` installs immediately even when automatic checks are disabled. `run --force` rebuilds the same revision when no immutable copy exists. `rollback` selects the previous package for the next launch and disables automatic updates, so the reverted version is not immediately installed again. Enable updates again after resolving the problem. `codex update` continues to update the native Codex CLI independently.
+
+`CODEX_BOOTSTRAP_OFFLINE=1` prevents both automatic and manual update downloads. `CODEX_BOOTSTRAP_AUTO_UPDATE=0` suppresses background scheduling for that process. Network/build failures leave the installed version active and retry after 15 minutes. Modified owned files cause a conflict instead of being overwritten. An interrupted publication is recovered before the next installation/update operation; edited recovery files are preserved for inspection.
+
+Update settings, locks and bounded status metadata live in the sibling `codex-auto-bootstrap-state` directory next to the managed installation. `installation.json` records the active commit, ownership hashes and rollback pointer. Historical package directories remain under `venv/versions` to preserve running sessions and rollback; they are removed by uninstall. Native Codex configuration, credentials, project locks and user skills are not replaced by program updates. A manual reinstall remains available for recovery; `CODEX_BOOTSTRAP_DISABLE_RUNTIME=1` makes the managed Python load its base package instead of the active update.
+
 ## Keyboard dashboard
 
 Interactive repository launches automatically host the unchanged Codex terminal in a pseudo terminal. Press **F9** to open or close the Auto-Skills dashboard. **1**, **2**, **3** or **Tab** switches between Skills, Plugins and MCP. **Up/Down** scrolls, **R** reloads native inventories, and **Esc/Q** returns to Codex. Codex keeps running while the panel is open; the panel does not submit a chat turn or change the composer draft.

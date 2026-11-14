@@ -31,6 +31,8 @@ The installer preserves the original executable and records its PATH/profile cha
 
 ## Inspect decisions
 
+Managed installations from a clean checkout of the official repository check GitHub `main` for bootstrap updates once a day, in the background when Codex starts. A verified update activates on the next launch; open sessions retain their original version. See [automatic updates and rollback](docs/usage.md#bootstrap-updates) for controls and recovery. Existing installations need one manual reinstall to gain this updater.
+
 In an interactive Auto-Skills session, **F9** opens the repository dashboard. Tabs **1 Skills**, **2 Plugins** and **3 MCP** show installed files, observed reads and tool-call outcomes. **F9**, **Esc** or **Q** returns to Codex with the draft preserved. Plugins without observed calls remain **unverified**. [Controls and evidence limits](docs/usage.md#keyboard-dashboard).
 
 The development agent identifies requirements and delegates guide comparison to **gpt-6-luna with medium effort**, using the existing Codex CLI authentication. The selector records an explicit choice and reason, reused for an identical request. First launch uses a fast bundled starting context with elapsed-time progress on stderr. [Agent selection workflow](docs/ai-selection.md).

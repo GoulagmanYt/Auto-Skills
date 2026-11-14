@@ -118,6 +118,10 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     from contextlib import ExitStack
 
     from .progress import Progress
+    from .self_update import maybe_schedule_update
+
+    if not offline:
+        maybe_schedule_update()
 
     real_command = real_command or real_codex()
     env = dict(os.environ)
@@ -179,6 +183,38 @@ def main(argv=None):
             stream.reconfigure(encoding="utf-8", errors="replace")
     args = list(sys.argv[1:] if argv is None else argv)
     try:
+        if args[:1] == ["self-update"]:
+            from .self_update import configure, latest_commit, rollback, status, update
+
+            parser = argparse.ArgumentParser(prog="codex-auto-bootstrap self-update")
+            parser.add_argument(
+                "action",
+                nargs="?",
+                default="status",
+                choices=["status", "check", "run", "enable", "disable", "rollback"],
+            )
+            parser.add_argument("--home", type=Path)
+            parser.add_argument("--force", action="store_true")
+            options = parser.parse_args(args[1:])
+            if options.action == "run":
+                result = update(options.home, force=options.force)
+            elif options.action == "rollback":
+                result = rollback(options.home)
+            elif options.action in {"enable", "disable"}:
+                result = configure(options.home, enabled=options.action == "enable")
+            else:
+                result = status(options.home)
+                if options.action == "check" and result["installed"]:
+                    if os.environ.get("CODEX_BOOTSTRAP_OFFLINE") == "1":
+                        result["status"] = "offline"
+                    else:
+                        revision = latest_commit()
+                        result.update(
+                            latest_commit=revision,
+                            update_available=revision != result["installed_commit"],
+                        )
+            print(json.dumps(result, ensure_ascii=False))
+            return 1 if result.get("status") in {"failed", "conflict", "not-installed"} else 0
         if args[:1] == ["dashboard"]:
             from .dashboard import native_integrations, render, snapshot
 

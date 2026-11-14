@@ -31,6 +31,8 @@ L’installeur conserve l’exécutable original et enregistre ses modifications
 
 ## Comprendre la sélection
 
+Les installations gérées issues d’un checkout propre du dépôt officiel vérifient les mises à jour du bootstrap sur GitHub `main` une fois par jour, en arrière-plan au démarrage de Codex. La version vérifiée s’active au lancement suivant ; les sessions ouvertes conservent leur version. Voir les [commandes de mise à jour et de retour arrière](docs/usage.md#bootstrap-updates). Une installation existante nécessite une réinstallation manuelle pour recevoir ce mécanisme.
+
 Dans une session interactive lancée avec Auto-Skills, **F9** ouvre le tableau de bord du dépôt. Les onglets **1 Skills**, **2 Plugins** et **3 MCP** affichent les fichiers installés, les lectures observées et les résultats des appels d’outils. **F9**, **Échap** ou **Q** revient à Codex en conservant la saisie. Un plugin sans appel observable reste **non vérifié**. [Détails et limites](docs/usage.md#keyboard-dashboard).
 
 L’agent de développement identifie les besoins et délègue le choix des guides à **gpt-6-luna avec l’effort medium**, via le CLI Codex et son authentification existante. Ce sélecteur compare les candidats admissibles et enregistre son choix motivé, réutilisé pour une demande identique. Le premier lancement prépare un socle intégré rapide, avec une progression et la durée écoulée. [Fonctionnement détaillé](docs/ai-selection.md).
