@@ -62,7 +62,7 @@ def main():
         child.write(b"\x1b[120;67;0;1;0;1_" if os.name == "nt" else b"\x1b[20~")
         until(b"AUTO-SKILLS")
         child.write(b"2")
-        until(b"Disponibilite")
+        until(b"Availability")
         child.write(b"q")
         alive = child.poll() is None
         print(

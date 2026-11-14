@@ -87,7 +87,7 @@ SCENARIOS = [
             "containers",
         },
         WEB_FORBIDDEN,
-        note="Versions pg (client) et PostgreSQL (serveur) distinctes, vérifiées séparément.",
+        note="pg (client) and PostgreSQL (server) versions are distinct and checked separately.",
     ),
     scenario(
         "vue-dashboard",
@@ -139,7 +139,7 @@ SCENARIOS = [
             "containers",
         },
         PY_FORBIDDEN,
-        note="Versions psycopg (client) et PostgreSQL (serveur) distinctes, vérifiées séparément.",
+        note="psycopg (client) and PostgreSQL (server) versions are distinct and checked separately.",
     ),
     scenario(
         "django-service",
@@ -158,7 +158,7 @@ SCENARIOS = [
             "containers",
         },
         PY_FORBIDDEN,
-        note="Clients Python et serveurs Redis/PostgreSQL ont des versions indépendantes.",
+        note="Python clients and Redis/PostgreSQL servers have independent versions.",
     ),
     scenario(
         "go-gin-service",
@@ -168,7 +168,7 @@ SCENARIOS = [
         },
         {"language-go", "framework-gin", "orm-gorm", "database-postgres"},
         {"language-python", "framework-react", "audio-asio"},
-        note="La base est reconnue via pgx ; sa version serveur reste inconnue.",
+        note="The database is recognized through pgx; its server version remains unknown.",
     ),
     scenario(
         "rust-web-service",
@@ -240,11 +240,11 @@ SCENARIOS = [
         },
         {"audio-asio", "framework-vue"},
         multiple={"react"},
-        note="React 18 et React 19 reçoivent des sélections distinctes par workspace.",
+        note="React 18 and React 19 receive separate selections for each workspace.",
     ),
     scenario(
         "lockfile-decoy",
-        "CLI TypeScript + dépendances transitives trompeuses",
+        "TypeScript CLI + misleading transitive dependencies",
         {
             "package.json": node({}, {"typescript": "^5.9.0"}),
             "package-lock.json": json.dumps(
@@ -271,7 +271,7 @@ SCENARIOS = [
         },
         {"language-java", "framework-spring"},
         {"framework-react", "language-python"},
-        note="Spring Boot et Java sont extraits du POM.",
+        note="Spring Boot and Java are extracted from the POM.",
     ),
     scenario(
         "aspnet-api",
@@ -281,7 +281,7 @@ SCENARIOS = [
         },
         {"language-dotnet", "framework-aspnet", "orm-entityframework", "database-sqlserver"},
         {"framework-react", "language-python"},
-        note="ASP.NET et EF Core sont identifiés ; la version du serveur SQL reste inconnue.",
+        note="ASP.NET and EF Core are identified; the SQL Server version remains unknown.",
     ),
     scenario(
         "solidity-project",
@@ -294,17 +294,17 @@ SCENARIOS = [
         },
         {"language-typescript", "language-solidity", "test-hardhat"},
         {"framework-react", "framework-next"},
-        note="Solidity et Hardhat sont couverts ; aucun skill blockchain ne doit occuper un slot token-saver.",
+        note="Solidity and Hardhat are covered; no blockchain skill should occupy a token-saver slot.",
     ),
     scenario(
         "documentation-only",
-        "Documentation seule",
+        "Documentation only",
         {
             "README.md": "# Documentation\nThis repository contains only documentation.\n",
         },
         {"documentation"},
         {"language-python", "language-javascript", "framework-react", "framework-tauri"},
-        note="Le socle et les outils sont réduits pour la documentation.",
+        note="The baseline and tools are reduced for documentation.",
     ),
 ]
 
@@ -312,22 +312,22 @@ SCENARIOS.extend(
     [
         scenario(
             "driver-only-node",
-            "Node / pg / Redis sans serveur déclaré",
+            "Node / pg / Redis without a declared server",
             {"package.json": node({"pg": "^8.13.0", "redis": "^5.0.0"})},
             {"language-javascript", "database-postgres", "database-redis"},
             {"framework-react", "containers"},
-            note="Les versions pg et redis sont des versions de clients ; moteurs inconnus.",
+            note="pg and redis versions refer to clients; engine versions are unknown.",
         ),
         scenario(
             "driver-only-python",
-            "Python / psycopg / Redis sans serveur déclaré",
+            "Python / psycopg / Redis without a declared server",
             {"pyproject.toml": python_project(["psycopg>=3,<4", "redis>=5,<6"])},
             {"language-python", "database-postgres", "database-redis"},
             {"framework-react", "framework-fastapi", "containers"},
         ),
         scenario(
             "driver-only-sqlite",
-            "Rust / rusqlite sans moteur versionné",
+            "Rust / rusqlite without a versioned engine",
             {
                 "Cargo.toml": '[package]\nname="sqlite-tool"\nversion="0.1.0"\n[dependencies]\nrusqlite="0.32"\n'
             },
@@ -340,10 +340,10 @@ SCENARIOS.extend(
 SCENARIOS.append(
     scenario(
         "react-19-2",
-        "React 19.2 / TypeScript : APIs modernes",
+        "React 19.2 / TypeScript: modern APIs",
         {"package.json": node({"react": "^19.2.0"}, {"typescript": "^5.9.0"})},
         {"language-javascript", "language-typescript", "framework-react", "static-analysis"},
         {"framework-next", "framework-vue", "language-python"},
-        note="Contrôle positif React 19.2 ; les cas React 18 et 19.0 restent distincts et ne doivent pas accepter des exemples limités aux nouvelles APIs.",
+        note="React 19.2 positive control; React 18 and 19.0 cases remain distinct and must reject examples restricted to newer APIs.",
     )
 )

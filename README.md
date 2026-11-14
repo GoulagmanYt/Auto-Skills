@@ -4,7 +4,7 @@
 
 Auto-Skills reads dependency manifests, selects relevant skills, pins their provenance and refreshes affected workspaces. A Rust backend keeps its own guidance when a React frontend changes. Unknown repositories receive portable guidance with explicit gaps.
 
-**Alpha: 1.4.0a1.** The verified native baseline is Codex CLI **0.166.0**. [Français](README.fr.md) · [Usage](docs/usage.md) · [Coverage](docs/coverage.md) · [Compatibility and evidence](docs/public-alpha.md)
+**Alpha: 1.4.0a1.** The verified native baseline is Codex CLI **0.166.0**. [Usage](docs/usage.md) · [Coverage](docs/coverage.md) · [Compatibility and evidence](docs/public-alpha.md)
 
 ## Install
 

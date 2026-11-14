@@ -147,15 +147,15 @@ def delta(before, after):
 
 def markdown_report(record, output):
     lines = [
-        "# Propositions et mesure du contexte : Piano-LED-Visualizer / RTP-OSC-Midi-tool",
+        "# Proposals and context measurement: Piano-LED-Visualizer / RTP-OSC-Midi-tool",
         "",
-        "Les dépôts originaux n'ont pas été modifiés. Les skills ont été installés dans des copies temporaires des manifestes, avec les ressources externes épinglées. Aucun appel à un modèle.",
+        "The original repositories were not modified. Skills were installed in temporary copies of the manifests, with external resources pinned. No model calls were made.",
         "",
-        "## Skills proposés",
+        "## Proposed skills",
         "",
-        "Socle commun à la racine : " + ", ".join(f"`{slot}`" for slot in BASE_SLOTS) + ".",
+        "Shared root baseline: " + ", ".join(f"`{slot}`" for slot in BASE_SLOTS) + ".",
         "",
-        "| Projet / workspace | Skills intérieurs | Skills extérieurs GitHub |",
+        "| Project / workspace | Bundled skills | External GitHub skills |",
         "|---|---|---|",
     ]
     tool_notes = []
@@ -169,25 +169,25 @@ def markdown_report(record, output):
                 for e in entries
                 if e["source"] == "bundled" and (scope != "." or e["slot"] not in BASE_SLOTS)
             ]
-            local = ("Socle commun + " if scope == "." else "") + ", ".join(
+            local = ("Shared baseline + " if scope == "." else "") + ", ".join(
                 f"`{s}`" for s in internal
             )
             external = [f"[{e['name']}]({e['url']})" for e in entries if e["source"] == "github"]
             lines.append(
-                f"| {name} / `{scope}` | {local} | {', '.join(external) or 'Aucun retenu'} |"
+                f"| {name} / `{scope}` | {local} | {', '.join(external) or 'None selected'} |"
             )
         tools = ", ".join(f"`{tool['name']}`" for tool in proposal["tool_plan"])
         tool_notes += [
-            f"**{name}** : {project['selected_skills']} skills répartis sur {len(proposal['workspaces'])} workspaces ; outils proposés : {tools}.",
+            f"**{name}**: {project['selected_skills']} skills across {len(proposal['workspaces'])} workspaces; proposed tools: {tools}.",
             "",
         ]
     lines += ["", *tool_notes]
     lines += [
-        "## Avant / après à la racine",
+        "## Before / after at the root",
         "",
-        "Estimations par le tokeniseur `o200k_base`, sur le texte et les schémas supplémentaires exposés par le vrai `codex debug prompt-input`. Ce n'est pas un relevé de facturation ni une mesure complète d'une session.",
+        "Estimates from the `o200k_base` tokenizer, using the text and additional schemas exposed by the real `codex debug prompt-input`. This is neither a billing statement nor a measurement of a complete session.",
         "",
-        "| Projet | Codex habituel | Installation sans wrapper | Wrapper actif | Réduction avec wrapper | Catalogue des skills avant → après |",
+        "| Project | Usual Codex | Installed without wrapper | Wrapper active | Reduction with wrapper | Skill catalog before → after |",
         "|---|---:|---:|---:|---:|---:|",
     ]
     for project in record["projects"]:
@@ -203,11 +203,11 @@ def markdown_report(record, output):
         )
     lines += [
         "",
-        "Le nombre total de skills installés n'est pas le nombre chargé à la racine. La sélection par workspace limite l'activation. Les corps complets de SKILL.md sont normalement lus à la demande ; le tableau mesure leur catalogue et les consignes initiales.",
+        "The total number of installed skills differs from the number loaded at the root. Workspace selection limits activation. Full SKILL.md bodies are normally read on demand; the table measures their catalog and initial instructions.",
         "",
-        "## Mesures par workspace",
+        "## Measurements by workspace",
         "",
-        "| Projet / workspace | Contexte habituel | Avec wrapper | Skills uniques visibles | Entrées en double | Spécialités héritées de la racine |",
+        "| Project / workspace | Usual context | With wrapper | Unique visible skills | Duplicate entries | Specialties inherited from root |",
         "|---|---:|---:|---:|---:|---|",
     ]
     for project in record["projects"]:
@@ -219,13 +219,13 @@ def markdown_report(record, output):
             )
     lines += [
         "",
-        "## Ce que la vérification établit",
+        "## What the verification establishes",
         "",
-        "- Les variations du contexte initial sont mesurées par environnement et workspace dans les tableaux ci-dessus. Elles ne prédisent pas les gains sur une tâche complète.",
-        "- Les corps des guides sont conservés dans `.codex/skills` et `.agents/skills` pour leur intégrité, mais le wrapper active uniquement la copie `.agents`. Chaque chemin du catalogue natif a été comparé au verrou : aucun doublon, chemin manquant ou inattendu n'est accepté par cette vérification.",
-        "- Les workspaces enfants reçoivent leurs guides et les seuls guides communs portables de la racine. Les spécialités racine ne sont pas héritées. Les colonnes d'héritage sont déduites des chemins réellement exposés par Codex.",
-        "- Piano détecte `mido`, `python-rtmidi`, `rpi.gpio` et `rpi-ws281x`, mais le catalogue actuel ne leur attribue pas de skill MIDI Python ou LED/Raspberry Pi dédié. Cette lacune reste visible.",
-        "- Les outils binaires téléchargeables sont restés hors ligne pour isoler la mesure des skills. Aucun gain de compression RTK/Repomix, de cache ou de tokens sur une tâche complète n'est revendiqué.",
+        "- Initial context changes are measured per environment and workspace in the tables above. They do not predict savings for a complete task.",
+        "- Guide bodies are kept in `.codex/skills` and `.agents/skills` for integrity, but the wrapper activates only the `.agents` copy. Each native catalog path was compared against the lock: this verification rejects duplicates, missing paths and unexpected paths.",
+        "- Child workspaces receive their own guides and only the portable common guides from the root. Root specialties are not inherited. Inheritance columns are derived from the paths actually exposed by Codex.",
+        "- Piano detects `mido`, `python-rtmidi`, `rpi.gpio` and `rpi-ws281x`, but the current catalog assigns no dedicated Python MIDI or LED/Raspberry Pi skill to them. This gap remains visible.",
+        "- Downloadable binary tools remained offline to isolate skill measurement. No RTK/Repomix compression, cache or full-task token savings are claimed.",
         "",
         "## Reproduction",
         "",
@@ -233,7 +233,7 @@ def markdown_report(record, output):
         "uv run --no-project --with tiktoken python tools/verify_context_savings.py",
         "```",
         "",
-        "Résultats structurés : `context-comparison.json` et propositions JSON/Markdown par projet. Les recherches GitHub sont bornées ; aucun gagnant externe ne signifie pas qu'aucun guide pertinent n'existe.",
+        "Structured results: `context-comparison.json` and JSON/Markdown proposals per project. GitHub searches are bounded; the absence of an external winner does not imply that no relevant guide exists.",
     ]
     return "\n".join(lines) + "\n"
 

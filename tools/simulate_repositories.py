@@ -177,7 +177,7 @@ def assess_scenario(spec, root, *, live=False, github=None):
         if "react" in report.get("workspaces", {}).get("services/api", {}).get("technologies", {}):
             scope_gaps.append("services/api::unexpected-react")
     internal, external = classified_skills(report["selected"])
-    verdict = "Partiel" if missing or ambiguous or version_roles or scope_gaps else "Coh\u00e9rent"
+    verdict = "Partial" if missing or ambiguous or version_roles or scope_gaps else "Consistent"
     if spec.slug == "documentation-only":
         if any(e["slot"] in {"build", "unit-testing", "performance"} for e in report["selected"]):
             unexpected.append("documentation-baseline-not-adapted")
@@ -186,7 +186,7 @@ def assess_scenario(spec, root, *, live=False, github=None):
         if tool_names & {"rtk", "repomix"}:
             unexpected.append("documentation-tools-not-adapted")
     if unexpected or unexpected_missing or before != after or duplicates:
-        verdict = "Incoherent"
+        verdict = "Inconsistent"
     result = {
         "repository": spec.slug,
         "title": spec.title,
@@ -574,40 +574,38 @@ def skill_label(entry, *, external=False):
 def matrix_markdown(results, checks, tools=None):
     live = any(r["external_discovery"] != "not-run-offline" for r in results)
     lines = [
-        "# Simulations de dépôts Auto-Skills",
+        "# Auto-Skills repository simulations",
         "",
-        "Dépôts fictifs, profilage et sélection réels, aucune installation dans les dépôts simulés.",
+        "Synthetic repositories, real profiling and selection, no installation in the simulated repositories.",
         (
-            "Recherche GitHub réelle et cache public, bornés par un budget partagé. Les erreurs de recherche et les slots sans gagnant externe sont visibles."
+            "Real GitHub search and public cache, bounded by a shared budget. Search errors and slots without an external winner remain visible."
             if live
-            else "Mode hors ligne : catalogue intégré uniquement. La colonne extérieure vide ne mesure pas la couverture GitHub."
+            else "Offline mode: built-in catalog only. The empty external column does not measure GitHub coverage."
         ),
-        "Les registres synthétiques servent uniquement aux tests adversariaux séparés ci-dessous.",
+        "Synthetic registries are used only for the separate adversarial tests below.",
         "",
-        "| Dépôt simulé | Skills intérieurs (intégrés) | Skills extérieurs (GitHub) | Plugins/outils proposés | Cohérence |",
+        "| Simulated repository | Bundled skills | External skills (GitHub) | Proposed plugins/tools | Consistency |",
         "|---|---|---|---|---|",
     ]
     for result in results:
-        internal = ", ".join(skill_label(e) for e in result["internal_skills"]) or "Aucun"
+        internal = ", ".join(skill_label(e) for e in result["internal_skills"]) or "None"
         external = ", ".join(skill_label(e, external=True) for e in result["external_skills"])
-        external = external or (
-            "Aucun gagnant externe éligible" if live else "Non recherchés (hors ligne)"
-        )
+        external = external or ("No eligible external winner" if live else "Not searched (offline)")
         plan = result.get("tool_plan", [])
         names = (
             ", ".join(f"`{t if isinstance(t, str) else t['name']}`" for t in plan)
-            or "Non renseigné"
+            or "Not specified"
         )
         lines.append(
             f"| {result['title']} | {internal} | {external} | {names} | {result['verdict']} |"
         )
     lines += [
         "",
-        "## Qualité et pertinence des skills extérieurs",
+        "## External skill quality and relevance",
         "",
-        "Ces contrôles sont des heuristiques de sélection, pas une certification de qualité : compatibilité déclarée, technologies détectées, dépendances disponibles, concision, provenance et score. Le commit fixe la version examinée.",
+        "These checks are selection heuristics, not a quality certification: declared compatibility, detected technologies, available dependencies, concision, provenance and score. The commit pins the reviewed version.",
         "",
-        "| Dépôt / workspace | Skill extérieur | Source épinglée | Compatibilité / technologies | Motif / score |",
+        "| Repository / workspace | External skill | Pinned source | Compatibility / technologies | Reason / score |",
         "|---|---|---|---|---|",
     ]
     external_count = 0
@@ -618,51 +616,51 @@ def matrix_markdown(results, checks, tools=None):
             technologies = ", ".join(entry.get("technologies", [])) or "generic"
             reason = entry.get("reason", "").replace("|", "/").replace("\n", " ")
             lines.append(
-                f"| {result['repository']} / {entry.get('scope', '.')} | `{entry['name']}` | [{entry['repository']}@{entry.get('commit', '')[:12]}]({entry.get('url', '')}) ; licence `{entry.get('license', 'unknown')}` | `{constraints}` ; {technologies} | {reason} ; {entry.get('score', '')} |"
+                f"| {result['repository']} / {entry.get('scope', '.')} | `{entry['name']}` | [{entry['repository']}@{entry.get('commit', '')[:12]}]({entry.get('url', '')}); license `{entry.get('license', 'unknown')}` | `{constraints}`; {technologies} | {reason}; {entry.get('score', '')} |"
             )
     if not external_count:
-        lines.append("| — | Aucun résultat externe vérifié pendant cette exécution | — | — | — |")
-    lines += ["", "## Lacunes et diagnostics", ""]
+        lines.append("| — | No external result verified during this run | — | — | — |")
+    lines += ["", "## Gaps and diagnostics", ""]
     for result in results:
         details = []
         for key, title in (
-            ("missing_slots", "slots manquants"),
-            ("ambiguous_versions", "versions ambiguës"),
-            ("version_role_gaps", "confusions pilote/serveur"),
-            ("scope_gaps", "scopes manquants"),
-            ("unexpected_slots", "slots inattendus"),
+            ("missing_slots", "missing slots"),
+            ("ambiguous_versions", "ambiguous versions"),
+            ("version_role_gaps", "driver/server confusion"),
+            ("scope_gaps", "missing scopes"),
+            ("unexpected_slots", "unexpected slots"),
         ):
             if result[key]:
-                details.append(title + " : " + ", ".join(result[key]))
+                details.append(title + ": " + ", ".join(result[key]))
         if live:
             details.append(
-                f"{len(result['external_skills'])} externe(s), {result['discovery_errors']} nouvelle(s) erreur(s) de recherche pendant ce scénario"
+                f"{len(result['external_skills'])} external skill(s), {result['discovery_errors']} new search error(s) during this scenario"
             )
             if result.get("external_specialty_gaps"):
                 details.append(
-                    "couverture externe absente pour : "
-                    + ", ".join(result["external_specialty_gaps"])
+                    "external coverage missing for: " + ", ".join(result["external_specialty_gaps"])
                 )
         if result["note"]:
             details.append(result["note"])
         if details:
-            lines.append("- **" + result["title"] + "** : " + "; ".join(details))
+            lines.append("- **" + result["title"] + "**: " + "; ".join(details))
     lines += [
         "",
-        "## Registre synthétique : cas adversariaux (aucune recommandation externe)",
+        "## Synthetic registry: adversarial cases (no external recommendations)",
         "",
-        "| Cas | Vérification |",
+        "| Case | Verification |",
         "|---|---|",
     ]
     lines.extend(
-        f"| `{c['name']}` | {'OK' if c['passed'] and c['read_only'] else 'ECHEC'} |" for c in checks
+        f"| `{c['name']}` | {'OK' if c['passed'] and c['read_only'] else 'FAILED'} |"
+        for c in checks
     )
     lines += [
         "",
-        "## Critères CI",
+        "## CI criteria",
         "",
-        "La CI bloque toute nouvelle absence de slot attendu, slot incohérent, confusion pilote/serveur, ambiguïté non autorisée, duplication par workspace ou modification d’un dépôt simulé. Les lacunes autorisées sont suivies par scénario dans les entrées JSON ; elles sont actuellement vides pour les stacks annoncées.",
-        "Le contrôle GitHub en direct est séparé des tests déterministes : une indisponibilité réseau ne valide ni n’invalide la qualité d’un skill absent.",
+        "CI blocks any newly missing expected slot, inconsistent slot, driver/server confusion, unapproved ambiguity, duplicate within a workspace or modification of a simulated repository. Allowed gaps are tracked per scenario in the JSON inputs; they are currently empty for the advertised stacks.",
+        "The live GitHub check is separate from deterministic tests: a network outage neither validates nor invalidates the quality of a missing skill.",
     ]
     return "\n".join(lines) + "\n"
 

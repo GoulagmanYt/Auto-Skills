@@ -76,7 +76,7 @@ class TaskDecisionTests(IsolatedTestCase):
         return prepare_task(self.root, prompt, offline=True, **kwargs)
 
     def test_rust_task_at_monorepo_root_excludes_frontend_specialties(self):
-        decision = self.decision("Corrige le décodeur Rust dans backend/src/lib.rs")
+        decision = self.decision("Fix the Rust decoder in backend/src/lib.rs")
         self.assertEqual(decision["scopes"], ["backend"])
         self.assertIn("language-rust", [s["slot"] for s in decision["selected"]])
         self.assertFalse(any("react" in s["slot"] for s in decision["selected"]))

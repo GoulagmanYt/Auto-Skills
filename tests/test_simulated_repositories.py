@@ -69,7 +69,7 @@ class SimulatedRepositoryTests(IsolatedTestCase):
                     with self.subTest(repository=spec.slug):
                         result, _ = assess_scenario(spec, Path(directory) / spec.slug)
                         self.assertEqual(result["version_role_gaps"], [])
-                        self.assertEqual(result["verdict"], "Cohérent")
+                        self.assertEqual(result["verdict"], "Consistent")
 
     def test_documentation_has_reduced_baseline_and_tools(self):
         from tools.repo_scenarios import SCENARIOS

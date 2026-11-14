@@ -307,7 +307,7 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
                 offset=panel.offset,
             )
         except (OSError, ValueError, TypeError, KeyError):
-            text = "AUTO-SKILLS | F9 / Esc : retour\nEtat indisponible. R : actualiser."
+            text = "AUTO-SKILLS | F9 / Esc: return to Codex\nStatus unavailable. R: refresh."
         os.write(
             sys.stdout.fileno(),
             b"\x1b[?25l\x1b[0m\x1b[H\x1b[2J" + text.replace("\n", "\r\n").encode("utf-8"),
