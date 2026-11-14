@@ -2,6 +2,8 @@
 
 ## Unreleased — reliability and structure
 
+- Update managed bootstrap installations from official GitHub `main` in the background, with daily checks, isolated SHA-pinned builds, atomic next-launch activation, interruption recovery and rollback. Preserve open sessions and refuse to overwrite modified installation files.
+
 - Add an F9 repository dashboard for managed skills, native plugin/MCP inventory and observed consultation/tool outcomes, preserving the running Codex session and composer draft.
 - Cache unchanged observation records, isolate malformed metadata, bound and cancel native inventory processes, and handle Windows keyboard records and wide/emoji terminal text safely.
 - Follow stable native Codex launchers across standalone updates; recover legacy records pinned to removed releases.

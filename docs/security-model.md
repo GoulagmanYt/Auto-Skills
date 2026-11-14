@@ -4,6 +4,8 @@ Auto-Skills reads manifests/configuration to build profiles. Public GitHub reque
 
 ## Trust boundaries
 
+Managed bootstrap self-updates trust executable source from the official `GoulagmanYt/Auto-Skills` GitHub `main` branch over HTTPS. Unlike downloaded skill instructions, this source is built and imported as program code under the user's updater authorization. Commit pins identify the downloaded revision; they are not independent signatures. Downloads and archive contents are bounded, paths and special files are checked, and publication preserves owned-file integrity and the previous runtime. Updates run in the background, activate on the next process and can be disabled or rolled back as described in [usage](usage.md#bootstrap-updates).
+
 - Project manifests are input data. Paths used for writes must stay within the intended repository and reject symlinks/junctions that redirect writes.
 - Upstream skills are untrusted instructions. Static relevance, compatibility and risky-instruction filters reduce some risks; they cannot prove semantic safety.
 - A commit pin and SHA-256 lock detect subsequent changes relative to recorded content. They do not establish upstream identity, benign behavior or license permission.
