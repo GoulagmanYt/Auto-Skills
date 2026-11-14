@@ -83,18 +83,18 @@ class InputDecoder:
         self.pending += data
         events = []
 
-        def emit(data):
+        def emit(data, kind="input"):
             if data:
-                if events and events[-1][0] == "input":
-                    events[-1] = ("input", events[-1][1] + data)
+                if events and events[-1][0] == kind:
+                    events[-1] = (kind, events[-1][1] + data)
                 else:
-                    events.append(("input", data))
+                    events.append((kind, data))
 
         while self.pending:
             if self.pasting:
                 index = self.pending.find(self.end)
                 if index >= 0:
-                    emit(self.pending[: index + len(self.end)])
+                    emit(self.pending[: index + len(self.end)], "paste")
                     self.pending = self.pending[index + len(self.end) :]
                     self.pasting = False
                     continue
@@ -102,7 +102,7 @@ class InputDecoder:
                     (n for n in range(1, len(self.end)) if self.pending.endswith(self.end[:n])),
                     default=0,
                 )
-                emit(self.pending[:-keep] if keep else self.pending)
+                emit(self.pending[:-keep] if keep else self.pending, "paste")
                 self.pending = self.pending[-keep:] if keep else b""
                 break
             windows = re.match(rb"\x1b\[(\d+);(\d+);(\d+);(\d+);(\d+);(\d+)_", self.pending)
@@ -116,7 +116,7 @@ class InputDecoder:
                 self.pending = self.pending[len(sequence) :]
                 continue
             if self.pending.startswith(self.begin):
-                emit(self.begin)
+                emit(self.begin, "paste")
                 self.pending = self.pending[len(self.begin) :]
                 self.pasting = True
                 continue
@@ -146,6 +146,8 @@ class PanelState:
         self.suppressed_releases = set()
 
     def handle(self, kind, data):
+        if kind == "paste":
+            return "ignore" if self.open else "forward"
         windows = re.fullmatch(rb"\x1b\[(\d+);(\d+);(\d+);(\d+);(\d+);(\d+)_", data)
         if windows:
             key = int(windows[1])
@@ -188,6 +190,16 @@ class PanelState:
         elif data in {b"r", b"R"}:
             return "refresh"
         return "redraw"
+
+
+def panel_events(events, panel):
+    """Split coalesced keys only in the panel; keep CSI/Win32 records atomic."""
+    for kind, data in events:
+        if kind == "input" and panel.open:
+            for match in re.finditer(rb"\x1b\[[0-?]*[ -/]*[@-~]|\x1bO.|\x1b.|.", data, re.S):
+                yield kind, match[0]
+        else:
+            yield kind, data
 
 
 @contextmanager
@@ -364,7 +376,7 @@ def run_terminal(command, root, *, env, cwd=None, inventory_command=None, start_
                         continue
                     input_at = now
                     pending = decoder.feed(data)
-                for kind, data in pending:
+                for kind, data in panel_events(pending, panel):
                     action = panel.handle(kind, data)
                     if action == "forward":
                         child.write(data)

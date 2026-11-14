@@ -4,6 +4,29 @@ from suite_support import IsolatedTestCase
 
 
 class TerminalDashboardTests(IsolatedTestCase):
+    def test_coalesced_posix_keys_close_panel_and_preserve_following_input(self):
+        from codex_bootstrap.terminal_dashboard import InputDecoder, PanelState, panel_events
+
+        decoder, panel = InputDecoder(), PanelState()
+        panel.handle("toggle", b"")
+        forwarded = []
+        for kind, data in panel_events(decoder.feed(b"qZ\r"), panel):
+            if panel.handle(kind, data) == "forward":
+                forwarded.append(data)
+        self.assertFalse(panel.open)
+        self.assertEqual(b"".join(forwarded), b"Z\r")
+
+    def test_split_bracketed_paste_cannot_close_panel_or_submit_commands(self):
+        from codex_bootstrap.terminal_dashboard import InputDecoder, PanelState, panel_events
+
+        decoder, panel = InputDecoder(), PanelState()
+        panel.handle("toggle", b"")
+        paste = b"\x1b[200~qZ\r\x1b[20~\x1b[201~"
+        for part in (paste[:8], paste[8:14], paste[14:]):
+            for kind, data in panel_events(decoder.feed(part), panel):
+                self.assertEqual(panel.handle(kind, data), "ignore")
+        self.assertTrue(panel.open)
+
     def test_windows_surrogate_key_records_do_not_crash_open_panel(self):
         from codex_bootstrap.terminal_dashboard import PanelState
 
@@ -43,7 +66,7 @@ class TerminalDashboardTests(IsolatedTestCase):
         self.assertEqual(decoder.feed(b"hello\x1b[2"), [("input", b"hello")])
         self.assertEqual(decoder.feed(b"0~"), [("toggle", b"")])
         paste = b"\x1b[200~text\x1b[20~\x1b[201~"
-        self.assertEqual(decoder.feed(paste), [("input", paste)])
+        self.assertEqual(decoder.feed(paste), [("paste", paste)])
 
     def test_close_does_not_deliver_dashboard_keys_to_codex(self):
         from codex_bootstrap.terminal_dashboard import PanelState
