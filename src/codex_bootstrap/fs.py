@@ -30,6 +30,23 @@ def command(args, *, cwd=None, timeout=45, binary=False, env=None):
     return result.stdout
 
 
+def _comparison_path(path: Path) -> Path:
+    # Windows realpath can retain its extended prefix when a missing parent is
+    # created between lookups. Compare equivalent spellings without re-resolving.
+    if os.name == "nt":
+        value = str(path)
+        if value[:8].lower() == "\\\\?\\unc\\":
+            return Path("\\\\" + value[8:])
+        if (
+            value.startswith("\\\\?\\")
+            and len(value) >= 7
+            and value[4] in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            and value[5:7] == ":\\"
+        ):
+            return Path(value[4:])
+    return path
+
+
 def confined(root: Path, relative: str | Path) -> Path:
     root = root.resolve()
     relative = Path(relative)
@@ -49,7 +66,7 @@ def confined(root: Path, relative: str | Path) -> Path:
         redirected = stat.S_ISLNK(state.st_mode) or tag in {0xA0000003, 0xA000000C}
         if redirected or (tag and cursor.resolve() != cursor):
             raise ValueError(f"redirected path: {relative}")
-    if not target.resolve().is_relative_to(root):
+    if not _comparison_path(target.resolve()).is_relative_to(_comparison_path(root)):
         raise ValueError(f"path escapes repository: {relative}")
     return target
 
