@@ -117,13 +117,16 @@ class BootstrapTests(IsolatedTestCase):
         import sys
         from unittest.mock import patch
 
-        # The child inspects the actual profile, just as native Codex does.
+        # Inspect the generated session policy in either native transport.
         script.write_text(
             script.read_text().replace(
                 "raise SystemExit(7)",
                 "import tomllib\n"
-                "profile=Path(os.environ['CODEX_HOME'])/(sys.argv[2]+'.config.toml')\n"
-                "data=tomllib.loads(profile.read_text())\n"
+                "if sys.argv[1] == '--profile':\n"
+                "    profile=Path(os.environ['CODEX_HOME'])/(sys.argv[2]+'.config.toml')\n"
+                "    data=tomllib.loads(profile.read_text())\n"
+                "else:\n"
+                "    data=tomllib.loads('\\n'.join(sys.argv[2:-3:2]))\n"
                 "assert 'model_reasoning_effort' not in data\n"
                 "assert data['skills']['bundled']['enabled'] is False\n"
                 "assert len(data['skills']['config'])>=26\n"
@@ -142,7 +145,7 @@ class BootstrapTests(IsolatedTestCase):
         self.assertEqual(code, 7)
         args = json.loads(output.read_text())
         self.assertEqual(args[-3:], ["exec", "a prompt with spaces", "--json"])
-        self.assertEqual(args[0], "--profile")
+        self.assertIn(args[0], {"--profile", "-c"})
         self.assertEqual(list((self.root / "fake-home").glob("auto-bootstrap-*.config.toml")), [])
 
     def test_token_runner_retains_exit_and_recovery_log(self):

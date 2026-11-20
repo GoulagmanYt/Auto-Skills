@@ -129,8 +129,11 @@ class AutomaticRuntimeTests(IsolatedTestCase):
         with launch_profile(self.root, lock, args, self.root, decision=decision) as launch:
             import tomllib
 
-            profile = Path(os.environ["CODEX_HOME"]) / (launch[1] + ".config.toml")
-            config = tomllib.loads(profile.read_text())
+            if launch[0] == "--profile":
+                profile = Path(os.environ["CODEX_HOME"]) / (launch[1] + ".config.toml")
+                config = tomllib.loads(profile.read_text())
+            else:
+                config = tomllib.loads("\n".join(launch[: -len(args)][1::2]))
             enabled = [s["path"] for s in config["skills"]["config"] if s["enabled"]]
             self.assertTrue(any("language-rust" in p for p in enabled))
             self.assertFalse(any("react" in p for p in enabled))

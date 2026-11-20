@@ -116,3 +116,13 @@ returns that scope's explicit values. `configured_scopes(root)` returns the
 validated workspace paths. `apply_configuration(root, profiles)` returns deep
 copies with manual intent and provenance applied; callers supply the profiles
 for every configured scope. None of these functions execute project code.
+
+## Native project trust
+
+When the launch policy fits on the command line, the wrapper passes session overrides to Codex and retains the native profile. Approving a project in Codex writes to the usual user configuration or the explicitly selected named profile. A visit alone grants no trust.
+
+Long command lines, Windows batch launchers, legacy profiles and MCP definitions that require a file use a private temporary profile. On session exit the wrapper merges explicit changes to `projects.<key>.trust_level` into the destination. Project keys keep the exact spelling written by Codex. The merge preserves unrelated settings and intervening trust changes. Private MCP connection settings stay off the generated command line.
+
+Recovery records live in `$CODEX_HOME/auto-skills-trust/`. If a session or publication is interrupted, keep the record private. An unfinished session record names the temporary profile and the intended destination. A completed session record contains only its trust changes and destination. For each changed key, the three values are the original destination level, the session's final level and the inherited base level. After the native session has exited, review the current destination and use Codex with the intended native profile to confirm any decision you still want. You can then remove that session's record and any remaining temporary profile. The wrapper never replays a stored approval automatically.
+
+Wrapper merges share a file lock. Native sessions and external editors can write independently. The wrapper rechecks the destination before atomic replacement, but a simultaneous external write can race that last check. A redirected destination requires manual review on the file-backed path.

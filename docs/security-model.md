@@ -12,7 +12,7 @@ Managed bootstrap self-updates trust executable source from the official `Goulag
 - Remote skill resources are copied and checked; their scripts are not executed as part of skill installation. Installing optional binary tools is a separate, disclosed operation with pinned sources and integrity checks.
 - Codex executes tools with its own permissions and approval model. Auto-Skills is not an operating-system sandbox.
 
-Strict mode disables discovered external skills, bundled guides, unlisted plugins and MCP servers for the launched profile. Explicit allowlists retain selected integrations. Coexist mode preserves user integrations and therefore does not promise an isolated overall catalog. Configuration files for those integrations are not rewritten.
+Strict mode disables discovered external skills, bundled guides, unlisted plugins and MCP servers for the launched profile. Explicit allowlists retain selected integrations. Coexist mode preserves user integrations and therefore does not promise an isolated overall catalog. Integration overrides are session-scoped. A file-backed launch can persist explicit project trust decisions to the user configuration. Its three-way merge is limited to trust fields and retains interrupted decisions for [manual review](configuration.md#native-project-trust).
 
 Managed project files are checked before refresh. Later edits cause an integrity failure rather than silent replacement. Uninstall treats user instructions separately from generated artifacts so that removable managed sections and unrelated edits can be preserved. Conflicts must be resolved explicitly; force-deleting user data is not a recovery strategy.
 
