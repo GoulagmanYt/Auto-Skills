@@ -3,6 +3,7 @@
 import json
 import os
 import re
+import subprocess
 import tempfile
 import tomllib
 from contextlib import contextmanager
@@ -331,7 +332,12 @@ def toml_value(value):
         return repr(value)
     if isinstance(value, dict):
         return (
-            "{" + ",".join(json.dumps(str(k)) + "=" + toml_value(v) for k, v in value.items()) + "}"
+            "{"
+            + ",".join(
+                json.dumps(str(k), ensure_ascii=False) + "=" + toml_value(v)
+                for k, v in value.items()
+            )
+            + "}"
         )
     if isinstance(value, list):
         return "[" + ",".join(toml_value(v) for v in value) + "]"
@@ -350,12 +356,12 @@ def merge_config(base, updates):
 
 
 @contextmanager
-def launch_profile(root, lock, args, cwd=None, *, decision=None, hook_args=()):
-    """A temporary native profile avoids Windows' 32767-character argv limit.
+def launch_profile(
+    root, lock, args, cwd=None, *, decision=None, hook_args=(), command=(), inventory_args=None
+):
+    """Preserve the native user write target; isolate oversized launch policy in a file."""
+    from .trust import levels, reconcile, start_session
 
-    Only generated policy is written to CODEX_HOME; no auth/cache/session file is copied.
-    A distinct profile per process prevents concurrent launch races. Codex >=0.166 is required.
-    """
     home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
     home.mkdir(parents=True, exist_ok=True)
     rest, selected = [], None
@@ -373,17 +379,24 @@ def launch_profile(root, lock, args, cwd=None, *, decision=None, hook_args=()):
             continue
         if arg.startswith("--profile="):
             selected = arg.split("=", 1)[1]
+        elif arg.startswith("-p") and len(arg) > 2:
+            selected = arg[2:].removeprefix("=")
         else:
             rest.append(arg)
         index += 1
-    if selected is None:
-        selected = read_toml(home / "config.toml").get("profile")
+    base = read_toml(home / "config.toml")
+    selected = selected if selected is not None else base.get("profile")
+    destination = home / "config.toml"
+    durable = base
     data = {}
-    if selected:
+    legacy = False
+    if selected is not None:
         if not isinstance(selected, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", selected):
             raise ValueError("invalid Codex profile name")
-        data = read_toml(home / "config.toml").get("profiles", {}).get(selected, {})
-        merge_config(data, read_toml(home / (selected + ".config.toml")))
+        destination = home / (selected + ".config.toml")
+        durable = read_toml(destination)
+        legacy = selected in base.get("profiles", {}) or base.get("profile") == selected
+        data = merge_config(dict(base.get("profiles", {}).get(selected, {})), durable)
     overrides = launch_overrides(root, lock, cwd, decision=decision)[1::2]
     policy = tomllib.loads("\n".join(overrides))
     if integration_settings(root)["mode"] == "coexist" and "config" in data.get("skills", {}):
@@ -399,14 +412,54 @@ def launch_profile(root, lock, args, cwd=None, *, decision=None, hook_args=()):
         }
         by_path.update({e["path"]: e for e in policy["skills"]["config"] if e["path"] in owned})
         policy["skills"]["config"] = list(by_path.values())
+    # Native -c splits the LHS on literal dots. Keep all dynamic names inside
+    # TOML values. Only send enable bits for MCPs with an existing transport.
+    servers = policy.get("mcp_servers", {})
+    known = base.get("mcp_servers", {}) | data.get("mcp_servers", {})
+    inline_policy = dict(policy)
+    if servers:
+        inline_policy["mcp_servers"] = {name: {"enabled": False} for name in servers}
+    prefix = ["--profile", selected] if selected else []
+    for key, value in inline_policy.items():
+        prefix.extend(["-c", key + "=" + toml_value(value)])
+    native = [*prefix, *hook_args, *rest]
+    quoted = subprocess.list2cmdline([*command, *native])
+    # Leave room for the executable in callers which only provide arguments.
+    short = len(quoted.encode("utf-16-le")) // 2 + 1 <= 30_000
+    batch = os.name == "nt" and command and Path(command[0]).suffix.lower() in {".cmd", ".bat"}
+    if short and not batch and not legacy and servers.keys() <= known.keys():
+        if inventory_args is not None:
+            inventory_args.extend(prefix)
+        yield native
+        return
+
+    initial = levels(data)
+    baseline = levels(durable)
+    inherited = levels(base) if selected else {}
     merge_config(data, policy)
+    payload = (
+        "\n".join(json.dumps(k, ensure_ascii=False) + "=" + toml_value(v) for k, v in data.items())
+        + "\n"
+    )
+    if len(payload.encode("utf-8")) > 2_000_000:
+        raise ValueError("generated Codex profile exceeds read budget")
     fd, filename = tempfile.mkstemp(prefix="auto-bootstrap-", suffix=".config.toml", dir=home)
     os.close(fd)
     path = Path(filename)
+    prefix = ["--profile", path.name.removesuffix(".config.toml")]
+    if inventory_args is not None:
+        inventory_args.extend(prefix)
     try:
-        atomic_write(
-            path, "\n".join(json.dumps(k) + "=" + toml_value(v) for k, v in data.items()) + "\n"
-        )
-        yield ["--profile", path.name.removesuffix(".config.toml"), *hook_args, *rest]
-    finally:
+        atomic_write(path, payload)
+        receipt = start_session(home, path, destination, initial, baseline, inherited)
+    except BaseException:
         path.unlink(missing_ok=True)
+        raise
+    try:
+        yield [*prefix, *hook_args, *rest]
+    finally:
+        session_path = confined(home, path.name)
+        if not session_path.is_file():
+            raise ValueError(f"native session profile missing; review {receipt}")
+        final = levels(read_toml(session_path))
+        reconcile(home, receipt, path, destination, initial, final, baseline, inherited)

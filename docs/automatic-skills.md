@@ -52,7 +52,7 @@ The manager rejects unknown fields, escaping paths, sibling-workspace files, uns
 | Consulted | Agent tool/transcript evidence or a controlled consultation instruction |
 | Applied correctly | Independent checks of the completed task |
 
-Preparation happens before native discovery. A temporary profile enables only the launch selection and supplies explicit guide paths. Later hooks replace the task's consulted selection; they do not claim to rewrite live native configuration. New or previously disabled skills can be read through verified paths. The next wrapper launch rebuilds native configuration and forwards the prompt unchanged. Stdin remains Codex's input. This fallback needs neither a forced restart nor discarding a submitted prompt.
+Preparation happens before native discovery. Session configuration enables the launch selection and supplies explicit guide paths. Later hooks replace the task's consulted selection; they do not claim to rewrite live native configuration. New or previously disabled skills can be read through verified paths. The next wrapper launch rebuilds native configuration and forwards the prompt unchanged. Stdin remains Codex's input. This fallback needs neither a forced restart nor discarding a submitted prompt.
 
 Codex reports the hashes of the manager's hook definitions through `hooks/list`; the manager trusts only its exact matching session-flag handlers. It never uses the blanket hook-trust bypass or trusts project/plugin hooks. User hook files are untouched. The capability result is cached by executable identity and hook definition. If probing fails, launch selection remains available and a diagnostic directs the agent to the task command. That degraded mode is not proof of per-turn automation.
 

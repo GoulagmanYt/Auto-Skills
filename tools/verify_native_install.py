@@ -262,7 +262,7 @@ def native_check(codex, expected_version, directory):
     for scope in (".", "frontend", "backend"):
         cwd = root / scope
         args = ["-C", str(cwd), "debug", "prompt-input", PROMPT]
-        with launch_profile(root, lock, args, cwd) as native_args:
+        with launch_profile(root, lock, args, cwd, command=[codex]) as native_args:
             output = run([codex, *native_args], cwd=cwd, env=env)
         counts[scope] = assert_catalog(
             json.loads(output), root, cwd, lock, enabled_skills(lock, active_scope(root, lock, cwd))
@@ -298,7 +298,7 @@ def native_check(codex, expected_version, directory):
         raise ValueError("React update must change only frontend slot inputs")
     cwd = root / "frontend"
     with launch_profile(
-        root, updated, ["-C", str(cwd), "debug", "prompt-input", PROMPT], cwd
+        root, updated, ["-C", str(cwd), "debug", "prompt-input", PROMPT], cwd, command=[codex]
     ) as native_args:
         output = run([codex, *native_args], cwd=cwd, env=env)
     assert_catalog(

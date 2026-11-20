@@ -130,6 +130,7 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
     try:
         with ExitStack() as stack:
             launch_args = args
+            inventory_args = []
             if root is not None:
                 from .native_hooks import hook_overrides
                 from .task import prepare_launch
@@ -157,7 +158,14 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
                     hook_args = hook_overrides(real_command, root)
                     launch_args = stack.enter_context(
                         launch_profile(
-                            root, lock, args, cwd, decision=decision, hook_args=hook_args
+                            root,
+                            lock,
+                            args,
+                            cwd,
+                            decision=decision,
+                            hook_args=hook_args,
+                            command=real_command,
+                            inventory_args=inventory_args,
                         )
                     )
                     progress.stage("Starting Codex; the agent will review the skill candidates")
@@ -169,7 +177,7 @@ def run_codex(root, args, *, real_command=None, offline=False, cwd=None):
                     root,
                     env=env,
                     cwd=cwd,
-                    inventory_command=[*real_command, *launch_args[:2]],
+                    inventory_command=[*real_command, *inventory_args],
                 )
             return subprocess.call([*real_command, *launch_args], env=env)
     except KeyboardInterrupt:

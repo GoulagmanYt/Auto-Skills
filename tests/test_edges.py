@@ -148,11 +148,16 @@ class EdgeTests(IsolatedTestCase):
             with launch_profile(self.root, lock, ["exec", "--profile", "work", "hello"]) as args:
                 import tomllib
 
-                data = tomllib.loads((home / (args[1] + ".config.toml")).read_text())
+                from codex_bootstrap.config import merge_config
+
+                self.assertEqual(args[0], "--profile")
+                data = tomllib.loads((home / "config.toml").read_text())
+                merge_config(data, tomllib.loads((home / (args[1] + ".config.toml")).read_text()))
+                merge_config(data, tomllib.loads("\n".join(args[2:-2][1::2])))
                 self.assertEqual(data["model"], "custom-model")
                 self.assertFalse(data["mcp_servers"]["example"]["enabled"])
                 self.assertEqual(data["mcp_servers"]["example"]["command"], "never-run")
-                self.assertEqual(args[2:], ["exec", "hello"])
+                self.assertEqual(args[-2:], ["exec", "hello"])
 
     def test_explicit_program_path_is_not_replaced_by_rtk(self):
         import shutil
